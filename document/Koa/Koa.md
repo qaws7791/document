@@ -52,7 +52,7 @@ app.use((ctx,next) => {
 
 - next 함수를 호출하면 Promise 반환
 - 이 Promise는 다음 미들웨어가 끝나야 완료됨
-- 다음 미들웨어가 끝난 후 END 출력
+- '다음 미들웨어함수'가 완료된 후 END 출력하
 
 ```javascript
 next().then(() => {
@@ -61,6 +61,8 @@ next().then(() => {
 ```
 
 ### async/await 사용
+
+- 위와 동일하게 async/await를 사용해 다음 미들웨가 끝난 후 END 출력
 
 ```javascript
 app.use(async (ctx,next) => {
@@ -72,7 +74,24 @@ app.use(async (ctx,next) => {
 ### nodemon
 
 - 서버코드 변경시 자동 서버 재시작
-- npm run start:dev or yarn start:dev
+
+- `npm install --save-dev nodemon`
+
+- `package.json`에서 script 설정
+
+- ```json
+  //package.json
+  ...
+  "scripts": {
+    "start": "node src",
+    "start:dev": "nodemon --watch src/ src/index.js"
+   }
+  ...
+  ```
+
+- npm run start:dev `
+
+- ` yarn start:dev`
 
 ```
 [nodemon] 2.0.2
@@ -94,6 +113,7 @@ const Router = require('koa-router');
 const app = new Koa();
 const router = new Router();
 
+//라우터 설정
 router.get('/', ctx => {
     ctx.body = 'Home';
 });
@@ -102,6 +122,7 @@ router.get('/about', ctx => {
     ctx.body = 'About';
 });
 
+//라우터 적용
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(4000, () => {
@@ -114,9 +135,9 @@ app.listen(4000, () => {
 
 ### 파라미터와 쿼리
 
-- 파라미터 /:name  => /10
-- 파라미터가 있을 수도 없을 수도 /:name?
-- 쿼리 /?id=10
+- 파라미터 `/:name`  => `/10`
+- 파라미터가 있을 수도 없을 수도 `/:name?`
+- 쿼리 `/?id=10`
 - 일반적으로 파라미터는 카테고리나 고유id 혹은 이름 등 특정 데이터 조회
 - 쿼리는 옵션에 관한 정보 
 
@@ -137,15 +158,15 @@ app.listen(4000, () => {
 
 - 모듈에서
 
-```javascript
-module.exports = api; //모듈에서
-
+``` javascript
+module.exports = api; //보통 코드 맨밑에 작성
 ```
 
 - 불러올 모듈에서
 
 ```javascript
 const api = require('./api');
+
 router.use('/api', api.routes());
 app.use(router.routes()).use(router.allowedMethods());
 ```
