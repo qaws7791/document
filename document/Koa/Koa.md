@@ -6,11 +6,13 @@
 - 미들웨어 기능만 갖춤 -> 나머지는 라이브러리 적용, 가벼움
 - async/await 문법 지원
 
+[TOC]
+
 
 
 ## 기본 사용법
 
-- 서버 띄우기
+### 서버 띄우기
 
 ```javascript
 const Koa = require('koa');
@@ -46,6 +48,8 @@ app.use((ctx,next) => {
 });
 ```
 
+### Promise
+
 - next 함수를 호출하면 Promise 반환
 - 이 Promise는 다음 미들웨어가 끝나야 완료됨
 - 다음 미들웨어가 끝난 후 END 출력
@@ -56,7 +60,7 @@ next().then(() => {
     });
 ```
 
-- async/await 사용
+### async/await 사용
 
 ```javascript
 app.use(async (ctx,next) => {
@@ -65,7 +69,9 @@ app.use(async (ctx,next) => {
 });
 ```
 
-- nodemon: 서버코드 변경시 자동 서버 재시작
+### nodemon
+
+- 서버코드 변경시 자동 서버 재시작
 - npm run start:dev or yarn start:dev
 
 ```
@@ -79,7 +85,7 @@ Listening to port 4000
 
 ## koa-router
 
-- 기본사용법
+### 기본사용법
 
 ```javascript
 const Koa = require('koa');
@@ -106,13 +112,16 @@ app.listen(4000, () => {
 - router.get()의 첫번째 파라미터는 라우트의 경로를, 두번째 파라미터는 해당 라우트에 적용할 미들웨어 함수를 넣음
 - get은 HTTP 메서드를 의미하며 다른 메서드로는 post,put, delete 등
 
-- 라우트 파라미터와 쿼리
+### 파라미터와 쿼리
+
 - 파라미터 /:name  => /10
 - 파라미터가 있을 수도 없을 수도 /:name?
 - 쿼리 /?id=10
 - 일반적으로 파라미터는 카테고리나 고유id 혹은 이름 등 특정 데이터 조회
 - 쿼리는 옵션에 관한 정보 
-- REST API
+
+### REST API
+
 - DB와  클라이언트간 처리
 - HTTP 메서드
 
@@ -124,7 +133,8 @@ app.listen(4000, () => {
 | PUT    | 데이터 교체           |
 | PATCH  | 데이터 특정 필드 수정 |
 
-- 라우트 모듈화
+### 라우트 모듈화
+
 - 모듈에서
 
 ```javascript
@@ -140,18 +150,25 @@ router.use('/api', api.routes());
 app.use(router.routes()).use(router.allowedMethods());
 ```
 
-- postman의 설치 및 사용
-- https://www.postman.com/
+### postman
+
 - api test platform
-- 컨트롤러 파일
+- https://www.postman.com/
+
+### 컨트롤러 파일
+
 - 컨트롤러란 라우트 처리 함수만 모아 놓은 파일
 - 모듈작성
 
 ```javascript
 // module/index.js
-exports.methodName = ctx => {
-    ctx.body = "Hello";
+exports.methodName_1 = ctx => {
+    ctx.body = "Hello One";
 };
+exports.methodName_2 = ctx => {
+    ctx.body = "Hello Two";
+};
+...
 ```
 
 - 모듈 사용
@@ -159,7 +176,8 @@ exports.methodName = ctx => {
 ```javascript
 // src/index.js
 const Module = require('./module');
-Module.methodName();
+Module.methodName_1();
+Module.methodName_2();
 ```
 
 - patch는 기존 내용 유지 => 특정 필드만 교체 가능
