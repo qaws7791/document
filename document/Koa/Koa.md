@@ -105,3 +105,63 @@ app.listen(4000, () => {
 
 - router.get()의 첫번째 파라미터는 라우트의 경로를, 두번째 파라미터는 해당 라우트에 적용할 미들웨어 함수를 넣음
 - get은 HTTP 메서드를 의미하며 다른 메서드로는 post,put, delete 등
+
+- 라우트 파라미터와 쿼리
+- 파라미터 /:name  => /10
+- 파라미터가 있을 수도 없을 수도 /:name?
+- 쿼리 /?id=10
+- 일반적으로 파라미터는 카테고리나 고유id 혹은 이름 등 특정 데이터 조회
+- 쿼리는 옵션에 관한 정보 
+- REST API
+- DB와  클라이언트간 처리
+- HTTP 메서드
+
+| 메서드 | 설명                  |
+| ------ | --------------------- |
+| GET    | 데이터 조희           |
+| POST   | 데이터 등록, 인증     |
+| DELETE | 데이터 삭제           |
+| PUT    | 데이터 교체           |
+| PATCH  | 데이터 특정 필드 수정 |
+
+- 라우트 모듈화
+- 모듈에서
+
+```javascript
+module.exports = api; //모듈에서
+
+```
+
+- 불러올 모듈에서
+
+```javascript
+const api = require('./api');
+router.use('/api', api.routes());
+app.use(router.routes()).use(router.allowedMethods());
+```
+
+- postman의 설치 및 사용
+- https://www.postman.com/
+- api test platform
+- 컨트롤러 파일
+- 컨트롤러란 라우트 처리 함수만 모아 놓은 파일
+- 모듈작성
+
+```javascript
+// module/index.js
+exports.methodName = ctx => {
+    ctx.body = "Hello";
+};
+```
+
+- 모듈 사용
+
+```javascript
+// src/index.js
+const Module = require('./module');
+Module.methodName();
+```
+
+- patch는 기존 내용 유지 => 특정 필드만 교체 가능
+- put은 내용 완전 교체 => 특정 필드만 넣을 시  다른 필드 사라짐
+- put으로 데이터 교체시 모든 필드 검증 할 것
