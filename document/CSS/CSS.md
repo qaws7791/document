@@ -192,3 +192,17 @@ transform: translateY(-50%); // translate는 자신 기준
 text-align
 
 - 블록 요소안의 인라인, 인라인-블록 요소를 정렬
+
+## Flexbox
+
+- 정렬하고자 하는 요소들의 부모 `display:flex` `display:inline-flex`
+- `flex-direction: row` 가로방향 `flex-direction: column` 가로방향
+- Main axis: flex-direction방향 , Cross axis: main axis의 수직방향
+- `flex-wrap:nowrap` 자식의 사이즈를 줄여서라도 한 줄로 정렬
+- `flex-wrap:wrap` 공간이 없으면 여러 줄로 정렬가능
+- `justify-content:` main axis방향으로 요소 정렬 방법
+- `align-items:` 각각의 cross axis 방향으로 요소 정렬 방법
+- 여러 줄이면 cross axis가 여러 개가 되기 때문에 요소들간의 위아래 간격이 생김
+- `align-content:` 하나의 큰  cross axis 방향으로 요소 정렬방법 justify와 비슷 
+- `order: Number` 요소의 정렬 우선 순위를 결정. 숫자 오름차순으로 정렬됨
+
