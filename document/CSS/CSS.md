@@ -189,20 +189,90 @@ transform: translateY(-50%); // translate는 자신 기준
 - z축의 순서 
 - `z-index: number` 숫자가 높을수록 위에 나옴
 
-text-align
+`text-align`
 
 - 블록 요소안의 인라인, 인라인-블록 요소를 정렬
 
 ## Flexbox
 
 - 정렬하고자 하는 요소들의 부모 `display:flex` `display:inline-flex`
-- `flex-direction: row` 가로방향 `flex-direction: column` 가로방향
+
+- `flex-direction: row` 가로방향 `flex-direction: column` 세로방향
+
 - Main axis: flex-direction방향 , Cross axis: main axis의 수직방향
+
 - `flex-wrap:nowrap` 자식의 사이즈를 줄여서라도 한 줄로 정렬
+
 - `flex-wrap:wrap` 공간이 없으면 여러 줄로 정렬가능
+
 - `justify-content:` main axis방향으로 요소 정렬 방법
+
 - `align-items:` 각각의 cross axis 방향으로 요소 정렬 방법
+
 - 여러 줄이면 cross axis가 여러 개가 되기 때문에 요소들간의 위아래 간격이 생김
+
 - `align-content:` 하나의 큰  cross axis 방향으로 요소 정렬방법 justify와 비슷 
+
 - `order: Number` 요소의 정렬 우선 순위를 결정. 숫자 오름차순으로 정렬됨
 
+  |        | justify-content | align-items | align-content |
+  | ------ | --------------- | ----------- | ------------- |
+  | row    | 좌->우          | 위->아래    | 위->아래      |
+  | column | 위->아래        | 좌->우      | 좌->우        |
+
+  
+
+## Media Query
+
+- 반응형 웹만들기
+
+- <meta name="viewport" content="width=device-width"/>
+
+```css
+@media screen and (min-width:768px) {
+    
+}
+```
+
+## Typography
+
+- px 절대 단위 
+- em rem 상대 단위 
+- em은 폰트 사이즈의 비율 1em => font-size
+- rem: root em     html에 적용된 폰트 사이즈 비율
+- 1rem => html font-size
+
+### line-height
+
+- em 주로 사용 폰트사이즈에 상대적으로 하는 것이 편함 
+- 단위 생략하면 em으로 받아들임
+- 글자는 줄간격의 가운데 배치
+- 마치 글자의 위아래에 마진이 생기는 느낌
+
+### letter-spacing
+
+- 글자사이의 간격
+- px와 em을 사용하나 em이 더 많이 쓰임
+- 
+
+### font-family
+
+- 서체설정
+
+```css
+.text {
+    font-family: "font_1", "font_2", sans-serif ;
+    //font_1을 사용하고 없으면 font_2를 사용, 없으면 sans-serif 아무거나 사용
+}
+```
+
+### font-weight
+
+- 폰트 굵기
+- 100~900
+- 400 regular 700 bold
+
+### color
+
+- 텍스트 색상 설정
+-  hex, rgb ,rgba

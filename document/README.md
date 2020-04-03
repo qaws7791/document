@@ -7,4 +7,8 @@
 - 김버그의 CSS는 재밌다 04position-훈련1까지
 - 0401
 - 김버그의 CSS는 재밌다 05flexbox-flexbox2까지
+- 0402
+- 김버그의 CSS는 재밌다 06mediaquery- mediaquery까지
+- 0403
+- 김버그의 CSS는 재밌다 07Typography-Typography1까지
 
