@@ -11,4 +11,8 @@
 - 김버그의 CSS는 재밌다 06mediaquery- mediaquery까지
 - 0403
 - 김버그의 CSS는 재밌다 07Typography-Typography1까지
-
+- 0404
+- 김버그의 CSS는 재밌다 07Typography-Typography2까지
+- 0405
+- 김버그의 CSS는 재밌다 08Background-Background까지
+- udemy three결제, 섹션 2: NODE.js까지 

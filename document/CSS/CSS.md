@@ -242,20 +242,20 @@ transform: translateY(-50%); // translate는 자신 기준
 - rem: root em     html에 적용된 폰트 사이즈 비율
 - 1rem => html font-size
 
-### line-height
+### `line-height`
 
 - em 주로 사용 폰트사이즈에 상대적으로 하는 것이 편함 
 - 단위 생략하면 em으로 받아들임
 - 글자는 줄간격의 가운데 배치
 - 마치 글자의 위아래에 마진이 생기는 느낌
 
-### letter-spacing
+### `letter-spacing`
 
 - 글자사이의 간격
 - px와 em을 사용하나 em이 더 많이 쓰임
 - 
 
-### font-family
+### `font-family`
 
 - 서체설정
 
@@ -266,13 +266,103 @@ transform: translateY(-50%); // translate는 자신 기준
 }
 ```
 
-### font-weight
+### `font-weight`
 
 - 폰트 굵기
 - 100~900
 - 400 regular 700 bold
 
-### color
+### `color`
 
 - 텍스트 색상 설정
 -  hex, rgb ,rgba
+
+### `text-align`
+
+- 글자 정렬
+
+### `text-indent`
+
+- 들여쓰기 . 마이너스 값도 가능 
+
+### `text-transform`
+
+- 알파벳 소문자 대문자 관련 속성
+- capitalize 앞자리 대문자
+- uppercase 모두 대문자
+- lowercase 모두 소문자
+
+### `text-decoration`
+
+- underline 밑줄
+- line-through 가운데 줄
+- overline 위 줄
+- a 태그 underline을 없애기 위해 `text-decoration:none`
+
+### font-style
+
+- normal : 기본값
+- italic: 기울임
+- oblique: 기울임?
+- em 태그의 기본값이 italic임 
+
+### Webfont
+
+- google이 최고임
+- https://fonts.google.com/
+
+- 직접 사용하기
+
+```css
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('webfont.eot'); /* IE9 Compat Modes */
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+```
+
+```css
+body {
+  font-family: 'MyWebFont', Fallback, sans-serif;
+}
+```
+
+- head 태그 내부에 임포트
+
+````html
+<link rel="stylesheet" href="./fonts.css">
+````
+
+- 또는 css 내부에 임포트
+
+- ```css
+  @import url("./fonts.css");
+  ```
+
+## Background
+
+### background-color
+
+### background-image
+
+- 경로는 url() 사용
+
+### background-repeat
+
+- repeat이 기본값, 반복하기 싫으면 no-repeat사용
+
+### background-size
+
+- contain: 이미지가 잘리지 않게 모두 넣음 => 빈공간 생김
+- cover: 이미지가 잘리더라도 공간을 꽉 채움 => 빈공간 안생김
+- width height;  비율 무시가능, auto가능
+- custom
+
+background-position
+
+- x축 y축 ;
+- 가운데 배치 `background-position: center center;`
