@@ -113,11 +113,11 @@ mongoose
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-const NewSchema = new Schema({
+const NewSchema = new Schema({ //Scahama를 만들고
     title: String,
     tags: [String],
 });
-const Post = mongoose.model('Post', PostSchema);
+const Post = mongoose.model('Post', PostSchema); //model로 만들기
 export default Post;
 ```
 

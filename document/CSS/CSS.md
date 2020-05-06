@@ -470,7 +470,35 @@ grid-gap: 10px 20px; // item간의 간격. 속기형 row-gap column-gap.
 }
 ```
 
+### bootstrap grid
 
+- container: grid가 적용되는 전체 영역
+- columns: 세로 열
+- gutter: 열 사이의 빈 공간
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      One of three columns
+    </div>
+  </div>
+</div>
+```
+
+`col-` : 576px 미만
+
+`.col-sm-` : 576px 이상
+
+`.col-md-`: 768px 이상
+
+`.col-lg-`: 992px 이상
+
+`.col-xl-`: 1200px 이상
+
+기본 열은 12
+
+gutter는 30px (좌우 15px)
 
 # 미분류
 
