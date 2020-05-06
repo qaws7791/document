@@ -63,13 +63,13 @@
 ### env 환경변수  설정
 
 ```
+/* .env */
+
 PORT=400
 MONGO_URI=mongodb://localhost:27017/blog
 ```
 
-
-
-### 적용
+- `process.env` 로 접근
 
 ```js
 require('dotenv').config();
@@ -82,9 +82,11 @@ app.listen(port, () => {
 });
 ```
 
-### 데이터베이스와 연결
+### connect DB
 
 ```js
+/* index.js*/
+
 const { PORT,MONGO_URI } = process.env;
 mongoose
 .connect(MONGO_URI, {useNewUrlParser: true, useFindAndModify: false})
@@ -109,7 +111,10 @@ mongoose
 | ObjectId(Schema.Types.ObjectId) | 객체 아이디. 주로 다른 객체 참조시 |
 | Array                           | 배열 형태 []로 감쌈                |
 
+### make Schema
+
 ```js
+/* schema.js*/
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
@@ -117,10 +122,25 @@ const NewSchema = new Schema({ //Scahama를 만들고
     title: String,
     tags: [String],
 });
-const Post = mongoose.model('Post', PostSchema); //model로 만들기
-export default Post;
 ```
 
+- _id 속성은 기본적을 존재한다
+
+### make model
+
+```js
+/* model.js*/
+import mongoose from 'mongoose';
+
+const Post = mongoose.model('Post', PostSchema); 
+import mongoose from 'mongoose';
+```
+
+
+
+
+
+- 
 - 데이터베이스는 스키마 이름을 정해 주면 그 이름의 복수 형태로 데이터베이스에 컬렉션 이름을 만듭니다
 - Post => posts , Book=> books
 
