@@ -142,7 +142,7 @@ ReactDOM.render(
 );
 ```
 
-## Request data
+## Request data ( Query)
 
 gql 만들기
 
@@ -200,4 +200,40 @@ useQuery(GET_DOG_PHOTO, {
 ```
 
 
+
+## mutation
+
+```js
+/*  gql 정의 */
+
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+
+const ADD_CAT = gql`
+    mutation ADD_Cat($name: String!){ 
+	createCat(name: $name) {
+    id
+    name
+  }
+}
+`;
+```
+
+- ADD_CAT은 gql이지만 ADD_Cat은 그냥 wrapping일 뿐이며
+- variables에서 받아올 정보의 타입을 정의해준다 
+- 여기서 $로 정의하고
+- 실제 mutation인 createCat에서 `name: $name`로 name을 받아 온다.
+
+```js
+
+//hooks 사용
+const [addCat, {data}] = useMutation(ADD_CAT);
+
+<button onClick={e => {
+    e.preventDefault();
+    addCat({
+        variables: {name: "cat3"}
+    });
+}}>ada</button>
+```
 
