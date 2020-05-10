@@ -533,3 +533,19 @@ clippath와 path 모두 transform 적용가능
 </svg>
 ```
 
+## definition list
+
+- `dl`태그 : dt와 dd를 감싼다
+
+- `dt`: definition title
+
+- `dd`: definition data
+
+  ```html
+  <dl>
+      <dt>title</dt>
+      <dd>data</dd>
+  </dl>
+  ```
+
+  
