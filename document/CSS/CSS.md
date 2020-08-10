@@ -106,7 +106,9 @@ selector {
 
 - 흐름을 따라가면서 영역을 가짐
 
-  
+`none`: 요소를 없애는거나 마찬가지. 요소가 차지하던 위치가 사라짐.
+
+
 
 ## Float
 
@@ -424,7 +426,8 @@ animation: animation-name duration
 
 - keyframes에서 선언한 애니메이션 이름
 
-### animation-duration: 
+- ### animation-duration: 
+
 
 - 애니메이션이 진행되는 시간
 
@@ -432,7 +435,8 @@ animation: animation-name duration
 
 - 시간곡선 함수
 
-### animation-iteration-count: 
+- ### animation-iteration-count: 
+
 
 - 애니메이션 반복 횟수. infinite 있음
 
@@ -442,6 +446,29 @@ animation: animation-name duration
 - alternate => 기본값과 reverse가 번갈아 가며 진행
 
 ## transform
+
+공간을 변형시키지만, 일반적인 문서 흐름을 방해하지 않음. 문서의 구조적 위치는 그대로.
+
+`none`이 아닌 값을 지정하면 새로운 [쌓임 맥락](https://developer.mozilla.org/ko/docs/Web/CSS/Understanding_z-index/The_stacking_context)을 생성합니다. 이 경우, [`position`](https://developer.mozilla.org/ko/docs/Web/CSS/position)이 `fixed`거나 `absolute`인 요소의 [컨테이닝 블록](https://developer.mozilla.org/ko/docs/Web/CSS/All_About_The_Containing_Block)으로서 작용합니다.
+
+
+
+`translate` : 위치 이동.
+
+- px, rem % 등 단위 사용.  여기서 %는 자기 요소의 크기를 의미.
+
+```css
+translate: none;
+/* x,y 동일 */
+translate: 100px;
+/* x,y 따로 */
+translate: 50% 100px;
+/* x,y,z 따로 */
+translate: 50% 105px 5rem;
+
+```
+
+`rotate` : 회전. 양수 -> 시계방향 . 음수 -> 반시계방향
 
 ### martrix( scaleX, skewX, skewY, scaleY, translateX, translateY)
 
@@ -499,6 +526,34 @@ grid-gap: 10px 20px; // item간의 간격. 속기형 row-gap column-gap.
 기본 열은 12
 
 gutter는 30px (좌우 15px)
+
+## Overflow
+
+`overflow: (overflow-x) (overflow-y) ;`
+
+`visible` : 상자밖으로 내용이 나갈 수 있음.
+
+`hidden`: 상자 밖의 내용을 숨김, 코드를 사용해 스크롤 가능
+
+`clip` : 상자 밖의 내용을 숨김, 코드를 사용한  스크롤도 불가능
+
+`scroll` : 상자 밖의 내용을 숨김, 콘텐츠가 넘쳐서 잘렸는이 여부를 따지지 않고 항상 스크롤바 노출
+
+`auto` : 사용자 에이전트가 결정. 콘텐츠가 넘치지 않는다면  `visible`와 동일하게 보이나 새로운 블록 서식 문맥은 생성됨. 데스크탑은 콘텐츠가 넘치면 스크롤바를 생성
+
+
+
+## 쌓임 맥락(stacking context)
+
+- z축이 가상으로 있다고 생각하고. html요소를 3차원으로 개념화한다.
+- `z-index`가 높을수록 z축에서 위에(다른 요소보다 앞에) 위치한다.
+- 쌓임맥락이 없는 요소는 부모 요소의 쌓임 맥락을 따라간다.
+- 형제요소들끼리 쌓임맥락을 고려
+- z-index를 버전 번호라고 생각하면 쉬워진다.
+- z-index가 5면 버전이 5, z-index가 4인 요소안의 z-index가 1인 요소는 4.1 인 식으로.
+- 그 후에 그냥 버전이 높은 게 위에 가장 앞인 셈이다.
+
+
 
 # 미분류
 
