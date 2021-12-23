@@ -3,15 +3,15 @@
 ## git 시작하기
 
 - git init
-- git config --global user.email "qaws7791@gmail.com"
-- git config --global user.name "qaws7791"
+- git config --global user.email <"email">
+- git config --global user.name <"name">
 
 ------
 
 ## git 커밋하기
 
-1. git add README.txt
-2. git commit -m "first commit"
+1. git add <file>
+2. git commit -m <"message">
 
 ------
 
@@ -26,14 +26,14 @@
 ## git 원격저장소 연결
 
 1. 레포지토리 만들기
-2. git remote add origin https://github.com/qaws7791/iTshirt.git
+2. git remote add origin https://github.com/qaws7791/TIL.git
 3. git push -u origin master : 원격저장소에 올리기
 
 ------
 
 ## git 원격저장소를 내려받기
 
-1. git clone https://github.com/qaws7791/iTshirt.git . : 마지막에 마침표 주의( 현재 폴더를 최상위 폴더로 함)
+1. git clone https://github.com/qaws7791/TIL.git . : 마지막에 마침표 주의( 현재 폴더를 최상위 폴더로 함)
 
 ------
 
