@@ -298,3 +298,276 @@ var a = 2, b = 3;
 console.log(`${a} + ${b} = ${a+b}`); // 2 + 3 = 5
 ```
 
+# 객체 리터럴
+
+## 객체
+
+### 객체란
+
+- 객체는 이름과 값을 한 쌍으로 묶은 데이터의 집합
+- 객체의 하나의 데이터 -> 프로퍼티
+- 프로퍼티의 이름 -> 키
+
+### 객체 생성하기
+
+- 객체 리터럴 : `{...}`
+
+```js
+var card = { suit: "하트", rank: "A" };
+card.suit // 하트
+card["rank"] // A
+card.color // undefined
+var obj = {}; // 빈 객체
+```
+
+### 생성자로 객체 생성
+
+- `new`생성자를 사용
+
+```js
+function Card(suit, rank) {
+	this.suit = suit;
+	this.rank = rank;
+}
+var card = new Card("하트", "A");
+```
+
+### 프로퍼티 추가하기
+
+- Java나 C++ 등과 달리 실행중에 객체의 프로퍼티 추가 삭제 가능
+
+```js
+card.value = 14;
+console.log(card); // Object { suit: "하트", rank: "A", value: 14}
+```
+
+### 프로퍼티 삭제하기
+
+- `delete` 연산자 이용
+
+```js
+delete card.rank;
+console.log(card); // Object { suit: "하트", value: 14}
+```
+
+### 객체 속 프로퍼티 확인
+
+- `in` 연산자 사용해 객체에 특정 프로퍼티가 있는지 확인
+
+```js
+var card = { suit: "하트", rank: "A" };
+console.log("suit" in card) // true
+console.log("color" in card); // false
+```
+
+- 객체는 Object 객체를 상속받기 때문에 "toString" 프로퍼티는 따로 생성하지 않아도 존재
+
+```js
+console.log("toString" in card); // true
+```
+
+### 객체는 참조 타입
+
+- 객체 타입의 값을 변수에 대입하면 변수에는 객체의 참조가 저장
+- 이 변수를 통해 객체의 값을 바꿀 수 있음
+
+```js
+var a = card;
+console.log(a.suit); // 하트
+a.suit = "스페이드";
+console.log(a.suit); // 스페이드
+console.log(card.suit); // 스페이드
+```
+
+
+
+## 함수
+
+### 함수 선언
+
+```js
+function square(x) { return x * x; }
+```
+
+### 함수 호출
+
+```js
+square(3) // 9
+```
+
+### 인수
+
+```js
+function distance(p,q) {
+	var dx = q.x - p.x;
+	var dy = q.y - p.y;
+	return Math.sqrt(dx*dx+dy*dy);
+}
+```
+
+### 함수 선언문 호이스팅
+
+- 변수 선언과 마찬가지로 함수 선언문을 프로그램의 첫머리로 끌어올린다
+
+### 함수는 객체
+
+- 함수 `square(x)`는 `function(x) {return x*x;}` 를 가리키는 일종의 객체
+
+```js
+var sq = square;
+console.log(sq(5)); // 25
+```
+
+### 값에 의한 호출
+
+- 값의 전달: 인수에 원시 값(여기서는 a = 3)을 넘기면 그 값 자체가 인자에 전달되어
+  a의 값은 변하지 않는다
+
+```
+function add1(x) { return x = x + 1;}
+var a = 3;
+var b = add1(a);
+console.log("a = " + a + ", b = " + b); // a = 3, b = 4
+```
+
+### 참조에 의한 호출
+
+- 참조전달: 인수에 객체(여기서는 a={x:3, y:4})를 넘기면 참조 값을 p에 대입하므로 p를 수정하면 a까지 수정된다
+
+```js
+function add1(p) { p.x = p.x + 1; p.y = p.y + 1; return p; }
+var a = {x:3, y:4};
+var b = add1(a);
+console.log(a,b); // Object {x=4, y=5} Object{x=4, y=5}
+```
+
+### 변수의 유효 범위(Scope)
+
+**어휘적 범위**: 프로그램의 구문으로 유효 범위 지정
+
+**동적 범위**: 프로그램 실행 중 유효 범위 지정
+
+- 자바스크립트는 어휘적 범위 방식을 채택
+
+**전역 변수**: 함수 바깥에서 선언된 변수. 유효 범위가 전체 프로그램
+
+**지역 변수**: 함수 안에서 선언된 변수와 함수 인자. 유효 범위가 변수가 선언된 함수 내부
+
+- 지역 변수의 유효 범위 안에서는 같은 이름의 전역 변수는 숨겨진다
+
+```js
+var a = "global";
+function f() {
+	var a = "local";
+	console.log(a); // local
+	return a;
+}
+f();
+console.log(a); // global
+```
+
+### 함수 안의 변수 끌어올림
+
+- 함수 안의 변수 선언부는 함수의 첫머리로 끌어올려진다.
+
+### 함수 안에서 변수 선언 생략시 전역 변수
+
+- 함수안에서 변수를 선언하지 않고 값을 대입하면 전역 변수로 선언된다.
+
+```js
+function f() {
+	a = "loacl";
+	console.log(a); // local
+	return a;
+}
+f();
+console.log(a); // local
+```
+
+### 블록 유효 범위
+
+- let과 const는 ES6부터 추가된 변수 선언자로 '선언된 {...} 안'의 '블록 유효 범위'를 갖는 변수를 선언한다
+- **let 선언자**: 블록 유효 범위를 갖는 지역 변수 선언
+  - 변수 끌어올림(호이스팅)이 되지 않는다
+- **const 선언자**: 블록 유효 범위를 가지면서 한 번만 할당 가능한 상수를 선언
+  - 상수 값은 수정 불가능
+  - 상수 값이 객체나 배열일 경우 프로퍼티 또는 프로퍼티 값을 수정 가능
+
+### 함수 리터럴로 함수 정의하기
+
+- 함수 리터럴 = 익명 함수 = 무명 함수
+
+```js
+var square = function(x) { return x * x;};
+```
+
+### 객체의 메서드
+
+- 메서드: 객체의 프로퍼티 중  함수 객체를 값으로 담고 있는 프로퍼티
+- 일반적으로 메서드가 속한 객체의 상태를 바꾸거나 이용하는 용도로 사용
+
+```js
+var circle = {
+	center: { x:1.0, y:2.0 },
+	radius: 2.5,
+	area: function() {
+		return Math.PI * this.radius * this.radius;
+	}
+};
+```
+
+## 배열
+
+### 배열 리터럴로 배열 생성
+
+- 배열 리터럴`[..]` 로 배열을 생성
+
+```js
+var evens = [2, 4, 6, 8];
+```
+
+- 빈 배열 생성
+
+```js
+var empty = [];
+console.log(empty); // []
+```
+
+### Array 생성자로 배열 생성
+
+```js
+var evens = new Array(2, 4, 6, 8);
+```
+
+### length 프로퍼티
+
+```js
+evens.length // 4
+```
+
+### 배열 참조
+
+```
+evens[2] // 6
+evens["2"] // 6
+```
+
+### 배열 요소 추가
+
+- `push` 메서드 사용
+
+```js
+var a = ["A", "B", "C"];
+a.push("D");
+console.log(a); // ["A", "B", "C", "D"]
+```
+
+### 배열 요소 삭제
+
+- `delete` 연산자 사용
+
+```js
+delete a[1];
+console.log(a); // ["A", undefined, "C", "D"]
+```
+
