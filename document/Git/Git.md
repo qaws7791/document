@@ -43,11 +43,16 @@
 
 ------
 
+## git 원격저장소 url 변경하기
+
+1. `git remote -v` 원격 저장소 url 확인
+2. `git remote set-url origin http://github.com/user/repo.git`
+
+------
+
 ## 브랜치(branch)
 
 - 버전제어하에 있는 개체 복제
 - HAED 포인터를 통해 브랜치를 이동할 수 있다
-
 - 하나의 브랜치에는 한 사람만 작업하는것이 바람직하다. 꼬이면 안되기 때문
 - 작업 전 미리 브랜치 규칙을 정하는 것이 일반적
-- 
