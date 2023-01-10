@@ -91,7 +91,81 @@
 
 - Node.js
 
+### 
 
+# Statements(구문)과 declarations(선언)은 다르다
 
+## declarations:  "binding identifiers to values"
 
+> 아래와 같이 단일 문이 필요한 곳에서 사전적 선언은 불가능하다.
 
+```js
+if (condition) let i = 0; 
+// Uncaught SyntaxError: Lexical declaration cannot appear in a single-statement context
+```
+
+```js
+if (condition) var i = 0;
+//It is possible;
+```
+
+## statements:  "carrying out actions"
+
+> 단일 문도 가능하지만, 보통 블록과 함께 사용할 수 있다.
+
+```js
+for (initialization; condition; afterthought)
+  statement
+```
+
+```js
+if (condition)
+  statement1
+else
+  statement2
+```
+
+- `var`은 특이 케이스로 `statement`이다.
+
+> 정상적인 어휘적 범위를 가지지 않는다. (전역 변수, 선언 블록 외부 호출 등)
+>
+> 변수 재선언 가능
+
+## 구문과 선언의 구분
+
+- Control flow
+  - `return`
+  - `break`
+  - `continue`
+  - `throw`
+  - `if...else`
+  - `swich`
+  - `try...catch`
+- Declaring variables
+  - `var`
+  - `let` -> **declarations**
+  - `const` -> **declarations**
+- Functions and classes
+  - `function `-> **declarations**
+  - `function*` -> **declarations**
+  - `async function `-> **declarations**
+  - `async function*` -> **declarations**
+  - `class` -> **declarations**
+- Iterations
+  - `do...while`
+  - `for`
+  - `for...in`
+  - `for...of`
+  - `for awit...of`
+  - `while`
+- Others
+  - `Empty`
+  - `Block`
+  - `Expression statement`
+  - `debugger`
+  - `export` -> **declarations**(모듈 최상단에서만)
+  - `import` -> **declarations**(모듈 최상단에서만)
+  - `label`
+  - `with`
+
+> 
