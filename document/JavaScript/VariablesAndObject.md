@@ -4,7 +4,7 @@
 
 ## 변수
 
-### 변수 선언
+## 변수 선언
 
 - 변수: 값을 담기 위해 이름을 붙인 상자
 - var(선언자) number(변수 이름);
@@ -22,7 +22,7 @@ x = 2;
 console.log(typeof x); // number
 ```
 
-### 전역변수(global variable)와 지역변수(local variable)
+## 전역변수(global variable)와 지역변수(local variable)
 
 - 전역변수: 전역 객체(`window`)에서 접근 가능한 변수
 
@@ -30,39 +30,26 @@ console.log(typeof x); // number
 
 - 지역변수: 함수 또는 블록 내에서만 접근 가능한 변수
 
-### var 타입
+## var 변수
 
-- `var`: 현재 실행 컨텍스트와 클로저 범위의 선택적인 값 초기화를 하는 변수
+현재 실행 컨텍스트와 클로저 범위의 선택적인 값 초기화를 하는 변수
 
-  > ❗`var`은 어느 위치에서 선언되든 코드의 최상단으로 끌어 올려져 가장 먼저 실행된다.(호이스팅)따라서 변수의 범위의 최상단에서 선언하는 것이 읽기 쉽다.
-  >
-  > 변수의 선언만 호이스팅 될 뿐, 변수 초기화는 호이스팅 되지 않는다. (초기화 전까지 `undefined`)
-  >
-  > ❗재선언을 하더라도 오류를 발생 시키지 않는다.
-  >
-  > 전역 컨텍스트에서 선언되면 전역 객체(window)의 속성으로 추가된다.
-  >
-  > NodeJS, CommonJS 모듈에서 최상위 변수를 선언해도
-  >
-  > 범위는 모듈로 한정되어 전역 객체에 속성으로 추가되지 않는다.
+- ❗`var`은 어느 위치에서 선언되든 코드의 최상단으로 끌어 올려져 가장 먼저 실행된다.(호이스팅)
+- 따라서 변수의 범위의 최상단에서 선언하는 것이 읽기 쉽다.
+- 변수의 선언만 호이스팅 될 뿐, 변수 초기화는 호이스팅 되지 않는다. (초기화 전까지 `undefined`)
+- NodeJS, CommonJS 모듈에서 최상위 변수를 선언해도
+  범위는 모듈로 한정되어 전역 객체에 속성으로 추가되지 않는다.
 
-- `let`: ES2015부터 도입된 블록 스코프, 지역 변수, 선택적인 값 초기화를 하는 변수
+> ❗재선언을 하더라도 오류를 발생 시키지 않는다.
 
-  > 선언부에 도달하기 전까지 액세스 불가 -> TDZ
-  >
-  > [여기](#변수)
-  >
-  > [변수](##변수 선언)
-  >
-  > A[link](#변수-선언) to
-  >
-  > 
+```js
+var a = 1;
+var a = 2; // 재선언 가능
+let b = 1;
+let b = 2; // Uncaught SyntaxError: Identifier 'b' has already been declared 
+```
 
-- `const`: 재할당, 재선언이 불가능한 상수로, 배열일 때는 항목에 대한 업데이트 및 제거 가능
-
-  > 재할당 되지 않을 것임을 알려줌으로써 코드 읽기가 쉬워진다.
-  >
-  > `const`를 `let`보다 위에서 선언하자.
+> 전역 컨텍스트에서 선언되면 전역 객체(window)의 속성으로 추가된다.
 
 ```js
 var x = "var type";
@@ -72,9 +59,42 @@ console.log(this.y); // undefined
 console.log(this); // Window(전역객체)
 ```
 
-### 변수 끌어올림(hoisting)
+
+
+## let 변수
+
+ES2015부터 도입된 재선언이 불가능한 블록 스코프를 갖는 선택적인 값 초기화를 하는 변수
+
+- 선언부에 도달하기 전까지 액세스 불가 -> TDZ
+- ❗`let`과 `const`는 var와 달리 전역 변수가 되더라도 전역 객체(window)의 속성이 되지 않는다.
+
+```js
+let foo = 1;
+```
+
+
+
+## const  변수
+
+재할당, 재선언이 불가능한 상수(constant) 값을 갖는 변수
+
+- 배열일 때는 항목에 대한 업데이트 및 제거 가능
+- 재할당 되지 않을 것임을 알려줌으로써 코드 읽기가 쉬워진다.
+- 선언할 때 값을 지정해야 한다.
+
+> `const`를 `let`보다 위에서 선언하자.
+
+```js
+const PI = 3.14;
+```
+
+
+
+## 변수 끌어올림(hoisting)
 
 - 변수 선언부를 프로그램 첫 머리로 끌어올림
+
+- 같은 이름으로 끌어 올려지는 변수는 모두 끌어올린 후 하나의 영역에 할당된다.
 
 - ❗`var` 변수는 호이스팅 시 `underfined`로 변수를 초기화
 
@@ -107,14 +127,60 @@ console.log(this); // Window(전역객체)
     x = 2;
     ```
 
-- let과 const 호이스팅
 
-  - ```js
-    console.log(x); // Uncaught ReferenceError: Cannot access 'num' before initialization
-    let x = 2;
-    ```
 
-> 같은 이름으로 끌어 올려지는 변수는 모두 끌어올린 후 하나의 영역에 할당된다.
+## let 과 const 호이스팅 (Temporal dead zone;TDZ)
+
+- 일반적으로 let과 const는 호이스팅되지 않는 것으로 간주된다.
+
+- `let`과 `const`도 선언 시 블록의 시작부로 호이스팅되지만
+
+  선언 및 초기화 코드가 실행되기 전까지 TDZ에 있기 때문이다.
+
+> TDZ에 있는 동안은 변수에 **액세스가 불가능(ReferenceError)**하고 초기화되지 않는다.
+>
+> `Temporal `은 코드가 실행되는 **시간적 순서**를 의미한다.
+
+- TDZ에 대한 예제
+
+  ```js
+  {
+      //TDZ starts
+      ...
+  console.log(x); // Uncaught ReferenceError: Cannot access 'num' beforeinitialization
+      ...
+  let x = 2;//TDZ end
+  }
+  
+  ```
+
+- TDZ로 인한 오류 발생 예제
+
+  ```js
+  function test() {
+    var foo = 33; // 1. var foo 선언
+    if (foo) { // 2. var foo 참조
+      let foo = foo + 55; // 3. let foo는 현재 TDZ에 있으므로 ReferenceError 
+    }
+  }
+  test();
+  ```
+
+  ```JS
+  function go(n) {
+          // n here is defined!
+          console.log(n); // { a: [1, 2, 3] }
+  
+          for (let n of n.a) { 
+            //let n은 호이스팅되어 for문 블록의 최상위에서 선언, TDZ존 시작
+            //n.a를 참조할 때 선언되지 않은 let n을 참조하여 오류 발생
+            // ReferenceError
+            console.log(n);
+          }
+        }
+  
+        go({ a: [1, 2, 3] });
+  ```
 
 ### 변수 명명 규칙
 
