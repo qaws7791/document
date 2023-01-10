@@ -262,11 +262,8 @@ console.log(user);
   console.log(sum.apply(null, numbers));
   ```
 
-  ==fwe==
   
-  `#257432`
 
-````
 Here is a simple flow chart:
 
 ```mermaid
@@ -276,4 +273,3 @@ graph TD;
     B-->D;
     C-->D;
 ```
-````
