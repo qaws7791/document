@@ -169,3 +169,111 @@ else
   - `with`
 
 > 
+
+
+
+## 구조적 분해
+
+### 객체 구조 분해
+
+- 구조 분해된 name과 age가 바뀌어도 원래 객체의 값에 영향을 주지 않는다.
+
+- ```js
+    const user = {
+      name: "foo",
+      age: 20,
+    };
+    let { name, age } = user;
+    console.log(name, age); // foo 20
+    name = "bar";
+    age = 24;
+    console.log(name, age); // bar 24
+  ```
+
+- 객체를 분해하여 인자로 넘기거나, 구조 분해하여 가져올 수 있다.
+
+  ```js
+  const printName = ({ name }) => {
+      console.log(`Name is : ${name}`);
+  };
+  printName(user);
+  ```
+
+  ```js
+  const user = {
+          name: "foo",
+          age: 20,
+          favorite: {
+            sport: "soccer",
+            food: "cake",
+          },
+        };
+  
+  const printFavoriteSport = ({ favorite: { sport } }) => {
+  	console.log(`Favorite sport is ${sport}`);
+  };
+  printFavoriteSport(user);
+  ```
+
+
+
+### 배열 구조 분해
+
+```js
+const arr = [1, 2, 3, 4, 5];
+const [first, second] = arr;
+const [, , third] = arr;
+console.log(first, second,third);
+```
+
+
+
+### 객체 리터럴 개선
+
+```js
+const name = "foo";
+const age = 20;
+const favorite = {
+    sport: "soccer",
+    food: "cake",
+};
+const printFavoriteSport = ({ favorite: { sport } }) => {
+    console.log(`Favorite sport is ${sport}`);
+};
+
+const user = { name, age, favorite, printFavoriteSport };
+console.log(user);
+```
+
+
+
+## 스프레드 연산자(...)
+
+- 기존에 함수의 인수로 배열을 사용하기 위해 썼던 `apply()`를 대체할 수 있다.
+
+  ```javascript
+  function sum(x, y, z) {
+      return x + y + z;
+  }
+  const numbers = [1, 2, 3];
+  console.log(sum(numbers));
+  console.log(sum(numbers[0], numbers[1], numbers[2]));
+  console.log(sum(...numbers));
+  console.log(sum.apply(null, numbers));
+  ```
+
+  ==fwe==
+  
+  `#257432`
+
+````
+Here is a simple flow chart:
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+````
