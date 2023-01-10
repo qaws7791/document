@@ -2,9 +2,7 @@
 
 [TOC]
 
-
-
-##  변수
+## 변수
 
 ### 변수 선언
 
@@ -13,17 +11,16 @@
 
 ```javascript
 var number;
-var number_1 = 1,number_2 = 2;
+var number_1 = 1,
+  number_2 = 2;
 ```
 
 - ❗변수를 선언하지 않고 값을 대입하면 자바스크립트 엔진이 자동으로 변수를 전역 변수로 선언
 
 ```javascript
 x = 2;
-console.log(typeof(x)) // number
+console.log(typeof x); // number
 ```
-
-
 
 ### 전역변수(global variable)와 지역변수(local variable)
 
@@ -33,13 +30,29 @@ console.log(typeof(x)) // number
 
 - 지역변수: 함수 또는 블록 내에서만 접근 가능한 변수
 
-### 변수 타입
+### var 타입
 
-- `var`: 함수 스코프 , 전역 변수, 선택적인 값 초기화를 하는 변수
+- `var`: 현재 실행 컨텍스트와 클로저 범위의 선택적인 값 초기화를 하는 변수
 
-  > ❗`var`은 호이스팅 및 재선언의 위험으로 사용하지 않는 것이 좋다
+  > ❗`var`은 어느 위치에서 선언되든 코드의 최상단으로 끌어 올려져 가장 먼저 실행된다.(호이스팅)따라서 변수의 범위의 최상단에서 선언하는 것이 읽기 쉽다.
+  >
+  > 변수의 선언만 호이스팅 될 뿐, 변수 초기화는 호이스팅 되지 않는다. (초기화 전까지 `undefined`)
+  >
+  > ❗재선언을 하더라도 오류를 발생 시키지 않는다.
+  >
+  > 전역 컨텍스트에서 선언되면 전역 객체(window)의 속성으로 추가된다.
+  >
+  > NodeJS, CommonJS 모듈에서 최상위 변수를 선언해도
+  >
+  > 범위는 모듈로 한정되어 전역 객체에 속성으로 추가되지 않는다.
 
-- `let`: 블록 스코프, 지역 변수, 선택적인 값 초기화를 하는 변수
+- `let`: ES2015부터 도입된 블록 스코프, 지역 변수, 선택적인 값 초기화를 하는 변수
+
+  > 선언부에 도달하기 전까지 액세스 불가 -> TDZ
+  >
+  > [여기](#변수)
+  >
+  > [변수](##변수 선언)
 
 - `const`: 재할당, 재선언이 불가능한 상수로, 배열일 때는 항목에 대한 업데이트 및 제거 가능
 
@@ -54,8 +67,6 @@ console.log(this.x); // var type
 console.log(this.y); // undefined
 console.log(this); // Window(전역객체)
 ```
-
-
 
 ### 변수 끌어올림(hoisting)
 
@@ -89,7 +100,7 @@ console.log(this); // Window(전역객체)
 
   - ```js
     console.log(x); // Uncaught ReferenceError: x is not defined
-    x = 2; 
+    x = 2;
     ```
 
 - let과 const 호이스팅
@@ -99,15 +110,14 @@ console.log(this); // Window(전역객체)
     let x = 2;
     ```
 
-
 > 같은 이름으로 끌어 올려지는 변수는 모두 끌어올린 후 하나의 영역에 할당된다.
 
 ### 변수 명명 규칙
 
-- 사용 가능 문자: 알파벳(a~z, A~Z), 숫자(0~9), 밑줄(_), 달러 기호($)
+- 사용 가능 문자: 알파벳(a~z, A~Z), 숫자(0~9), 밑줄(\_), 달러 기호($)
 - ❗첫 글자로 숫자는 사용 불가
 - ❗예약어를 식별자로 사용 불가
-- 지역 변수 명은 '_'로 시작한다.
+- 지역 변수 명은 '\_'로 시작한다.
 
 ### 캐멀 표기법(로어 캐멀 표기법)
 
@@ -121,10 +131,8 @@ console.log(this); // Window(전역객체)
 
 ### 밑줄 표기법(스네이크 표기법)
 
-- 모든 단어를 소문자로 표기하고 단어 사이를 밑줄(_)로 구분 -> 상수 표기
+- 모든 단어를 소문자로 표기하고 단어 사이를 밑줄(\_)로 구분 -> 상수 표기
 - ex) new_name, create_life_game
-
-
 
 ## 데이터 타입
 
@@ -156,8 +164,8 @@ console.log(this); // Window(전역객체)
 |                       |     2진수     |    0b101    |       숫자 앞에 0b        | ES6  |
 | **부동소수점 리터럴** |   정수.소수   |    3.14     |     소수 그대로 표현      |      |
 |                       |     소수      |    0.123    | 정수부 0일때 0은 생략가능 |      |
-|                       | 가수부e지수부 |   6.02e23   |        6.02*10^23         |      |
-|                       | 가수부E지수부 | 1.16199E-35 |     1.1616199*10^-35      |      |
+|                       | 가수부e지수부 |   6.02e23   |        6.02\*10^23        |      |
+|                       | 가수부E지수부 | 1.16199E-35 |     1.1616199\*10^-35     |      |
 
 ### 특수한 값
 
@@ -181,7 +189,7 @@ console.log(this); // Window(전역객체)
 - HTML 요소에 자바스크립트를 넣을 때는 문자열처럼 감싸서 작성
 
 ```html
-<input type="button" value="Click" onClick="alert('Thanks!')"/>
+<input type="button" value="Click" onClick="alert('Thanks!')" />
 ```
 
 - 문자열안에서 특수한 문자들은 이스케이프 시퀀스로 표현해야 한다.
@@ -261,21 +269,20 @@ console.log(Symbol.keyFor(sym2)); // undefined
 - \n이 아닌 일반적인 줄 바꿈을 통해 줄바꿈 가능
 
 ```js
-`I'm going to learn Javascript`
+`I'm going to learn Javascript`;
 ```
 
 - 보간 표현식: 템프릿 리터럴 안에 플레이스 홀더를 ${...}을 통해 넣을 수 있다
 
 ```js
-var a = 2, b = 3;
-console.log(`${a} + ${b} = ${a+b}`); // 2 + 3 = 5
+var a = 2,
+  b = 3;
+console.log(`${a} + ${b} = ${a + b}`); // 2 + 3 = 5
 ```
 
-------
+---
 
 ## 배열
-
-
 
 ### 배열 리터럴로 배열 생성
 
@@ -290,11 +297,9 @@ var evens = [2, 4, 6, 8];
 ```js
 var evens = new Array(2, 4, 6, 8);
 // [2, 4, 6, 8] 배열 요소 지정
-var evens = new Array(4);  
+var evens = new Array(4);
 // [undefined, undefined, undefined, undefined] 배열 크기만 지정
 ```
-
-
 
 ## 배열 특징
 
@@ -304,13 +309,13 @@ var evens = new Array(4);
 - 실제 배열의 원소
 
 ```js
-evens.length // 4
+evens.length; // 4
 var arr = [];
 console.log(arr.length); // 0
-arr[0]= 0;
-arr[1]=1;
+arr[0] = 0;
+arr[1] = 1;
 console.log(arr.length); // 2
-arr[50]=50; // 51인 이유 => arr[2]부터 arr[49]까지 undefined 할당
+arr[50] = 50; // 51인 이유 => arr[2]부터 arr[49]까지 undefined 할당
 ```
 
 - 명시적으로 Array.length를 변경하면 앞에서 부터 잘림
@@ -326,7 +331,7 @@ console.log(arr); // [0, 1]
 - 배열 원소는 아니므로 length에는 영향을 미치지 않는다
 
 ```js
-arr.name = 'array';
+arr.name = "array";
 console.log(arr.name); // array
 ```
 
@@ -361,13 +366,11 @@ console.log(a); // ["A", undefined, "C", "D"]
 - 삭제된 자리는 사라짐
 
 ```js
-a.splice(0,1);
+a.splice(0, 1);
 console.log(a); // [undefined, "C", "D"]
 ```
 
-
-
-#  자바스크립트 연산자
+# 자바스크립트 연산자
 
 ### + 연산자
 
@@ -381,12 +384,12 @@ console.log("1" + 2); // 12
 console.log("1" + "2"); //12
 ```
 
-### typeof  연산자
+### typeof 연산자
 
 - 타입을 문자열로 리턴
 
 ```js
-console.log(typeof 1); // number 
+console.log(typeof 1); // number
 console.log(typeof "1"); // string
 console.log(typeof true); // boolean
 console.log(typeof {}); // object
@@ -400,10 +403,10 @@ console.log(typeof function () {}); //function
 - `===` : 타입 변환없이 비교
 
 ```js
-console.log(1 == '1'); // true
+console.log(1 == "1"); // true
 console.log(1 == [1]); // true
 console.log(1 === [1]); // false
-console.log(1 === '1'); // false
+console.log(1 === "1"); // false
 ```
 
 ### !! 연산자
@@ -433,8 +436,6 @@ console.log(!![]); // true
 
 # 객체 리터럴
 
-
-
 ## 객체
 
 ### 객체란
@@ -442,7 +443,7 @@ console.log(!![]); // true
 - 객체는 이름과 값을 한 쌍으로 묶은 데이터의 집합
 - 객체의 하나의 데이터 -> 프로퍼티
 - 프로퍼티의 이름 -> 키
-- Object, Function, Number, String, Array, Set  등이 모두 객체
+- Object, Function, Number, String, Array, Set 등이 모두 객체
 
 ### 객체리터럴로 객체 생성하기
 
@@ -450,9 +451,9 @@ console.log(!![]); // true
 
 ```js
 var card = { suit: "하트", rank: "A" };
-card.suit // 하트
-card["rank"] // A
-card.color // undefined
+card.suit; // 하트
+card["rank"]; // A
+card.color; // undefined
 var obj = {}; // 빈 객체
 ```
 
@@ -463,8 +464,8 @@ var obj = {}; // 빈 객체
 ```js
 var obj = new Object();
 function Card(suit, rank) {
-	this.suit = suit;
-	this.rank = rank;
+  this.suit = suit;
+  this.rank = rank;
 }
 var card = new Card("하트", "A");
 ```
@@ -493,7 +494,7 @@ console.log(card); // Object { suit: "하트", value: 14}
 
 ```js
 var card = { suit: "하트", rank: "A" };
-console.log("suit" in card) // true
+console.log("suit" in card); // true
 console.log("color" in card); // false
 ```
 
@@ -534,4 +535,3 @@ console.log(objB == objC); //true
 console.log(objA == objC); //false
 console.log(JSON.stringify(objA) === JSON.stringify(objB)); //true
 ```
-
