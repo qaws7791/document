@@ -16,20 +16,54 @@ var number;
 var number_1 = 1,number_2 = 2;
 ```
 
-- 변수를 선언하지 않고 값을 대입하면 자바스크립트 엔진이 자동으로 변수를 전역 변수로 선언
+- ❗변수를 선언하지 않고 값을 대입하면 자바스크립트 엔진이 자동으로 변수를 전역 변수로 선언
 
 ```javascript
 x = 2;
 console.log(typeof(x)) // number
 ```
 
+
+
+### 전역변수(global variable)와 지역변수(local variable)
+
+- 전역변수: 전역 객체(`window`)에서 접근 가능한 변수
+
+  > ❗전역 변수는 높은 접근성 때문에 사용하지 않는 것이 좋다
+
+- 지역변수: 함수 또는 블록 내에서만 접근 가능한 변수
+
+### 변수 타입
+
+- `var`: 함수 스코프 , 전역 변수, 선택적인 값 초기화를 하는 변수
+
+  > ❗`var`은 호이스팅 및 재선언의 위험으로 사용하지 않는 것이 좋다
+
+- `let`: 블록 스코프, 지역 변수, 선택적인 값 초기화를 하는 변수
+
+- `const`: 재할당, 재선언이 불가능한 상수로, 배열일 때는 항목에 대한 업데이트 및 제거 가능
+
+  > 재할당 되지 않을 것임을 알려줌으로써 코드 읽기가 쉬워진다.
+  >
+  > `const`를 `let`보다 위에서 선언하자.
+
+```js
+var x = "var type";
+let y = "let type";
+console.log(this.x); // var type
+console.log(this.y); // undefined
+console.log(this); // Window(전역객체)
+```
+
+
+
 ### 변수 끌어올림(hoisting)
 
 - 변수 선언부를 프로그램 첫 머리로 끌어올림
 
-- `var` 변수는 호이스팅 시 `underfined`로 변수를 초기화
+- ❗`var` 변수는 호이스팅 시 `underfined`로 변수를 초기화
 
-- `let`과 `const`는 변수를 초기화하지 않음. 초기화 전에 사용 시 에러 발생
+- ❗`let`과 `const`도 호이스팅 되나 선언부 전에 사용하면 에러가 발생
 
 - 선언을 해야만 호이스팅이 작동
 
@@ -46,7 +80,7 @@ console.log(typeof(x)) // number
     console.log(x); // 2
     ```
 
-- 선언하지 않으면 호이스팅이 되지 않음
+- ❗선언하지 않으면 호이스팅이 되지 않음
 
   - ```js
     console.log(x); // Uncaught ReferenceError: x is not defined
@@ -60,52 +94,35 @@ console.log(typeof(x)) // number
 
 - let과 const 호이스팅
 
-```js
-console.log(x); // Uncaught ReferenceError: Cannot access 'num' before initialization
-let x = 2;
-```
+  - ```js
+    console.log(x); // Uncaught ReferenceError: Cannot access 'num' before initialization
+    let x = 2;
+    ```
 
 
-
-- 단, 선언과 대입이 동시에 이루어지는 변수는 끌어 올려지지 않는다.
-
-```
-console.log(x); // undefined
-var x = 5;
-console.log(x); // 5
-```
-
-- 같은 이름으로 끌어올려지는 변수는 모두 끌어올린 후 하나의 영역에 할당
+> 같은 이름으로 끌어 올려지는 변수는 모두 끌어올린 후 하나의 영역에 할당된다.
 
 ### 변수 명명 규칙
 
 - 사용 가능 문자: 알파벳(a~z, A~Z), 숫자(0~9), 밑줄(_), 달러 기호($)
-- 첫 글자로 숫자는 사용 불가
-- 예약어를 식별자로 사용 불가
+- ❗첫 글자로 숫자는 사용 불가
+- ❗예약어를 식별자로 사용 불가
+- 지역 변수 명은 '_'로 시작한다.
 
 ### 캐멀 표기법(로어 캐멀 표기법)
 
-- 두 번째 이후 단어의 첫 글자를 대문자로 표기
+- 두 번째 이후 단어의 첫 글자를 대문자로 표기 -> 함수 및 변수 표기
 - ex) newName, createLifeGame
 
 ### 파스칼 표기법(어퍼 캐멀 표기법)
 
-- 각 단어의 첫 글자를 대문자로 표기
+- 각 단어의 첫 글자를 대문자로 표기 -> 생성자, 클래스 표기
 - ex) NewName, CreateLiftGame
 
 ### 밑줄 표기법(스네이크 표기법)
 
-- 모든 단어를 소문자로 표기하고 단어 사이를 밑줄(_)로 구분
+- 모든 단어를 소문자로 표기하고 단어 사이를 밑줄(_)로 구분 -> 상수 표기
 - ex) new_name, create_life_game
-
-### 일반적인 표기법
-
-- 기본적으로 영어 단어를 사용
-- 변수 이름: 캐멀 표기법이나 밑줄 표기법 사용
-- 루프 카운터 변수: i, j, k 등
-- 상수: 대문자
-- 논리값 변수: 변수 이름 앞에 is
-- 생성자 변수: 파스칼 표기법
 
 
 
