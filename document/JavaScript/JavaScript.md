@@ -100,7 +100,7 @@ if (condition) let i = 0;
 // Uncaught SyntaxError: Lexical declaration cannot appear in a single-statement context
 ```
 
-```js
+```javascript
 if (condition) var i = 0;
 //It is possible;
 ```
@@ -109,12 +109,12 @@ if (condition) var i = 0;
 
 > 단일 문도 가능하지만, 보통 블록과 함께 사용할 수 있다.
 
-```js
+```javascript
 for (initialization; condition; afterthought)
   statement
 ```
 
-```js
+```javascript
 if (condition)
   statement1
 else
@@ -171,7 +171,7 @@ else
 ### 객체 구조 분해
 
 * 구조 분해된 name과 age가 바뀌어도 원래 객체의 값에 영향을 주지 않는다.
-* ```js
+* ```javascript
     const user = {
       name: "foo",
       age: 20,
@@ -184,14 +184,14 @@ else
   ```
 *   객체를 분해하여 인자로 넘기거나, 구조 분해하여 가져올 수 있다.
 
-    ```js
+    ```javascript
     const printName = ({ name }) => {
         console.log(`Name is : ${name}`);
     };
     printName(user);
     ```
 
-    ```js
+    ```javascript
     const user = {
             name: "foo",
             age: 20,
@@ -209,7 +209,7 @@ else
 
 ### 배열 구조 분해
 
-```js
+```javascript
 const arr = [1, 2, 3, 4, 5];
 const [first, second] = arr;
 const [, , third] = arr;
@@ -219,7 +219,7 @@ console.log(first, second, third, last);
 
 ### 객체 리터럴 개선
 
-```js
+```javascript
 const name = "foo";
 const age = 20;
 const favorite = {
@@ -253,7 +253,7 @@ spread 프로퍼티를 제외한 iterable 객체 전용
 
 ### 배열 리터럴 전개
 
-```js
+```javascript
 const numbers = [1, 2, 3];
 const numbers2 = [4, 5, 6];
 console.log([numbers, numbers2]); // [[1,2,3],[4,5,6]]
@@ -264,7 +264,7 @@ console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
 
 > ❗︎단 1레벨 깊에서만 효과적으로 동작
 
-```js
+```javascript
 const numbers = [1, 2, 3];
 const numbers2 = numbers;
 numbers2.push(4);
@@ -272,7 +272,7 @@ console.log(numbers); // [1,2,3,4]
 console.log(numbers2); // [1,2,3,4]
 ```
 
-```js
+```javascript
 const numbers = [1, 2, 3];
 const numbers2 = [...numbers];
 numbers2.push(4);
@@ -282,7 +282,7 @@ console.log(numbers2); // [1,2,3,4]
 
 #### 객체 리터럴 전개
 
-```js
+```javascript
 const user = {
     name: "foo",
     age: 20,
@@ -296,7 +296,7 @@ console.log(user.name, user2.name); // foo bar
 
 함수에서 정해지지 않은 수의 매개변수를 배열로 받을 수 있다.
 
-```js
+```javascript
 function sum(...theArgs) {
   let total = 0;
   for (const arg of theArgs) {
@@ -316,7 +316,7 @@ console.log(sum(1, 2, 3, 4));
 * 나머지 매개변수를 사용하면 모든 후속 매개변수를 배열에 저장하고
 * 마지막 매개변수 하나에만 나머지 매개변수로 설정할 수 있다.
 
-```js
+```javascript
 function printArgs(first, second, ...moreArgs) {
 	console.log(first, second) // 1 2
 	console.log(moreArgs) // [3,4,5]
@@ -341,7 +341,7 @@ printArgs(1,2,3,4,5)
 
 > User.prototype.printName()을 변경하면 참조중인 모든 User 객체의 메서드가 변경됨
 
-```js
+```javascript
 function User(name, age) {
     this.name = name;
     this.age = age;
@@ -360,7 +360,7 @@ console.log(foo);
 
 > 이미 생성된 객체는 User를 변경해도 영향을 받지 않음
 
-```js
+```javascript
       class User {
         constructor(name, age) {
           this.name = name;
@@ -378,18 +378,18 @@ console.log(foo);
 
 *   모듈에서 외부로 내보내기
 
-    ```js
+    ```javascript
     export const function_1(args) => {...}
     ```
 *   모듈에서 하나만 내보내기
 
-    ```js
+    ```javascript
     const function_2(args) => {...}
     export default function_2;
     ```
 *   모듈에서 가져오기
 
-    ```js
+    ```javascript
     import { function_1 } from './module';
     import { function_1 as func_1 } from './module';
     import function_2 from './module';
@@ -414,7 +414,7 @@ console.log(foo);
 * `Object.assign(target,...source)`는 객체를 복사하기 위해 사용되지만
 * source값이 참조 값이면 참조 값이 복사되어 얕은 복사가 된다. 따라서 아래의 `obj3`처럼 복사해야 한다.
 
-```js
+```javascript
 let obj1 = { a: 0, b: { c: 0 } };
 let obj2 = Object.assign({}, obj1);
 let obj3 = JSON.parse(JSON.stringify(obj1));
@@ -455,7 +455,7 @@ console.log(user);
 
 #### 배열 불변성
 
-```js
+```javascript
 let arr = [0, 0, 0];
 let arr2 = arr;
 let arr3 = [...arr];
