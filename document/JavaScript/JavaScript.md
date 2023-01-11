@@ -172,9 +172,9 @@ else
 
 
 
-## 구조적 분해
+# 구조적 분해
 
-### 객체 구조 분해
+## 객체 구조 분해
 
 - 구조 분해된 name과 age가 바뀌어도 원래 객체의 값에 영향을 주지 않는다.
 
@@ -217,7 +217,7 @@ else
 
 
 
-### 배열 구조 분해
+## 배열 구조 분해
 
 ```js
 const arr = [1, 2, 3, 4, 5];
@@ -229,7 +229,7 @@ console.log(first, second, third, last);
 
 
 
-### 객체 리터럴 개선
+## 객체 리터럴 개선
 
 ```js
 const name = "foo";
@@ -248,7 +248,7 @@ console.log(user);
 
 
 
-## 스프레드 연산자(...)
+# 스프레드 연산자(...)
 
  spread 프로퍼티를 제외한 iterable 객체 전용
 
@@ -265,50 +265,50 @@ console.log(user);
   console.log(sum.apply(null, numbers));
   ```
 
-- 배열 리터럴 전개
+## 배열 리터럴 전개
 
-  ```js
-  const numbers = [1, 2, 3];
-  const numbers2 = [4, 5, 6];
-  console.log([numbers, numbers2]); // [[1,2,3],[4,5,6]]
-  console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
-  ```
+```js
+const numbers = [1, 2, 3];
+const numbers2 = [4, 5, 6];
+console.log([numbers, numbers2]); // [[1,2,3],[4,5,6]]
+console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
+```
 
-- 배열 복사
+## 배열 복사
 
-  > ❗︎단 1레벨 깊에서만 효과적으로 동작
+> ❗︎단 1레벨 깊에서만 효과적으로 동작
 
-  ```js
-  const numbers = [1, 2, 3];
-  const numbers2 = numbers;
-  numbers2.push(4);
-  console.log(numbers); // [1,2,3,4]
-  console.log(numbers2); // [1,2,3,4]
-  ```
+```js
+const numbers = [1, 2, 3];
+const numbers2 = numbers;
+numbers2.push(4);
+console.log(numbers); // [1,2,3,4]
+console.log(numbers2); // [1,2,3,4]
+```
 
-  ```js
-  const numbers = [1, 2, 3];
-  const numbers2 = [...numbers];
-  numbers2.push(4);
-  console.log(numbers); // [1,2,3]
-  console.log(numbers2); // [1,2,3,4]
-  ```
+```js
+const numbers = [1, 2, 3];
+const numbers2 = [...numbers];
+numbers2.push(4);
+console.log(numbers); // [1,2,3]
+console.log(numbers2); // [1,2,3,4]
+```
 
-- 객체 리터럴 전개
+### 객체 리터럴 전개
 
-  ```js
-  const user = {
-      name: "foo",
-      age: 20,
-  };
-  user2 = { ...user };
-  user2.name = "bar";
-  console.log(user.name, user2.name); // foo bar
-  ```
+```js
+const user = {
+    name: "foo",
+    age: 20,
+};
+user2 = { ...user };
+user2.name = "bar";
+console.log(user.name, user2.name); // foo bar
+```
 
-  
 
-## 나머지 매개변수
+
+# 나머지 매개변수
 
 함수에서 정해지지 않은 수의 매개변수를 배열로 받을 수 있다.
 
@@ -350,3 +350,74 @@ printArgs(1,2,3,4,5)
   - 사용자가 정의한 매개변수를 제외한 나머지만을 가진다.
 
 ![image-20230110191822853](./JavaScript.assets/image-20230110191822853.png)
+
+# 클래스
+
+### 프로토타입을 통한 객체 생성
+
+> User.prototype.printName()을 변경하면 참조중인 모든 User 객체의 메서드가 변경됨
+
+```js
+function User(name, age) {
+    this.name = name;
+    this.age = age;
+
+    User.prototype.printName = function () {
+        console.log(`name: ${name}, age: ${age}`);
+    };
+}
+const foo = new User("foo", 20);
+foo.printName();
+console.log(foo);
+
+```
+
+### 클래스를 통한 객체 생성
+
+> 이미 생성된 객체는 User를 변경해도 영향을 받지 않음
+
+```js
+      class User {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        printName() {
+          console.log(`name: ${this.name}, age: ${this.age}`);
+        }
+      }
+      const foo = new User("foo", 20);
+      foo.printName();
+```
+
+
+
+## ES6 모듈
+
+- 모듈에서 외부로 내보내기
+
+  ```js
+  export const function_1(args) => {...}
+  ```
+
+- 모듈에서 하나만 내보내기
+
+  ```js
+  const function_2(args) => {...}
+  export default function_2;
+  ```
+
+- 모듈에서 가져오기
+
+  ```js
+  import { function_1 } from './module';
+  import { function_1 as func_1 } from './module';
+  import function_2 from './module';
+  ```
+
+  
+
+
+
+
+
