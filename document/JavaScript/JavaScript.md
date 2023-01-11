@@ -417,7 +417,82 @@ console.log(foo);
 
   
 
+## 명령형 프로그래밍
+
+하고자 하는 일에 대해 구문의 관점에서 연산을 설명하는 프로그래밍 방식
+
+달성해야 할 명령에 대채 순차적으로 작성
 
 
 
+## 선언적 프로그래밍
+
+어떻게 결과가 나타나야 하는지를 설명하는 프로그래밍 방식
+
+
+
+## 불변성
+
+불변성을 위해 데이터의 변경이 필요하다면 복사본을 만들어 사용한다.
+
+### 객체 불변성
+
+- `Object.assign(target,...source)`는 객체를 복사하기 위해 사용되지만
+- source값이 참조 값이면 참조 값이 복사되어 얕은 복사가 된다.
+  따라서 아래의 `obj3`처럼 복사해야 한다.
+
+```js
+let obj1 = { a: 0, b: { c: 0 } };
+let obj2 = Object.assign({}, obj1);
+let obj3 = JSON.parse(JSON.stringify(obj1));
+obj1.a = 1;
+obj1.b.c = 1;
+console.log(JSON.stringify(obj1)); // {"a":1,"b":{"c":1}}
+console.log(JSON.stringify(obj2)); // {"a":0,"b":{"c":1}}
+console.log(JSON.stringify(obj3)); // {"a":0,"b":{"c":0}}
+```
+
+### 순수함수를 통한 객체 불변성
+
+- 순수함수의 규칙
+  1. 하나 이상의 파라미터를 가진다.
+  2. 값이나 함수를 반환한다.
+  3. 인자 또는 함수 외부의 변수를 변경하지 않는다.
+  4. 입출력을 하지 않는다.
+
+```js
+const user = {
+    name: "foo",
+    age: 20,
+    auth: {
+        canRead: false,
+        canWrite: false,
+    },
+};
+const grantAuth = (user) => ({
+    ...user,
+    auth: {
+        canRead: true,
+        canWrite: true,
+    },
+});
+console.log(grantAuth(user));
+console.log(user);
+```
+
+
+
+### 배열 불변성
+
+```js
+let arr = [0, 0, 0];
+let arr2 = arr;
+let arr3 = [...arr];
+arr[0] = 1;
+arr2[1] = 2;
+arr3[2] = 3;
+console.log(arr); // [1, 2, 0]
+console.log(arr2); // [1, 2, 0]
+console.log(arr3); // [0, 0, 3]
+```
 
