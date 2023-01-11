@@ -95,7 +95,7 @@ description: javascript에 대한 페이지
 
 > 아래와 같이 단일 문이 필요한 곳에서 사전적 선언은 불가능하다.
 
-```js
+```javascript
 if (condition) let i = 0; 
 // Uncaught SyntaxError: Lexical declaration cannot appear in a single-statement context
 ```
