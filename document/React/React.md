@@ -201,13 +201,22 @@ Class없이 React를 사용 -> 함수형 컴포넌트
 
 - 최상위 레벨에서만 Hook 호출 (반복문, 조건문, 중첩된 함수 내 호출 X)
 - React 함수 컴포넌트 또는 `Custom Hook` 내에서만 호출
+- Hook 은 기능 단위로 여러 개 나누는 것이 좋다. 
 
 > 규칙을 지키기 위한 플러그인 https://www.npmjs.com/package/eslint-plugin-react-hooks
+
+## Hook 발생 순서
+
+1. React 렌더링
+2. `useLayoutEffect` 호출
+3. 브라우저 DOM에 실제 화면 그리기
+4. `useEffect` 호출
 
 ## useState
 
 - 비공개 값으로 컴포넌트에 의해 제어된다.
 - `state`를 통해 접근하고, `setState`를 통해 변경할 수 있다.
+- 배열 구조 분해를 통해  `state`값과 `state를 변경하는 함수`를 반환 받음.
 
 ```jsx
 const [state, setState] = useState(initialValue);
@@ -233,27 +242,47 @@ this.setState({value: "foo"}) //리렌더링O
 - 객체 형태 보다는 함수 형태로 상태 업데이트를 전달한다.
 
 ```jsx
-this.setState((state,props) => ({
-	value:  state.counter  + props.increment
-}))
+//Class형
+<button onClick={() => this.setState({count: this.state.count + 1})}>
+	button
+</button>
 ```
 
-### State 업데이트 - 병합
+```jsx
+//Function형
+<button onClick={() => setCount(count + 1)}>
+    Click me
+</button>
+```
 
-- React는 State 변경 함수(`useState`)를 통해 받은 값과 기존 State를 병합한다.
+
+
+### State 업데이트 - 병합(클래스형)
+
+- React `this.state`는 State 변경 함수(`setState`)를 통해 받은 값과 기존 State를 병합한다.
 - State에서 특정 변수에 대한 업데이트는 다른 변수에 영향을 주지 않는다.
 - 따라서 변경되지 않는 state 값은 그대로 남아 있는다.
 
 ```jsx
-this.state = {
-	a: "a",
-	b: "b",
-}
-this.setState({
-    a: "c"
-})
+//Class형
+this.state = { a: "a", b: "b"}
+<button onClick={() => this.setState({ a: "b" })}></button>
 // state: { a: "c", b: "b" } b에는 영향이 없다.
 ```
+
+### State 업데이트 - 병합(함수형)
+
+- 함수형 `useState`에서는 병합이 아닌 대체로 이루어진다.
+- `state`의 일부를 변경하기 위해서 `...`연산자를 통해 전체와 변경 부분을 같이 전달한다.
+
+```jsx
+//Function형
+const [state, setState] = usestate({ a: "a", b: "b" });
+<button onClick={() => setState({ ...state, a: "C" })}></button>
+// state: { a: "c", b: "b" } b에는 영향이 없다.
+```
+
+
 
 ### 하향식(단방향) 데이터 흐름
 
@@ -348,8 +377,182 @@ this.state.temperature --> TemperatureInput.2
 
 - 함수형 컴포넌트 안에서 데이터 조작, DOM 조작과 같은 `side effects`를 실행
 -  React class의 `componentDidMount` 나 `componentDidUpdate`, `componentWillUnmount` 를 수행
+-  `clean-up`이 필요한 side effect와 필요없는 side effect로 나뉜다.
+
+> Hook는 `생명주기 메서드`와 달리 코드가 무엇을 하는지에 따라 나눌 수 있어 읽기 쉽다.
+
+### 기본 사용법
+
+- 첫 번째 렌더링(`componentDidMount()`)과 이후 모든 업데이트(`componentDidUpdate()`)시 실행
+
+```jsx
+//첫 번째 렌더링과 이후 모든 업데이트 시 실행 
+useEffect(() => {
+    console.log("Updated")
+  });
+```
+
+### clean-up이 필요한 effect
+
+- **이벤트 리스너, 데이터 구독**과 같은 초기 설정, 마지막 설정이 필요한 경우를
+  
+  clean-up이 필요한 effect로 볼 수 있다.
+  
+- 엘리먼트를 마운트할 떄와 언마운트 할 때 두 가지 시점으로 볼 수 있다. 
+
+```jsx
+//Class형
+componentDidMount() {ChatAPI.subscribeToFriendStatus(...)}
+componentWillUnmount() { ChatAPI.unsubscribeFromFriendStatus(...)}
+```
+
+- 함수형에서는 `return` 반환 값을 통해 정리를 위한 함수를 전달하여 언마운트 시 실행한다.
+
+```jsx
+//Function형
+useEffect(() => {
+    ChatAPI.subscribeToFriendStatus(...);
+    return function cleanup() {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+```
+
+### 데이터 변경을 감지하여 Effect 실행
+
+- 기존의 클래스형에서는 이전의 상태(`prevProps, prevState`)와 
+  현재 상태 비교를 통해 변화를 감지하여 실행할 수 있다.
+
+```jsx
+//Class형
+componentDidUpdate(prevProps, prevState) {
+  if (prevState.count !== this.state.count) {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+}
+```
+
+- `useEffect`에서는 **`의존 관계 배열`**을 통한 배열의 요소가 변경되었을 때만
+  실행하도록 할 수 있다.
+
+```jsx
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]); // count가 바뀔 때만 effect를 재실행합니다.
+```
 
 
+
+## useMemo
+
+메모이제이션 값을 계산하여 반환
+
+```jsx
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
+
+- `useMemo()`는 콜백함수에 의해 계산된 값을 기억하고 있다가
+  `의존 관계 배열`이 변경될 때마다 실행되어 계산된 값을 반환
+
+```jsx
+const WordCount = ({ children= ""}) => {
+    //const words = children; // 렌더링마다 선언되어 useEffect가 실행됨
+	const words = useMemo(() => children.split(" "), [children]);
+    
+    useEffect(() => {
+	console.log("fresh render");
+	},[words]);
+    return (...);
+}
+```
+
+
+
+## useLayoutEffect
+
+- useEffect와 동일하지만 모든 DOM이 변경된 후,
+  브라우저가 화면을 그리기 이전에 동기적으로 실행
+- 일반적으로 화면 레이아웃과 관련된 작업을 수행하는데 사용
+
+```jsx
+const useWindowSize = () => {
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+    
+    const resize = () => {
+		setWidth(window.innerWidth);
+    	setHeight(window.innerHeight);
+    }
+    
+    useLayoutEffect(() => {
+		window.adddEventListener("resize", resize);
+    	resize();
+    	return () => window.removeEventListener("resize", resize);
+    }, []);
+    
+    return [width,height];
+}
+```
+
+## useReducer
+
+- `Array.reduce`처럼 현재 상태를 사용해 새로운 상태를 업데이트하는 함수
+- `dispatch(action)`를 호출 -> `reducer(state,action)` 수행->  New State 업데이트
+- `reducer`는 현재 상태(state)와 액션 객체(action)를 통해 다음 상태를 업데이트
+- `action`의 `type`값은 대문자와 언더스코어(_)로 작성
+
+```jsx
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+### useReducer를 통한 State 병합
+
+- 위에서 State를 병합하는 방법으로 setState(...state,newState)를 사용하였다.
+- 하지만 코드를 실수로 setState(newState)와 같이 작성하면 state가 전부 대체될 위험이 있다.
+- `useReducer()`를 통해 이를 방지하고, State 병합을 쉽게 할 수 있다.
+
+```jsx
+const foo = { name: "foo", age: 20 };
+const [user, setUser] = useState(foo); 
+//age 변경
+setUser({ age: 22}); // user -> { age: 22 }
+setUser({ ...user, age: 22 }); // user -> { name: "foo", age: 22 }
+```
+
+```jsx
+// useReducer를 통한 age 변경
+const [user, setUser] = useReducer(
+	(user,Changes) => ({...user, ...Changes}),
+	foo
+);
+setUser({ age: 22 }); // user -> { name: "foo", age: 22 }
+```
+
+
+
+# 렌더링
 
 
 
@@ -455,6 +658,31 @@ return(
 
 - `key` 값이 props를 넘기는 것 처럼 보이지만 `props`는 아니다.
 - 컴포넌트로 `key`값을 `props`로 넘기고 싶다면, `key`와 같은 다른 `prop`를 명시하여 전달
+
+
+
+## React.memo
+
+- 고차 컴포넌트
+- props가 동일하면 마지막으로 렌더링된 결과를 재사용하여 성능을 최적화
+- props는 **얕은 비교**로 수행되고, 두 번째 인자로 비교 함수를 지정할 수 있다.
+- 비교함수가 true를 반환하면 같은 상태로 간주하고, false를 반환하면 다시 렌더링된다.
+
+> 함수를 props로 전달하면 함수가 매번 새로운 함수로 정의되어 다시 렌더링된다.
+>
+> 이럴 때는 비교함수를 통해 구체적인 규칙을 지정할 수 있다. 
+
+```jsx
+function MyComponent(props) {
+  /* props를 사용하여 렌더링 */
+}
+function areEqual(prevProps, nextProps) {
+  /*
+  nextProps가 prevProps와 동일한 값을 가지면 true를 반환하고, 그렇지 않다면 false를 반환
+  */
+}
+export default React.memo(MyComponent, areEqual);
+```
 
 
 
