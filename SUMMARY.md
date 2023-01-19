@@ -2,4 +2,5 @@
 
 * [Page 1](README.md)
 * [Page 2](page-2.md)
-* [javascript](document/JavaScript/JavaScript.md)
+* [Javascript](document/JavaScript/JavaScript.md)
+* [React](document/React/React.md)
