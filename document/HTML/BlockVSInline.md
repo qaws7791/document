@@ -83,37 +83,6 @@ Tip:
 </article>
 ```
 
-<article class="film_review">
-  <header>
-    <h2>Jurassic Park</h2>
-  </header>
-  <section class="main_review">
-    <p>Dinos were great!</p>
-  </section>
-  <section class="user_reviews">
-    <article class="user_review">
-      <p>Way too scary for me.</p>
-      <footer>
-        <p>
-          Posted on <time datetime="2015-05-16 19:00">May 16</time> by Lisa.
-        </p>
-      </footer>
-    </article>
-    <article class="user_review">
-      <p>I agree, dinos are my favorite.</p>
-      <footer>
-        <p>
-          Posted on <time datetime="2015-05-17 19:00">May 17</time> by Tom.
-        </p>
-      </footer>
-    </article>
-  </section>
-  <footer>
-    <p>
-      Posted on <time datetime="2015-05-15 19:00">May 15</time> by Staff.
-    </p>
-  </footer>
-</article>
 
 ---
 
@@ -140,25 +109,14 @@ Tip:
 </article>
 ```
 
-<article>
-  <p>
-    디즈니 만화영화 <em>인어 공주</em>는
-    1989년 처음 개봉했습니다.
-  </p>
-  <aside>
-    인어 공주는 첫 개봉 당시 8700만불의 흥행을 기록했습니다.
-  </aside>
-  <p>
-    영화에 대한 정보...
-  </p>
-</article>
 
-### `<blockquote>`: 인용구
+### `<blockquote>`: 블록 인용구
 
-이 요소의 내부는 텍스트로 이루어진 인용구이다.
+인용 텍스트로 이루어진 인용구 블록이다.
 
-- 인용문의 출처 url: cite 속성 이용
-- 인용문의 출처 텍스트: `<cite>`로 제공
+- 인용문의 출처는 `cite` 속성 이용히야 제공
+- 일반적으로 들여쓰기가 되어 있고, `margin-left,right`를 통해 변경
+- 인라인 인용구는 `<q>`
 
 ```html
 <blockquote cite="https://www.huxley.net/bnw/four.html">
@@ -166,17 +124,22 @@ Tip:
 </blockquote>
 ```
 
+---
+
 
 
 ### `<datails>`: 상세 정보 위젯
 
-열린 상태일 때 정보를 보여주는 일종의 위젯 역할
+열린 상태일 때 정보를 보여주는 위젯
 
 - 레이블은 `<summary>`로 제공
 - `<datails>`요소의 첫 번째 자식이 `<summary>`요소일 때, 이 첫번째 요소의 콘텐츠를 위젯의 레이블로 사용
 - 위젯의 레이블은 생략이 가능
 - 아래의 코드에서  "Details"가 `<datails>`의 위젯 레이블
 - 속성: open
+- CSS 적용하기
+  - list-style 속성을 이용
+  - 기본으로 나오는 삼각형 모양 제거하기:  `list-style: none`
 
 ```html
 <details>
@@ -185,7 +148,7 @@ Tip:
 </details>
 ```
 
-toggle 이벤트 리스너를 통해 상태 변화를 감지할 수 있다.
+toggle 이벤트 리스너를 통해 open 속성의 상태 변화를 감지할 수 있다.
 
 ```js
 details.addEventListener("toggle", event => {
@@ -197,18 +160,23 @@ details.addEventListener("toggle", event => {
 });
 ```
 
-CSS 적용하기
+<details>
+    <summary>Details</summary> 
+    Something small enough to escape casual notice.
+</details>
 
-- list-style 속성을 이용
-- 기본으로 나오는 삼각형 모양 제거하기:  `list-style: none`
+---
+
+
 
 ### `<dialog>`:  대화상자
 
-닫을 수 있는 상호작용이 가능한 컴포넌트
+닫을 수 있고, 상호작용이 가능한 컴포넌트
 
 - 속성: open 
   - 대화 상자가 활성 상태이며 상호작용이 가능. 
   - open상태가 아닐 경우 사용자에게 보여서는 안된다.
+- `<dialog>`열 때에는 `open`속성 직접 변경이 아닌 `.show(), .showModal()`메서드를 사용
 
 ```html
 <dialog open>
@@ -216,7 +184,25 @@ CSS 적용하기
 </dialog>
 ```
 
-`<dd>`: 설명 목록의 정의 설명
+<dialog open>
+  <p>여러분 안녕하세요!</p>
+</dialog>
+
+---
+
+
+
+### `<dl>`: 설명 목록( Description List)
+
+`<dd>` 요소와 `<dt>`요소를 포함하는 설명 목록을 제공
+
+단어 사전이나 메타데이터 등의 키-값 목록을 생성하는데 유용
+
+### `<dt>`: 설명 목록의 정의 (Description Term)
+
+키-값 목록에서 키의 부분을 나타내거나, 단어 사전에서 단어를 나타내는 부분을 표현
+
+### `<dd>`: 설명 목록의 정의 설명(Description Details)
 
 용어 `<dt>`에 대한 설명이나 정의, 값 등을 제공
 
@@ -224,14 +210,17 @@ CSS 적용하기
 <dl>
     <dt>Beast of Bodmin</dt>
     <dd>A large feline inhabiting Bodmin Moor.</dd>
-
-    <dt>Morgawr</dt>
-    <dd>A sea serpent.</dd>
-
-    <dt>Owlman</dt>
-    <dd>A giant owl-like creature.</dd>
 </dl>
 ```
+
+<dl>
+    <dt>Beast of Bodmin</dt>
+    <dd>A large feline inhabiting Bodmin Moor.</dd>
+</dl>
+
+---
+
+
 
 ### `<div>`: 문서의 분할
 
@@ -239,21 +228,41 @@ CSS 적용하기
 
 이 요소는 다른 의미를 가진 요소들이 적절하지 않을 때만 사용
 
-### `<dl>`: 설명 목록
+```html
+<div>
+  <p>
+    Any kind of content here. Such as &lt;p&gt;, &lt;table&gt;. You name it!
+  </p>
+</div>
+```
 
-`<dd>` 요소와 `<dt>`요소를 포함하는 설명 목록을 제공
 
-단어 사전이나 메타데이터 등의 키-값 목록을 생성하는데 유용
 
-### `<dt>`: 설명 목록의 정의 
+---
 
-키-값 목록에서 키의 부분을 나타내거나, 단어 사전에서 단어를 나타내는 부분을 표현
+
 
 ### `<fieldset>`: 필드 집합의 라벨
 
-웹 상의 여러 컨트롤과 레이블을 묶을 때 사용
+웹 양식(`<form>`)에서 여러 컨트롤과 레이블을 그룹화
 
 그룹에 대한 설명: `<legend>`요소로 제공
+
+속성
+
+- form
+  - 페이지 내에서 `<fieldset>`요소와 연결할 `<form>`요소의 id
+- disabled
+  - `<fieldset>`요소 내의 모든 콘텐츠를 한 번에 비활성화
+- name
+  - 그룹에 대한 이름
+
+기본 css 속성
+
+- display: block
+- border: 2px groove
+- min-inline-size: min-content
+- 약간의 내부 여백
 
 ```html
 <form>
@@ -272,21 +281,29 @@ CSS 적용하기
 </form>
 ```
 
-속성
+<form>
+  <fieldset>
+    <legend>Choose your favorite monster</legend>
+    <input type="radio" id="kraken" name="monster">
+    <label for="kraken">Kraken</label><br/>
+    <input type="radio" id="sasquatch" name="monster">
+    <label for="sasquatch">Sasquatch</label><br/>
+    <input type="radio" id="mothman" name="monster">
+    <label for="mothman">Mothman</label>
+  </fieldset>
+</form>
 
-- form
-  - 페이지 내에서 `<fieldset>`요소와 연결할 `<form>`요소의 id
-- disabled
-  - `<fieldset>`요소 내의 모든 콘텐츠를 한 번에 비활성화
-- name
-  - 그룹에 대한 이름
 
-기본 css 속성
 
-- display: block
-- border: 2px groove
-- min-inline-size: min-content
-- 약간의 내부 여백
+---
+
+### `<figure>`: 미디어 콘텐츠 그룹과 설명
+
+다른 부분으로 이동해도 문제가 없는 독립적인 컨텐츠를 제공
+
+요소 내부에 `<figcaption>`를 포함하여 설명을 제공
+
+
 
 ### `<figcaption>`: 그림 설명 
 
@@ -300,11 +317,7 @@ CSS 적용하기
 </figure>
 ```
 
-### `<figure>`: 미디어 콘텐츠 그룹과 설명
 
-다른 부분으로 이동해도 문제가 없는 독립적인 컨텐츠를 제공
-
-요소 내부에 `<figcaption>`를 포함하여 설명을 제공
 
 코드 표현
 
@@ -325,6 +338,21 @@ function NavigatorExample() {
 </figure>
 ```
 
+<figure>
+  <figcaption><code>navigator</code>를 이용하여 브라우저 정보 얻기</figcaption>
+  <pre>
+function NavigatorExample() {
+  var txt;
+  txt = "Browser CodeName: " + navigator.appCodeName;
+  txt+= "Browser Name: " + navigator.appName;
+  txt+= "Browser Version: " + navigator.appVersion ;
+  txt+= "Cookies Enabled: " + navigator.cookieEnabled;
+  txt+= "Platform: " + navigator.platform;
+  txt+= "User-agent header: " + navigator.userAgent;
+}
+  </pre>
+</figure>
+
 인용문 표현
 
 ```html
@@ -334,6 +362,12 @@ function NavigatorExample() {
   then programming must be the process of putting them in.</blockquote>
 </figure>
 ```
+
+<figure>
+  <figcaption><cite>Edsger Dijkstra:</cite></figcaption>
+  <blockquote>If debugging is the process of removing software bugs,
+  then programming must be the process of putting them in.</blockquote>
+</figure>
 
 시 표현
 
@@ -351,16 +385,41 @@ Love is a spirit all compact of fire,
 </figure>
 ```
 
+<figure>
+  <p style="white-space:pre">
+Bid me discourse, I will enchant thine ear,
+  Or like a fairy trip upon the green,
+Or, like a nymph, with long dishevell'd hair,
+  Dance on the sands, and yet no footing seen:
+Love is a spirit all compact of fire,
+  Not gross to sink, but light, and will aspire.</p>
+  <figcaption><cite>Venus and Adonis</cite>,
+    by William Shakespeare</figcaption>
+</figure>
 
 
-### `<footer>`: 페이지나 구역의 푸터
+
+---
+
+
+
+### `<footer>`: 페이지나 구역의 바닥글
 
 가장 가까운 구획 콘텐츠나 구획 루트에 대한 푸터를 제공
 
 푸터는 일반적으로 작성자, 저작권 정보, 관련 문서 등에 대한 내용을 포함
 
 Tip:
-푸터에 `<address>`를 이용해 작성자 정보를 표현
+
+- 푸터에 `<address>`를 이용해 작성자 정보를 표현
+- 가장 가까운 상위 요소를 본문으로 하여 전체 페이지에 적용
+- `<footer`>는 컨텐츠를 섹션화하지 하지 않아 개요에 나타나지 않는다.
+
+```html
+<footer>
+  Some copyright info or perhaps some author info for an &lt;article&gt;?
+</footer>
+```
 
 
 
@@ -368,22 +427,7 @@ Tip:
 
 대화형 컨트롤을 제공
 
-```html
-<form action="" method="get" class="form-example">
-  <div class="form-example">
-    <label for="name">Enter your name: </label>
-    <input type="text" name="name" id="name" required>
-  </div>
-  <div class="form-example">
-    <label for="email">Enter your email: </label>
-    <input type="email" name="email" id="email" required>
-  </div>
-  <div class="form-example">
-    <input type="submit" value="Subscribe!">
-  </div>
-</form>
-
-```
+CSS 의사 클래스 `:valid`, `:invalid`를 통해 양식이 유효한 경우에 대한 CSS 속성 적용 가능
 
 속성
 
@@ -422,7 +466,37 @@ Tip:
   - _parent: 응답을 현재 브라우징 맥락의 부모에 표시. 부모가 없으면 _self와 동일하게 동작
   - _top: 응답을 최상단 브라우징 맥락에 표시. 부모가 없으면 _self와 동일하게 동작
 
-### 
+```html
+<form action="" method="get" class="form-example">
+  <div class="form-example">
+    <label for="name">Enter your name: </label>
+    <input type="text" name="name" id="name" required>
+  </div>
+  <div class="form-example">
+    <label for="email">Enter your email: </label>
+    <input type="email" name="email" id="email" required>
+  </div>
+  <div class="form-example">
+    <input type="submit" value="Subscribe!">
+  </div>
+</form>
+```
+
+<form action="" method="get" class="form-example">
+  <div class="form-example">
+    <label for="name">Enter your name: </label>
+    <input type="text" name="name" id="name" required>
+  </div>
+  <div class="form-example">
+    <label for="email">Enter your email: </label>
+    <input type="email" name="email" id="email" required>
+  </div>
+  <div class="form-example">
+    <input type="submit" value="Subscribe!">
+  </div>
+</form>
+
+---
 
 
 
@@ -432,8 +506,8 @@ Tip:
 
 Tips:
 
-- 글씨 크기 조정은 h태그가 아닌 css의 font-size 이용
-- 제목 단계는 h1부터 h2, h3 순차적으로 건너뛰지 않고 기입
+- 글씨 크기 조정은 h태그가 아닌 css의 `font-size` 이용
+- 제목 단계는` h1`부터 `h2`, `h3` 순으로 건너뛰지 않고 순차적으로  사용
 - 페이지당 하나의 h1 태그를 사용
 
 `<header>`: 페이지나 구역의 헤더
@@ -452,9 +526,20 @@ Tips:
 </main>
 ```
 
+<header class="page-header">
+    <h1>Cute Puppies Express!</h1>
+</header>
+<main>
+    <p>I love beagles <em>so</em> much! Like, really, a lot. They’re adorable and their ears are so, so snuggly soft!</p>
+</main>
+
+---
+
+
+
 ### `<hgroup>`: 헤더 정보 그룹
 
-문서 구획의 다단계 제목을 표현
+제목, 부제목과 같이 문서 구획의 다단계 제목을 표현
 
 h1~h6 태그 여러 개를 묶을 때 사용 
 
@@ -477,14 +562,6 @@ h1~h6 태그 여러 개를 묶을 때 사용
 
 목록에서 항목을 나타내므로 `<ol>`이나 `<ul>`,`<menu>`안에 위치
 
-```html
-<ol type="I">
-    <li value="3">third item</li>
-    <li>fourth item</li>
-    <li>fifth item</li>
-</ol>
-```
-
 속성
 
 - value
@@ -498,6 +575,20 @@ h1~h6 태그 여러 개를 묶을 때 사용
   - i: 소문자 로마 숫자
   - I: 대문자 로마 숫자
   - 1: 숫자
+
+```html
+<ol type="I">
+    <li value="3">third item</li>
+    <li>fourth item</li>
+    <li>fifth item</li>
+</ol>
+```
+
+<ol type="i">
+    <li value="3">third item</li>
+    <li>fourth item</li>
+    <li>fifth item</li>
+</ol>
 
 
 
