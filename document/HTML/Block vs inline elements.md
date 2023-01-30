@@ -9,17 +9,32 @@
 - 블록 레벨 요소는 자신의 이전 요소와 이후 요소 사이에 줄 바꿈
 - 페이지의 구조적 요소 표현에 유용
 
+
+
 ### `<address>` : 전화번호, 이메일 등 연락처 정보를 포함하는 요소
 
-
+- 주로 이탤릭체로 표현
+- 실제 주소, 이메일 주소, URL, 전화번호, 소셜 미디어 아이디, 지리적 좌표 등 모든 유형의 연락처 정보를 포함
+- 연락처 정보를 참조하는 사람 또는 조직의 이름이 포함 
+- 일반적으로 `<footer>`안에서 사용된다.
 
 ```html
 <address>
   <a href="mailto:jim@rock.com">jim@rock.com</a><br>
   <a href="tel:+13115552368">(311) 555-2368</a>
+  You can contact author at
+  <a href="http://www.somedomain.com/contact"> www.somedomain.com</a>.<br />  
+</address>
+```
+
+<address>
+  <a href="mailto:jim@rock.com">jim@rock.com</a><br>
+  <a href="tel:+13115552368">(311) 555-2368</a><br>
+    You can contact author at
+  <a href="http://www.somedomain.com/contact"> www.somedomain.com</a>.<br />
 </address>
 
-```
+---
 
 
 
@@ -29,8 +44,10 @@
 
 Tip:
 
+- `<article>` 항목을 식별하는데 `<h1>~<h6>`제목 요소를 사용
+- `<article>`은 중첩이 가능하고 하위 항목은 상위 항목과 관련이 있어야 한다.
 - 작성자 정보: `<address>`를 이용해 제공
-- 작성일자와 시간: `<time>`요소의 datetime 속성 이용해 제공
+- 작성일자와 시간: `<time>`요소의 `<time datetime="2018-07-07">`와 같은 속성 이용해 제공
 
 ```html
 <article class="film_review">
@@ -66,11 +83,47 @@ Tip:
 </article>
 ```
 
+<article class="film_review">
+  <header>
+    <h2>Jurassic Park</h2>
+  </header>
+  <section class="main_review">
+    <p>Dinos were great!</p>
+  </section>
+  <section class="user_reviews">
+    <article class="user_review">
+      <p>Way too scary for me.</p>
+      <footer>
+        <p>
+          Posted on <time datetime="2015-05-16 19:00">May 16</time> by Lisa.
+        </p>
+      </footer>
+    </article>
+    <article class="user_review">
+      <p>I agree, dinos are my favorite.</p>
+      <footer>
+        <p>
+          Posted on <time datetime="2015-05-17 19:00">May 17</time> by Tom.
+        </p>
+      </footer>
+    </article>
+  </section>
+  <footer>
+    <p>
+      Posted on <time datetime="2015-05-15 19:00">May 15</time> by Staff.
+    </p>
+  </footer>
+</article>
+
+---
+
 
 
 ### `<aside>`: 부가 콘텐츠
 
 문서의 주요 내용과 간접적인 연관 컨텐츠를 제공. 부연 설명
+
+사이드바 또는 콜아웃 상자의 역할 
 
 ```html
 <article>
@@ -87,7 +140,18 @@ Tip:
 </article>
 ```
 
-
+<article>
+  <p>
+    디즈니 만화영화 <em>인어 공주</em>는
+    1989년 처음 개봉했습니다.
+  </p>
+  <aside>
+    인어 공주는 첫 개봉 당시 8700만불의 흥행을 기록했습니다.
+  </aside>
+  <p>
+    영화에 대한 정보...
+  </p>
+</article>
 
 ### `<blockquote>`: 인용구
 
