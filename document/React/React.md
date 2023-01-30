@@ -751,6 +751,68 @@ handleInputChange(event) {
 
 https://formik.org/
 
+# 외부 데이터
+
+> HTTP 요청과 Promise에는 3가지 상태 진행중, 성공,실패가 있다.
+>
+> 반드시 3가지 상태에 대해 모두 처리를 해야 한다.
+
+## fetch() 로 가져오기
+
+- `useEffect()` -> `fetch()`
+- `useState()` -> 
+
+```jsx
+import React, { useState, useEffect } from "react";
+const GitHubUser = ({ username }) => {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    if (!login) return;
+    fetch(`https://api.github.com/users/${login}`)
+      .then((res) => res.json())
+      .then(setData)
+      .catch(console.error);
+  }, [login]);
+  if (data) return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return null;
+};
+
+export default GitHubUser;
+```
+
+
+
+## 로컬 스토리지로 가져오기
+
+- key값을 사용해 문자열 형태로 저장
+- 객체 저장 => JSON 문자열로 저장
+- 객체 불러오기 => JSON 문자열 파싱
+
+> 모두 동기적인 작업이므로 성능에 영향을 미친다.
+
+```javascript
+const loadJSON = key =>
+	key && JSON.parse(localStorage.getItem(key));
+const saveJSON = (key, data) => 
+	localStorage.setItem(key, JSON.stringify(data));
+```
+
+```jsx
+const [data, setData] = useState(loadJSON(`user: ${login}`));
+useEffect(() => {
+	if(!data) return;
+	if (data.login === login) return;
+	const {name, avatar_url, location} = data;
+	saveJSON(`user: ${login}`, {
+		name, 
+		login,
+		avatar_url,
+		location,
+	});
+}, [data]);
+```
+
 
 
 ## Context
@@ -794,3 +856,32 @@ https://formik.org/
 
 
 
+# Render Props
+
+- 렌더링되는 프로퍼티
+- 무엇을 렌더링할지 알려주는 함수
+- 컴포넌트 재사용성을 올릴 수 있다.
+
+```jsx
+<List 
+    data ={data}
+    renderItem={item => (<li>item.name</li>)} 
+/>
+
+const List ({ render,data }) => {
+    return (
+        <ul>
+            {data.map((item,idx) => renderItem(item))}
+        </ul>)
+}
+```
+
+https://ko.reactjs.org/docs/render-props.html
+
+
+
+# 목록 가상화
+
+
+
+https://ko.reactjs.org/docs/optimizing-performance.html#virtualize-long-lists
