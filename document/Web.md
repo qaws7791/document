@@ -58,3 +58,48 @@ https://w3c.github.io/html-aria/
 
 https://www.w3.org/TR/wai-aria-practices-1.2/
 
+**CSS 참조(Mozilla)**
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Reference
+
+**HTML 및 CSS: Jon Duckett의 웹사이트 디자인 및 구축**
+
+https://www.amazon.com/HTML-CSS-Design-Build-Websites/dp/1118008189/
+
+**Eric Meyer의 CSS 확정 가이드**  
+
+https://www.amazon.com/CSS-Definitive-Guide-Visual-Presentation/dp/1449393195/
+
+**부트스트랩 공식 웹사이트**
+
+https://getbootstrap.com/
+
+**Daniel Foreman** **의 부트스트랩 5 기초**  
+
+https://www.amazon.com/Bootstrap-Foundations-Mr-Daniel-Foreman/dp/B0948GRS8W/
+
+**Ben Frain** **의 HTML5 및 CSS**   **를 사용한 반응형 웹 디자인**  
+
+https://www.amazon.com/Responsive-Web-Design-HTML5-CSS/dp/1839211563/
+
+**부트스트랩 테마**  
+
+https://themes.getbootstrap.com/
+
+### **리액트 공식 홈페이지**
+
+https://reactjs.org/
+
+**기존 웹 앱과 단일 페이지 앱 중에서 선택(Microsoft)**
+
+https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps
+
+**React 소스 코드(Github)**
+
+https://github.com/facebook/react
+
+**React.js 소개**  
+
+*2013년 페이스북에서 녹화된 원본 동영상.*
+
+[*https://youtu.be/XxVg_s8xAms*](https://youtu.be/XxVg_s8xAms)
