@@ -68,6 +68,7 @@ selector {
 - **margin**
   - 테두리밖 공간이다
   - 요소와 요소사이의 간격
+  - 요소 중앙 정렬 `margin: auto;`
 - 요소간의 위아래 간격 조정시 margin-top을 쓸지 margin-bottom을 쓸지 일관적으로 하는 것이 헷갈리지 않음
   
 - 크기 설정 속기형
