@@ -279,6 +279,19 @@ func.call(thisArg[, arg1[, arg2[, ...]]])
 func.apply(thisArg, [argsArray])
 ```
 
+### 나머지 연산자(Rest Parameters)
+
+- 함수에서 여러 파라미터를 받을 때, 정의하지 않는 파라미터 나머지 부분을 
+  하나의 배열로 받을 수 있다. 
+
+```javascript
+function f(a, b, ...theArgs) {
+  // …
+}
+```
+
+
+
 ## 프로토타입 체이닝
 
 - 해당 객체에 메서드나 프로퍼티가 존재하지 않으면 
