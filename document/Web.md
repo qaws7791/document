@@ -103,3 +103,71 @@ https://github.com/facebook/react
 *2013년 페이스북에서 녹화된 원본 동영상.*
 
 [*https://youtu.be/XxVg_s8xAms*](https://youtu.be/XxVg_s8xAms)
+
+[Mozilla 개발자 네트워크 표현식 및 연산자](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators) 
+
+[Mozilla Developer Network Operator 우선 순위 및 연관성](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) 
+
+[자바스크립트 기본 값](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) 
+
+[ECMA262 사양](https://tc39.es/ecma262/) 
+
+[jQuery 공식 웹사이트](https://jquery.com/) 
+
+[리액트 공식 홈페이지](https://reactjs.org/) 
+
+[StackOverflow 개발자 설문조사 2021 가장 인기 있는 기술](https://insights.stackoverflow.com/survey/2021#technology-most-popular-technologies)
+
+[이모티콘](http://unicode.org/emoji/charts/full-emoji-list.html#1f600)
+
+[Comparison Operators](https://www.javascripttutorial.net/javascript-comparison-operators/) 
+
+[Truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) 
+
+[Falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) 
+
+[Conditional statements](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals)
+
+[JavaScript Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions) 
+
+[JavaScript Object Basics](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics) 
+
+[typeof operator in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof) 
+
+[Arrays are "list-like objects"](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Arrays)  
+
+[MDN functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function) 
+
+[MDN try...catch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch) 
+
+[Iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) 
+
+[The Math object on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) 
+
+[The String object on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) 
+
+[MDN JavaScript error reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors) 
+
+[The null value on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null) 
+
+[The undefined property on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)  
+
+[MDN Functions Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions) 
+
+[MDN Glossary: Recursion](https://developer.mozilla.org/en-US/docs/Glossary/Recursion) 
+
+[MDN Glossary: Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope) 
+
+[Functional Programming in JavaScript](https://www.toptal.com/javascript/functional-programming-javascript) 
+
+[MDN: First-class functions](https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function)  
+
+[Constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) 
+
+[Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+
+[Object-oriented programming](https://css-tricks.com/the-flavors-of-object-oriented-programming-in-javascript/)  
+
+[Regular Expressions in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
+
+[RegExp object in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
