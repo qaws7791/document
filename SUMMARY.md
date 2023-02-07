@@ -8,5 +8,5 @@
   * [Function](document/JavaScript/Function.md)
   * [Object](document/JavaScript/Object.md)
   * [Variable](document/JavaScript/Variable.md)
-  * [Web API](document/JavaScript/WEB API.md)
+  * [Web API](document/JavaScript/WebAPI.md)
 * [React](document/React/React.md)
