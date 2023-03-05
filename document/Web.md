@@ -171,3 +171,103 @@ https://github.com/facebook/react
 [Regular Expressions in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
 
 [RegExp object in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+
+[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) 
+
+[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) 
+
+[Spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) 
+
+[Rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) 
+
+[JavaScript data structures](https://data-flair.training/blogs/javascript-data-structures/)  
+
+[MDN: Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+
+[Nodejs.org official docs on CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)
+
+[MDN: DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+
+[MDN: Document.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+
+[MDN: Event](https://developer.mozilla.org/en-US/docs/Web/API/Event)
+
+[MDN: EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+
+[MDN: Working with JSON](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON)
+
+[MDN: Server-side website programming](https://developer.mozilla.org/en-US/docs/Learn/Server-side)
+
+[Nodejs.org docs website](https://nodejs.org/api/documentation.html)
+
+[Jest testing framework website](https://jestjs.io/)
+
+[Cypress testing framework](https://www.cypress.io/)
+
+[npm website](https://www.npmjs.com/)
+
+[Unit testing in JavaScript](https://www.browserstack.com/guide/unit-testing-in-javascript)
+
+**About Version Control**
+
+https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
+
+**List of Version Control Software**
+
+https://en.wikipedia.org/wiki/List_of_version-control_software
+
+**The benefits of a distributed version control system**
+
+https://about.gitlab.com/topics/version-control/benefits-distributed-version-control-system/
+
+**What is Cloning?**
+
+[**https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository**](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+
+**Agile methodologies**
+
+[**https://www.planview.com/resources/guide/agile-methodologies-a-beginners-guide/**](https://www.planview.com/resources/guide/agile-methodologies-a-beginners-guide/)
+
+**Installing git on mac and windows, detailed instructions.**
+
+[**https://git-scm.com/book/en/v2/Getting-Started-Installing-Git**](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+**Bash Reference Manual**
+
+https://www.gnu.org/software/bash/manual/html_node/index.html#SEC_Contents
+
+**Bash Redirections**
+
+https://www.gnu.org/software/bash/manual/html_node/Redirections.html#Redirections
+
+**Bash Cheatsheet**
+
+https://devhints.io/bash
+
+**Grep Cheatsheet**
+
+https://devhints.io/grep
+
+**Grep Manual**
+
+https://man7.org/linux/man-pages/man1/grep.1.html
+
+**History and Timeline of Unix**  
+
+https://unix.org/what_is_unix/history_timeline.html
+
+**History of Vim**
+
+https://en.wikipedia.org/wiki/Vim_(text_editor)
+
+**How to work with relative and absolute paths**  
+
+[**https://www.geeksforgeeks.org/absolute-relative-pathnames-unix/**](https://www.geeksforgeeks.org/absolute-relative-pathnames-unix/)
+
+**Unix Commands Cheatsheet**
+
+https://cheatography.com/jluis/cheat-sheets/bash-and-unix-commands/
+
+**Vim Cheatsheet**
+
+https://vim.rtorr.com/
