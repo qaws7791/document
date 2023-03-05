@@ -65,13 +65,13 @@ description: javascript에 대한 페이지
 
 #### 2. 클라이언트 측의 자바스크립트 고유 기술
 
-​ 웹브라우저의 주요 API
+ 웹브라우저의 주요 API
 
 * Window 인터페이스 : 브라우저 및 창 조작
 * DOM : HTML 문저 제어
 * XMLHttpRequest : 서버와 비동기 통신
 
-​ HTML5의 주요 API
+ HTML5의 주요 API
 
 * Drag and Drop : 드래그와 드롭으로 데이터 전달
 * Blob : 이진 데이터 조작
@@ -200,7 +200,7 @@ else
               food: "cake",
             },
           };
-
+    
     const printFavoriteSport = ({ favorite: { sport } }) => {
     	console.log(`Favorite sport is ${sport}`);
     };
@@ -251,13 +251,21 @@ spread 프로퍼티를 제외한 iterable 객체 전용
     console.log(sum.apply(null, numbers));
     ```
 
-### 배열 리터럴 전개
+### 배열 합치기 (배열 리터럴 전개)
 
 ```javascript
 const numbers = [1, 2, 3];
 const numbers2 = [4, 5, 6];
 console.log([numbers, numbers2]); // [[1,2,3],[4,5,6]]
 console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
+```
+
+### 문자열을 배열로 분해하기
+
+```javascript
+const greeting = "Hello";
+const arrayOfChars = [...greeting];
+console.log(arrayOfChars); //  ['H', 'e', 'l', 'l', 'o']
 ```
 
 ### 배열 복사
@@ -280,7 +288,7 @@ console.log(numbers); // [1,2,3]
 console.log(numbers2); // [1,2,3,4]
 ```
 
-#### 객체 리터럴 전개
+### 객체 리터럴 전개
 
 ```javascript
 const user = {
