@@ -335,6 +335,12 @@ console.log(foo.hasOwnProperty('name')); // true
 
 - 정의와 동시에 즉시 실행되는 함수
 
+  ```javascript
+  (function () {
+      statements
+  })();
+  ```
+
 ```js
 (function (x) {
     console.log(x*x);

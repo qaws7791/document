@@ -1,5 +1,7 @@
 # git
 
+![image-20230314121524111](./git.assets/image-20230314121524111.png)
+
 ## git 시작하기
 
 - git init

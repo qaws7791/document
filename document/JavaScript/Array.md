@@ -90,7 +90,26 @@ console.log(a); // [undefined, "C", "D"]
 
 ## 배열 함수
 
-### Join()
+### concat()
+
+둘 이상의 배열을 합쳐 새로운 배열을 반환
+
+```javascript
+concat(value0, value1, /* … ,*/ valueN)
+```
+
+```javascript
+const array1 = ['a', 'b', 'c'];
+const array2 = ['d', 'e', 'f'];
+const array3 = array1.concat(array2);
+
+console.log(array3);
+// ["a", "b", "c", "d", "e", "f"]
+```
+
+
+
+### join()
 
 배열 또는 유사 배열 객체에서 모든 요소들을 이어 붙여 새로운 문자열로 반환한다.
 
@@ -125,9 +144,15 @@ console.log(Array.prototype.join.call(arrayLike2)); // ,,
 console.log(Array.prototype.join.call(arrayLike3)); // 0,1,2
 ```
 
-### Filter()
+
+
+### filter()
 
 인자로 받는 함수의 반환 값이 `true`인 요소 만을 모아 **얕은 복사 배열**을 만들어 반환
+
+```javascript
+Array.filter((element, index, array) => { /* … */ })
+```
 
 ```javascript
 const words = [
@@ -139,24 +164,28 @@ const words = [
     "present",
 ];
 const result = words.filter((word) => word[0] === "e");
-console.log(result);
+console.log(result); [ "elite", "exuberant"]
 ```
 
-### Map()
+
+
+### map()
 
 함수를 인자로 받아 각각의 원소에 함수를 적용한 결과를 새로운 배열로 만들어 반환
 
 ```javascript
-map((element, index, array) => { /* … */ })
+Array.map((element, index, array) => { /* … */ })
 ```
 
 ```javascript
 const arr = [1, 2, 3, 4, 5];
-const square = arr.map((x) => x * x);
+const square = arr.map((element) => element * element);
 console.log(square); // 1 4 9 16 25
 ```
 
-### Reduce()
+
+
+### reduce()
 
 리듀서 콜백 함수를 배열 요소 순서대로 실행하여 
 
@@ -171,6 +200,136 @@ const arr = [1, 2, 3, 4, 5];
 const sum = arr.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0);
+
+// accumulator + currentValue
+// 		0 	   + 	1 => 1
+// 		1 	   + 	2 => 3
+// 		3 	   + 	3 => 6
+// 		6 	   + 	4 => 10
+// 		10 	   + 	5 => 15
 console.log(sum); // 15
 ```
+
+
+
+### slice()
+
+인덱스를 기준으로 배열을 잘라서 새로운 배열을 반환
+
+```javascript
+slice(start, end)
+```
+
+```javascript
+const arr = [1, 2, 3, 4, 5];
+console.log(arr.slice(2,4)) // [3,4]
+```
+
+
+
+### splice()
+
+배열의 요소를 더하거나 / 대체하거나 / 삭제한 다음 삭제된 요소의 배열을 반환
+
+```javascript
+splice(start, deleteCount, item1, item2, itemN)
+```
+
+```javascript
+const arr = ['a','b','d'];
+
+arr.splice(2,0,"c") // add "c" -> ["a", "b", "c", "d"]
+
+arr.splice(0,1,"A") // replace 'a' to "A" -> ["A", "b", "c", "d"]
+
+arr.splice(3,1) // remove 'd' -> ["A", "b", "c"]
+
+```
+
+
+
+## 배열에서 찾기
+
+### find()
+
+배열에서 테스팅 함수를 만족하는 첫 번째 요소를 찾아  **요소의 값**을 반환
+
+```javascript
+Array.find((element, index, array) => { /* … */ })
+```
+
+```javascript
+const array1 = [5, 12, 8, 130, 44];
+const found = array1.find(element => element >100);
+
+console.log(found); // 130
+```
+
+### findIndex()
+
+배열에서 테스팅 함수를 만족하는 첫 번째 요소를 찾아 **요소의 인덱스**를 반환.
+
+찾는 요소가 없는 경우 -1을 반환
+
+```javascript
+Array.findIndex((element, index, array) => { /* … */ })
+```
+
+```javascript
+const array1 = [5, 12, 8, 130, 44];
+
+const isLargeNumber = (element) => element > 13;
+
+console.log(array1.findIndex(isLargeNumber)); // 3
+```
+
+### indexOf()
+
+배열에서 주어진 값과 일치하는 첫 번째 요소를 찾아 **요소의 인덱스**를 반환
+
+```javascript
+Array.indexOf(searchElement, fromIndex)
+```
+
+```javascript
+const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
+console.log(beasts.indexOf('bison')); // 1
+```
+
+
+
+### includes()
+
+배열의 요소 중에서 주어진 값과 일치하는 요소가 있으면 true를 반환
+
+```javascript
+includes(searchElement, fromIndex)
+```
+
+```javascript
+const array1 = [1, 2, 3];
+console.log(array1.includes(2)); // true
+```
+
+### some()
+
+배열의 요소 중  한 요소라도 테스팅 함수를 통과하면 true를 반환 
+
+```javascript
+some((element, index, array) => { /* … */ })
+```
+
+```javascript
+const array = [1, 2, 3, 4, 5];
+
+// Checks whether an element is even
+const even = (element) => element % 2 === 0;
+
+console.log(array.some(even));
+// Expected output: true
+```
+
+
+
+
 

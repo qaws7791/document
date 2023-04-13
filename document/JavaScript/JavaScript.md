@@ -214,7 +214,7 @@ const arr = [1, 2, 3, 4, 5];
 const [first, second] = arr;
 const [, , third] = arr;
 const [last] = [...arr].reverse();
-console.log(first, second, third, last);
+console.log(first, second, third, last); // 1 2 3 5
 ```
 
 ### 객체 리터럴 개선
@@ -300,7 +300,7 @@ user2.name = "bar";
 console.log(user.name, user2.name); // foo bar
 ```
 
-## 나머지 매개변수
+## 나머지 매개변수(...args)
 
 함수에서 정해지지 않은 수의 매개변수를 배열로 받을 수 있다.
 
@@ -369,17 +369,17 @@ console.log(foo);
 > 이미 생성된 객체는 User를 변경해도 영향을 받지 않음
 
 ```javascript
-      class User {
-        constructor(name, age) {
-          this.name = name;
-          this.age = age;
-        }
-        printName() {
-          console.log(`name: ${this.name}, age: ${this.age}`);
-        }
-      }
-      const foo = new User("foo", 20);
-      foo.printName();
+class User {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    printName() {
+      console.log(`name: ${this.name}, age: ${this.age}`);
+    }
+}
+const foo = new User("foo", 20);
+foo.printName();
 ```
 
 ### ES6 모듈
