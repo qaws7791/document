@@ -409,7 +409,7 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Operato
 
 
 
-## 연산자
+## 사칙연산 연산자
 
 ### + 연산자
 
@@ -511,51 +511,28 @@ console.log(2 ** -2) // 1/2 * 1/2 -> 0.25
 
 
 
-### = 연산자
+## 비교 연산자
 
-- 변수에 값을 대입(할당)
+### Boolean 비교
+
+- 비교 연산자들은 결과 값으로 `true`, `false` 값을 반환한다.
+
+### 문자열 비교
+
+- 문자열은 사전편집순으로 비교된다. 
+- 즉 사전 앞쪽에 나오는 문자열이 값이 낮다. a < b < c ...
+- 문자열은 앞에서부터 한 글자씩 차례대로 비교한다. 
+- 문자열 길이가 다르고 앞에 문자열이 같을 경우, 더 긴 문자열이 더 높은 값을 가진다.
+- 값 순서(크기): 숫자 < 알파벳 대문자 < 알파벳 소문자 < 한글
 
 ```javascript
-x = 10;
-y = z = x // x -> y -> z
-
-console.log(x) // 10
-console.log(y) // 10
-console.log(z) // 10
+console.log('a'<'b') // true
+console.log('abuse'<'apple') // true
+console.log('ab'<'abc') // true
+console.log('a'>'A') // true
 ```
 
 
-
-### , 연산자
-
-- 각 피연자를 왼쪽부터 오른쪽으로 평가하고, 마지막 피연산자의 값을 반환
-- 한 줄에서 여러 연산자를 평가할 수 있다
-- 가독성이 좋지 않다. 때문에 잘 사용하지 않는다..
-
-
-
-### typeof 연산자
-
-- 타입을 문자열로 리턴
-
-```javascript
-console.log(typeof 1); // "number"
-console.log(typeof "1"); // "string"
-console.log(typeof 1n); // "bigint"
-console.log(typeof true); // "boolean"
-console.log(typeof {}); // "object"
-console.log(typeof []); // "object"
-console.log(typeof function () {}); // "function"
-console.log(typeof null); // "object"
-```
-
-### instanceof 연산자
-
-- `object`의 프토토타입 체인에 `constructor.prototype`이 존재하는지 판별
-
-```javascript
-object instanceof constructor
-```
 
 ### == 과 === 연산자
 
@@ -605,39 +582,68 @@ Number.isNaN(100 + "a") // false
 
 
 
-## 비교 연산자
-
-### Boolean 비교
-
-- 비교 연산자들은 결과 값으로 `true`, `false` 값을 반환한다.
-
-### 문자열 비교
-
-- 문자열은 사전편집순으로 비교된다. 
-- 즉 사전 앞쪽에 나오는 문자열이 값이 낮다. a < b < c ...
-- 문자열은 앞에서부터 한 글자씩 차례대로 비교한다. 
-- 문자열 길이가 다르고 앞에 문자열이 같을 경우, 더 긴 문자열이 더 높은 값을 가진다.
-- 값 순서(크기): 숫자 < 알파벳 대문자 < 알파벳 소문자 < 한글
-
-```javascript
-console.log('a'<'b') // true
-console.log('abuse'<'apple') // true
-console.log('ab'<'abc') // true
-console.log('a'>'A') // true
-```
-
 
 
 ## 논리 연산자
 
 ### || 연산자
 
-- 피연산자 중 하나 이상이 true인 경우 true를 반환
-- 왼쪽에서 오른쪽으로 평가
+- 피연산자 들을 왼쪽에서 오른쪽으로 평가하며, true를 만나면  true를 반환, 없다면 false 반환
+- 피연산자가 `boolean` true 값이면 `boolean` true을 반환하지만,
+  다른 값이면 그 값을 반환한다.
+- 모든 값이 `falsy`이면  마지막 피연산자 값을 반환
+- && 연산자보다 우선순위가 낮다
 
 ```javascript
 console.log(3 > 2 || 1 > 4) // true
 console.log(3 < 2 || 'hello') // "hello"
+console.log(124 || "hello") // 124  : 0이 아닌 숫자는 true이므로 그대로 반환
+console.log(0 || "hello") // "hello" : 숫자 0은 false이므로 "hello"가 true이므로 그대로 반환
+console.log(0 || '') // ''
+console.log(0 || null) // null
+console.log(true || false && false) // true || false ->  true
+```
+
+
+
+### && 연산자
+
+- 피연산자들을 왼쪽에서 오른쪽으로 평가하며, false를 만나면 false를 반환, 없다면 true 반환
+- 피연산자가 `boolean`  false 값이면 `boolean` false을 반환하지만,
+  다른 값이면 그 값을 반환한다.
+- 모든 값이 `truthy`이면 마지막 피연산자를 반환
+- false인 값은 `false`, `null`, `NaN`, `0`, `''`, `undefined` 같은 것들이 있다.
+
+```javascript
+console.log(0 && "hello") // 0
+console.log(1 && "hello") // "hello"
+console.log("foo" && 4) // 4
+```
+
+
+
+### !  연산자
+
+- 논리적 부정으로 참은 거짓으로, 거짓은 참으로 바꾼다.
+- 반환 값이 항상 `boolean`이라고 할 수는 없다.
+- `boolean`값으로 명시적으로  반환하기 위해 `!!` 또는 `Boolean` 생성자를 사용할 수 있다.
+
+```javascript
+console.log(!0) // true
+console.log(!'') // true
+console.log(!'hello') // false
+console.log(!true) // false
+console.log(!false) // true
+console.log(!!NaN) // false
+```
+
+### !! 연산자
+
+- `! 연산자`를 두 번 사용하여 boolean 값으로 변환할 수 있다.
+- 반대의 반대는 같기 때문이다
+
+```javascript
+console.log(!!0) // !0 -> true, !true -> false
 ```
 
 
@@ -706,5 +712,55 @@ console.log(16 >> 1) // 8
 ```javascript
 console.log(-1 >>> 1) // 2147483647
 console.log(-1 >>> 31) // 1
+```
+
+
+
+## 그 외 연산자
+
+### = 연산자
+
+- 변수에 값을 대입(할당)
+
+```javascript
+x = 10;
+y = z = x // x -> y -> z
+
+console.log(x) // 10
+console.log(y) // 10
+console.log(z) // 10
+```
+
+
+
+### , 연산자
+
+- 각 피연자를 왼쪽부터 오른쪽으로 평가하고, 마지막 피연산자의 값을 반환
+- 한 줄에서 여러 연산자를 평가할 수 있다
+- 가독성이 좋지 않다. 때문에 잘 사용하지 않는다..
+
+
+
+### typeof 연산자
+
+- 타입을 문자열로 리턴
+
+```javascript
+console.log(typeof 1); // "number"
+console.log(typeof "1"); // "string"
+console.log(typeof 1n); // "bigint"
+console.log(typeof true); // "boolean"
+console.log(typeof {}); // "object"
+console.log(typeof []); // "object"
+console.log(typeof function () {}); // "function"
+console.log(typeof null); // "object"
+```
+
+### instanceof 연산자
+
+- `object`의 프토토타입 체인에 `constructor.prototype`이 존재하는지 판별
+
+```javascript
+object instanceof constructor
 ```
 
