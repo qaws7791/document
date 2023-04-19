@@ -87,9 +87,9 @@ description: javascript에 대한 페이지
 
 * Node.js
 
-####
 
-## Statements(구문)과 declarations(선언)은 다르다
+
+# Statements(구문)과 declarations(선언)은 다르다
 
 ### declarations: "binding identifiers to values"
 
@@ -164,7 +164,121 @@ else
   * `label`
   * `with`
 
->
+## if 문
+
+- 지정된 `condition`의 값이 `truthy`하면 `statement1`구문을 실행하고,
+- `falsy`하면 `statement2` 구문이 실행된다
+
+```javascript
+if (condition)
+  statement1
+
+// With an else clause
+if (condition)
+  statement1
+else
+  statement2
+```
+
+- if 문을 중첩할 수 있다. 
+- `elseif`가 아닌 `else if`로 뛰어쓰기에 주의해야 한다.
+
+```javascript
+if (condition1)
+  statement1
+else if (condition2)
+  statement2
+else
+  statementN
+```
+
+
+
+## Switch 문
+
+- 표현신을 평가하여 평가된 값이 `case`와 일치하면 그 case의 구문을 실행하고
+  아래로 이동한다.
+- break가 없으면 모든 `case`를 위에서 부터 아래로 검사한다.
+- 모든 `case`가 일치하지 않으면 `default`의 구문을 실행한다.
+
+```javascript
+switch (expression) {
+  case value1:
+    //Statements executed when the
+    //result of expression matches value1
+    [break;]
+  case value2:
+    //Statements executed when the
+    //result of expression matches value2
+    [break;]
+  ...
+  case valueN:
+    //Statements executed when the
+    //result of expression matches valueN
+    [break;]
+  [default:
+    //Statements executed when none of
+    //the values match the value of the expression
+    [break;]]
+}
+```
+
+
+
+# 반복문
+
+### break: 
+
+- 반복문, `switch`문, `label`문을 종료하고 다음 문으로 이동
+
+### continue:
+
+- 현재 또는 레이블이 지정된 반복문에소 현재 반복을 종료하고 다음 반복을 진행
+
+## 
+
+### while 문
+
+- 조건이 참인지 먼저 확인하고, 참이면 구문이 실행된다. 조건이 거짓이 되면 반복이 끝난다.
+
+```javascript
+ while (condition)
+      statement
+```
+
+
+
+## do...while
+
+- 조건이 거짓일 때까지 구문을 실행한다. 
+- while문과 달리 구문이 먼저 실행된다. 따라서 최소 1번 구문이 실행된다.
+
+```javascript
+do
+  statement
+while (condition);
+
+```
+
+
+
+## for 문
+
+- 세개의  선택식으로 이루어진 반복문
+- `initialization`: 식 또는 변수를 선언
+- `condition` : 매 반복될 때마다 평가되는 식. 평가 결과가 참이면 구문을 실행하고, 거짓이면 구문을 나간다.
+- `final-expression`: 매 반복된 후 평가할 식.
+- 실행 순서: `initialization` -> `condition===true` -> `statement` -> `final-expression`
+
+```javascript
+for ([initialization]; [condition]; [final-expression])
+	statement
+
+```
+
+
+
+
 
 ## 구조적 분해
 

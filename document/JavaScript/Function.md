@@ -46,10 +46,11 @@ function distance(p,q) {
 }
 ```
 
-### 함수 선언문 호이스팅
+### 함수 선언문만 호이스팅
 
 - 변수 선언과 마찬가지로 함수 선언문을 프로그램의 첫머리로 끌어올린다
-- 함수의 위치에 상관없이 함수 선언문 형태로 생성된 함수는 유효 범위가 코드의 처음부터 시작
+- 함수 선언문은 함수의 위치에 상관없이 유효 범위가 코드의 처음부터 시작
+- 함수 표현식은 호이스팅 되지 않는다. 정의되기 전에 사용 할 수 없다.
 - 함수 표현식을 권장
 
 ```js
@@ -105,6 +106,31 @@ var a = {x:3, y:4};
 var b = add1(a);
 console.log(a,b); // Object {x=4, y=5} Object{x=4, y=5}
 ```
+
+### 매개변수(parameter; 인자)
+
+- 함수를 호출할 때 전달하는 값들
+
+```javascript
+// x, y를 인자로 받는 add 함수
+function add(x,y) {
+  return x+y
+}
+
+console.log(add(3,2)) // 5
+console.log(add()) // NaN
+```
+
+- 매개변수는 기본값을 지정하여 매개변수가 없을 때 생기는 예외적 상황을 피할 수 있다.
+
+```javascript
+function add(x=0,y=0) {
+  return x+y
+}
+console.log(add()) // 0
+```
+
+
 
 ### 변수의 유효 범위(Scope)
 
@@ -279,7 +305,7 @@ func.call(thisArg[, arg1[, arg2[, ...]]])
 func.apply(thisArg, [argsArray])
 ```
 
-### 나머지 연산자(Rest Parameters)
+### ... 연산자(나머지 연산자)
 
 - 함수에서 여러 파라미터를 받을 때, 정의하지 않는 파라미터 나머지 부분을 
   하나의 배열로 받을 수 있다. 
@@ -325,6 +351,22 @@ console.log(foo.hasOwnProperty('name')); // true
 
 
 ## 다양한 함수의 형태
+
+### 화살표 함수
+
+- this, super 바인딩 없음
+- ❗ methods로 사용 불가
+- new.target 키워드 없음
+- 스코프 지정에 사용하는 call, apply, bind methods 불가능
+- 생성자 사용 불가
+- yield를 함수 내부에서 사용 불가
+
+```javascript
+ (param1, param2, …, paramN) => expression
+ (param1, param2, …, paramN) => { return expression; }
+```
+
+
 
 ### 콜백(callback) 함수
 

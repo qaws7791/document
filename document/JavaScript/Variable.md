@@ -764,3 +764,40 @@ console.log(typeof null); // "object"
 object instanceof constructor
 ```
 
+
+
+### ? 연산자 (삼항 연산자)
+
+- 자바스크립트에서 세 개의 피연산자를 사용하는 유일한 연산자
+
+```javascript
+condition ? exprIfTrue : exprIfFalse
+```
+
+- else if 문과 비슷하게 연결하여 사용할 수 있다.
+
+```javascript
+condition1 ? value1 
+	: condition2 ? value2 
+	: value3
+```
+
+
+
+### ?. 연산자(선택적 연결; optional chaining)
+
+- 개체의 속성이나 함수를 호출 할때, 연산자의 값이 `undefined`이거나 `null`일 경우
+- 에러를 발생시키지 않고, `undefined`나 `null`을 반환한다.
+
+```javascript
+const user = {
+  name: 'foo',
+  age: 20
+}
+
+console.log(user?.name) // "foo"
+console.log(user.a?.b) // undefined
+console.log(user.a.b) // "TypeError: Cannot read properties of undefined (reading 'b')"
+
+```
+
