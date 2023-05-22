@@ -156,7 +156,7 @@ for (key in object) {
 
 - 객체의 값은 기본적으로 값이 담긴 메모리 주소를 참조한다.
 
-## assign() - 객체 복사
+## Object.assign() - 객체 복사
 
 -  출처가 되는 객체의 열거 가능한 모든 자체 속성을 복사하여 대상 객체에 붙여 넣는다
 - 동일한 키를 값는 속성은 출처 객체의 속성으로 덮어 쓴다.
@@ -232,3 +232,181 @@ console.log(Object.entries(object1));
 // Expected output: Array [["a", "somestring"], ["b", 42], ["c", false]]
 ```
 
+
+
+# Map
+
+-  키-값 쌍과 키의 원래 삽입 순서를 기억하는 객체
+- 키는 오직 단 하나만 존재 -> 유일성
+
+```javascript
+const map1 = new Map();
+
+map1.set('a', 1);
+map1.set('b', 2);
+map1.set('c', 3);
+console.dir(map1) // Map(3){ 0: {"a" => 1}, 1: {"b" => 2}, 2: { "c" => 3}, size: 3}
+console.log(map1.get('a'));
+// Expected output: 1
+
+map1.set('a', 97);
+
+console.log(map1.get('a'));
+// Expected output: 97
+
+console.log(map1.size);
+// Expected output: 3
+
+map1.delete('b');
+
+console.log(map1.size);
+// Expected output: 2
+
+```
+
+## Map.get()
+
+- Map 객체에서 특정 요소를 반환
+
+## Map.set()
+
+- Map 객체에서 키/값 쌍을 추가하거나 업데이트
+
+## Map.has()
+
+- Map 객체에서 해당 키가 존재하는지 확인하여 부울값 변환
+
+## Map.keys()
+
+```javascript
+for (const key of map1.keys()) {
+    console.log(key)
+}
+// [Map Iterator] { a, b, c }
+```
+
+## Map.values()
+
+```javascript
+for (const value of map1.values()) {
+    console.log(value)
+}
+// [Map Iterator] { 1, 2, 3 }
+```
+
+## Map.entries()
+
+- 객체의 [key, value] 쌍을 삽입 순서대로 순회하는 새로운 반복자 객체를 반환
+
+```javascript
+for (const entry of map1.entries()) {
+    console.log(entry)
+} // [Map Iterator] { ['a', 1], ['b', 2], ['c', 3]}
+```
+
+## Map.clear()
+
+- Map 객체의 모든 요소를 삭제
+
+```javascript
+map.clear()
+```
+
+## Map.delete()
+
+- Map 객체에서 특정 요소를 삭제
+- 요소가 존재하여 삭제 완료되면 `true`, 해당 요소가 없으면 `false`
+
+```javascript
+map.delete('a')
+```
+
+## Map.forEach()
+
+- 배열 `forEach`와 비슷한 기능
+- 각 키/값 쌍에 대해 함수를 실행
+
+```javascript
+map.forEach((value, key, map ) => {}, thisArg)
+```
+
+
+
+## Map과 Object 차이
+
+- Map은 기본적인 키가 없음
+- Map은 사용자가 제공한 키와 값만 안전하게 사용
+- Map의 키는 모든 값이 될 수 있다
+- Map은 삽입 순서대로 정렬
+- Map은 size 속성을 통해 속성 개수를 가져올 수 있음
+- Map은 Iterable함(순회 가능)
+- 삽입 삭제가 빈번할 때 Object보다 나은 성능
+
+# Set
+
+- 자료형에 관계없이 원시 값과 객체 참조 <u>모두 유일한 값만 저장</u>
+
+```javascript
+var mySet = new Set();
+
+mySet.add(1); // Set { 1 }
+mySet.add(5); // Set { 1, 5 }
+mySet.add(5); // Set { 1, 5 }
+mySet.add('some text'); // Set { 1, 5, 'some text' }
+var o = {a: 1, b: 2};
+mySet.add(o);
+
+mySet.add({a: 1, b: 2}); // o와 다른 객체를 참조하므로 괜찮음
+
+mySet.has(1); // true
+mySet.has(3); // false, 3은 set에 추가되지 않았음
+mySet.has(5);              // true
+mySet.has(Math.sqrt(25));  // true
+mySet.has('Some Text'.toLowerCase()); // true
+mySet.has(o); // true
+
+mySet.size; // 5
+
+mySet.delete(5); // set에서 5를 제거함
+mySet.has(5);    // false, 5가 제거되었음
+
+mySet.size; // 4, 방금 값을 하나 제거했음
+console.log(mySet);// Set {1, "some text", Object {a: 1, b: 2}, Object {a: 1, b: 2}}
+```
+
+## Set.add()
+
+- Set 객체에 동일한 값을 가진 요소가 없는 경우 객체에 새 값을 추가합니다
+
+```javascript
+set.add(value)
+```
+
+## Set.clear()
+
+- Set 객체에서 모든 요소를 제거
+
+```javascript
+set.clear()
+```
+
+## Set.delete()
+
+- 해당 값이 Set 객체에 있는 경우 삭제합니다
+- 해당 값이 Set 객체에 있으면 true, 없으면 false를 반환합니다
+
+```javascript
+set.delete(value)
+```
+
+## Set.entries()
+
+## Set.forEach()
+
+## Set.has()
+
+## Set.keys()
+
+## Set.values()
+
+- Map과 동일

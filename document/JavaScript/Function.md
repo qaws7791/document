@@ -1,9 +1,3 @@
-# 함수
-
-[TOC]
-
-
-
 ## 함수 생성 및 호출
 
 ### 함수 리터럴 방식의  함수 선언
@@ -46,7 +40,7 @@ function distance(p,q) {
 }
 ```
 
-### 함수 선언문만 호이스팅
+## 함수 선언문만 호이스팅
 
 - 변수 선언과 마찬가지로 함수 선언문을 프로그램의 첫머리로 끌어올린다
 - 함수 선언문은 함수의 위치에 상관없이 유효 범위가 코드의 처음부터 시작
@@ -61,9 +55,9 @@ console.log(square(5)) // 25
 
 
 
-## 함수 특징
+# 함수 특징
 
-### 함수는 객체이다
+## 함수는 일급 객체이다
 
 - 함수 `square(x)`는 `function(x) {return x*x;}` 를 가리키는 일종의 객체
 - 리터럴에 의해 생성되는 객체
@@ -73,18 +67,18 @@ var sq = square;
 console.log(sq(5)); // 25
 ```
 
-### 함수는 값이다
+## 함수는 값이다
 
 - 변수, 배열, 프로퍼티 등에 할당 가능하다
 - 함수의 인자나 리턴값으로 전달이 가능하다
 - 동적 프로퍼티 할당 가능
 
-### 함수가 가지는 기본 프로퍼티
+## 함수가 가지는 기본 프로퍼티
 
 - `length` : 함수가 기대하는 정상적인 인자의 개수
 - `prototype`: 객체의 부모를 가리키는 [[Prototype]]과 다름. `constructor` 프로퍼티를 가리킴.  `constructor` 프로퍼티는 함수를 가리킴. `함수(prototype`) ↔ `constructor`
 
-### 값에 의한 호출
+## 값에 의한 호출
 
 - 값의 전달: 인수에 원시 값(여기서는 a = 3)을 넘기면 그 값 자체가 인자에 전달되어
   a의 값은 변하지 않는다
@@ -96,7 +90,7 @@ var b = add1(a);
 console.log("a = " + a + ", b = " + b); // a = 3, b = 4
 ```
 
-### 참조에 의한 호출
+## 참조에 의한 호출
 
 - 참조전달: 인수에 객체(여기서는 a={x:3, y:4})를 넘기면 참조 값을 p에 대입하므로 p를 수정하면 a까지 수정된다
 
@@ -107,7 +101,7 @@ var b = add1(a);
 console.log(a,b); // Object {x=4, y=5} Object{x=4, y=5}
 ```
 
-### 매개변수(parameter; 인자)
+## 매개변수(parameter; 인자)
 
 - 함수를 호출할 때 전달하는 값들
 
@@ -132,7 +126,7 @@ console.log(add()) // 0
 
 
 
-### 변수의 유효 범위(Scope)
+## 변수의 유효 범위(Scope)
 
 **어휘적 범위**: 프로그램의 구문으로 유효 범위 지정
 
@@ -157,11 +151,11 @@ f();
 console.log(a); // global
 ```
 
-### 함수 안의 변수 끌어올림
+## 함수 안의 변수 끌어올림
 
 - 함수 안의 변수 선언부는 함수의 첫머리로 끌어올려진다.
 
-### 함수 안에서 변수 선언 생략시 전역 변수
+## 함수 안에서 변수 선언 생략시 전역 변수
 
 - 함수안에서 변수를 선언하지 않고 값을 대입하면 전역 변수로 선언된다.
 
@@ -175,7 +169,7 @@ f();
 console.log(a); // local
 ```
 
-### 블록 유효 범위
+## 블록 유효 범위
 
 - let과 const는 ES6부터 추가된 변수 선언자로 '선언된 {...} 안'의 '블록 유효 범위'를 갖는 변수를 선언한다
 - **let 선언자**: 블록 유효 범위를 갖는 지역 변수 선언
@@ -184,7 +178,7 @@ console.log(a); // local
   - 상수 값은 수정 불가능
   - 상수 값이 객체나 배열일 경우 프로퍼티 또는 프로퍼티 값을 수정 가능
 
-### 함수 리터럴로 함수 정의하기
+## 함수 리터럴로 함수 정의하기
 
 - 함수 리터럴 = 익명 함수 = 무명 함수
 
@@ -192,7 +186,7 @@ console.log(a); // local
 var square = function(x) { return x * x;};
 ```
 
-### 객체의 메서드
+## 객체의 메서드
 
 - 메서드: 객체의 프로퍼티 중  함수 객체를 값으로 담고 있는 프로퍼티
 - 일반적으로 메서드가 속한 객체의 상태를 바꾸거나 이용하는 용도로 사용
@@ -207,7 +201,7 @@ var circle = {
 };
 ```
 
-### arguments 객체
+## arguments 객체
 
 - 함수를 호출할 떄 사용된 인자들이 배열 형태로 저장된 유사 배열 객체
 
@@ -222,7 +216,7 @@ console.log(add(1, 2)); // {0: 1, 1: 2} 3
 console.log(add(1, 2, 3)) // {0: 1, 1: 2, 2: 3} 3
 ```
 
-### this 바인딩
+## this 바인딩
 
 - 객체 내의 메서드를 호출할 때는 해당 메서드를 호출한 객체로 바인딩
 - 브라우저에서 자바스크립트 실행 시 전역 객체에 바인딩 (window 객체)
@@ -279,7 +273,7 @@ var myObject = {
 myObject.func1() // 1. 2
 ```
 
-### 생성자 함수 new
+## 생성자 함수 new
 
 - Person() 생성자 함수의 `prototype` ->  Person.prototype 객체
 - 생성된 빈 객체의 `[[prototype]]` 을  Person.prototype 객체와 연결
@@ -290,12 +284,12 @@ var person1 = new Person('john');
 //person1의 [[prototype]] ->  Person.prototype 객체
 ```
 
-### 객체 리터럴 방식과 생성자 함수 방식 차이
+## 객체 리터럴 방식과 생성자 함수 방식 차이
 
 - 객체 리터럴 방식 `변수 = {...}`은 Object.prototype을 ``__proto__`로 가짐
 - 생성자 함수 방식 `변수 = new Person()`은 Person.prototype을 ``__proto__`로 가짐
 
-### call과 apply를 통한 this 바인딩
+## call과 apply를 통한 this 바인딩
 
 - thisArg: func()호출에 사용할 this
 - call과 apply 차이: call은 인자를 각각 넘기고, apply는 배열 형태로 넘긴다.
@@ -305,7 +299,7 @@ func.call(thisArg[, arg1[, arg2[, ...]]])
 func.apply(thisArg, [argsArray])
 ```
 
-### ... 연산자(나머지 연산자)
+## ... 연산자(나머지 연산자)
 
 - 함수에서 여러 파라미터를 받을 때, 정의하지 않는 파라미터 나머지 부분을 
   하나의 배열로 받을 수 있다. 
@@ -318,12 +312,12 @@ function f(a, b, ...theArgs) {
 
 
 
-## 프로토타입 체이닝
+# 프로토타입 체이닝
 
 - 해당 객체에 메서드나 프로퍼티가 존재하지 않으면 
   `[[Prototype]]`링크를 따라 올라가면서 프로토타입 객체에서 검색
 
-### 객체 리터럴 방식으로 생성된 객체의 프로토타입 체이닝
+## 객체 리터럴 방식으로 생성된 객체의 프로토타입 체이닝
 
 - `hasOwnProperty()`는 myObject의 prototype -> Object.prototype의 메서드
 
@@ -334,7 +328,7 @@ var myObject = {
 console.log(myObject.hasOwnProperty('name')); // true
 ```
 
-### 생성자 함수로 생성된 객체의 프로토타입 체이닝
+## 생성자 함수로 생성된 객체의 프로토타입 체이닝
 
 - `hasOwnProperty()`는 Person()의 prototype -> Person.prototype -> Object.prototype의 메서드
 
@@ -346,13 +340,11 @@ var foo = new Person('foo')
 console.log(foo.hasOwnProperty('name')); // true
 ```
 
-### 
 
 
+# 다양한 함수의 형태
 
-## 다양한 함수의 형태
-
-### 화살표 함수
+## 화살표 함수
 
 - this, super 바인딩 없음
 - ❗ methods로 사용 불가
@@ -366,14 +358,34 @@ console.log(foo.hasOwnProperty('name')); // true
  (param1, param2, …, paramN) => { return expression; }
 ```
 
+## 고차함수 
 
+- 함수를 인자로 받거나 함수를 결과로 리턴하는 함수
 
-### 콜백(callback) 함수
+## 콜백(callback) 함수
 
 -  특정 조건, 이벤트 발생 시 호출되는 함수 (이벤트리스너)
 -  함수의 인자로 넘겨져 코드 내부에서 호출되는 함수
 
-### 즉시 실행 함수 표현 (IIFE)
+## 함수를 리턴하는 함수
+
+```js
+var self = function () {
+	console.log('a');
+	return function () {
+		console.log('b');
+	}
+}
+self = self(); // a
+self(); // b
+```
+
+### 함수 리턴값
+
+1. 리턴 값 미지정 시: 일반 함수, 메서드 -> undefined
+2. 리턴 값 미지정 시: 생성자 함수 -> 생성된 객체
+
+## 즉시 실행 함수 표현 (IIFE)
 
 - 정의와 동시에 즉시 실행되는 함수
 
@@ -389,7 +401,7 @@ console.log(foo.hasOwnProperty('name')); // true
 })(5); // 25
 ```
 
-### 내부 함수
+## 내부 함수
 
 - 함수 내부에서 함수를 정의
 - 변수가 존재하지 않으면 자신의 부모 함수의 변수에 접근
@@ -436,21 +448,3 @@ inner(); // 1,3
 4. a는 정의되어 있지 않아 부모 함수에 있는지 확인하여 있으면 사용 (클로저)
    b는 정의되어 있음
 5. 1,3 출력
-
-### 함수를 리턴하는 함수
-
-```js
-var self = function () {
-	console.log('a');
-	return function () {
-		console.log('b');
-	}
-}
-self = self(); // a
-self(); // b
-```
-
-### 함수 리턴값
-
-1. 리턴 값 미지정 시: 일반 함수, 메서드 -> undefined
-2. 리턴 값 미지정 시: 생성자 함수 -> 생성된 객체

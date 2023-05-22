@@ -1,14 +1,12 @@
-# 배열
+# 배열 생성
 
-## 배열 리터럴로 배열 생성
-
-### 배열 리터럴
+## 배열 리터럴
 
 ```javascript
 var evens = [2, 4, 6, 8];
 ```
 
-### Array 생성자
+## Array 생성자
 
 ```javascript
 var evens = new Array(2, 4, 6, 8);
@@ -22,7 +20,7 @@ var evens = new Array(4);
 - 길이나 요소의 자료형이 정해져 있지 않다. -> 밀집성을 보장하지 않는다
 - 타입이 지정된 배열은 `typed array`를 사용하자
 
-### length 프로퍼티 (배열 길이)
+## length 프로퍼티 (배열 길이)
 
 - 배열에서 가장 큰 인덱스보다 1 큰 값
 - 실제 배열의 원소
@@ -46,7 +44,7 @@ arr.length = 2;
 console.log(arr); // [0, 1]
 ```
 
-### 프로퍼티 추가하기
+## 프로퍼티 추가하기
 
 - 배열도 객체이므로 프로퍼티를 동적으로 생성이 가능하다.
 - 배열 원소는 아니므로 length에는 영향을 미치지 않는다
@@ -56,58 +54,51 @@ arr.name = "array";
 console.log(arr.name); // array
 ```
 
-### 배열 참조하기
+## 배열 요소 접근하기
 
 ```javascript
 evens[2] // 6
 evens["2"] // 6
 ```
 
-### 요소 추가하기
+## 요소 추가하기
 
-- `push` 메서드 사용
+- `push` 메서드 사용 -> 배열의 마지막에 추가
+- `unshift` 메서드 사용 -> 배열의 처음에 추가
 
 ```javascript
-var a = ["A", "B", "C"];
-a.push("D");
-console.log(a); // ["A", "B", "C", "D"]
+var a = ["B", "C","D"];
+a.push("E");
+a.unshift("A")
+console.log(a); // ["A", "B", "C", "D", "E"]
 ```
 
-### 요소 삭제하기
+## 요소 삭제하기
 
 - `delete` 연산자 사용
 - 삭제된 자리에는 undefined
+- `pop()` 메서드 사용 -> 배열 마지막 요소 삭제
+- `shift()` 메서드 사용 -> 배열 처음 요소 삭제
+- `splice()` 사용 -> 원래 배열의 삭제된 자리는 사라짐,요소가 삭제된 배열이 반환
 
 ```javascript
-delete a[1];
-console.log(a); // ["A", undefined, "C", "D"]
+var a = ["A", "B", "C","D","E"];
+delete a[1]; // ["A", undefined, "C", "D", "E"]
+a.pop(); // ["A", undefined, "C", "D"]
+a.shift(); // [undefined, "C", "D"]
+a.splice(0,1); // ["C", "D"]
 ```
 
-- splice() 사용
-- 원래 배열의 삭제된 자리는 사라짐
-- 요소가 삭제된 배열이 반환됨
-
-```javascript
-a.splice(0, 1);
-console.log(a); // [undefined, "C", "D"]
-```
-
-### 
-
-### 배열 복사하기
+## 배열 복사하기
 
 ```javascript
 arr = [1.2,3]
 copiedArr = [...arr]
 ```
 
+# 정적 메서드
 
-
-# Array 함수
-
-## 정적 메서드
-
-### Array.from() - 얕은 복사본
+## Array.from() - 얕은 복사로 배열 생성
 
 - 유사 배열 객체나 반복 가능한 객체에서 얕은 복사를 통해 새로운 Array 생성
 
@@ -122,7 +113,7 @@ console.log(Array.from([1, 2, 3], x => x * 3)); // [3, 6, 9]
 
 
 
-### Array.isArray() - Array인지 확인
+## Array.isArray() - Array인지 확인
 
 - `Array`이면 `true`를, 아니면 false를 반환
 
@@ -133,7 +124,7 @@ console.log(Array.from([1, 2, 3], x => x * 3)); // [3, 6, 9]
 
 
 
-### Array.of() - Array 인스턴스 생성
+## Array.of() - Array 인스턴스 생성
 
 - Array() 처럼 `Array`를 생성하지만, 정수가 들어올 경우 정수가 요소인 배열을 생성
 
@@ -152,9 +143,9 @@ Array(1,2,3,4) // [1,2,3,4]
 
 
 
-## 인스턴스 메서드
+# 인스턴스 메서드
 
-### Array.prototype.at() - 인덱스로 요소 찾아 반환
+## Array.at() - 인덱스로 요소 찾아 반환
 
 - 정수 값을 입력으로 받아, 해당 값에 해당하는 인덱스의 요소를 반환
 
@@ -170,7 +161,7 @@ console.log(arr.at(-1)) // 40
 
 
 
-### Array.prototype.concat() - 배열을 합쳐 새로운 배열 반환
+## Array.concat() - 배열을 합쳐 새로운 배열 반환
 
 - 둘 이상의 배열을 합쳐 새로운 배열을 반환
 - 기존 배열을 변경하지 않는다.
@@ -190,7 +181,7 @@ console.log(array3);
 
 
 
-### Array.prototype.entries() - Iterator 생성
+## Array.entries() - Iterator 생성
 
 - 배열의 각 인덱스에 대한 키/값 쌍을 가지는 `iterator` 객체를 생성하여 반환
 
@@ -222,7 +213,7 @@ for (const element of arrayEntries) {
 
 
 
-### Array.prototype.every() - 배열의 모든 요소가 참인지 확인
+## Array.every() - 배열의 모든 요소가 참인지 확인
 
 - 배열 안의 모든 요소가 주어진 함수에 대해 true이면 true를 반환
 
@@ -237,7 +228,7 @@ console.log(arr.every((element) => element < 5)) //true
 
 
 
-### Array.prototype.fill() - 단일 값으로 배열 채우기
+## Array.fill() - 단일 값으로 배열 채우기
 
 - 배열의 시작 인덱스에서 끝 인덱스의 이전까지 정적인 값 하나로 채운다.
 - 원본 배열이 변경되고, 반환되는 값도 변경된 배열이다.
@@ -256,7 +247,7 @@ console.log(arr.fill(1,2,4)) // [0, 0, 1, 1]
 
 
 
-### Array.prototype.filter() - 요소를 거르기
+## Array.filter() - 요소를 거르기
 
 - 인자로 받는 함수의 반환 값이 `true`인 요소 만을 모아 새로운 **얕은 복사 배열**을 만들어 반환
 
@@ -279,7 +270,7 @@ console.log(result); [ "elite", "exuberant"]
 
 
 
-### Array.prototype.find() - 조건을 만족하는 단일 요소의 값 찾기
+## Array.find() - 조건을 만족하는 단일 요소의 값 찾기
 
 - 배열에서 테스팅 함수를 만족하는 **첫 번째 요소**를 찾아  **요소의 값**을 반환
 - 요소를 찾을 수 없다면 `undefined`를 반환
@@ -297,7 +288,7 @@ console.log(found); // 130
 
 ### 
 
-### Array.prototype.findIndex() - 조건을 만족하는 단일 요소의 인덱스 찾기
+## Array.findIndex() - 조건을 만족하는 단일 요소의 인덱스 찾기
 
 - 배열에서 테스팅 함수를 만족하는 첫 번째 요소를 찾아 **요소의 인덱스**를 반환.
 - 찾는 요소가 없는 경우 -1을 반환
@@ -316,7 +307,7 @@ console.log(array1.findIndex(isLargeNumber)); // 3
 
 
 
-### Array.prototype.flat() - 배열 평탄화
+## Array.flat() - 배열 평탄화
 
 - 모든 하위 배열 요소를 지정한 깊이까지 재귀적으로 이어붙인 새로운 배열 반환
 - `depth`의 기본 값은 1이다.
@@ -340,7 +331,7 @@ console.log(arr.flat(1)) // [1, 2, 3, 4]
 
 
 
-### Array.prototype.forEach() - 함수를 배열의 각 요소에 실행
+## Array.forEach() - 함수를 배열의 각 요소에 실행
 
 - 주어진 함수를 배열의 각 요소에 대해 실행
 - 반환 값은 항상 `undefind`이다.
@@ -360,7 +351,7 @@ arr.forEach((element,index) => console.log(index,element))
 
 
 
-### Array.prototype.includes() - 배열의 요소 포함 여부 확인
+## Array.includes() - 배열의 요소 포함 여부 확인
 
 - 배열의 요소 중에서 주어진 값과 일치하는 요소가 있으면 true를 반환, 그렇지 않으면 false 반환
 
@@ -376,7 +367,7 @@ console.log(array1.includes(2)); // true
 
 
 
-### Array.prototype.indexOf() - 특정 요소의 인덱스 찾기
+## Array.indexOf() - 특정 요소의 인덱스 찾기
 
 - 배열에서 주어진 값과 일치하는 첫 번째 요소를 찾아 **요소의 인덱스**를 반환
 - 존재하지 않으면 -1 반환
@@ -394,7 +385,7 @@ console.log(beasts.indexOf('bison')); // 1
 
 
 
-### Array.prototype.join() - 모든 요소를 붙여 문자열로 반환
+## Array.join() - 모든 요소를 붙여 문자열로 반환
 
 - 배열 또는 유사 배열 객체에서 모든 요소들을 이어 붙여 새로운 문자열로 반환한다.
 
@@ -429,14 +420,14 @@ arr.join("/") // /를 구분자로 사용하기
 const arrayLike1 = { 0: 0, 1: 1, 2: 2 };
 const arrayLike2 = { length: 3};
 const arrayLike3 = { length: 3, 0: 0, 1: 1, 2: 2 };
-console.log(Array.prototype.join.call(arrayLike1)); // 
-console.log(Array.prototype.join.call(arrayLike2)); // ,,
-console.log(Array.prototype.join.call(arrayLike3)); // 0,1,2
+console.log(Array.join.call(arrayLike1)); // 
+console.log(Array.join.call(arrayLike2)); // ,,
+console.log(Array.join.call(arrayLike3)); // 0,1,2
 ```
 
 
 
-### Array.prototype.keys() -  배열의 인덱스 iterrator 반환
+## Array.keys() -  배열의 인덱스 iterrator 반환
 
 - 배열의 각 인덱스 Iterator를 반환
 
@@ -457,7 +448,7 @@ for (const key of arr.keys()) {
 
 
 
-### Array.prototype.lastIndexOf() - 배열의 특정 값을 가진 마지막 요소 인덱스 반환
+## Array.lastIndexOf() - 배열의 특정 값을 가진 마지막 요소 인덱스 반환
 
 - 배열에서 주어진 값을 가지는 요소 중 마지막 요소의 인덱스를 반환
 - 요소가 존재하지 않으면 -1을 반환
@@ -481,7 +472,7 @@ array.lastIndexOf(2, -1); // [2, 5, 9, 2]에서 탐색 -> 3
 
 
 
-### Array.prototype.map()
+## Array.map() - 함수 매핑하여 배열 만들기
 
 - 함수를 인자로 받아 각각의 원소에 함수를 적용한 결과를 **새로운 배열**로 만들어 반환
 
@@ -498,7 +489,7 @@ console.log(square); // 1 4 9 16 25
 
 
 
-### Array.prototype.pop() - 배열 마지막 요소 꺼내오기
+## Array.pop() - 배열 마지막 요소 꺼내오기
 
 - 배열의 마지막 요소를 제거하고 그 요소를 반환
 - 배열에서 제거한 요소를 반환하고, 빈 배열의 경우 `undefined`를 반환
@@ -515,7 +506,7 @@ console.log(array) // [1,2,3]
 
 
 
-### Array.prototype.push() - 배열의 마지막에 요소를 추가
+## Array.push() - 배열의 마지막에 요소를 추가
 
 - 배열의 마지막에 하나 이상의 요소를 추가하고, 바뀐 배열의 `length`를 반환
 - 반환 값은 바뀐 배열의 길이이다.
@@ -532,7 +523,7 @@ console.log(array) // [1, 2, 3, 4, 5, 6]
 
 
 
-### Array.prototype.reduce() - 각 요소에 리듀서 함수 실행하여 단일 결과값 반환
+## Array.reduce() - 각 요소에 리듀서 함수 실행하여 단일 결과값 반환
 
 - 리듀서 콜백 함수를 배열 요소 왼쪽에서 오른쪽 순서대로 실행하여 
 
@@ -560,13 +551,13 @@ console.log(sum); // 15
 
 
 
-### Array.prototype.reduceRight() - 오른쪽에서 왼쪽으로 가는 reduce()
+## Array.reduceRight() - 오른쪽에서 왼쪽으로 가는 reduce()
 
 - 함수의 동작 방식은 같으며, 배열 요소를 가져오는 순서만 반대이다.
 
 
 
-### Array.prototype.reverse() - 배열 순서 반전
+## Array.reverse() - 배열 순서 반전
 
 - 배열의 순서를 뒤집어 원본 배열의 순서를 반대로 하고 원본 배열의 참조를 반환
 - 원본 배열도 변경된다.
@@ -583,7 +574,7 @@ console.log(array) // [4, 3, 2, 1]
 
 
 
-### Array.prototype.shift() - 배열의 첫 요소를 꺼내오기
+## Array.shift() - 배열의 첫 요소를 꺼내오기
 
 - 배열의 첫 번째 요소를 제거하고, 제거된 요소를 반환
 - 배열의 요소가 제거되기 때문에, 배열의 길이도 변한다.
@@ -601,7 +592,7 @@ console.log(array) // [2, 3, 4]
 
 
 
-### Array.prototype.slice() - 배열의 일부를 잘라 반환
+## Array.slice() - 배열의 일부를 잘라 반환
 
 - 인덱스를 기준으로 배열의 일부를 잘라서 새로운 배열을 반환
 - 원본 배열은 바뀌지 않는다.
@@ -617,7 +608,7 @@ console.log(arr.slice(2,4)) // [3,4]
 
 
 
-### Array.prototype.some() - 조건을 만족하는 요소가 하나라도 있는지
+## Array.some() - 조건을 만족하는 요소가 하나라도 있는지
 
 - 배열의 요소 중  한 요소라도 테스팅 함수를 통과하면 `true`를 반환 
 - 그렇지 않으면 `false` 반환
@@ -639,7 +630,7 @@ console.log(array.some(even)); // 배열에 짝수가 하나라도 존재하는�
 
 
 
-### Array.prototype.sort() - 배열을 정렬
+## Array.sort() - 배열을 정렬
 
 - 원본 배열을 정렬하여 반환
 - 기본 정렬 순서는 문자열의 유니코드 코드 포인트를 따른다.
@@ -666,9 +657,9 @@ function compare(a, b) {
 
 ```javascript
 // 숫자 타입 오름차순 정렬
-function compareNumbers(a, b) {
-  return a - b;
-}
+arr.sort((a,b)=> a-b )
+// 숫자 타입 내림차순 정렬
+arr.sort((a,b)=> b-a)
 ```
 
 ```javascript
@@ -679,7 +670,7 @@ console.log(array) // [1, 2, 3, 4, 5]
 
 
 
-### splice()
+## Array.splice() - 배열 요소 조작
 
 - 배열의 요소를 더하거나 / 대체하거나 / 삭제한 다음 삭제된 요소의 배열을 반환
 - 아무것도 제거되지 않았다면 빈 배열을 반환
@@ -701,7 +692,7 @@ arr.splice(3,1) // remove 'd' -> ["A", "b", "c"]
 
 
 
-### Array.prototype.unshift() - 배열의 새로운 요소를 맨 앞에 추가
+## Array.unshift() - 배열의 새로운 요소를 맨 앞에 추가
 
 - 새로운 요소를 배열의 맨 앞에 추가하고, 바뀐 배열의 길이를 반환
 

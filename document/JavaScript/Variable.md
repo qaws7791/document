@@ -201,12 +201,12 @@ const PI = 3.14;
 
 ### 캐멀 표기법(로어 캐멀 표기법)
 
-- 두 번째 이후 단어의 첫 글자를 대문자로 표기 -> 함수 및 변수 표기
+- 두 번째 이후 단어의 첫 글자를 대문자로 표기 -> <u>함수 및 변수 표기</u>
 - ex) newName, createLifeGame
 
 ### 파스칼 표기법(어퍼 캐멀 표기법)
 
-- 각 단어의 첫 글자를 대문자로 표기 -> 생성자, 클래스 표기
+- 각 단어의 첫 글자를 대문자로 표기 -> <u>생성자, 클래스 표기</u>
 - ex) NewName, CreateLiftGame
 
 ### 밑줄 표기법(스네이크 표기법)
@@ -221,16 +221,17 @@ const PI = 3.14;
 ## 데이터 타입 분류
 
 - 원시 타입
-  - 숫자
-  - 문자열
-  - 논리값
-  - 특수한 값(undefined, null)
-  - 심벌
-- 객체 타입
+  - 숫자(Number)
+  - 문자열(String)
+  - 논리값(Boolean)
+  - 특수한 값(Undefined, Null)
+  - 심벌(Symbol)
+  - 임의 정밀도(BigInt)
+- 객체 타입(Object)
 
 
 
-## 숫자
+## 숫자(Number)
 
 - 자바스크립트에서는 숫자를 모두 64비트 부동소수점으로 표현
 - 배열 인덱스와 비트 연산은 32비트 정수 처리
@@ -240,7 +241,7 @@ const PI = 3.14;
 Number(1234)
 ```
 
-숫자 리터럴
+### 숫자 리터럴
 
 |         분류          |    표기법     |    예시     |           설명            | 비고 |
 | :-------------------: | :-----------: | :---------: | :-----------------------: | :--: |
@@ -268,7 +269,7 @@ Number(1234)
 | Number의 프로퍼티 | Number.MIN_SAFE_INTEGER  | -9007199254740990       | ES6  |
 | Number의 프로퍼티 | Number.MAX_SAFE_INTEGER  | 9007199254740990        | ES6  |
 
-### 문자열
+## 문자열(String)
 
 - 16비트 유니코드 문자(UTF-16)
 - 문자열에 '' 또는 ""를 감싸서 사용. 
@@ -304,7 +305,7 @@ String('hello')
 | \uXXXX            | 네 자릿수 16진수 XXXX로 지정된 유니코드 문자     |      |
 | \u{XXXXX}         | 16진수 코드 포인트 XXXXXX로 지정된 유니코드 문자 | ES6  |
 
-### 논리값(boolean)
+## 논리값(Boolean)
 
 - 논리 데이터 유형으로 true 또는 false 두 가지 종류를 가짐
 - false인 경우
@@ -316,7 +317,7 @@ String('hello')
   - ""
 
 
-### 특수한 값
+## 특수한 값(Undefined, Null)
 
 - **undefined**: 정의되지 않은 상태
   - 값을 아직 할당하지 않은 변수의 값
@@ -344,9 +345,9 @@ Boolean(null) // false
 
 
 
-### ECMAScript 6부터 추가된 데이터 타입
+# ECMAScript 6부터 추가된 데이터 타입
 
-### 1.심벌(symbol)
+## 1.심벌(symbol)
 
 - 자기 자신을 제외한 그 어떤 값과도 유일힌 값
 - 호출할 때마다 새로운 값을 반환
@@ -380,7 +381,7 @@ var sym2 = Symbol("club");
 console.log(Symbol.keyFor(sym2)); // undefined
 ```
 
-### 2.템플릿 리터럴(templete literals )
+## 2.템플릿 리터럴(templete literals )
 
 - ``로 묶은 문자열
 - \n이 아닌 일반적인 줄 바꿈을 통해 줄바꿈 가능
@@ -398,6 +399,52 @@ console.log(`${a} + ${b} = ${a + b}`); // 2 + 3 = 5
 ```
 
 ---
+
+# 형 변환
+
+## 암시적 형 변환
+
+엔진에 의해 암묵적으로 타입이 자동 변환
+
+- 다른 타입 (+) '문자열' -> 문자열 타입
+  - 1+'1' -> '11'
+- 숫자 (-,*,/) 다른 타입 -> 숫자 타입
+  - 1 - '1' -> 0
+- 조건식에서 표현식 -> 불리언 타입
+  - 1 ? 'true' : 'false' -> true
+
+
+
+## 명시적 형 변환
+
+개발자가 의도적으로 타입을 변환
+
+- 문자열 -> String() / '123'.toString()
+- 숫자 -> Number() / parseInt('123') / parseFloat('3.14')
+- 부울 -> Boolean() / !!'false'
+
+### 데이터 타입 확인
+
+```javascript
+typeof <Variable>
+```
+
+| Type                                                         | Result                                                       |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [Undefined](https://developer.mozilla.org/ko/docs/Glossary/Undefined) | `"undefined"`                                                |
+| [Null](https://developer.mozilla.org/ko/docs/Glossary/Null)  | `"object"` ([아래](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof#null) 참고) |
+| [Boolean](https://developer.mozilla.org/ko/docs/Glossary/Boolean) | `"boolean"`                                                  |
+| [Number (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/Number) | `"number"`                                                   |
+| [BigInt (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/BigInt) | `"bigint"`                                                   |
+| [String](https://developer.mozilla.org/ko/docs/Glossary/String) | `"string"`                                                   |
+| [Symbol](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Symbol) (ECMAScript 2015에서 추가) | `"symbol"`                                                   |
+| 호스트 객체 (JS 환경에서 제공)                               | *구현체마다 다름*                                            |
+| [Function](https://developer.mozilla.org/ko/docs/Glossary/Function) 객체 (ECMA-262 표현으로는 [[Call]]을 구현하는 객체) | `"function"`                                                 |
+| 다른 모든 객체                                               | `"object"`                                                   |
+
+
+
+
 
 
 
@@ -446,6 +493,7 @@ console.log(true + false); // true + false -> 1 (number)
 console.log(5 - 2); // 3
 console.log(5 - true); // 4
 console.log(5 - ''); // 5
+console.log(5 - '2'); // 3
 console.log(5 - 'hello'); // NaN
 ```
 
