@@ -49,7 +49,7 @@ description: javascript에 대한 페이지
 * 자바스크립트의 함수는 클로저(closure)를 정의
 * 클로저를 통해 변수를 은닉하거나 영속성을 보장하는 등의 다양한 기능 구현
 
-## 자바스크립트의 기술적 요소
+### 자바스크립트의 기술적 요소
 
 #### 1. ECMAScript(코어 언어)
 
@@ -79,9 +79,9 @@ description: javascript에 대한 페이지
 
 
 
-# declarations(선언)과 Statements(구문)
+# Statements(구문)과 declarations(선언)은 다르다
 
-## declarations(선언)
+## declarations
 
 "binding identifiers to values"
 
@@ -97,7 +97,7 @@ if (condition) var i = 0;
 //It is possible;
 ```
 
-## statements(구문)
+## statements
 
 "carrying out actions"
 
@@ -606,66 +606,3 @@ console.log(arr); // [1, 2, 0]
 console.log(arr2); // [1, 2, 0]
 console.log(arr3); // [0, 0, 3]
 ```
-
-
-
-# 실행 컨텍스트
-
-- 자바스크립트 코드를 실행하기 위한 가상의 환경
-- global, function, eval
-- 전역 공간(global)은 하나만 가진다.
-
-```javascript
-// ---- 1번
-var a = 1;
-function outer() {
-	function inner() {
-		console.log(a); //undefined
-		var a = 3;
-	}
-	inner(); // ---- 2번
-	console.log(a); // 1
-}
-outer(); // ---- 3번
-console.log(a); // 1
-```
-
-![image-20230523120018928](./JavaScript.assets/image-20230523120018928.png)
-
-## 실행 컨텍스트의 정보
-
-1. VariableEnvironment -> 식별자 정보, 선언 시점의 LexicalEnvironment  스냅샷
-2. LexicalEnvironment -> 실시간 변경사항 저장, 레코드를 수집하여 호이스팅
-   1. environmentRecord
-   2. outerEnvironmentReference -> 실행될 때의 바깥 환경 정보
-3. ThisBinding -> this가 가리키는 객체
-
-## 런타임
-
-- Node에서 전역객체: global
-- 브라우저에서 전역객체: window
-
-## Method
-
-- 함수의 this: 함수를 실행하는 전역 환경의 객체가 this가 된다. (전역객체)
-- 메서드의 this: 메서드는 객체의 속성인 함수이므로 실행하는 객체가 this가 된다. (객체)
-- ❗객체 안이어도 함수로서 실행하면 전역 객체를 this로 받는다.
-
-```javascript
-      var obj1 = {
-        outer: function () {
-          console.log(this); // obj1
-          var innerFunc = function () {
-            console.log(this); 
-          };
-          innerFunc() // window
-          innerFunc.apply(this); // outer
-          var obj2 = {
-            innerMethod: innerFunc,
-          };
-          obj2.innerMethod(); //obj2
-        },
-      };
-      obj1.outer();
-```
-

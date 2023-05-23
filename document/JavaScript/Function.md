@@ -44,7 +44,7 @@ function distance(p,q) {
 
 - 변수 선언과 마찬가지로 함수 선언문을 프로그램의 첫머리로 끌어올린다
 - 함수 선언문은 함수의 위치에 상관없이 유효 범위가 코드의 처음부터 시작
-- ❗함수 표현식은 호이스팅 되지 않는다. 정의되기 전에 사용 할 수 없다.
+- 함수 표현식은 호이스팅 되지 않는다. 정의되기 전에 사용 할 수 없다.
 - 함수 표현식을 권장
 
 ```js
@@ -219,8 +219,6 @@ console.log(add(1, 2, 3)) // {0: 1, 1: 2, 2: 3} 3
 ## this 바인딩
 
 - 객체 내의 메서드를 호출할 때는 해당 메서드를 호출한 객체로 바인딩
-  - 예외적으로 객체의 메서드여도 즉시 실행 함수일 경우 스스로 실행되므로 전역 객체에 바인딩된다.
-
 - 브라우저에서 자바스크립트 실행 시 전역 객체에 바인딩 (window 객체)
 - 바인딩 하지 않으면 func2, func3의 this는 전역객체를 가리킴
 
@@ -275,34 +273,6 @@ var myObject = {
 myObject.func1() // 1. 2
 ```
 
-## call과 apply를 통한 this 바인딩
-
-- thisArg: func()호출에 사용할 this
-- call과 apply 차이: call은 인자를 각각 넘기고, apply는 배열 형태로 넘긴다.
-
-```js
-func.call(thisArg[, arg1[, arg2[, ...]]])
-func.apply(thisArg, [argsArray])
-```
-
-## bind()를 통한 바인딩
-
-- this와 초기 인수를 받아 바인딩된 원본 함수의 복제본을 반환
-- 사용 용도
-  1. 미리 this 바인딩
-  2. 부분 적용 함수 생성
-  3. name 프로퍼티로 bind()되었는지 확인
-
-```javascript
-   func.bind(thisArg[, arg1[, arg2[, ...]]])
-```
-
-```javascript
-const newFunc = function () {}.bind(this);
-```
-
-
-
 ## 생성자 함수 new
 
 - Person() 생성자 함수의 `prototype` ->  Person.prototype 객체
@@ -318,6 +288,16 @@ var person1 = new Person('john');
 
 - 객체 리터럴 방식 `변수 = {...}`은 Object.prototype을 ``__proto__`로 가짐
 - 생성자 함수 방식 `변수 = new Person()`은 Person.prototype을 ``__proto__`로 가짐
+
+## call과 apply를 통한 this 바인딩
+
+- thisArg: func()호출에 사용할 this
+- call과 apply 차이: call은 인자를 각각 넘기고, apply는 배열 형태로 넘긴다.
+
+```js
+func.call(thisArg[, arg1[, arg2[, ...]]])
+func.apply(thisArg, [argsArray])
+```
 
 ## ... 연산자(나머지 연산자)
 
@@ -384,9 +364,8 @@ console.log(foo.hasOwnProperty('name')); // true
 
 ## 콜백(callback) 함수
 
--  특정 조건, 이벤트 발생 시 호출되는 함수 (ex. 이벤트리스너)
+-  특정 조건, 이벤트 발생 시 호출되는 함수 (이벤트리스너)
 -  함수의 인자로 넘겨져 코드 내부에서 호출되는 함수
--  콜백함수도 기본적으로 함수이므로 this 바인딩이 없지만 addEventListener 같은 경우는 this 바인딩이 되어 있다.
 
 ## 함수를 리턴하는 함수
 
@@ -409,8 +388,6 @@ self(); // b
 ## 즉시 실행 함수 표현 (IIFE)
 
 - 정의와 동시에 즉시 실행되는 함수
-
-- 객체의 메서드여도 즉시 실행되기 때문에 this가 전역 객체이다.
 
   ```javascript
   (function () {
