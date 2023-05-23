@@ -31,13 +31,11 @@ console.log(typeof x); // number
 
 - 지역변수: 함수 또는 블록 내에서만 접근 가능한 변수
 
-|          | var  | let  | const |
-| -------- | ---- | ---- | ----- |
-| 호이스팅 | O    | X    | X     |
-| 재선언   | O    | X    | X     |
-| 재할당   | O    | O    | X     |
-
-
+|          | var | let | const |
+| -------- | --- | --- | ----- |
+| 호이스팅 | O   | X   | X     |
+| 재선언   | O   | X   | X     |
+| 재할당   | O   | O   | X     |
 
 ## var 변수
 
@@ -55,7 +53,7 @@ console.log(typeof x); // number
 var a = 1;
 var a = 2; // 재선언 가능
 let b = 1;
-let b = 2; // Uncaught SyntaxError: Identifier 'b' has already been declared 
+let b = 2; // Uncaught SyntaxError: Identifier 'b' has already been declared
 ```
 
 > 전역 컨텍스트에서 선언되면 전역 객체(window)의 속성으로 추가된다.
@@ -68,8 +66,6 @@ console.log(this.y); // undefined
 console.log(this); // Window(전역객체)
 ```
 
-
-
 ## let 변수
 
 ES2015부터 도입된 재선언이 불가능한 **블록 스코프**를 갖는 선택적인 값 초기화를 하는 변수
@@ -81,9 +77,7 @@ ES2015부터 도입된 재선언이 불가능한 **블록 스코프**를 갖는 
 let foo = 1;
 ```
 
-
-
-## const  변수
+## const 변수
 
 재할당, 재선언이 불가능한 상수(constant) 값을 갖는 변수
 
@@ -96,8 +90,6 @@ let foo = 1;
 ```javascript
 const PI = 3.14;
 ```
-
-
 
 ## 변수 끌어올림(hoisting)
 
@@ -136,8 +128,6 @@ const PI = 3.14;
     x = 2;
     ```
 
-
-
 ## let 과 const 호이스팅 (Temporal dead zone;TDZ)
 
 - 일반적으로 let과 const는 호이스팅되지 않는 것으로 간주된다.
@@ -160,7 +150,7 @@ const PI = 3.14;
       ...
   let x = 2;//TDZ end
   }
-  
+
   ```
 
 - TDZ로 인한 오류 발생 예제
@@ -168,8 +158,9 @@ const PI = 3.14;
   ```javascript
   function test() {
     var foo = 33; // 1. var foo 선언
-    if (foo) { // 2. var foo 참조
-      let foo = foo + 55; // 3. let foo는 현재 TDZ에 있으므로 ReferenceError 
+    if (foo) {
+      // 2. var foo 참조
+      let foo = foo + 55; // 3. let foo는 현재 TDZ에 있으므로 ReferenceError
     }
   }
   test();
@@ -177,18 +168,18 @@ const PI = 3.14;
 
   ```javascript
   function go(n) {
-          // n here is defined!
-          console.log(n); // { a: [1, 2, 3] }
+    // n here is defined!
+    console.log(n); // { a: [1, 2, 3] }
   
-          for (let n of n.a) { 
-            //let n은 호이스팅되어 for문 블록의 최상위에서 선언, TDZ존 시작
-            //n.a를 참조할 때 선언되지 않은 let n을 참조하여 오류 발생
-            // ReferenceError
-            console.log(n);
-          }
-        }
+    for (let n of n.a) {
+      //let n은 호이스팅되어 for문 블록의 최상위에서 선언, TDZ존 시작
+      //n.a를 참조할 때 선언되지 않은 let n을 참조하여 오류 발생
+      // ReferenceError
+      console.log(n);
+    }
+  }
   
-        go({ a: [1, 2, 3] });
+  go({ a: [1, 2, 3] });
   ```
 
 ## 변수 명명 규칙
@@ -220,14 +211,132 @@ const PI = 3.14;
 
 ## 데이터 타입 분류
 
-- 원시 타입
-  - 숫자(Number)
-  - 문자열(String)
-  - 논리값(Boolean)
-  - 특수한 값(Undefined, Null)
-  - 심벌(Symbol)
-  - 임의 정밀도(BigInt)
-- 객체 타입(Object)
+```mermaid
+flowchart LR
+    A[데이터 타입] -->B[원시값]
+    A --> C[참조형]
+    B --> D(Numnber)
+    B --> E(String)
+    B --> F(Boolean)
+    B --> G(Null)
+    B --> H(Undefined)
+    B --> P(BigInt)
+    B --> Q(Symbol)
+    C --> I[Object]
+    I --> J(Array)
+    I --> K(Function)
+    I --> L(Date)
+    I --> M(RegExp)
+    I --> N(Map, WeakMap)
+    I --> O(Set, WeakSet)
+```
+
+원시값은 불변값이다. 변경할 수 없다. 복제 시에 값이 담긴 주소값을 복제한다.
+
+참조형은 변경이 가능하다. 값이 담긴 주소값을 묶고 그 묶음을 가리키는 주소값을 복제한다.
+
+## 원시 값 데이터 할당
+
+```javascript
+let str1 = 'a';
+let str2 = str1;
+str2 = 'b';
+```
+
+| 주소 (변수)  | 1001       | 1002 |
+| ------------ | ---------- | ---- |
+| 데이터       | str1, 5001 |      |
+| 주소(데이터) | 5001       | 5002 |
+| 데이터       | a          |      |
+
+```mermaid
+flowchart TD
+    A[1001: str1,5001] -->B(5001:a)
+```
+
+
+
+| 주소(변수)   | 1001       | 1002       |
+| ------------ | ---------- | ---------- |
+| 데이터       | str1, 5001 | str2, 5001 |
+| 주소(데이터) | 5001       | 5002       |
+| 데이터       | a          |            |
+
+```mermaid
+flowchart TD
+    A[1001: str1,5001] -->B(5001:a)
+    C[1002: str2,5001] -->B
+```
+
+
+
+| 주소(변수)   | 1001       | 1002       |
+| ------------ | ---------- | ---------- |
+| 데이터       | str1, 5001 | str2, 5002 |
+| 주소(데이터) | 5001       | 5002       |
+| 데이터       | a          | b          |
+
+```mermaid
+flowchart TD
+    A[1001: str1,5001] -->B(5001:a)
+    C[1002: str2,5001] -->D(5002:b)
+```
+
+
+
+- 변수는 값 자체를 가지고 있는 것이 아니라 값을 별도의 메모리 주소에 할당하고 그 메모리 주소를 가지고 있다.
+- 이러한 데이터 할당은 <u>자유로운 형 변환</u>을 가능하게 하고, 값을 재사용할 때 <u>메모리를 효율적으로 관리</u>할 수 있다.
+- 데이터 재할당은 새로운 메모리에 값을 할당하고 그 메모리 주소로 데이터 값 주소를 변경하는 것이다.
+- 상수는 변수 영역 메모리(데이터 값을 가지고 있는 주소)를 변경할 수 없다.
+- 불변성은 데이터 영역 메모리( 데이터 값이 있는 주소의 값 자체)를 변경할 수 없다.
+
+## 객체 데이터 할당
+
+```javascript
+let user = {
+	name: 'foo',
+	age: 23
+};
+user.name = 'bar';
+```
+
+
+
+| 주소(변수)   | 1001              | 1002      | 1003 |
+| ------------ | ----------------- | --------- | ---- |
+| 데이터       | user, [5001,5002] |           |      |
+| 주소(속성)   | 5001              | 5002      | 5003 |
+| 데이터       | name, 7001        | age, 7002 |      |
+| 주소(데이터) | 7001              | 7002      | 7003 |
+| 데이터       | foo               | 23        |      |
+
+```mermaid
+flowchart TD
+    A[1001: user,5001] -->B(5001:name, 7001)
+    A[1001: user,5001] -->C(5002:age, 7002)
+    B --> D(7001: foo)
+    C --> E(7002: 23)
+```
+
+
+
+| 주소(변수)   | 1001              | 1002      | 1003 |
+| ------------ | ----------------- | --------- | ---- |
+| 데이터       | user, [5001,5002] |           |      |
+| 주소(속성)   | 5001              | 5002      | 5003 |
+| 데이터       | name, 7003        | age, 7002 |      |
+| 주소(데이터) | 7001              | 7002      | 7003 |
+| 데이터       | ~~foo~~           | 23        | bar  |
+
+```mermaid
+flowchart TD
+    A["1001: user,5001~5002"] -->B(5001:name, 7003)
+    A -->C(5002:age, 7002)
+    B --> F(7003: bar)
+    C --> E(7002: 23)
+    
+
+```
 
 
 
@@ -236,9 +345,10 @@ const PI = 3.14;
 - 자바스크립트에서는 숫자를 모두 64비트 부동소수점으로 표현
 - 배열 인덱스와 비트 연산은 32비트 정수 처리
 - **리터럴(literal)**: 프로그램에 직접 작성할 수 있는 상수 값
+- `NaN`값은 `isNaN(value)`을 통해 비교한다 (NaN === NaN -> false이기 때문)
 
 ```javascript
-Number(1234)
+Number(1234);
 ```
 
 ### 숫자 리터럴
@@ -272,15 +382,13 @@ Number(1234)
 ## 문자열(String)
 
 - 16비트 유니코드 문자(UTF-16)
-- 문자열에 '' 또는 ""를 감싸서 사용. 
+- 문자열에 '' 또는 ""를 감싸서 사용.
 - 문자열 템플릿으로 백틱(`)도 사용 가능
 - HTML 요소에 자바스크립트를 넣을 때는 문자열처럼 감싸서 작성
 
 ```javascript
-String('hello')
+String("hello");
 ```
-
-
 
 ```html
 <input type="button" value="Click" onClick="alert('Thanks!')" />
@@ -316,7 +424,6 @@ String('hello')
   - undefined
   - ""
 
-
 ## 특수한 값(Undefined, Null)
 
 - **undefined**: 정의되지 않은 상태
@@ -329,21 +436,19 @@ String('hello')
 - **null**: 아무것도 없음
   - 보통 프로그램에서 무언가를 검색했지만 찾지 못했을 때 반환되는 값
   - 숫자로서 `0`
-  - null 값 확인: `nullVar === null`을 통해 확인 (typeof 사용하면 안됨)
+  - null 값 확인: `nullVar === null`을 통해 확인 (typeof null은 object를 가리키므로 사용하면 안됨)
 
 ```javascript
-undefined === undefined // true
-undefined === null // false
-null === null // true
-Number(undefined) // NaN
-Number(null) // 0
-String(undefined) // "undefined"
-String(null) // null
-Boolean(undefined) // false
-Boolean(null) // false
+undefined === undefined; // true
+undefined === null; // false
+null === null; // true
+Number(undefined); // NaN
+Number(null); // 0
+String(undefined); // "undefined"
+String(null); // null
+Boolean(undefined); // false
+Boolean(null); // false
 ```
-
-
 
 # ECMAScript 6부터 추가된 데이터 타입
 
@@ -408,12 +513,10 @@ console.log(`${a} + ${b} = ${a + b}`); // 2 + 3 = 5
 
 - 다른 타입 (+) '문자열' -> 문자열 타입
   - 1+'1' -> '11'
-- 숫자 (-,*,/) 다른 타입 -> 숫자 타입
+- 숫자 (-,\*,/) 다른 타입 -> 숫자 타입
   - 1 - '1' -> 0
 - 조건식에서 표현식 -> 불리언 타입
   - 1 ? 'true' : 'false' -> true
-
-
 
 ## 명시적 형 변환
 
@@ -429,32 +532,24 @@ console.log(`${a} + ${b} = ${a + b}`); // 2 + 3 = 5
 typeof <Variable>
 ```
 
-| Type                                                         | Result                                                       |
-| :----------------------------------------------------------- | :----------------------------------------------------------- |
-| [Undefined](https://developer.mozilla.org/ko/docs/Glossary/Undefined) | `"undefined"`                                                |
-| [Null](https://developer.mozilla.org/ko/docs/Glossary/Null)  | `"object"` ([아래](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof#null) 참고) |
-| [Boolean](https://developer.mozilla.org/ko/docs/Glossary/Boolean) | `"boolean"`                                                  |
-| [Number (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/Number) | `"number"`                                                   |
-| [BigInt (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/BigInt) | `"bigint"`                                                   |
-| [String](https://developer.mozilla.org/ko/docs/Glossary/String) | `"string"`                                                   |
-| [Symbol](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Symbol) (ECMAScript 2015에서 추가) | `"symbol"`                                                   |
-| 호스트 객체 (JS 환경에서 제공)                               | *구현체마다 다름*                                            |
-| [Function](https://developer.mozilla.org/ko/docs/Glossary/Function) 객체 (ECMA-262 표현으로는 [[Call]]을 구현하는 객체) | `"function"`                                                 |
-| 다른 모든 객체                                               | `"object"`                                                   |
-
-
-
-
-
-
+| Type                                                                                                                      | Result                                                                                                         |
+| :------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
+| [Undefined](https://developer.mozilla.org/ko/docs/Glossary/Undefined)                                                     | `"undefined"`                                                                                                  |
+| [Null](https://developer.mozilla.org/ko/docs/Glossary/Null)                                                               | `"object"` ([아래](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof#null) 참고) |
+| [Boolean](https://developer.mozilla.org/ko/docs/Glossary/Boolean)                                                         | `"boolean"`                                                                                                    |
+| [Number (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/Number)                                                | `"number"`                                                                                                     |
+| [BigInt (en-US)](https://developer.mozilla.org/en-US/docs/Glossary/BigInt)                                                | `"bigint"`                                                                                                     |
+| [String](https://developer.mozilla.org/ko/docs/Glossary/String)                                                           | `"string"`                                                                                                     |
+| [Symbol](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Symbol) (ECMAScript 2015에서 추가) | `"symbol"`                                                                                                     |
+| 호스트 객체 (JS 환경에서 제공)                                                                                            | _구현체마다 다름_                                                                                              |
+| [Function](https://developer.mozilla.org/ko/docs/Glossary/Function) 객체 (ECMA-262 표현으로는 [[Call]]을 구현하는 객체)   | `"function"`                                                                                                   |
+| 다른 모든 객체                                                                                                            | `"object"`                                                                                                     |
 
 # 자바스크립트 연산자
 
 ## 연산자 우선순위
 
 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Operator_precedence
-
-
 
 ## 사칙연산 연산자
 
@@ -468,21 +563,19 @@ https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Operato
 
 ```javascript
 console.log(1 + 2); // number + number ->  3 (number)
-console.log( 1 + ''); // number + string -> "1" (string)
+console.log(1 + ""); // number + string -> "1" (string)
 console.log(1 + "2"); // number + string -> "12" (string)
-console.log(2 + 2 + '1') // number(4) + string('1') -> "41" (string)
-console.log(2 + (2 + '1')) // number(2) + string('21') -> "221" (string)
+console.log(2 + 2 + "1"); // number(4) + string('1') -> "41" (string)
+console.log(2 + (2 + "1")); // number(2) + string('21') -> "221" (string)
 console.log(1 + true); // number + true(1) -> 2 (number)
 console.log(1 + false); // number + false(0) -> 1 (number)
 
-console.log('hello' + 'world'); // string + string -> "helloworld" (string)
-console.log('hello' + 1); // string + numbmer -> hello1 (string)
-console.log('hello' + true); // string + true -> "hellotrue" (string)
-console.log('hello' + false); // string + true -> "hellofalse" (string)
+console.log("hello" + "world"); // string + string -> "helloworld" (string)
+console.log("hello" + 1); // string + numbmer -> hello1 (string)
+console.log("hello" + true); // string + true -> "hellotrue" (string)
+console.log("hello" + false); // string + true -> "hellofalse" (string)
 console.log(true + false); // true + false -> 1 (number)
 ```
-
-
 
 ### - 연산자
 
@@ -492,25 +585,21 @@ console.log(true + false); // true + false -> 1 (number)
 ```javascript
 console.log(5 - 2); // 3
 console.log(5 - true); // 4
-console.log(5 - ''); // 5
-console.log(5 - '2'); // 3
-console.log(5 - 'hello'); // NaN
+console.log(5 - ""); // 5
+console.log(5 - "2"); // 3
+console.log(5 - "hello"); // NaN
 ```
 
-
-
-### * 연산자
+### \* 연산자
 
 - 두 연산자를 곱한다.
 
 ```javascript
 console.log(4 * 2); // 8
-console.log(4 * '100'); // 400
-console.log(4 * 'hello'); // NaN
-console.log(4 * 'true'); // NaN
+console.log(4 * "100"); // 400
+console.log(4 * "hello"); // NaN
+console.log(4 * "true"); // NaN
 ```
-
-
 
 ### / 연산자
 
@@ -524,11 +613,9 @@ console.log(4 / 2); // 2
 console.log(4 / 3); // 1.3333333333333333
 console.log(4 / 0); // Infinity
 console.log(4 / -0); // -Infinity
-console.log(4 / '4'); // 1
-console.log(4 / 'h'); // NaN
+console.log(4 / "4"); // 1
+console.log(4 / "h"); // NaN
 ```
-
-
 
 ### % 연산자
 
@@ -543,21 +630,16 @@ console.log(NaN % 2); // NaN
 console.log(Infinity % 2); // NaN
 ```
 
-
-
-### ** 연산자
+### \*\* 연산자
 
 - 거듭제곱을 구한다.
 
 ```javascript
-console.log(2 ** 2) // 2*2 ->  4
-console.log(2 ** 2 ** 2) // 2**4 -> 2*2*2*2  16
-console.log(2 ** -1) // 1/2 -> 0.5
-console.log(2 ** -2) // 1/2 * 1/2 -> 0.25
-
+console.log(2 ** 2); // 2*2 ->  4
+console.log(2 ** (2 ** 2)); // 2**4 -> 2*2*2*2  16
+console.log(2 ** -1); // 1/2 -> 0.5
+console.log(2 ** -2); // 1/2 * 1/2 -> 0.25
 ```
-
-
 
 ## 비교 연산자
 
@@ -567,20 +649,18 @@ console.log(2 ** -2) // 1/2 * 1/2 -> 0.25
 
 ### 문자열 비교
 
-- 문자열은 사전편집순으로 비교된다. 
+- 문자열은 사전편집순으로 비교된다.
 - 즉 사전 앞쪽에 나오는 문자열이 값이 낮다. a < b < c ...
-- 문자열은 앞에서부터 한 글자씩 차례대로 비교한다. 
+- 문자열은 앞에서부터 한 글자씩 차례대로 비교한다.
 - 문자열 길이가 다르고 앞에 문자열이 같을 경우, 더 긴 문자열이 더 높은 값을 가진다.
 - 값 순서(크기): 숫자 < 알파벳 대문자 < 알파벳 소문자 < 한글
 
 ```javascript
-console.log('a'<'b') // true
-console.log('abuse'<'apple') // true
-console.log('ab'<'abc') // true
-console.log('a'>'A') // true
+console.log("a" < "b"); // true
+console.log("abuse" < "apple"); // true
+console.log("ab" < "abc"); // true
+console.log("a" > "A"); // true
 ```
-
-
 
 ### == 과 === 연산자
 
@@ -624,65 +704,57 @@ console.log(!![]); // true
 - 엄격한 isNaN 연산자
 
 ```javascript
-isNaN(100 + "a") // true
-Number.isNaN(100 + "a") // false
+isNaN(100 + "a"); // true
+Number.isNaN(100 + "a"); // false
 ```
-
-
-
-
 
 ## 논리 연산자
 
 ### || 연산자
 
-- 피연산자 들을 왼쪽에서 오른쪽으로 평가하며, true를 만나면  true를 반환, 없다면 false 반환
+- 피연산자 들을 왼쪽에서 오른쪽으로 평가하며, true를 만나면 true를 반환, 없다면 false 반환
 - 피연산자가 `boolean` true 값이면 `boolean` true을 반환하지만,
   다른 값이면 그 값을 반환한다.
-- 모든 값이 `falsy`이면  마지막 피연산자 값을 반환
+- 모든 값이 `falsy`이면 마지막 피연산자 값을 반환
 - && 연산자보다 우선순위가 낮다
 
 ```javascript
-console.log(3 > 2 || 1 > 4) // true
-console.log(3 < 2 || 'hello') // "hello"
-console.log(124 || "hello") // 124  : 0이 아닌 숫자는 true이므로 그대로 반환
-console.log(0 || "hello") // "hello" : 숫자 0은 false이므로 "hello"가 true이므로 그대로 반환
-console.log(0 || '') // ''
-console.log(0 || null) // null
-console.log(true || false && false) // true || false ->  true
+console.log(3 > 2 || 1 > 4); // true
+console.log(3 < 2 || "hello"); // "hello"
+console.log(124 || "hello"); // 124  : 0이 아닌 숫자는 true이므로 그대로 반환
+console.log(0 || "hello"); // "hello" : 숫자 0은 false이므로 "hello"가 true이므로 그대로 반환
+console.log(0 || ""); // ''
+console.log(0 || null); // null
+console.log(true || (false && false)); // true || false ->  true
 ```
-
-
 
 ### && 연산자
 
 - 피연산자들을 왼쪽에서 오른쪽으로 평가하며, false를 만나면 false를 반환, 없다면 true 반환
-- 피연산자가 `boolean`  false 값이면 `boolean` false을 반환하지만,
+- 피연산자가 `boolean` false 값이면 `boolean` false을 반환하지만,
   다른 값이면 그 값을 반환한다.
 - 모든 값이 `truthy`이면 마지막 피연산자를 반환
 - false인 값은 `false`, `null`, `NaN`, `0`, `''`, `undefined` 같은 것들이 있다.
 
 ```javascript
-console.log(0 && "hello") // 0
-console.log(1 && "hello") // "hello"
-console.log("foo" && 4) // 4
+console.log(0 && "hello"); // 0
+console.log(1 && "hello"); // "hello"
+console.log("foo" && 4); // 4
 ```
 
-
-
-### !  연산자
+### ! 연산자
 
 - 논리적 부정으로 참은 거짓으로, 거짓은 참으로 바꾼다.
 - 반환 값이 항상 `boolean`이라고 할 수는 없다.
-- `boolean`값으로 명시적으로  반환하기 위해 `!!` 또는 `Boolean` 생성자를 사용할 수 있다.
+- `boolean`값으로 명시적으로 반환하기 위해 `!!` 또는 `Boolean` 생성자를 사용할 수 있다.
 
 ```javascript
-console.log(!0) // true
-console.log(!'') // true
-console.log(!'hello') // false
-console.log(!true) // false
-console.log(!false) // true
-console.log(!!NaN) // false
+console.log(!0); // true
+console.log(!""); // true
+console.log(!"hello"); // false
+console.log(!true); // false
+console.log(!false); // true
+console.log(!!NaN); // false
 ```
 
 ### !! 연산자
@@ -691,10 +763,8 @@ console.log(!!NaN) // false
 - 반대의 반대는 같기 때문이다
 
 ```javascript
-console.log(!!0) // !0 -> true, !true -> false
+console.log(!!0); // !0 -> true, !true -> false
 ```
-
-
 
 ## 비트 연산자
 
@@ -703,20 +773,16 @@ console.log(!!0) // !0 -> true, !true -> false
 - 각 자리의 비트에 대해서 and 연산
 
 ```javascript
-console.log(2 & 3) // 2
+console.log(2 & 3); // 2
 ```
 
-
-
-### |  연산자
+### | 연산자
 
 - 각 자리의 비트에 대해서 or 연산
 
 ```javascript
-console.log(2 | 1) // 3
+console.log(2 | 1); // 3
 ```
-
-
 
 ### ^ 연산자
 
@@ -724,33 +790,27 @@ console.log(2 | 1) // 3
 - 같으면 0, 다르면 1
 
 ```javascript
-console.log(15 ^ 1) // 14
+console.log(15 ^ 1); // 14
 ```
-
-
 
 ### ~ 연산자
 
 - 각 자리의 비트에 비트가 있으면 0 없으면 1
 
 ```javascript
-console.log(~0) // -1
-console.log(~1) // -2
-console.log(~-1) // -0
+console.log(~0); // -1
+console.log(~1); // -2
+console.log(~-1); // -0
 ```
-
-
 
 ### <<, >> 연산자
 
 - 각 자리의 비트를 각 방향으로 원하는 만큼 이동
 
 ```javascript
-console.log(2 << 1) // 4
-console.log(16 >> 1) // 8
+console.log(2 << 1); // 4
+console.log(16 >> 1); // 8
 ```
-
-
 
 ### >>> 연산자
 
@@ -758,11 +818,9 @@ console.log(16 >> 1) // 8
 - 오른쪽으로 밀리는 비트는 폐기되고, 0은 왼쪽 끝으로 이동한다
 
 ```javascript
-console.log(-1 >>> 1) // 2147483647
-console.log(-1 >>> 31) // 1
+console.log(-1 >>> 1); // 2147483647
+console.log(-1 >>> 31); // 1
 ```
-
-
 
 ## 그 외 연산자
 
@@ -772,22 +830,18 @@ console.log(-1 >>> 31) // 1
 
 ```javascript
 x = 10;
-y = z = x // x -> y -> z
+y = z = x; // x -> y -> z
 
-console.log(x) // 10
-console.log(y) // 10
-console.log(z) // 10
+console.log(x); // 10
+console.log(y); // 10
+console.log(z); // 10
 ```
-
-
 
 ### , 연산자
 
 - 각 피연자를 왼쪽부터 오른쪽으로 평가하고, 마지막 피연산자의 값을 반환
 - 한 줄에서 여러 연산자를 평가할 수 있다
 - 가독성이 좋지 않다. 때문에 잘 사용하지 않는다..
-
-
 
 ### typeof 연산자
 
@@ -809,28 +863,22 @@ console.log(typeof null); // "object"
 - `object`의 프토토타입 체인에 `constructor.prototype`이 존재하는지 판별
 
 ```javascript
-object instanceof constructor
+object instanceof constructor;
 ```
-
-
 
 ### ? 연산자 (삼항 연산자)
 
 - 자바스크립트에서 세 개의 피연산자를 사용하는 유일한 연산자
 
 ```javascript
-condition ? exprIfTrue : exprIfFalse
+condition ? exprIfTrue : exprIfFalse;
 ```
 
 - else if 문과 비슷하게 연결하여 사용할 수 있다.
 
 ```javascript
-condition1 ? value1 
-	: condition2 ? value2 
-	: value3
+condition1 ? value1 : condition2 ? value2 : value3;
 ```
-
-
 
 ### ?. 연산자(선택적 연결; optional chaining)
 
@@ -839,13 +887,11 @@ condition1 ? value1
 
 ```javascript
 const user = {
-  name: 'foo',
-  age: 20
-}
+  name: "foo",
+  age: 20,
+};
 
-console.log(user?.name) // "foo"
-console.log(user.a?.b) // undefined
-console.log(user.a.b) // "TypeError: Cannot read properties of undefined (reading 'b')"
-
+console.log(user?.name); // "foo"
+console.log(user.a?.b); // undefined
+console.log(user.a.b); // "TypeError: Cannot read properties of undefined (reading 'b')"
 ```
-

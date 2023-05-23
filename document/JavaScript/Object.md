@@ -156,7 +156,7 @@ for (key in object) {
 
 - 객체의 값은 기본적으로 값이 담긴 메모리 주소를 참조한다.
 
-## Object.assign() - 객체 복사
+## 객체 복사
 
 -  출처가 되는 객체의 열거 가능한 모든 자체 속성을 복사하여 대상 객체에 붙여 넣는다
 - 동일한 키를 값는 속성은 출처 객체의 속성으로 덮어 쓴다.
@@ -165,6 +165,27 @@ for (key in object) {
 ```javascript
 Object.assign(target, ...sources)
 ```
+
+## 객체 깊은 복사
+
+- 객체는 어느 레벨까지 속성이 있는지 바로 알 수 없다.
+- 모든 레벨의 값을 복사를 하기 위해서는 재귀호출과 같은 방법이 필요하다
+
+```javascript
+var copyObjectDeep = function(target) {
+	var result = {};
+	if (typeof target === 'object' && target !== null) {
+		for (var prop in target) {
+			result[prop] = copyObjectDeep(target[prop]);
+		}
+	} else {
+		result = target;
+	}
+	return result;
+}
+```
+
+
 
 ## 객체 합치기
 

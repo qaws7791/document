@@ -100,7 +100,7 @@ copiedArr = [...arr]
 
 ## Array.from() - 얕은 복사로 배열 생성
 
-- 유사 배열 객체나 반복 가능한 객체에서 얕은 복사를 통해 새로운 Array 생성
+- 유사 배열 객체(array-like object)나 반복 가능한 객체(iterable object)로 부터 **얕은 복사**를 통해 새로운 Array 생성
 
 ```javascript
   Array.from(arrayLike[, mapFn[, thisArg]])
