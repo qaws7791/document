@@ -151,6 +151,24 @@ f();
 console.log(a); // global
 ```
 
+## 클로저(closer)
+
+- 중첩 함수가 외부 함수보다 오래 유지되고, 외부 함수의 변수를 참조하고 있을 때, 외부 함수가 종료되어도 참조가 가능
+- 외부 함수의 변수들을 안전하게 보호하고 초기화없이 내부 함수를 사용
+
+```javascript
+const counter = (() => {
+  let i = 0;
+  return () => ++i;
+})();
+
+console.log(counter());
+console.log(counter());
+console.log(counter());
+```
+
+
+
 ## 함수 안의 변수 끌어올림
 
 - 함수 안의 변수 선언부는 함수의 첫머리로 끌어올려진다.
@@ -220,7 +238,8 @@ console.log(add(1, 2, 3)) // {0: 1, 1: 2, 2: 3} 3
 
 - 객체 내의 메서드를 호출할 때는 해당 메서드를 호출한 객체로 바인딩
   - 예외적으로 객체의 메서드여도 즉시 실행 함수일 경우 스스로 실행되므로 전역 객체에 바인딩된다.
-
+  - 객체의 메서드여도 함수에게 인자로 넘겨주면 전역객체를 가리킨다.
+  
 - 브라우저에서 자바스크립트 실행 시 전역 객체에 바인딩 (window 객체)
 - 바인딩 하지 않으면 func2, func3의 this는 전역객체를 가리킴
 
@@ -294,7 +313,7 @@ func.apply(thisArg, [argsArray])
   3. name 프로퍼티로 bind()되었는지 확인
 
 ```javascript
-   func.bind(thisArg[, arg1[, arg2[, ...]]])
+func.bind(thisArg[, arg1[, arg2[, ...]]])
 ```
 
 ```javascript
@@ -386,7 +405,26 @@ console.log(foo.hasOwnProperty('name')); // true
 
 -  특정 조건, 이벤트 발생 시 호출되는 함수 (ex. 이벤트리스너)
 -  함수의 인자로 넘겨져 코드 내부에서 호출되는 함수
--  콜백함수도 기본적으로 함수이므로 this 바인딩이 없지만 addEventListener 같은 경우는 this 바인딩이 되어 있다.
+-  콜백함수도 기본적으로 함수이므로 `this` 바인딩이 없지만 **addEventListener** 같은 경우는 `this` 바인딩이 되어 있다. -> <u>함수 내부에서 명시적으로 `this`바인딩</u>을 하기 때문
+-  콜백함수를 사용하는 함수
+   -  eventlistener() 이벤트 리스너
+   -  setInterval() 타이머 함수
+   -  forEach(), map(), reduce 등 배열 함수
+
+
+### 콜백 함수 특징
+
+1. 호출 시점에 대한 제어권은 콜백함수를 받는 함수에게 있다.
+2. 인자와 그 순서에 대한 제어권도 콜백함수를 받는 함수에게 있다.
+3. 
+
+### setTimeout()
+
+- 타이머가 만료되면 주어진 함수나 코드를 실행
+- 실행의 주체가 되어 함수 실행의 제어권을 가짐
+- `clearTimeout()`을 통해 타이머 취소
+
+
 
 ## 함수를 리턴하는 함수
 
