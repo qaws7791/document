@@ -606,10 +606,6 @@ console.log(arr); // [1, 2, 0]
 console.log(arr2); // [1, 2, 0]
 console.log(arr3); // [0, 0, 3]
 ```
-<<<<<<< HEAD
-
-
-
 # 실행 컨텍스트
 
 - 자바스크립트 코드를 실행하기 위한 가상의 환경
@@ -790,14 +786,3 @@ console.log(generator.next()); //  { done: false, value: { counter: 0 }}
 console.log(generator.next().value.counter); // 1
 console.log(generator.next().value.counter); // 2
 ```
-
-
-
-### async / await
-
-```
-a
-```
-
-=======
->>>>>>> 8b1c1932fcabe288216483b1fd7490d493eeb064
