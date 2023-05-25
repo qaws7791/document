@@ -49,7 +49,7 @@ description: javascript에 대한 페이지
 * 자바스크립트의 함수는 클로저(closure)를 정의
 * 클로저를 통해 변수를 은닉하거나 영속성을 보장하는 등의 다양한 기능 구현
 
-## 자바스크립트의 기술적 요소
+### 자바스크립트의 기술적 요소
 
 #### 1. ECMAScript(코어 언어)
 
@@ -79,9 +79,9 @@ description: javascript에 대한 페이지
 
 
 
-# declarations(선언)과 Statements(구문)
+# Statements(구문)과 declarations(선언)은 다르다
 
-## declarations(선언)
+## declarations
 
 "binding identifiers to values"
 
@@ -97,7 +97,7 @@ if (condition) var i = 0;
 //It is possible;
 ```
 
-## statements(구문)
+## statements
 
 "carrying out actions"
 
@@ -606,6 +606,7 @@ console.log(arr); // [1, 2, 0]
 console.log(arr2); // [1, 2, 0]
 console.log(arr3); // [0, 0, 3]
 ```
+<<<<<<< HEAD
 
 
 
@@ -798,3 +799,5 @@ console.log(generator.next().value.counter); // 2
 a
 ```
 
+=======
+>>>>>>> 8b1c1932fcabe288216483b1fd7490d493eeb064
