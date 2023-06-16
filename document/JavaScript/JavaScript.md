@@ -761,28 +761,10 @@ const myPromise = new Promise((resolve, reject) => {
 });
 ```
 
-
-
-
-
-### generator
-
-반복 가능한 객체를 통해 값을 반환하는 객체
-
-- `generator.next()`를 사용하면 다음 yield문에서 멈추고 value와 done을 가지는 객체를 반환
-
 ```javascript
-function* infinite() {
-  let counter = 0;
+myPromise
+.then((res)=> console.log(res)) // 성공
+.catch((error)=> console.log(error)) // 실패
 
-  while (true) {
-    yield {counter: counter++};
-  }
-}
-
-const generator = infinite();
-
-console.log(generator.next()); //  { done: false, value: { counter: 0 }}
-console.log(generator.next().value.counter); // 1
-console.log(generator.next().value.counter); // 2
 ```
+
