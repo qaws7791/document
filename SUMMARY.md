@@ -12,7 +12,7 @@
   * [Web API](document/JavaScript/WebAPI.md)
 * [React](document/React/React.md)
 * [QnA](document/QnA/QnA.md)
-  * [Network](document/QnA/Network.md)
+  * [Web / Network](document/QnA/Network.md)
   * [Operating System](document/QnA/OperatingSystem.md)
   * [DataBase](document/QnA/DataBase.md)
   * [Data Structure](document/QnA/DataStructure.md)
