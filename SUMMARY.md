@@ -16,3 +16,5 @@
   * [Operating System](document/QnA/OperatingSystem.md)
   * [DataBase](document/QnA/DataBase.md)
   * [Data Structure](document/QnA/DataStructure.md)
+  * [Data Structure](document/QnA/DataStructure.md)
+  * [Data Structure](document/QnA/DataStructure.md)
