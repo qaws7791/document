@@ -10,6 +10,7 @@
   * [Object](document/JavaScript/Object.md)
   * [Variable](document/JavaScript/Variable.md)
   * [Web API](document/JavaScript/WebAPI.md)
+  * [Console API](document/JavaScript/ConsoleAPI.md)
 * [React](document/React/React.md)
 * [QnA](document/QnA/QnA.md)
   * [Web / Network](document/QnA/Network.md)
