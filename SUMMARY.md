@@ -16,5 +16,6 @@
   * [Operating System](document/QnA/OperatingSystem.md)
   * [DataBase](document/QnA/DataBase.md)
   * [Data Structure](document/QnA/DataStructure.md)
-  * [Data Structure](document/QnA/DataStructure.md)
-  * [Data Structure](document/QnA/DataStructure.md)
+  * [HTML CSS](document/QnA/HTMLAndCSS.md)
+  * [JavaScript](document/QnA/JavaScript.md)
+  * [React](document/QnA/React.md)
