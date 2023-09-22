@@ -20,3 +20,5 @@
   * [HTML CSS](document/QnA/HTMLAndCSS.md)
   * [JavaScript](document/QnA/JavaScript.md)
   * [React](document/QnA/React.md)
+* [Computer Science](document/ComputerScience/ComputerScience.md)
+  * [CPU / Memory](document/ComputerScience/CPUAndMemory.md)
