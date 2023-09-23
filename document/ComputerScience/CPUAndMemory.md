@@ -4,7 +4,7 @@
 
 컴퓨터에서 처리를 담당하는 “중앙 처리 장치”. 계산을 잘하지만 다른 지능적인 행위를 하지 못한다.
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (1).png>)
 
 ### Arithmetic Logic Unit(ALU)
 
@@ -172,7 +172,7 @@ graph LR
 
 **I/O Burst**: I/O작업이 끝날때까지 Block되는 구간
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### 스케쥴링 평가 기준
 
