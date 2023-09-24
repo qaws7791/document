@@ -2,7 +2,7 @@
 
 ## React
 
-
+***
 
 > 리액트처럼 사고하기 https://ko.reactjs.org/docs/thinking-in-react.html
 
@@ -103,6 +103,8 @@ root.render(element);
 
 * 리액트 DOM은 현재 상태와 변경될 상태를 비교하여 변경이 필요한 부분만 업데이트한다.
 
+
+
 ### Components
 
 #### Component 정의
@@ -133,6 +135,10 @@ class Component extends React.Component {
 	}
 }
 ```
+
+#### rendering
+
+부모 컴포넌트가 리렌더링되면 모든 하위 컴포넌트가 리렌더링
 
 #### props
 
@@ -180,6 +186,20 @@ function WelcomeDialog() {
 }
 ```
 
+###
+
+### Virtual DOM
+
+> The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called [reconciliation](https://legacy.reactjs.org/docs/reconciliation.html). -react docs
+
+가상 UI를 메모리에서 관리하고 이를 실제 DOM에 동기화하는 방식
+
+`렌더 단계`: 컴포넌트를 렌더링하고 변경 사항을 계산
+
+`커밋 단계`: 변경 사항을 DOM에 적용
+
+가상DOM이라는 단어를 점점 안쓰는 추세이다. 컴포넌트가 항상 DOM을 나타내는 것도 아니다.
+
 ## Hooks
 
 함수 컴포넌트에서 React state와 생명주기 기능(lifecycle features)을
@@ -189,6 +209,8 @@ function WelcomeDialog() {
 Class없이 React를 사용 -> 함수형 컴포넌트
 
 > Hook은 계층의 변화 없이 상태 관련 로직을 재사용할 수 있도록 도와줍니다.
+
+<figure><img src="../../.gitbook/assets/hook-flow.png" alt=""><figcaption></figcaption></figure>
 
 ### Hook 2가지 규칙
 
@@ -213,6 +235,34 @@ Class없이 React를 사용 -> 함수형 컴포넌트
 
 ```jsx
 const [state, setState] = useState(initialValue);
+```
+
+#### State 배치 처리
+
+비동기적 특성을 가졌기 때문에 state는 즉시 반영되지 않는다.
+
+만약 즉시 반영되게 된다면 onClick 함수에서 3번의 리렌더링이 발생해야 하는 낭비가 발생하게 된다.
+
+```jsx
+const [counter, setCounter] = useState(0);
+
+const onClick = async () => {
+  setCounter(counter + 1);
+  setCounter(counter + 1);
+  setCounter(counter + 1);
+};
+// 1
+```
+
+```jsx
+const [counter, setCounter] = useState(0);
+
+const onClick = async () => {
+  setCounter(prevState => prevState + 1);
+  setCounter(prevState => prevState + 1);
+  setCounter(prevState => prevState + 1);
+};
+// 1
 ```
 
 #### State 직접 수정하지 않기
@@ -577,6 +627,30 @@ setUser({ age: 22 }); // user -> { name: "foo", age: 22 }
 
 ## 렌더링
 
+
+
+```jsx
+// ❌ 매번 새로운 ChildCo// ❌ BAD!mponent 참조를 생성
+function ParentComponent() {
+  function ChildComponent() {
+    return <div>Hi</div>;
+  }
+
+  return <ChildComponent />;
+}
+```
+
+```
+// ✅ 다른 컴포넌트로 분리하여 사용
+function ParentComponent() {
+  function ChildComponent() {
+    return <div>Hi</div>;
+  }
+
+  return <ChildComponent />;
+}
+```
+
 ### 이벤트 처리
 
 * 캐멀 케이스 사용
@@ -655,6 +729,18 @@ return(
 * React가 배열 요소의 식별을 위해 사용하는 값
 * 고유하게 식별할 수 있는 문자열을 지정
 * 요소 삭제, 변경에 따른 순서 변경이 일어날 수 있는 경우 인덱스 값 사용은 피하는 것이 좋다
+
+```jsx
+// ❌ 2번 인덱스의 6이 사라졌지만 리액트는 8이 사라진 것으로 생각할 수 있다
+item = [2,4,6,8]
+item = item.splice(2,1) // [2,4,8]
+return(
+    <ul>
+        {items.map((item,index) => <li key={index}>{item}</li>)}
+    </ul>)
+
+```
+
 * `map()`가 반환하는 엘리먼트 혹은 컴포넌트에 key값을 지정
 * `key`값은 같은 배열 안에서만 고유하면 되며, 다른 배열의 `key` 값과 같은 값이 있어도 사용할 수 있다.
 
@@ -676,7 +762,7 @@ return(
 
 ### React.memo
 
-* 고차 컴포넌트
+* 고차 컴포넌트 형태로 사용
 * props가 동일하면 마지막으로 렌더링된 결과를 재사용하여 성능을 최적화
 * props는 **얕은 비교**로 수행되고, 두 번째 인자로 비교 함수를 지정할 수 있다.
 * 비교함수가 true를 반환하면 같은 상태로 간주하고, false를 반환하면 다시 렌더링된다.
@@ -694,7 +780,8 @@ function areEqual(prevProps, nextProps) {
   nextProps가 prevProps와 동일한 값을 가지면 true를 반환하고, 그렇지 않다면 false를 반환
   */
 }
-export default React.memo(MyComponent, areEqual);
+export default React.memo(MyComponent); 
+//export default React.memo(MyComponent, areEqual);
 ```
 
 ### 폼
