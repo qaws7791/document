@@ -237,6 +237,42 @@ Class없이 React를 사용 -> 함수형 컴포넌트
 const [state, setState] = useState(initialValue);
 ```
 
+#### 불변성을 지키면서 업데이트하기
+
+리액트에서 상태 업데이트는 **항상 불변**하게 수행되어야 한다
+
+불변하지 않으면, 상태를 업데이트 했지만 리렌더링이 되지 않은 상황이 발생할 수 있다
+
+```jsx
+const [todos, setTodos] = useState([
+    { name: 1, completed: false },
+    { name: 2, completed: false },
+    { name: 3, completed: false }
+  ]);
+
+// ❌ 리렌더링되지 않음
+const onClick = () => {
+  todos[2].completed = true;
+  setTodos(todos);
+};
+
+// ✅  얕은 복사를 통해 가장 바깥 참조를 불변하게 업데이트하여 리렌더링
+const onClick2 = () => {
+  const newTodos = todos.slice();
+  newTodos[2].completed = true;
+  setTodos(newTodos);
+};
+
+// ✅  얕은 복사를 통해 가장 바깥 참조를 불변하게 업데이트하여 리렌더링
+const onClick3 = () => {
+  setTodos((prev) => {
+    const newTodos = prev.slice();
+    newTodos[2].completed = true;
+    return newTodos;
+  });
+};
+```
+
 #### State 배치 처리
 
 비동기적 특성을 가졌기 때문에 state는 즉시 반영되지 않는다.
@@ -783,6 +819,17 @@ function areEqual(prevProps, nextProps) {
 export default React.memo(MyComponent); 
 //export default React.memo(MyComponent, areEqual);
 ```
+
+이런 의문이 들 수 있다.  왜모든 컴포넌트에 기본적으로 memo()를 사용하지 않을까?
+
+* 메모제이션 기능은 추가적인 자원과 처리를 필요로 한다. 이전 props와 새로운 props를 저장하고 비교하여 props가 변경되었는지 알아내야 하기 때문이다.
+* 일반적으로 대부분의 컴포넌트는 자주 업데이트 되지 않는다.
+
+[https://react.dev/reference/react/memo#should-you-add-memo-everywhere](https://react.dev/reference/react/memo#should-you-add-memo-everywhere)
+
+
+
+###
 
 ### 폼
 
