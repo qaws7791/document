@@ -2,14 +2,16 @@
 description: javascript에 대한 페이지
 ---
 
-# 프로그래밍 언어란
+# ⚙ Javascript
 
-## 프로그래밍 언어 정의
+## 프로그래밍 언어란
+
+### 프로그래밍 언어 정의
 
 * 프로그래밍 언어: 컴퓨터 프로그램을 작성하기 위한 언어
 * 컴퓨터는 기계어만 이해할 수 있다
 
-## 컴파일 언어 vs 인터프리터 언어
+### 컴파일 언어 vs 인터프리터 언어
 
 * 컴파일: 소스 코드 -> 기계어로 번역
 * 컴파일러: 컴파일을 수행하는 소프트웨어
@@ -17,51 +19,51 @@ description: javascript에 대한 페이지
 * 인터프리터 언어: 한 줄마다 기계어로 번역해서 실행하는 프로그래밍 언어
 * 인터프리터: 프로그램을 번역해서 실행시키는 소프트웨어
 
-## 프로그래밍 언어 유형
+### 프로그래밍 언어 유형
 
 * 절차적 언어
 * 객체 지향 언어
 * 함수형 언어
 * 논리형 언어
 
-## 자바스크립트 특징
+### 자바스크립트 특징
 
-### 인터프리터 언어이다
+#### 인터프리터 언어이다
 
 * 웹 브라우저에 JIT 컴파일러(Just In Time Compiler) 내장으로 빠른 실행 속도
 
-### 동적 프로토타입 기반 객체 지향 언어이다
+#### 동적 프로토타입 기반 객체 지향 언어이다
 
 * 프로토타입을 상속하는 프로토타입 기반 객체 지향 언어
 
-### 동적 타입 언어이다
+#### 동적 타입 언어이다
 
 * 프로그램 실행 도중 변수에 저장되는 데이터 타입에 따라 타입이 동적으로 바뀌는 언어
 
-### 함수가 일급 객체이다
+#### 함수가 일급 객체이다
 
 * 자바스크립트의 함수는 객체이다
 * 함수에 함수를 인자로 넘길 수도 있다
 * 함수형 프로그래밍 가능
 
-### 함수가 클로저를 정의한다
+#### 함수가 클로저를 정의한다
 
 * 자바스크립트의 함수는 클로저(closure)를 정의
 * 클로저를 통해 변수를 은닉하거나 영속성을 보장하는 등의 다양한 기능 구현
 
-### 자바스크립트의 기술적 요소
+#### 자바스크립트의 기술적 요소
 
-#### 1. ECMAScript(코어 언어)
+**1. ECMAScript(코어 언어)**
 
-#### 2. 클라이언트 측의 자바스크립트 고유 기술
+**2. 클라이언트 측의 자바스크립트 고유 기술**
 
- 웹브라우저의 주요 API
+웹브라우저의 주요 API
 
 * Window 인터페이스 : 브라우저 및 창 조작
 * DOM : HTML 문저 제어
 * XMLHttpRequest : 서버와 비동기 통신
 
- HTML5의 주요 API
+HTML5의 주요 API
 
 * Drag and Drop : 드래그와 드롭으로 데이터 전달
 * Blob : 이진 데이터 조작
@@ -73,15 +75,13 @@ description: javascript에 대한 페이지
 * Geolocation : GPS 등의 위치 정보 기능
 * Canvas : 2차원, 3차원의 그래픽스 기능
 
-#### 3.서버 측의 자바스크립트 고유 기술
+**3.서버 측의 자바스크립트 고유 기술**
 
 * Node.js
 
+## Statements(구문)과 declarations(선언)은 다르다
 
-
-# Statements(구문)과 declarations(선언)은 다르다
-
-## declarations
+### declarations
 
 "binding identifiers to values"
 
@@ -97,7 +97,7 @@ if (condition) var i = 0;
 //It is possible;
 ```
 
-## statements
+### statements
 
 "carrying out actions"
 
@@ -121,7 +121,7 @@ else
 >
 > 변수 재선언 가능
 
-## 구문과 선언의 구분
+### 구문과 선언의 구분
 
 * Control flow
   * `return`
@@ -158,12 +158,12 @@ else
   * `label`
   * `with`
 
-# 조건문
+## 조건문
 
-## if 문
+### if 문
 
-- 지정된 `condition`의 값이 `truthy`하면 `statement1`구문을 실행하고,
-- `falsy`하면 `statement2` 구문이 실행된다
+* 지정된 `condition`의 값이 `truthy`하면 `statement1`구문을 실행하고,
+* `falsy`하면 `statement2` 구문이 실행된다
 
 ```javascript
 if (condition)
@@ -176,8 +176,8 @@ else
   statement2
 ```
 
-- if 문을 중첩할 수 있다. 
-- `elseif`가 아닌 `else if`로 뛰어쓰기에 주의해야 한다.
+* if 문을 중첩할 수 있다.
+* `elseif`가 아닌 `else if`로 뛰어쓰기에 주의해야 한다.
 
 ```javascript
 if (condition1)
@@ -188,14 +188,11 @@ else
   statementN
 ```
 
+### Switch 문
 
-
-## Switch 문
-
-- 표현신을 평가하여 평가된 값이 `case`와 일치하면 그 case의 구문을 실행하고
-  아래로 이동한다.
-- break가 없으면 모든 `case`를 위에서 부터 아래로 검사한다.
-- 모든 `case`가 일치하지 않으면 `default`의 구문을 실행한다.
+* 표현신을 평가하여 평가된 값이 `case`와 일치하면 그 case의 구문을 실행하고 아래로 이동한다.
+* break가 없으면 모든 `case`를 위에서 부터 아래로 검사한다.
+* 모든 `case`가 일치하지 않으면 `default`의 구문을 실행한다.
 
 ```javascript
 switch (expression) {
@@ -219,33 +216,31 @@ switch (expression) {
 }
 ```
 
-# 반복문
+## 반복문
 
-## break: 
+### break:
 
-- 반복문, `switch`문, `label`문을 종료하고 다음 문으로 이동
+* 반복문, `switch`문, `label`문을 종료하고 다음 문으로 이동
 
-## continue:
+### continue:
 
-- 현재 또는 레이블이 지정된 반복문에소 현재 반복을 종료하고 다음 반복을 진행
+* 현재 또는 레이블이 지정된 반복문에소 현재 반복을 종료하고 다음 반복을 진행
 
-## 
+###
 
-## while 문
+### while 문
 
-- 조건이 참인지 먼저 확인하고, 참이면 구문이 실행된다. 조건이 거짓이 되면 반복이 끝난다.
+* 조건이 참인지 먼저 확인하고, 참이면 구문이 실행된다. 조건이 거짓이 되면 반복이 끝난다.
 
 ```javascript
  while (condition)
       statement
 ```
 
+### do...while
 
-
-## do...while
-
-- 조건이 거짓일 때까지 구문을 실행한다. 
-- while문과 달리 구문이 먼저 실행된다. 따라서 최소 1번 구문이 실행된다.
+* 조건이 거짓일 때까지 구문을 실행한다.
+* while문과 달리 구문이 먼저 실행된다. 따라서 최소 1번 구문이 실행된다.
 
 ```javascript
 do
@@ -254,15 +249,13 @@ while (condition);
 
 ```
 
+### for 문
 
-
-## for 문
-
-- 세개의  선택식으로 이루어진 반복문
-- `initialization`: 식 또는 변수를 선언
-- `condition` : 매 반복될 때마다 평가되는 식. 평가 결과가 참이면 구문을 실행하고, 거짓이면 구문을 나간다.
-- `final-expression`: 매 반복된 후 평가할 식.
-- 실행 순서: `initialization` -> `condition===true` -> `statement` -> `final-expression`
+* 세개의 선택식으로 이루어진 반복문
+* `initialization`: 식 또는 변수를 선언
+* `condition` : 매 반복될 때마다 평가되는 식. 평가 결과가 참이면 구문을 실행하고, 거짓이면 구문을 나간다.
+* `final-expression`: 매 반복된 후 평가할 식.
+* 실행 순서: `initialization` -> `condition===true` -> `statement` -> `final-expression`
 
 ```javascript
 for ([initialization]; [condition]; [final-expression])
@@ -270,12 +263,10 @@ for ([initialization]; [condition]; [final-expression])
 
 ```
 
+### for...in 문
 
-
-## for...in 문
-
-- 객체에서 열거 가능한 속성들을 반복
-- 속성에 대한 값은 object[variable]로 접근 가능
+* 객체에서 열거 가능한 속성들을 반복
+* 속성에 대한 값은 object\[variable]로 접근 가능
 
 ```javascript
 for (const variable in object) {
@@ -283,12 +274,10 @@ for (const variable in object) {
 }
 ```
 
+### for...of 문
 
-
-## for...of 문
-
-- 반복 가능한 객체에 대해 각 개별 속성값을 반복
-- Array, Map, Set, String 등
+* 반복 가능한 객체에 대해 각 개별 속성값을 반복
+* Array, Map, Set, String 등
 
 ```javascript
 for (variable of iterable) {
@@ -296,11 +285,9 @@ for (variable of iterable) {
 }
 ```
 
+## 구조적 분해
 
-
-# 구조적 분해
-
-## 객체 구조 분해
+### 객체 구조 분해
 
 * 구조 분해된 name과 age가 바뀌어도 원래 객체의 값에 영향을 주지 않는다.
 * ```javascript
@@ -332,14 +319,14 @@ for (variable of iterable) {
               food: "cake",
             },
           };
-    
+
     const printFavoriteSport = ({ favorite: { sport } }) => {
     	console.log(`Favorite sport is ${sport}`);
     };
     printFavoriteSport(user);
     ```
 
-## 배열 구조 분해
+### 배열 구조 분해
 
 ```javascript
 const arr = [1, 2, 3, 4, 5];
@@ -349,7 +336,7 @@ const [last] = [...arr].reverse();
 console.log(first, second, third, last); // 1 2 3 5
 ```
 
-## 객체 리터럴 개선
+### 객체 리터럴 개선
 
 ```javascript
 const name = "foo";
@@ -366,7 +353,7 @@ const user = { name, age, favorite, printFavoriteSport };
 console.log(user);
 ```
 
-# 스프레드 연산자(...)
+## 스프레드 연산자(...)
 
 spread 프로퍼티를 제외한 iterable 객체 전용
 
@@ -383,7 +370,7 @@ spread 프로퍼티를 제외한 iterable 객체 전용
     console.log(sum.apply(null, numbers));
     ```
 
-## 배열 합치기 (배열 리터럴 전개)
+### 배열 합치기 (배열 리터럴 전개)
 
 ```javascript
 const numbers = [1, 2, 3];
@@ -392,7 +379,7 @@ console.log([numbers, numbers2]); // [[1,2,3],[4,5,6]]
 console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
 ```
 
-## 문자열을 배열로 분해하기
+### 문자열을 배열로 분해하기
 
 ```javascript
 const greeting = "Hello";
@@ -400,7 +387,7 @@ const arrayOfChars = [...greeting];
 console.log(arrayOfChars); //  ['H', 'e', 'l', 'l', 'o']
 ```
 
-## 배열 복사
+### 배열 복사
 
 > ❗︎단 1레벨 깊에서만 효과적으로 동작
 
@@ -420,7 +407,7 @@ console.log(numbers); // [1,2,3]
 console.log(numbers2); // [1,2,3,4]
 ```
 
-## 객체 리터럴 전개
+### 객체 리터럴 전개
 
 ```javascript
 const user = {
@@ -432,7 +419,7 @@ user2.name = "bar";
 console.log(user.name, user2.name); // foo bar
 ```
 
-# 나머지 매개변수(...args)
+## 나머지 매개변수(...args)
 
 함수에서 정해지지 않은 수의 매개변수를 배열로 받을 수 있다.
 
@@ -464,7 +451,7 @@ function printArgs(first, second, ...moreArgs) {
 printArgs(1,2,3,4,5)
 ```
 
-## Arguments와 나머지매개변수의 차이점
+### Arguments와 나머지매개변수의 차이점
 
 * `Arguments`는 배열이 아니다 -> \[\[Prototype]]: Object 이다
   * `callee`와 같은 기능도 있다.
@@ -475,9 +462,9 @@ printArgs(1,2,3,4,5)
 
 ![image-20230110191822853](document/JavaScript/JavaScript.assets/image-20230110191822853.png)
 
-# 클래스
+## 클래스
 
-## 프로토타입을 통한 객체 생성
+### 프로토타입을 통한 객체 생성
 
 > User.prototype.printName()을 변경하면 참조중인 모든 User 객체의 메서드가 변경됨
 
@@ -496,7 +483,7 @@ console.log(foo);
 
 ```
 
-## 클래스를 통한 객체 생성
+### 클래스를 통한 객체 생성
 
 > 이미 생성된 객체는 User를 변경해도 영향을 받지 않음
 
@@ -514,7 +501,7 @@ const foo = new User("foo", 20);
 foo.printName();
 ```
 
-# ES6 모듈
+## ES6 모듈
 
 *   모듈에서 외부로 내보내기
 
@@ -535,21 +522,21 @@ foo.printName();
     import function_2 from './module';
     ```
 
-## 명령형 프로그래밍
+### 명령형 프로그래밍
 
 하고자 하는 일에 대해 구문의 관점에서 연산을 설명하는 프로그래밍 방식
 
 달성해야 할 명령에 대채 순차적으로 작성
 
-## 선언적 프로그래밍
+### 선언적 프로그래밍
 
 어떻게 결과가 나타나야 하는지를 설명하는 프로그래밍 방식
 
-## 불변성
+### 불변성
 
 불변성을 위해 데이터의 변경이 필요하다면 복사본을 만들어 사용한다.
 
-## 객체 불변성
+### 객체 불변성
 
 * `Object.assign(target,...source)`는 객체를 복사하기 위해 사용되지만
 * source값이 참조 값이면 참조 값이 복사되어 얕은 복사가 된다. 따라서 아래의 `obj3`처럼 복사해야 한다.
@@ -565,7 +552,7 @@ console.log(JSON.stringify(obj2)); // {"a":0,"b":{"c":1}}
 console.log(JSON.stringify(obj3)); // {"a":0,"b":{"c":0}}
 ```
 
-## 순수함수를 통한 객체 불변성
+### 순수함수를 통한 객체 불변성
 
 * 순수함수의 규칙
   1. 하나 이상의 파라미터를 가진다.
@@ -593,7 +580,7 @@ console.log(grantAuth(user));
 console.log(user);
 ```
 
-## 배열 불변성
+### 배열 불변성
 
 ```javascript
 let arr = [0, 0, 0];
@@ -606,11 +593,12 @@ console.log(arr); // [1, 2, 0]
 console.log(arr2); // [1, 2, 0]
 console.log(arr3); // [0, 0, 3]
 ```
-# 실행 컨텍스트
 
-- 자바스크립트 코드를 실행하기 위한 가상의 환경
-- global, function, eval
-- 전역 공간(global)은 하나만 가진다.
+## 실행 컨텍스트
+
+* 자바스크립트 코드를 실행하기 위한 가상의 환경
+* global, function, eval
+* 전역 공간(global)은 하나만 가진다.
 
 ```javascript
 // ---- 1번
@@ -627,26 +615,26 @@ outer(); // ---- 3번
 console.log(a); // 1
 ```
 
-![image-20230523120018928](./JavaScript.assets/image-20230523120018928.png)
+![image-20230523120018928](JavaScript.assets/image-20230523120018928.png)
 
-## 실행 컨텍스트의 정보
+### 실행 컨텍스트의 정보
 
-1. VariableEnvironment -> 식별자 정보, 선언 시점의 LexicalEnvironment  스냅샷
+1. VariableEnvironment -> 식별자 정보, 선언 시점의 LexicalEnvironment 스냅샷
 2. LexicalEnvironment -> 실시간 변경사항 저장, 레코드를 수집하여 호이스팅
    1. environmentRecord
    2. outerEnvironmentReference -> 실행될 때의 바깥 환경 정보
 3. ThisBinding -> this가 가리키는 객체
 
-## 런타임
+### 런타임
 
-- Node에서 전역객체: global
-- 브라우저에서 전역객체: window
+* Node에서 전역객체: global
+* 브라우저에서 전역객체: window
 
-## Method
+### Method
 
-- 함수의 this: 함수를 실행하는 전역 환경의 객체가 this가 된다. (전역객체)
-- 메서드의 this: 메서드는 객체의 속성인 함수이므로 실행하는 객체가 this가 된다. (객체)
-- ❗객체 안이어도 함수로서 실행하면 전역 객체를 this로 받는다.
+* 함수의 this: 함수를 실행하는 전역 환경의 객체가 this가 된다. (전역객체)
+* 메서드의 this: 메서드는 객체의 속성인 함수이므로 실행하는 객체가 this가 된다. (객체)
+* ❗객체 안이어도 함수로서 실행하면 전역 객체를 this로 받는다.
 
 ```javascript
       var obj1 = {
@@ -666,56 +654,47 @@ console.log(a); // 1
       obj1.outer();
 ```
 
-
-
-# 동기와 비동기
+## 동기와 비동기
 
 **동기**
 
-- 순서대로 작업을 처리하여 작업이 끝나지 않으면 기다리는 방식
+* 순서대로 작업을 처리하여 작업이 끝나지 않으면 기다리는 방식
+* 비동기: 작업을 시작하고 끝날 때까지 다른 작업을 수행할 수 있는 방식
+* 콜백지옥과 효율적인 작업 시간 소모를 위해 비동기의 필요성
 
-- 비동기: 작업을 시작하고 끝날 때까지 다른 작업을 수행할 수 있는 방식
-- <u>콜백지옥과 효율적인 작업 시간 소모를 위해 비동기의 필요성</u>
+### 비동기
 
-## 비동기
+* 순서를 보장하지 않는다. 작업이 언제 끝날지 알 수 없기 때문이다.
+* 따라서 비동기 작업의 동기적 표현이 필요하다
 
-- 순서를 보장하지 않는다. 작업이 언제 끝날지 알 수 없기 때문이다.
-- 따라서 비동기 작업의 동기적 표현이 필요하다
+#### Promise
 
-### Promise
-
-- Promise에는 함수를 전달한다. 이때 함수를 `executor(실행자)`라고 한다.
-- 실행자 내부에서는 작업이 종료되면 `resolve`와 `reject` 중 하나를 반드시 호출 해야 한다.
-- `resolve(value)` - 작업이 성공적으로 끝났을 때 값과 함께 호출
-- `reject(error)` - 작업이 실패했을 때 에러와 함께 호출
-
-- Promise의 3가지 상태
+* Promise에는 함수를 전달한다. 이때 함수를 `executor(실행자)`라고 한다.
+* 실행자 내부에서는 작업이 종료되면 `resolve`와 `reject` 중 하나를 반드시 호출 해야 한다.
+* `resolve(value)` - 작업이 성공적으로 끝났을 때 값과 함께 호출
+* `reject(error)` - 작업이 실패했을 때 에러와 함께 호출
+* Promise의 3가지 상태
   1. 대기(pending): 초기 상태
   2. 이행(fulfilled): 성공
   3. 거부(rejected): 실패
 
-### Promise의 3가지 상태
+#### Promise의 3가지 상태
 
-- Promise.then()
-  작업이 완료되었을 때와 실패 했을 때 실행할 두 개의 콜백 함수를 받고 Promise를 반환
+*   Promise.then() 작업이 완료되었을 때와 실패 했을 때 실행할 두 개의 콜백 함수를 받고 Promise를 반환
 
-  ```javascript
-  promise.then((value)=>{}, (reason)=>{});
-  ```
+    ```javascript
+    promise.then((value)=>{}, (reason)=>{});
+    ```
+*   Promise.catch() 작업이 실패 했을 때 실행할 콜백 함수를 받아 실행하고 새로운 Promise를 반환
 
-- Promise.catch()
-  작업이 실패 했을 때 실행할 콜백 함수를 받아 실행하고 새로운 Promise를 반환
+    ```javascript
+    promise.catch((error)=>{})
+    ```
+*   Promise.finally() 작업이 성공했든 실패했든 최종적으로 실행되는 코드
 
-  ```javascript
-  promise.catch((error)=>{})
-  ```
-
-- Promise.finally()
-  작업이 성공했든 실패했든 최종적으로 실행되는 코드
-
-  ```javascript
-  promise.finally(()=>{});
-  ```
+    ```javascript
+    promise.finally(()=>{});
+    ```
 
 ```javascript
 myPromise
@@ -729,8 +708,6 @@ myPromise
   runFinalCode();
 });
 ```
-
-
 
 ```mermaid
 stateDiagram-v2
@@ -749,8 +726,6 @@ direction LR
     catch --> end : return
 ```
 
-
-
 ```javascript
 const myPromise = new Promise((resolve, reject) => {
     if(성공) {
@@ -767,4 +742,3 @@ myPromise
 .catch((error)=> console.log(error)) // 실패
 
 ```
-
