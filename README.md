@@ -1,19 +1,35 @@
 ---
 description: Gitbook description
+cover: .gitbook/assets/pexels-ds-stories-6990186.webp
+coverY: 0
+layout:
+  cover:
+    visible: true
+    size: hero
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # 🚩 README
 
 It is a repository for recording and browsing personal learning throughout the journey of long and long web development.
 
-If you have any misinformation or opinions, please contact us through the blog or GitHub below
+If you find any misinformation or have any other opinions, please contact me through the blog or GitHub below
 
 
 
 {% embed url="https://neda.tistory.com/" %}
-blog
+Blog
 {% endembed %}
 
 {% embed url="https://github.com/qaws7791/TIL" %}
-github
+Github
 {% endembed %}
