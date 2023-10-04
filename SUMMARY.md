@@ -9,6 +9,7 @@
   * [Function](document/JavaScript/Function.md)
   * [Object](document/JavaScript/Object.md)
   * [Variable](document/JavaScript/Variable.md)
+  * [Cheat Sheet](document/JavaScript/CheatSheet.md)
   * [Web API](document/JavaScript/WebAPI.md)
   * [Console API](document/JavaScript/ConsoleAPI.md)
 * [⚛ React](document/React/React.md)
