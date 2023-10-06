@@ -13,6 +13,8 @@
   * [Web API](document/JavaScript/WebAPI.md)
   * [Console API](document/JavaScript/ConsoleAPI.md)
 * [⚛ React](document/React/React.md)
+  * [ReactHooks](document/React/ReactHooks.md)
+  * [ReactRendering](document/React/ReactRendering.md)
 * [❓ QnA](document/QnA/QnA.md)
   * [Web / Network](document/QnA/Network.md)
   * [Operating System](document/QnA/OperatingSystem.md)

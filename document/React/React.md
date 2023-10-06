@@ -1,16 +1,13 @@
 # ⚛ React
 
-## React
-
-***
-
-> 리액트처럼 사고하기 https://ko.reactjs.org/docs/thinking-in-react.html
-
 ### React는 무엇인가
 
-* JavaScript 라이브러리
 * Facebook에서 만든 오픈 소스 프로젝트
+* 사용자 인터페이스(UI)를 만들기 위한 JavaScript 라이브러리
+* 선언형 프로그래밍, 컴포넌트 기반
 * 재사용 가능한 요소를 통해 UI를 효율적으로 빌드
+
+
 
 #### React 프로젝트 시작하기
 
@@ -35,6 +32,8 @@ npx	create-react-app [project-name]
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 ```
 
+
+
 #### React 프로젝트 구조
 
 * /public
@@ -53,11 +52,14 @@ npx	create-react-app [project-name]
 
 https://github.com/facebook/react/tree/main/packages/react-devtools-extensions
 
-### JSX
 
-* JavaScript를 확장한 문법으로서 React 엘리먼트를 생성
 
-#### JSX 에서 표현식 넣기
+## JSX
+
+* JavaScript를 확장한 문법으로서 React에서 엘리먼트를 생성하기 위해 사용
+* html을 jsx로 변환하는 사이트 https://transform.tools/html-to-jsx
+
+### JSX 에서 표현식 넣기
 
 * `{}` 중괄호 안에서는 JavaScript 표현식을 사용할 수 있다.
 
@@ -66,9 +68,10 @@ const name = 'John';
 const element = <h1>My name is {name}</h1>;
 ```
 
-#### JSX에서 속성 넣기
+### JSX에서 속성 넣기
 
 * `속성={값}` `속성="문자열"` 형태
+* 자바스크립트 로직과 변수를 마크업에 사용할 수 있다.
 
 ```jsx
 const color = "red"
@@ -76,11 +79,123 @@ const element = <h1 color="red">My name is {name}</h1>;
 const element = <h1 color={color}>My name is {name}</h1>;
 ```
 
-### 엘리먼트
+### 속성명은 CamelCase를 사용
+
+속성 명은 `CamelCase`를 사용하여 작성(`onclick` -> `onClick`)
+
+```jsx
+// ❌
+<button onclick={handleClick}></button>
+```
+
+```jsx
+// ✅ CamelCase 사용
+<button onClick={handleClick}></button>
+```
+
+
+
+### 모든 태그는 닫혀야 한다
+
+```jsx
+// ❌
+<br>
+<img>
+<input>
+<li>
+```
+
+```jsx
+// ✅
+<br/>
+<img/>
+<input/>
+<input></input>
+<li>
+```
+
+
+
+
+
+### Fragment
+
+최상위 요소는 하나여야 한다. 
+
+최상위 요소를 2개 사용해야 할 때는 의미 없는 div태그 보다는 `<></>` Fragment를 사용하여 감싼다.
+
+```jsx
+// ❌ 최상위 요소가 2개이다.
+<header>
+    <nav></nav>
+</header>
+<section>
+    <ul>
+	    <li></li>
+    	<li></li>
+    </ul>
+</section>
+```
+
+```jsx
+// ❌ 최상위 요소가 2개이다.
+<>
+<header>
+    <nav></nav>
+</header>
+<section>
+    <ul>
+	    <li></li>
+    	<li></li>
+    </ul>
+</section>
+</>
+```
+
+### Key 속성 사용하기
+
+React에서는 배열로 렌더링할 때 Key 속성이 필수적이다.
+
+마찬가지로 Fragment를 배열로 렌더링할 때도 Key 속성을 지정해야한다.
+
+단축문법인 `<></>`는 Key 속성을 지정할 수 없기 때문에 `React.Fragment`를 사용해야 한다
+
+
+
+```jsx
+// ❌ 단축 문법에 Key 사용 불가
+{items.map((item)=>(
+	<key={item.id}>
+        <span>{item.name}</span>
+        <p>{item.price}</p>
+    <>
+))}
+```
+
+
+
+```jsx
+//✅ Fragment를 사용하여 Key 속성 사용
+{items.map((item)=>(
+	<React.Fragment key={item.id}>
+        <span>{item.name}</span>
+        <p>{item.price}</p>
+    </React.Fragment>
+))}
+```
+
+
+
+
+
+## Element
 
 * React 앱에서 사용되는 가장 작은 단위
+* virtual DOM 노드의 객체 표현
+* 생명주기를 가지지 않는다.
+* 한 번 생성되면 변하지 않는 불변 객체이다.
 
-#### 엘리먼트 렌더링
+### Element 렌더링
 
 * `루트 DOM 노드`는 리액트 앱에서 일반적으로 하나지만, 기존 앱에 통합할 때 여러 개의 독립적인 `루트 DOM 노드`를 만들 수도 있다.
 * 리액트 DOM이 `루트 DOM 노드` 아래의 모든 엘리먼트를 관리한다.
@@ -99,18 +214,33 @@ const element = <h1>Hello, world</h1>;
 root.render(element);
 ```
 
+
+
+
+
+### 상태가 없다
+
+- 엘리먼트는 생명 주기를 포함해 메서드, 상태를 가지지 않는다.
+
+
+
 #### 변경된 부분만 업데이트
 
 * 리액트 DOM은 현재 상태와 변경될 상태를 비교하여 변경이 필요한 부분만 업데이트한다.
 
 
 
-### Components
+## Component
 
-#### Component 정의
+### Component 정의
 
-* `props`를 입력으로 받아 React 엘리먼트를 반환
-* 함수형 컴포넌트
+* `props`를 입력으로 받아 React 엘리먼트를 반환한다.
+* React에서는 함수형 컴포넌트와 클래스형 컴포넌트가 있다
+* 이름은 대문자로 시작한다.
+
+
+
+**함수형 컴포넌트**
 
 ```jsx
 function Component(props) {
@@ -118,7 +248,7 @@ function Component(props) {
 }
 ```
 
-* 함수형 컴포넌트 - ES6 Arrow function 문법
+함수형 컴포넌트 - ES6 Arrow function 문법
 
 ```jsx
 const Component = (props) => {
@@ -126,7 +256,9 @@ const Component = (props) => {
 }
 ```
 
-* 클래스 컴포넌트 - ES6 Class 문법
+
+
+**클래스 컴포넌트** - ES6 Class 문법
 
 ```jsx
 class Component extends React.Component {
@@ -136,28 +268,73 @@ class Component extends React.Component {
 }
 ```
 
-#### rendering
+### rendering
 
 부모 컴포넌트가 리렌더링되면 모든 하위 컴포넌트가 리렌더링
 
-#### props
+
+
+### props
 
 * 상위 컴포넌트에서 전달받는 값
 * `props`는 Read Only 값으로 컴포넌트에서 임의로 변경해서는 안된다.
 * 따라서 순수함수를 통해 `props`를 다룬다.
 * 함수형 컴포넌트에서는 `{props.속성명}`
 * 클래스형 컴포넌트에서는 `{this.props.속성명}`
+* props를 전달 받을 때 구조 분해를 사용하여 속성을 바로 가져올 수 있다.
 
-#### children prop 상속
+```jsx
+const Button = (props) => {
+	return <button type={props.type}>{props.children}</button>
+} 
+```
+
+
+
+**props를 전달 받을 때 구조 분해를 사용하여 속성을 바로 가져올 수 있다.**
+
+```jsx
+// 구조분해를 사용한 props 가져오기
+const Button = ({ type, children }) => {
+	return <button type={type}>{children}</button>
+} 
+```
+
+
+
+**props 기본값 지정하기**
+
+```jsx
+const Button = ({ type='submit', children, placeholder='enter...' }) => {
+	return <button type={type} placeholder={placeholder}>{children}</button>
+} 
+```
+
+
+
+**모든 props를 엘리먼트에 전달하기** 
+
+- 스프레드 구문을 사용하여 모든 props, 또는 나머지 props를 엘리먼트에 전달할 수 있다.
+
+```jsx
+const Image = (props) => {
+	return <img {...props} />
+}
+```
+
+```jsx
+const Image = ({a, b, ...props}) => {
+    // a와 b를 사용하는 로직
+	return <img {...props} />
+}
+```
+
+
+
+### children  속성
 
 * 자신 컴포넌트의 태그 사이로 들어오는 `content` 값으로
 * `props.children`으로 사용
-
-```jsx
-<TitleContainer>
-<h1>Title: React</h1>
-</TitleContainer>
-```
 
 ```jsx
 const TitleContainer ({ chlidren }) => {
@@ -169,9 +346,26 @@ const TitleContainer ({ chlidren }) => {
 }
 ```
 
+```jsx
+<TitleContainer>
+<h1>Title: React</h1>
+</TitleContainer>
+```
+
+```jsx
+// 렌더링 결과 
+<div className="TitleContainer">
+	<h1>Title: React</h1>
+</div>
+```
+
+
+
 * 자신의 `content`로 어떤 자식 엘리먼트가 올 지 예측하기 어려울 때 그대로 출력으로 전달 할 수 있다.
 
-#### 컴포넌트 구체화(특수화)
+
+
+### 컴포넌트 구체화(특수화)
 
 * `구체적인`컴포넌트 => `일반적인`컴포넌트를 렌더링
 * 구체적인 컴포넌트(`WelcomeDialog`)에서`props`를 전달하여 일반적인 컴포넌트(`Dialog`) 구체화
@@ -186,9 +380,66 @@ function WelcomeDialog() {
 }
 ```
 
-###
 
-### Virtual DOM
+
+## import / export
+
+어느 방식을 사용하든 의미 있는 이름을 사용하여야 한다. 
+
+`export default () => {}`와 같은 방식은 권장되지 않는다.
+
+### 기본 내보내기 방식
+
+기본 내보내기 방식은 가져올 때 원하는 이름으로 가져올 수도 있다.
+
+
+
+```javascript
+export default function App() {
+    ...
+}
+```
+
+```javascript
+const App = () => {
+    ...
+}
+export default App;
+```
+
+```javascript
+import App from './App.js';
+import AppContainer from './App.js';
+```
+
+
+
+### 명명된 내보내기 방식
+
+명명된 내보내기 방식은 가져올 때 양쪽의 이름이 일치해야 한다. 
+
+가져온 후에는 이름을 변경할 수있다.
+
+```javascript
+export function App() {
+...
+}
+```
+
+```javascript
+export const App = () => {
+...
+}
+```
+
+```javascript
+import { App } from './App.js'
+import { App as AppContainer } from './App.js'
+```
+
+
+
+## Virtual DOM
 
 > The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called [reconciliation](https://legacy.reactjs.org/docs/reconciliation.html). -react docs
 
@@ -200,632 +451,39 @@ function WelcomeDialog() {
 
 가상DOM이라는 단어를 점점 안쓰는 추세이다. 컴포넌트가 항상 DOM을 나타내는 것도 아니다.
 
-## Hooks
 
-함수 컴포넌트에서 React state와 생명주기 기능(lifecycle features)을
 
-“연동(hook into)“할 수 있게 해주는 함수
+## State
 
-Class없이 React를 사용 -> 함수형 컴포넌트
+**상태**: React에서는 구성 요소가 화면을 표시하기 위해 기억해야 할 값들을 상태라고 부릅니다.
 
-> Hook은 계층의 변화 없이 상태 관련 로직을 재사용할 수 있도록 도와줍니다.
+**단방향 데이터 흐름**: 상태는 props를 통해 단방향으로 상위 요소에서 하위 요소로 흐릅니다.
 
-<figure><img src="../../.gitbook/assets/hook-flow.png" alt=""><figcaption></figcaption></figure>
+### state 고르기
 
-### Hook 2가지 규칙
+- 시간이 지나도 변함없이 유지 되는 값 -> 상태가 아님(상수)
+- props를 통해 부모로 부터 내려 받는 값 -> 상태가 아님(props)
+- 존재하는 상태와 props를 사용해 계산되어질 수 있는 값 -> 상태가 아님(useMemo를 사용)
 
-* 최상위 레벨에서만 Hook 호출 (반복문, 조건문, 중첩된 함수 내 호출 X)
-* React 함수 컴포넌트 또는 `Custom Hook` 내에서만 호출
-* Hook 은 기능 단위로 여러 개 나누는 것이 좋다.
 
-> 규칙을 지키기 위한 플러그인 https://www.npmjs.com/package/eslint-plugin-react-hooks
 
-### Hook 발생 순서
+### State 위치 정하기
 
-1. React 렌더링
-2. `useLayoutEffect` 호출
-3. 브라우저 DOM에 실제 화면 그리기
-4. `useEffect` 호출
+1. 해당 상태를 사용하는 모든 요소를 찾기
+2. 찾은 요소들의 공통 조상 요소를 찾기
+3. State 위치 정하기. 적절한 위치를 찾지 못했다면 새로운 공통 요소를 만들어 상위에 위치시키기
 
-### useState
 
-* 비공개 값으로 컴포넌트에 의해 제어된다.
-* `state(current state)`를 통해 접근하고, `setState(set function)`를 통해 변경할 수 있다.
-* 배열 구조 분해를 통해 `state`값과 `state를 변경하는 함수`를 반환 받는다.
 
-```jsx
-const [state, setState] = useState(initialValue);
-```
+### 역방향 데이터 흐름
 
-#### 불변성을 지키면서 업데이트하기
+하위 요소에서 상위 요소의 상태를 변경하고 싶을 때 상위 요소에서 setState 함수를 props로 전달
 
-리액트에서 상태 업데이트는 **항상 불변**하게 수행되어야 한다
 
-불변하지 않으면, 상태를 업데이트 했지만 리렌더링이 되지 않은 상황이 발생할 수 있다
 
-```jsx
-const [todos, setTodos] = useState([
-    { name: 1, completed: false },
-    { name: 2, completed: false },
-    { name: 3, completed: false }
-  ]);
 
-// ❌ 리렌더링되지 않음
-const onClick = () => {
-  todos[2].completed = true;
-  setTodos(todos);
-};
 
-// ✅  얕은 복사를 통해 가장 바깥 참조를 불변하게 업데이트하여 리렌더링
-const onClick2 = () => {
-  const newTodos = todos.slice();
-  newTodos[2].completed = true;
-  setTodos(newTodos);
-};
 
-// ✅  얕은 복사를 통해 가장 바깥 참조를 불변하게 업데이트하여 리렌더링
-const onClick3 = () => {
-  setTodos((prev) => {
-    const newTodos = prev.slice();
-    newTodos[2].completed = true;
-    return newTodos;
-  });
-};
-```
-
-#### State 배치 처리
-
-비동기적 특성을 가졌기 때문에 state는 즉시 반영되지 않는다.
-
-만약 즉시 반영되게 된다면 onClick 함수에서 3번의 리렌더링이 발생해야 하는 낭비가 발생하게 된다.
-
-```jsx
-const [counter, setCounter] = useState(0);
-
-const onClick = async () => {
-  setCounter(counter + 1);
-  setCounter(counter + 1);
-  setCounter(counter + 1);
-};
-// 1
-```
-
-```jsx
-const [counter, setCounter] = useState(0);
-
-const onClick = async () => {
-  setCounter(prevState => prevState + 1);
-  setCounter(prevState => prevState + 1);
-  setCounter(prevState => prevState + 1);
-};
-// 1
-```
-
-#### State 직접 수정하지 않기
-
-* State를 변경하면 리액트는 변경 부분을 리렌더링하지만, 직접 변경(`this.state.value = "foo"`)하면 리렌더링하지 않는다.
-
-```jsx
-this.state.value = "foo" // 리렌더링X
-```
-
-```jsx
-this.setState({value: "foo"}) //리렌더링O
-```
-
-#### State 이전 상태 기반 업데이트
-
-* 업데이트되는 상태가 이전 상태를 필요로 하는 계산일 때, 이전 상태를 가져와서 계산한다
-
-```jsx
-addCount(count+1) // 
--> addCount(prevState => prevState + 1 )
-updateUser(prevUser => {prevUser...,age: 20})
-```
-
-#### State 업데이트 - 비동기
-
-* State와 props는 비동기적으로 업데이트될 수 있다 -> State 변경 시 의존하면 안된다.
-* 객체 형태 보다는 함수 형태로 상태 업데이트를 전달한다.
-
-```jsx
-//Class형
-<button onClick={() => this.setState({count: this.state.count + 1})}>
-	button
-</button>
-```
-
-```jsx
-//Function형
-<button onClick={() => setCount(count + 1)}>
-    Click me
-</button>
-```
-
-#### State 업데이트 - 병합(클래스형)
-
-* React `this.state`는 State 변경 함수(`setState`)를 통해 받은 값과 기존 State를 병합한다.
-* State에서 특정 변수에 대한 업데이트는 다른 변수에 영향을 주지 않는다.
-* 따라서 변경되지 않는 state 값은 그대로 남아 있는다.
-
-```jsx
-//Class형
-this.state = { a: "a", b: "b"}
-<button onClick={() => this.setState({ a: "b" })}></button>
-// state: { a: "c", b: "b" } b에는 영향이 없다.
-```
-
-#### State 업데이트 - 병합(함수형)
-
-* 함수형 `useState`에서는 병합이 아닌 대체로 이루어진다.
-* `state`의 일부를 변경하기 위해서 `...`연산자를 통해 전체와 변경 부분을 같이 전달한다.
-
-```jsx
-//Function형
-const [state, setState] = usestate({ a: "a", b: "b" });
-<button onClick={() => setState({ ...state, a: "C" })}></button>
-// state: { a: "c", b: "b" } b에는 영향이 없다.
-```
-
-#### 하향식(단방향) 데이터 흐름
-
-* State는 어느 컴포넌트의 소유이며, State로부터 나온 UI나 데이터는 오직 **하위 컴포넌트**에 영향
-* 컴포넌트는 자신의 State를 자식 컴포넌트의 props로 전달 할 수 있다.
-
-#### State 끌어올리기
-
-* `State`는 하위 컴포넌트로만 전달이 가능하기 때문에 다른 컴포넌트와 `State`를 공유하기 위해 공통 조상으로 `State`를 끌어 올려 사용한다.
-
-```mermaid
-flowchart TB
-subgraph Calculator 
-direction TB
-    subgraph TemperatureInput.1
-        this.state.temperature.1
-    end
-    subgraph TemperatureInput.2
-        this.state.temperature.2
-    end
-end
-
-```
-
-```jsx
-class Calculator extends React.Component {
-  render() {
-    return (
-      <div>
-        <TemperatureInput scale="c" />
-        <TemperatureInput scale="f" />
-      </div>
-    );
-  }
-}
-```
-
-* `state.temperature` 끌어 올리기
-  * state와 setState 함수를 자식 컴포넌트 props로 전달하여
-  * 공통 조상에서 State를 관리
-
-```jsx
-class Calculator extends React.Component {
-...
-    this.state = {temperature: '', scale: 'c'};
-...
-  render() {
-...
-    return (
-      <div>
-        <TemperatureInput
-          scale="c"
-          temperature={celsius}
-          onTemperatureChange={this.handleCelsiusChange} />
-        <TemperatureInput
-          scale="f"
-          temperature={fahrenheit}
-          onTemperatureChange={this.handleFahrenheitChange} />
-        <BoilingVerdict
-          celsius={parseFloat(celsius)} />
-      </div>
-    );
-  }
-}
-```
-
-```mermaid
-flowchart TB
-subgraph Calculator 
-direction TB
-this.state.temperature
-    subgraph TemperatureInput.1
-    end
-    subgraph TemperatureInput.2
-    end
-end
-this.state.temperature --> TemperatureInput.1
-this.state.temperature --> TemperatureInput.2
-```
-
-#### State를 찾는 3가지 질문
-
-1. 부모로부터 props를 통해 전달됩니까? 그러면 확실히 state가 아닙니다.
-2. 시간이 지나도 변하지 않나요? 그러면 확실히 state가 아닙니다.
-3. 컴포넌트 안의 다른 state나 props를 가지고 계산 가능한가요? 그렇다면 state가 아닙니다.
-
-* \-> https://ko.reactjs.org/docs/thinking-in-react.html
-
-### useEffect
-
-* 함수형 컴포넌트 안에서 데이터 조작, DOM 조작과 같은 `side effects`를 실행
-* React class의 `componentDidMount` 나 `componentDidUpdate`, `componentWillUnmount` 를 수행
-* `clean-up`이 필요한 side effect와 필요없는 side effect로 나뉜다.
-
-> Hook는 `생명주기 메서드`와 달리 코드가 무엇을 하는지에 따라 나눌 수 있어 읽기 쉽다.
-
-#### 기본 사용법
-
-* 첫 번째 렌더링(`componentDidMount()`)과 이후 모든 업데이트(`componentDidUpdate()`)시 실행
-
-```jsx
-//첫 번째 렌더링과 이후 모든 업데이트 시 실행 
-useEffect(() => {
-    console.log("Updated")
-  });
-```
-
-#### clean-up이 필요한 effect
-
-*   **이벤트 리스너, 데이터 구독**과 같은 초기 설정, 마지막 설정이 필요한 경우를
-
-    clean-up이 필요한 effect로 볼 수 있다.
-* 엘리먼트를 마운트할 떄와 언마운트 할 때 두 가지 시점으로 볼 수 있다.
-
-```jsx
-//Class형
-componentDidMount() {ChatAPI.subscribeToFriendStatus(...)}
-componentWillUnmount() { ChatAPI.unsubscribeFromFriendStatus(...)}
-```
-
-* 함수형에서는 `return` 반환 값을 통해 정리를 위한 함수를 전달하여 언마운트 시 실행한다.
-
-```jsx
-//Function형
-useEffect(() => {
-    ChatAPI.subscribeToFriendStatus(...);
-    return function cleanup() {
-      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
-    };
-  });
-```
-
-#### 데이터 변경을 감지하여 Effect 실행
-
-* 기존의 클래스형에서는 이전의 상태(`prevProps, prevState`)와 현재 상태 비교를 통해 변화를 감지하여 실행할 수 있다.
-
-```jsx
-//Class형
-componentDidUpdate(prevProps, prevState) {
-  if (prevState.count !== this.state.count) {
-    document.title = `You clicked ${this.state.count} times`;
-  }
-}
-```
-
-* `useEffect`에서는 \*\*`의존 관계 배열`\*\*을 통한 배열의 요소가 변경되었을 때만 실행하도록 할 수 있다.
-
-```jsx
-useEffect(() => {
-  document.title = `You clicked ${count} times`;
-}, [count]); // count가 바뀔 때만 effect를 재실행합니다.
-```
-
-### useMemo
-
-함수에 의해 반환된 값을 메모이제이션하여 반환
-
-💥불필요한 함수 재호출 방지💥
-
-```jsx
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
-```
-
-* `useMemo()`는 콜백함수에 의해 계산된 값을 기억하고 있다가 `의존 관계 배열`이 변경될 때만 실행되어 계산된 값을 반환한다.
-* 함수형 컴포넌트를 쓰는 react에서는
-* useMemo를 컴포넌트에 사용하여 컴포넌트의 불필요한 리렌더링을 방지한다.
-
-```jsx
-const WordCount = ({ children= ""}) => {
-    //const words = children; // 렌더링마다 선언되어 useEffect가 실행됨
-	const words = useMemo(() => children.split(" "), [children]);
-    
-    useEffect(() => {
-	console.log("fresh render");
-	},[words]);
-    return (...);
-}
-```
-
-### useCallback
-
-함수 자체를 메모이제이션하여 반환
-
-💥불필요한 함수 재정의 방지💥
-
-```javascript
-const cachedFn = useCallback(fn, dependencies)
-```
-
-* 아래 함수는 isOpen 불리언값을 전달받아 false일 경우 onClose()를 호출한다
-* 함수내에서 호출되는 onClose()함수가 같다면
-* 매번 리렌더링 시 불필요한 함수 재정의를 하지 않도록 하면 성능을 최적화할 수 있다
-* `useCallback`은 의존 배열 전달 받아 `의존 관계 배열`에 속하는 값이 변경되었을 때만 함수를 재정의한다.
-
-```typescript
- const handleOpenChange = React.useCallback(
-    (isOpen: boolean) => {
-      if (!isOpen) {
-        onClose?.();
-      }
-    },
-    [onClose],
-  );
-```
-
-### useMemo vs useCallBack
-
-두 가지 모두 메모이제이션을 한다는 관점에서 리렌더링을 방지하여
-
-성능 최적화를 하는 hooks이다
-
-* `useMemo`는 함수 결과를 메모이제이션한다.
-* `useCallback`은 함수 자체를 메모이제이션한다.
-
-### useLayoutEffect
-
-* useEffect와 동일하지만 모든 DOM이 변경된 후, 브라우저가 화면을 그리기 이전에 동기적으로 실행
-* 일반적으로 화면 레이아웃과 관련된 작업을 수행하는데 사용
-
-```jsx
-const useWindowSize = () => {
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
-    
-    const resize = () => {
-		setWidth(window.innerWidth);
-    	setHeight(window.innerHeight);
-    }
-    
-    useLayoutEffect(() => {
-		window.adddEventListener("resize", resize);
-    	resize();
-    	return () => window.removeEventListener("resize", resize);
-    }, []);
-    
-    return [width,height];
-}
-```
-
-### useReducer
-
-* `Array.reduce`처럼 현재 상태를 사용해 새로운 상태를 업데이트하는 함수
-* `dispatch(action)`를 호출 -> `reducer(state,action)` 수행-> New State 업데이트
-* `reducer`는 현재 상태(state)와 액션 객체(action)를 통해 다음 상태를 업데이트
-* `action`의 `type`값은 대문자와 언더스코어(\_)로 작성
-
-```jsx
-const initialState = {count: 0};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return {count: state.count + 1};
-    case 'decrement':
-      return {count: state.count - 1};
-    default:
-      throw new Error();
-  }
-}
-
-function Counter() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <>
-      Count: {state.count}
-      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
-      <button onClick={() => dispatch({type: 'increment'})}>+</button>
-    </>
-  );
-}
-```
-
-#### useReducer를 통한 State 병합
-
-* 위에서 State를 병합하는 방법으로 setState(...state,newState)를 사용하였다.
-* 하지만 코드를 실수로 setState(newState)와 같이 작성하면 state가 전부 대체될 위험이 있다.
-* `useReducer()`를 통해 이를 방지하고, State 병합을 쉽게 할 수 있다.
-
-```jsx
-const foo = { name: "foo", age: 20 };
-const [user, setUser] = useState(foo); 
-//age 변경
-setUser({ age: 22}); // user -> { age: 22 }
-setUser({ ...user, age: 22 }); // user -> { name: "foo", age: 22 }
-```
-
-```jsx
-// useReducer를 통한 age 변경
-const [user, setUser] = useReducer(
-	(user,Changes) => ({...user, ...Changes}),
-	foo
-);
-setUser({ age: 22 }); // user -> { name: "foo", age: 22 }
-```
-
-## 렌더링
-
-
-
-```jsx
-// ❌ 매번 새로운 ChildCo// ❌ BAD!mponent 참조를 생성
-function ParentComponent() {
-  function ChildComponent() {
-    return <div>Hi</div>;
-  }
-
-  return <ChildComponent />;
-}
-```
-
-```
-// ✅ 다른 컴포넌트로 분리하여 사용
-function ParentComponent() {
-  function ChildComponent() {
-    return <div>Hi</div>;
-  }
-
-  return <ChildComponent />;
-}
-```
-
-### 이벤트 처리
-
-* 캐멀 케이스 사용
-* 함수로 이벤트 핸들러 전달
-
-```jsx
-<button onClick={activateLasers}>
-  Activate Lasers
-</button>
-```
-
-* `false` 반환 만으로 기본 동작이 방지 되지 않는다. -> `preventDefault()` 호출 필요
-
-### 조건부 렌더링
-
-#### if 문 조건에 따른 렌더링
-
-```jsx
-if(isLogged) {
-	<h1>로그인 상태</h1>
-} else {
-	<h1>로그아웃 상태</h1>
-}
-```
-
-#### && 연산자 렌더링
-
-* `&&`앞의 조건이 `true`일 때 뒤의 엘리먼트가 출력
-* `true && expression` -> `expression`
-* `false && expression` -> false
-
-```jsx
-{ isLogged && <h1> 로그인 상태입니다.</h1>}
-```
-
-#### 삼항 연산자 렌더링
-
-* `condition` ? `exprIfTrue` : `exprIfFalse`
-* ```jsx
-  {isLogged ? '로그인 상태' : '로그아웃 상태'}
-  ```
-
-#### 렌더링 안하기
-
-* 엘리먼트가 아닌 `null`을 반환하여 렌더링을 막을 수 있다.
-
-```jsx
-const LoginBanner = (props) => {
-	if(!isLogged) {
-		return null;
-	}
-	return (
-        <div>
-        로그인 상태입니다.
-        </div>)
-}
-```
-
-### 리스트와 key
-
-#### 배열로 컴포넌트 렌더링
-
-* `map()`함수를 통해 리스트를 각각 엘리먼트로 만들어 반환
-* `key` 필요 -> 명시하지 않으면 map 함수의 index를 사용
-
-```jsx
-item = [2,4,6,8]
-return(
-    <ul>
-        {items.map((item,index) => <li key={index}>{item}</li>)}
-    </ul>)
-```
-
-#### Key
-
-* React가 배열 요소의 식별을 위해 사용하는 값
-* 고유하게 식별할 수 있는 문자열을 지정
-* 요소 삭제, 변경에 따른 순서 변경이 일어날 수 있는 경우 인덱스 값 사용은 피하는 것이 좋다
-
-```jsx
-// ❌ 2번 인덱스의 6이 사라졌지만 리액트는 8이 사라진 것으로 생각할 수 있다
-item = [2,4,6,8]
-item = item.splice(2,1) // [2,4,8]
-return(
-    <ul>
-        {items.map((item,index) => <li key={index}>{item}</li>)}
-    </ul>)
-
-```
-
-* `map()`가 반환하는 엘리먼트 혹은 컴포넌트에 key값을 지정
-* `key`값은 같은 배열 안에서만 고유하면 되며, 다른 배열의 `key` 값과 같은 값이 있어도 사용할 수 있다.
-
-```jsx
-const Item = (props) => {
-    return <li>{props.children}</li>
-}
-const item = [2,4,6,8]
-return(
-    <ul>
-        {items.map((item,index) => 
-        	<Item key={item.toString()}>{item}</Item>
-        )}
-    </ul>)
-```
-
-* `key` 값이 props를 넘기는 것 처럼 보이지만 `props`는 아니다.
-* 컴포넌트로 `key`값을 `props`로 넘기고 싶다면, `key`와 같은 다른 `prop`를 명시하여 전달
-
-### React.memo
-
-* 고차 컴포넌트 형태로 사용
-* props가 동일하면 마지막으로 렌더링된 결과를 재사용하여 성능을 최적화
-* props는 **얕은 비교**로 수행되고, 두 번째 인자로 비교 함수를 지정할 수 있다.
-* 비교함수가 true를 반환하면 같은 상태로 간주하고, false를 반환하면 다시 렌더링된다.
-
-> 함수를 props로 전달하면 함수가 매번 새로운 함수로 정의되어 다시 렌더링된다.
->
-> 이럴 때는 비교함수를 통해 구체적인 규칙을 지정할 수 있다.
-
-```jsx
-function MyComponent(props) {
-  /* props를 사용하여 렌더링 */
-}
-function areEqual(prevProps, nextProps) {
-  /*
-  nextProps가 prevProps와 동일한 값을 가지면 true를 반환하고, 그렇지 않다면 false를 반환
-  */
-}
-export default React.memo(MyComponent); 
-//export default React.memo(MyComponent, areEqual);
-```
-
-이런 의문이 들 수 있다.  왜모든 컴포넌트에 기본적으로 memo()를 사용하지 않을까?
-
-* 메모제이션 기능은 추가적인 자원과 처리를 필요로 한다. 이전 props와 새로운 props를 저장하고 비교하여 props가 변경되었는지 알아내야 하기 때문이다.
-* 일반적으로 대부분의 컴포넌트는 자주 업데이트 되지 않는다.
-
-[https://react.dev/reference/react/memo#should-you-add-memo-everywhere](https://react.dev/reference/react/memo#should-you-add-memo-everywhere)
 
 
 
