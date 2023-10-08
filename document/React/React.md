@@ -382,6 +382,24 @@ function WelcomeDialog() {
 
 
 
+
+
+## Pure Component
+
+- 순수 함수와 같이 동일한 입력에 대해 동일한 출력을 렌더링하는 컴포넌트
+- 다른 객체나 변수를 변경시키지 않는다.
+- React에서는 함수형 컴포넌트가 순수 함수일 것으로 예상하고 동작한다
+
+### 순수하게 유지하는 방법
+
+1. props를 사용하여 같은 입력에 대해 똑같은 렌더링 결과
+2. state를 최소한으로 유지
+3. unit test를 작성
+
+
+
+
+
 ## import / export
 
 어느 방식을 사용하든 의미 있는 이름을 사용하여야 한다. 
@@ -455,14 +473,31 @@ import { App as AppContainer } from './App.js'
 
 ## State
 
+### State란
+
 **상태**: React에서는 구성 요소가 화면을 표시하기 위해 기억해야 할 값들을 상태라고 부릅니다.
 
 **단방향 데이터 흐름**: 상태는 props를 통해 단방향으로 상위 요소에서 하위 요소로 흐릅니다.
 
-### state 고르기
+**역방향 데이터 흐름:** 하위 요소에서 상위 요소의 상태를 변경하고 싶을 때 상위 요소에서 setter 함수를 props로 전달
+
+**불변성**: React의 모든 상태를 불변해야 한다. (이전 상태와 현재 상태를 비교하여 최적화)
+
+
+
+### 필요한 이유
+
+1. 지역 변수는 렌더링 간에 데이터가 유지되지 않는다.
+   1. 렌더링 될 때마다 변수 값이 초기화
+2. 변수가 변경되더라도 리렌더링되지 않는다. 
+   1. 변수의 값과 렌더링되어 보여지는 값이 다를 수 있다.
+
+
+
+### State 고르기
 
 - 시간이 지나도 변함없이 유지 되는 값 -> 상태가 아님(상수)
-- props를 통해 부모로 부터 내려 받는 값 -> 상태가 아님(props)
+- 부모 요소로 부터 내려 받는 값 -> 상태가 아님(props)
 - 존재하는 상태와 props를 사용해 계산되어질 수 있는 값 -> 상태가 아님(useMemo를 사용)
 
 
@@ -473,23 +508,16 @@ import { App as AppContainer } from './App.js'
 2. 찾은 요소들의 공통 조상 요소를 찾기
 3. State 위치 정하기. 적절한 위치를 찾지 못했다면 새로운 공통 요소를 만들어 상위에 위치시키기
 
+### 배열을 상태로 사용
 
-
-### 역방향 데이터 흐름
-
-하위 요소에서 상위 요소의 상태를 변경하고 싶을 때 상위 요소에서 setState 함수를 props로 전달
-
-
-
-
-
-
+- 배열을 상태로 사용할 때에도 읽기 전용으로 간주하여 배열 요소에 값을 직접 할당하거나 변경해서는 안된다.
+- `concat`, `filter`, `slice`, `map` 등의 새로운 배열을 반환하는 메서드를 사용하여 상태를 업데이트한다.
 
 
 
 ###
 
-### 폼
+## 폼
 
 #### 제어 컴포넌트
 
@@ -681,3 +709,58 @@ https://ko.reactjs.org/docs/optimizing-performance.html#virtualize-long-lists
 ```jsx
 <div className={`body` ${isOpen ? 'open' : ''}}></div>
 ```
+
+
+
+
+
+## Event
+
+- 이벤트 함수 이름은 관례적으로 `handle`로 시작하고 뒤에는 대문자를 사용(ex. handleClick)
+- 함수 결과가 아닌 함수 자체를 전달
+
+```jsx
+export default function Button() {
+  function handleClick() {
+    alert('You clicked me!');
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Click me
+    </button>
+  );
+}
+```
+
+### props로 이벤트 핸들러 전달
+
+- props로 이벤트 핸들러를 전달할 때는 `on`으로 시작하고 뒤에는 대문자를 사용(ex. onClick)
+
+```jsx
+export default function Button({ onClick }) {
+
+  return (
+    <button onClick={onClick}>
+      Click me
+    </button>
+  );
+}
+```
+
+### 이벤트 전파 중지
+
+```jsx
+const handleClick = (e) => {
+	e.stopPropagation();
+}
+```
+
+### 기본 동작 방지
+
+```jsx
+const handleSubmit = (e) => {
+	e.preventDefault();
+}
+```
+
