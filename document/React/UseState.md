@@ -378,3 +378,111 @@ const updateTodo = ({todoId, newTitle}) => {
 immer 라이브러리를 사용하여 React에서 불변성을 지키면서 useState를 사용하게 해주는 라이브러리
 
 https://www.npmjs.com/package/use-immer
+
+
+
+## 상태 구조화 
+
+### 1. 상태 그룹화
+
+항상 두 개 이상의 상태를 동시에 업데이트 해야 하는 경우, 하나로 병합할 수 있는지 생각해보아야 한다.
+
+ex. form의 inputs -> form의 값들을 하나의 상태로 관리
+
+```jsx
+const [name, setName] = useState('')
+const [age, setAge] = useState(0)
+
+const handleSubmit = () => {
+    // 처리 로직
+    setName('')
+    setAge(0)
+}
+```
+
+```jsx
+const [formData, setFormData] = useState({
+	name: '',
+	age: 0,
+})
+
+const handleSubmit = () => {
+    // 처리 로직
+    setFormData({name: '', age: 0})
+}
+```
+
+
+
+### 2. 모순되는 상태 피하기
+
+서로 모순되고 동의할 수 없는 상태를 피해야 한다.
+
+ex. isTyping, isSubmitting -> 타이핑 중일 때는 제출 중일 수 없고, 반대의 경우도 마찬가지
+
+| isTyping | isSubmitting | 상태의 가능 여부 |
+| -------- | :----------- | ---------------- |
+| false    | false        | 불가능           |
+| false    | true         | 가능             |
+| true     | false        | 가능             |
+| true     | true         | 불가능           |
+
+
+
+```jsx
+const [isTyping, setTyping] = useState(true)
+const [isSubmitting, setSubmitting] = useState(false)
+```
+
+```jsx
+const [isStatus, setStatus] = useState('typing') // 'typing' or 'submitting'
+```
+
+
+
+### 3. 계산할 수 있는 상태 피하기
+
+기존의 props나 상태를 통해 계산할 수 있는 상태는 상태로 지정하지 않아야 한다
+
+ex. isError -> error !== null을 통해 확인
+
+```jsx
+const [isError, setIsError] = useState(false)
+const [error, setError] = useState(null)
+```
+
+```jsx
+const [error, setError] = useState(false)
+
+const isError = useMemo(()=> error !== null,[error])
+```
+
+
+
+### 4. 중복 상태 피하기
+
+똑같은 상태가 여러 개 있으면 상태를 동기화하고 유지하기 어렵다
+
+```jsx
+// selectedTodo를 업데이트 하려면 todos와 selectedTodo를 모두 업데이트 해야 한다.
+const [todos, setTodos] = useState([...]);
+const [selectedTodo, setSelectedTodo] = useState({...});
+```
+
+```jsx
+const [todos, setTodos] = useState([...]);
+const [selectedTodoId, setSelectedTodoId] = useState(...);
+
+const selectedTodo = useMemo(()=> todos.find(todo =>
+   	todo.id === selectedTodoId
+),[todos,selectedTodoId])
+```
+
+
+
+### 5. 상태의 깊이 얕게 유지하기
+
+상태를 깊이가 깊으면 업데이트하기 어렵다
+
+
+
