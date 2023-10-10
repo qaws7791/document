@@ -486,3 +486,45 @@ const selectedTodo = useMemo(()=> todos.find(todo =>
 
 
 
+## 상태 유지
+
+### 동일한 위치에서의 상태 유지
+
+ UI 트리의 위치가 동일하면 React 입장에서는 같은 컴포넌트로 간주된다
+
+```jsx
+{isFancy ? (
+	<Counter isFancy={true} /> 
+) : (
+	<Counter isFancy={false} /> 
+)}
+```
+
+### 언마운트 상태 파괴
+
+컴포넌트가 언마운트 되면 상태는 파괴되어 사라진다.
+
+상태가 유지 되기 위해서는 리렌더링 사이에 트리 구조가 일치해야 한다
+
+```jsx
+{isPaused ? (
+	<p>See you later!</p> 
+) : (
+	<Counter /> 
+)}
+```
+
+### Key 속성을 사용한 상태 재설정
+
+배열에서의 key 속성을 사용하는 것처럼 key 속성을 지정하면 React에서 명시적으로 컴포넌트를 구분할 수 있다.
+
+아래의 예는 같은 UI 트리 위치의 Counter 컴포넌트지만, key 속성을 통해 구분하여 isPlayerA 값이 바뀔 때마다  상태가 재설정된다.
+
+```jsx
+{isPlayerA ? (
+	<Counter key="Taylor" person="Taylor" />
+) : (
+	<Counter key="Sarah" person="Sarah" />
+)}
+```
+
