@@ -113,11 +113,12 @@ return(<div className="App" ref={consoleLog}>)
 
 
 
-## forwardRef로 ref 내려보내기
+## forwardRef로 ref 노출
 
 ### 참조
 
-- 기존 엘리먼트처럼 컴포넌트에서 상위 요소에 ref를 노출할 수 있다.
+- 컴포넌트는 기본적으로 DOM 노드(ref)를 노출하지 않는다.
+- forwardRef를 사용하면 기존 엘리먼트처럼 컴포넌트에서 ref속성을 받을 수 있다.
 
 ```jsx
 const SomeComponent = forwardRef(render)
