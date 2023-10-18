@@ -14,15 +14,54 @@ description: React 및 라이브러리와 관련된 질문과 답변
 
 ### React 생명주기 사이클은?
 
+라이프사이클은 어떤 유기체 또는 제품 등이 활동하거나 수행하는 일련의 단계를 말합니다.
+
+리액트에서 컴포넌트는 자신의 생명 주기를 가지며, 크게 마운트, 업데이트, 언마운트 3가지의 단계를 가집니다.
+
+#### 마운트
+
+1. **state, context, defaultProps 저장**
+2. ~~componentWillMount()~~
+   1. props나 state 변경하면 안됨(마운트 중이기 때문)
+3. **getDerivedStateFromProps()**
+   1. props 받아오기
+4. **render()**
+   1. 실제 DOM에 반영
+5. **componentDidMount()**
+   1. DOM 접근 가능
+
+#### 업데이트
+
+1. ~~componentWillReceiveProps()~~
+   1. 새로운 props를 받음
+2. **getDerivedStateFromProps(props, state)**
+   1. props 받아오기
+3. **shouldComponentUpdate(nextProps, nextState)**
+   1. 기본 동작은 항상 다시 렌더링이지만
+   2. false로 반환하면 렌더링을 취소 (최적화)
+4. **render()**
+5. **getSnapshotBeforeUpdate(prevProps, prevState)**
+   1. 이전 상태 값 저장
+6. **componentDidUpdate(prevProps, prevState, snapshot)**
+   1. 이전 상태를 받음
+
+#### 언마운트
+
+**1. componentWillUnmount**
+
+cleanup 함수 실행
+
 
 
 ### React 클래스형 컴포넌트와 함수형 컴포넌트의 차이점은?
 
 리액트에서 컴포넌트를 만드는 방법에는 클래스형 컴포넌트(class components)와 함수형 컴포넌트(functional components)가 있습니다.
 
-&#x20;클래스형 컴포넌트는 ES6의 클래스(class)를 사용하여 컴포넌트를 정의합니다. 이 방식은 React의 컴포넌트의 상태(state)와 생명주기(lifecycle)를 다룰 때 매우 유용합니다.
+&#x20;클래스형 컴포넌트는 ES6의 클래스(class)를 사용하여 컴포넌트를 정의합니다. 이 방식은 React의 컴포넌트의 상태(state)와 생명주기(lifecycle)를 다룰 때 매우 유용합니다.&#x20;
 
 &#x20;반면에 함수형 컴포넌트는 ES6의 화살표 함수(arrow function)를 사용하여 컴포넌트를 정의합니다. 이 방식은 훅(hook) API와 함께 많이 사용되며, 컴포넌트의 상태와 생명주기를 다룰 때도 유용합니다.&#x20;
+
+과거에는 클래스형 컴포넌트에서만 생명주기를 관리할 수 있었고 함수형 컴포넌트의 성능이 좋지 못했습니다 .함수형 컴포넌트는 코드 순서대로 실행되고, 클래스형 컴포넌트는 생명주기 메서드 순서에 따라 실행됩니다.
 
 클래스형 컴포넌트와 함수형 컴포넌트의 가장 큰 차이점은 상태와 생명주기의 다루는 방식입니다. 클래스형 컴포넌트는 상태를 this.state로 정의하고, 생명주기 메서드를 오버라이드하여 다양한 작업을 수행합니다. 반면에 함수형 컴포넌트는 상태를 useState 훅을 사용하여 정의하고, useEffect 훅을 사용하여 생명주기를 다룹니다. 또한, 클래스형 컴포넌트에서는 this 키워드를 사용하여 상태나 메서드를 참조하며, 함수형 컴포넌트에서는 this 키워드를 사용하지 않습니다. 이러한 차이점 때문에, 함수형 컴포넌트는 더 간결하고 가독성이 좋아지며, 테스트와 리팩토링이 쉽게 이루어질 수 있습니다.
 
