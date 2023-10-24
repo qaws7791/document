@@ -12,6 +12,7 @@
   * [Cheat Sheet](document/JavaScript/CheatSheet.md)
   * [Web API](document/JavaScript/WebAPI.md)
   * [Console API](document/JavaScript/ConsoleAPI.md)
+  * [Regex](document/JavaScript/Regex.md)
 * [⚛ React](document/React/React.md)
   * [ReactHooks](document/React/ReactHooks.md)
   * [ReactRendering](document/React/ReactRendering.md)
