@@ -26,3 +26,10 @@ patch: 호환 가능 / 버그 수정
 
 "~" 기호: 마이너 버전 안에서 가장 최신 버전 사용 (마이너 버전은 유지)
 
+
+
+
+
+유의적 버전(Semantic Versioning)
+
+https://semver.org/lang/ko/
