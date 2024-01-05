@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🚩 README](README.md)
+* [🚩 README](readme.md)
 * [🏗 HTML](document/html/readme.md)
   * [BlockVSInline.md](document/html/block-vs-inline.md)
 * [🎨 CSS](document/css/readme.md)
@@ -20,7 +20,7 @@
   * [UseRef](document/react/use-ref.md)
   * [UseReducer](document/react/use-reducer.md)
   * [Context API](document/react/context-api.md)
-* [🚀Next.js](document/next/README.md)
+* [🚀Next.js](document/next/readme.md)
   * [Start](document/next/start.md)
   * [Deploy](document/next/deploy.md)
 * [☁️AWS](document/aws/README.md)
