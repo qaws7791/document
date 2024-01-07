@@ -1,0 +1,34 @@
+## IAM 사용자 생성하기
+
+1. IAM에서 사용자 생성하기
+
+![image-20240106132310835](D:\Code\Github\til\document\aws\ec2\assets\image-20240106132310835.png)
+
+2. 사용자 이름 지정
+
+![image-20240106132433511](D:\Code\Github\til\document\aws\ec2\assets\image-20240106132433511.png)
+
+3. 그룹을 사용하여 사용자 권한을 관리하기 위해 그룹에 사용자 추가
+
+![image-20240106132503642](D:\Code\Github\til\document\aws\ec2\assets\image-20240106132503642.png)
+
+4. 검토 후 사용자 생성하기
+
+![image-20240106132618999](D:\Code\Github\til\document\aws\ec2\assets\image-20240106132618999.png)
+
+
+
+사용자 페이지에서 콘솔 로그인을 위한 액세스 활성화
+
+![image-20240106132925008](D:\Code\Github\til\document\aws\ec2\assets\image-20240106132925008.png)
+
+![image-20240106132949145](D:\Code\Github\til\document\aws\ec2\assets\image-20240106132949145.png)
+
+![image-20240106133119658](D:\Code\Github\til\document\aws\ec2\assets\image-20240106133119658.png)
+
+![image-20240106133201548](D:\Code\Github\til\document\aws\ec2\assets\image-20240106133201548.png)
+
+
+
+![image-20240106133317069](D:\Code\Github\til\document\aws\ec2\assets\image-20240106133317069.png)
+
