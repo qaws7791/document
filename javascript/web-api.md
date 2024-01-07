@@ -1,0 +1,48 @@
+[TOC]
+
+# Fetch API
+
+네트워크에서 리소스를 가져오고 응답을 받으면 than()을 통해 콜백 함수 실행
+
+- `Response.ok`, `Response.status` 속성을 통해 응답 상태 확인
+- 반환되는 값은 `Promise`값
+
+```js
+fetch("https://randomuser.me/api/")
+        .then((res) => res.json())
+        .then((json) => json.results)
+        .then(console.log)
+        .catch(console.error);
+```
+
+- async / await
+
+  ```js
+  const getUserData = async () => {
+          let res = await fetch("https://randomuser.me/api/");
+          let { results } = await res.json();
+          return await results;
+        };
+        getUserData().then((results) => console.log(results));
+  ```
+
+- new Promise()
+
+  ```js
+  const getUserData = (count) =>
+          new Promise((resolves, rejects) => {
+            const URL = `https://randomuser.me/api/?results=${count}`;
+            const request = new XMLHttpRequest();
+            request.open("GET", URL);
+            request.onload = () =>
+              request.status === 200
+                ? resolves(JSON.parse(request.response).results)
+                : rejects(Error(request.statusText));
+            request.onerror = (err) => rejects(err);
+            request.send();
+          });
+        getUserData(5).then((userData) => console.log(userData));
+  ```
+
+- 
+
