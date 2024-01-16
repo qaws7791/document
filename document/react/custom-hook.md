@@ -55,7 +55,7 @@ export function useFormInput(initialValue: string): {
 - 이렇게 hook을 사용하는 로직을 커스텀 훅으로 분리할 수 있다.
 
 ```tsx
-ㅈimport { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createConnection } from './chat.js';
 import { showNotification } from './notifications.js';
 

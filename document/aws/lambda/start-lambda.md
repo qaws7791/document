@@ -1,0 +1,40 @@
+# Start Lambda
+
+Lambda 함수 생성
+
+![image-20240111035604950](assets/image-20240111035604950.png)
+
+Lambda 함수 생성 시 기본 코드
+
+![image-20240111035742581](assets/image-20240111035742581.png)
+
+Test 버튼을 눌러 Lambda 함수를 테스트
+
+![image-20240111035817768](assets/image-20240111035817768.png)
+
+이벤트 이름을 입력하고 저장
+![image-20240111035947343](assets/image-20240111035947343.png)
+
+
+
+다시 Test 버튼을 눌러 생성한 이벤트를 사용하여 Lambda 함수 테스트
+
+![image-20240111040059874](assets/image-20240111040059874.png)
+
+
+
+
+
+## API Gateway를 통한 트리거
+
+트리거 추가 버튼으로 트리거 추가 페이지로 이동
+
+![image-20240111040236283](assets/image-20240111040236283.png)
+
+![image-20240111040501257](assets/image-20240111040501257.png)
+
+api endpoint를 확인하고 해당 endpoint로 이동
+
+![image-20240111040535007](assets/image-20240111040535007.png)
+
+![image-20240111040615362](assets/image-20240111040615362.png)
