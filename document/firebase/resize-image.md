@@ -6,3 +6,32 @@ https://firebase.google.com/docs/functions/gcp-storage-events?hl=ko&gen=2nd
 
 https://extensions.dev/extensions/firebase/storage-resize-images 
 
+
+
+이미지 직접 불러왔을 때
+
+![image-20240201023030821](assets/image-20240201023030821.png)
+
+![image-20240201023446151](assets/image-20240201023446151.png)
+
+
+
+
+
+```javascript
+response.setHeader("Cache-Control", "public, max-age=31536000");
+```
+
+
+
+캐싱 Miss
+
+![image-20240201023038319](assets/image-20240201023038319.png)
+
+![image-20240201023100185](assets/image-20240201023100185.png)
+
+캐싱 Hit
+
+![image-20240201023149420](assets/image-20240201023149420.png)
+
+![image-20240201023302903](assets/image-20240201023302903.png)

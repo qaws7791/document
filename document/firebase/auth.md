@@ -59,3 +59,63 @@ export const signupWithEmail = async ({
 🟠 이메일 인증이 되었는지 여부는  `user[emailVerified]`  Boolean 속성을 통해 확인 할 수 있다
 
 ![image-20240120201457329](assets/image-20240120201457329.png)
+
+## 
+
+## 회원가입 시 db에 유저 정보 저장
+
+### 이메일 회원가입
+
+가입하는 함수 내에서 `createUserWithEmailAndPassword()` 후에 `createUser()` 호출
+
+```javascript
+const signUpWithEmail = async ({ email, password, username }: SignUpDto) => {
+  if (!email || !password || !username) return;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+
+    await UserService.createUser({
+      ...
+    });
+	...
+  }
+};
+```
+
+
+
+### 소셜 로그인
+
+소셜 로그인에는 회원가입을 하는 함수가 없다
+
+`signInWithPopup()` 후에 반환되는 `userCredential`를 사용하여 새로운 유저인지 확인
+
+
+
+```javascript
+const signInWithGoogle = async () => {
+  try {
+    const userCredential = await signInWithPopup(auth, googleProvider);
+
+    const additionalUserInfo = getAdditionalUserInfo(userCredential);
+
+    if (additionalUserInfo?.isNewUser) {
+      await UserService.createUser({
+          ...
+      });
+    }
+	...
+};
+```
+
+
+
+
+
+
+
