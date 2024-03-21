@@ -75,7 +75,7 @@ GraphQL
 
 - 요청 데이터를 필드로 적어 전송
 
-```
+```graphql
 모든 lift의 배열과 각 리프트에 대한 name과 status 요청
 query{
 	allLifts{
@@ -90,7 +90,7 @@ query{
 - 여러 쿼리를 정의 가능하지만 한 작업에 한 쿼리만 요청
 - 여러 쿼리 요청시 하나의 쿼리로 묶어 사용
 
-```
+```graphql
 query liftsAndTrails {
 	liftCount(status: OPEN)
 	allLifts {
@@ -109,7 +109,7 @@ query liftsAndTrails {
 - 기본적으로 응답인 JSON의 필드명은 쿼리의 필드명과 동일
 - 필드명을 다르게 받고 싶다면 쿼리의 필드명에 별칭을 부여
 
-```
+```graphql
 query liftsAndTrails {
 	open: liftCount(status: OPEN)
 	chairlifts: allLifts {
@@ -127,7 +127,7 @@ query liftsAndTrails {
 
 - status값이 CLOSED인 리프트의 데이터만 받기
 
-```
+```graphql
 query closedLifts {
 	allLifts(status: CLOSED){
 		name
@@ -138,7 +138,7 @@ query closedLifts {
 
 - id를 통해 특정 리프트 데이터만 받기
 
-```
+```graphql
 query jazzCatStatus {
 	Lift(id: "jazz-cat"){
 		name
@@ -172,7 +172,7 @@ query jazzCatStatus {
 - 리프트와 코스 데이터 타입 사이의 일대다 연결
 - Lift 노드 -> 여러 Trail 노드(jazz-cat 리프트와 연관된 코스)
 
-```
+```graphql
 query trailsAccessdByJazzCat {
 	Lift(id:"jazz-cat"){
 		capacity
@@ -186,7 +186,7 @@ query trailsAccessdByJazzCat {
 
 - Trail 노드 -> Lift 노드 (dance-fight 코스와 연관된 lift )
 
-```
+```graphql
 query liftToAccessTrail {
 	Trail(id:"dance-fight"){
 		groomed
@@ -203,7 +203,7 @@ query liftToAccessTrail {
 - 프래그먼트는 셀렉션 세트의 일종으로 여러 번 재사용 가능
 - 프래그먼트 퀴리의 중복되는 부분을 줄일 수 있음
 
-```
+```graphql
 query {
 	Lift(id: "jazz-cat"){
 		name
@@ -232,7 +232,7 @@ query {
 
 - 여기서 중복되는 부분을 프래그먼트로 처리
 
-```
+```graphql
 fragment liftInfo on Lift {
 	name
 	status
@@ -244,7 +244,7 @@ fragment liftInfo on Lift {
 
 - 프래그먼트 앞에 점 세 개를 찍어 표시
 
-```
+```graphql
 query {
 	Lift(id: "jazz-cat"){
 		...liftInfo
@@ -271,7 +271,7 @@ query {
 - 두 가지 타입을 하나의 집합으로 묶는 역할
 - **인라인 프래그먼트**: 유니언 타입에서 여러 타입의 객체를 반환할 때, 각각의 객체가 어떤 필드를 반환할지 정의
 
-```
+```graphql
 query schedule {
 	agenda {
 	...on Workout { //Workout 객체일 때 반환되는 필드
@@ -292,7 +292,7 @@ query schedule {
 - 필드 하나로 객체 타입을 여러 개 반환할 때 사용
 - 타입이 포함해야하는 필드들을 정의하는 추상 타입
 
-```
+```graphql
 interface Character {
 	id: ID!
 	name: String!
@@ -301,7 +301,7 @@ interface Character {
 }
 ```
 
-```
+```graphql
 type Human implements Character {
 	id: ID!
 	name: String!
@@ -318,7 +318,7 @@ type Human implements Character {
 - 쿼리와 다르게 백엔드 데이터에 영향을 주는 행위
 - 새로운데이터 생성
 
-```
+```graphql
 mutation createSong {
 	addSong(title:"No Scrubs", numberOne: true, performerName: "TLC"){ // 새로운 데이터를 생성
 		id
@@ -330,7 +330,7 @@ mutation createSong {
 
 - 기존 데이터 변경
 
-```
+```graphql
 mutation closeLift {
 	seLiftStatus(id: "jazz-cat", status:CLOSED){//status를 CLOSED로 변경
 		name
@@ -343,7 +343,7 @@ mutation closeLift {
 
 - 변수명 앞에 **$ 문자**를 붙여 사용
 
-```
+```graphql
 mutation createSong($title:String!, $numberOne:Int, $by:String!) {
 	addSong(title:$title, numberOne:$numberOne, performerName:$by){ // 새로운 데이터를 생성
 		id
@@ -359,7 +359,7 @@ mutation createSong($title:String!, $numberOne:Int, $by:String!) {
 - GraphQL API를 사용해 실시간 데이터 변경 내용을 받을 수 있음
 - 페이스북에서 웹 페이지의 새로고침없이 ""좋아요 개수""를 실시간으로 보여줄 방법으로 사용
 
-```
+```graphql
 subscription {
 	liftStatusChange{
 		name
@@ -377,7 +377,7 @@ subscription {
 - 주어진 API 스키마를 통해 어떤 데이터를 반환받을 수 있는지 조사
 - 어떤 GraphQL 타입을 사용하는지 조사
 
-```
+```graphql
 query {
 	__schema{
 		type{
@@ -390,7 +390,7 @@ query {
 
 - 특정 타입에 관한 세부 사항 조사
 
-```
+```graphql
 query liftDetails{
 	__type(name:"Lift"){
 		name
@@ -438,7 +438,7 @@ query liftDetails{
 - **필드(field)**를 포함
 - 스키마는 자바스크립트 파일(.js)이나 텍스트 파일(.graphql)등에 작성
 
-```
+```graphql
 type Photo {
 	id: ID!
 	name: String!
@@ -455,7 +455,7 @@ type Photo {
 - 스칼라 타입을 직접 정의하는 것도 가능.
 - 객체가 아니기 때문에 필드를 가지지 않음
 
-```
+```graphql
 scalar DateTime
 
 type Photo {
@@ -477,7 +477,7 @@ type Photo {
 - 필드에서 반환하는 문자열 값을 세트로 미리 지정 가능
 - 이 세트를 사용해 미리 지정해둔 값만 필드에서 반환하도록 설정
 
-```
+```graphql
 enum PhotoCategory {
 	SELFIE
 	PORTRAIT
@@ -487,7 +487,7 @@ enum PhotoCategory {
 }
 ```
 
-```
+```graphql
 type Photo{
 	id:ID!
 	name:String!
@@ -517,7 +517,7 @@ type Photo{
 - 일대일연결: 하나의 객체 타입이 다른 객체타입과 서로 연결
 - 모든 사진은 게시자(postedBy)가 존재
 
-```
+```graphql
 type User {
 	githubLogin: ID!
 	name: String

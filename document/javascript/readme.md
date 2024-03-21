@@ -319,7 +319,7 @@ for (variable of iterable) {
               food: "cake",
             },
           };
-
+    
     const printFavoriteSport = ({ favorite: { sport } }) => {
     	console.log(`Favorite sport is ${sport}`);
     };
@@ -460,7 +460,7 @@ printArgs(1,2,3,4,5)
 * `나머지매개변수`는 실제 배열이다 -> \[\[Prototype]]: Array 이다
   * 사용자가 정의한 매개변수를 제외한 나머지만을 가진다.
 
-![image-20230110191822853](document/JavaScript/JavaScript.assets/image-20230110191822853.png)
+![image-20230110191822853](document/JavaScript/readme.assets/image-20230110191822853.png)
 
 ## 클래스
 
@@ -615,7 +615,7 @@ outer(); // ---- 3번
 console.log(a); // 1
 ```
 
-![image-20230523120018928](JavaScript.assets/image-20230523120018928.png)
+![image-20230523120018928](readme.assets/image-20230523120018928.png)
 
 ### 실행 컨텍스트의 정보
 
@@ -742,3 +742,4 @@ myPromise
 .catch((error)=> console.log(error)) // 실패
 
 ```
+

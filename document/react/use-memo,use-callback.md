@@ -1,0 +1,67 @@
+## UseMemo, UseCallback
+
+## useMemo
+
+함수에 의해 반환된 값을 메모이제이션하여 반환
+
+💥불필요한 함수 재호출 방지💥
+
+```jsx
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
+
+* `useMemo()`는 콜백함수에 의해 계산된 값을 기억하고 있다가 `의존 관계 배열`이 변경될 때만 실행되어 계산된 값을 반환한다.
+* 함수형 컴포넌트를 쓰는 react에서는
+* useMemo를 컴포넌트에 사용하여 컴포넌트의 불필요한 리렌더링을 방지한다.
+
+```jsx
+const WordCount = ({ children= ""}) => {
+    //const words = children; // 렌더링마다 선언되어 useEffect가 실행됨
+	const words = useMemo(() => children.split(" "), [children]);
+    
+    useEffect(() => {
+	console.log("fresh render");
+	},[words]);
+    return (...);
+}
+```
+
+
+
+## useCallback
+
+함수 자체를 메모이제이션하여 반환
+
+💥불필요한 함수 재정의 방지💥
+
+```javascript
+const cachedFn = useCallback(fn, dependencies)
+```
+
+* 아래 함수는 isOpen 불리언값을 전달받아 false일 경우 onClose()를 호출한다
+* 함수내에서 호출되는 onClose()함수가 같다면
+* 매번 리렌더링 시 불필요한 함수 재정의를 하지 않도록 하면 성능을 최적화할 수 있다
+* `useCallback`은 의존 배열 전달 받아 `의존 관계 배열`에 속하는 값이 변경되었을 때만 함수를 재정의한다.
+
+```typescript
+ const handleOpenChange = React.useCallback(
+    (isOpen: boolean) => {
+      if (!isOpen) {
+        onClose?.();
+      }
+    },
+    [onClose],
+  );
+```
+
+
+
+## useMemo vs useCallBack
+
+두 가지 모두 메모이제이션을 한다는 관점에서 리렌더링을 방지하여
+
+성능 최적화를 하는 hooks이다
+
+* `useMemo`는 함수 결과를 메모이제이션한다.
+* `useCallback`은 함수 자체를 메모이제이션한다.
+

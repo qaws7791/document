@@ -1,713 +1,11 @@
-# BlockVSInline.md
-
-\[TOC]
-
-## Block vs inline elements
-
-## 블록 레벨 요소(Block-level elements)
-
-* 블록 레벨 요소는 자신의 이전 요소와 이후 요소 사이에 줄 바꿈
-* 페이지의 구조적 요소 표현에 유용
-
-#### `<address>` : 전화번호, 이메일 등 연락처 정보를 포함하는 요소
-
-* 주로 이탤릭체로 표현
-* 실제 주소, 이메일 주소, URL, 전화번호, 소셜 미디어 아이디, 지리적 좌표 등 모든 유형의 연락처 정보를 포함
-* 연락처 정보를 참조하는 사람 또는 조직의 이름이 포함
-* 일반적으로 `<footer>`안에서 사용된다.
-
-```html
-<address>
-  <a href="mailto:jim@rock.com">jim@rock.com</a><br>
-  <a href="tel:+13115552368">(311) 555-2368</a>
-  You can contact author at
-  <a href="http://www.somedomain.com/contact"> www.somedomain.com</a>.<br />  
-</address>
-```
-
-[jim@rock.com](mailto:jim@rock.com)\
-[(311) 555-2368](tel:+13115552368)\
-You can contact author at [www.somedomain.com](http://www.somedomain.com/contact).\
-
-
-***
-
-#### `<article>`: 단락 콘텐츠
-
-독립적으로 구분할 수 있는 컨텐츠로 게시판의 글이나 뉴스 기사 등의 컨텐츠
-
-Tip:
-
-* `<article>` 항목을 식별하는데 `<h1>~<h6>`제목 요소를 사용
-* `<article>`은 중첩이 가능하고 하위 항목은 상위 항목과 관련이 있어야 한다.
-* 작성자 정보: `<address>`를 이용해 제공
-* 작성일자와 시간: `<time>`요소의 `<time datetime="2018-07-07">`와 같은 속성 이용해 제공
-
-```html
-<article class="film_review">
-  <header>
-    <h2>Jurassic Park</h2>
-  </header>
-  <section class="main_review">
-    <p>Dinos were great!</p>
-  </section>
-  <section class="user_reviews">
-    <article class="user_review">
-      <p>Way too scary for me.</p>
-      <footer>
-        <p>
-          Posted on <time datetime="2015-05-16 19:00">May 16</time> by Lisa.
-        </p>
-      </footer>
-    </article>
-    <article class="user_review">
-      <p>I agree, dinos are my favorite.</p>
-      <footer>
-        <p>
-          Posted on <time datetime="2015-05-17 19:00">May 17</time> by Tom.
-        </p>
-      </footer>
-    </article>
-  </section>
-  <footer>
-    <p>
-      Posted on <time datetime="2015-05-15 19:00">May 15</time> by Staff.
-    </p>
-  </footer>
-</article>
-```
-
-***
-
-#### `<aside>`: 부가 콘텐츠
-
-문서의 주요 내용과 간접적인 연관 컨텐츠를 제공. 부연 설명
-
-사이드바 또는 콜아웃 상자의 역할
-
-```html
-<article>
-  <p>
-    디즈니 만화영화 <em>인어 공주</em>는
-    1989년 처음 개봉했습니다.
-  </p>
-  <aside>
-    인어 공주는 첫 개봉 당시 8700만불의 흥행을 기록했습니다.
-  </aside>
-  <p>
-    영화에 대한 정보...
-  </p>
-</article>
-```
-
-#### `<blockquote>`: 블록 인용구
-
-인용 텍스트로 이루어진 인용구 블록이다.
-
-* 인용문의 출처는 `cite` 속성 이용히야 제공
-* 일반적으로 들여쓰기가 되어 있고, `margin-left,right`를 통해 변경
-* 인라인 인용구는 `<q>`
-
-```html
-<blockquote cite="https://www.huxley.net/bnw/four.html">
-        <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
-</blockquote>
-```
-
-***
-
-#### `<datails>`: 상세 정보 위젯
-
-열린 상태일 때 정보를 보여주는 위젯
-
-* 레이블은 `<summary>`로 제공
-* `<datails>`요소의 첫 번째 자식이 `<summary>`요소일 때, 이 첫번째 요소의 콘텐츠를 위젯의 레이블로 사용
-* 위젯의 레이블은 생략이 가능
-* 아래의 코드에서 "Details"가 `<datails>`의 위젯 레이블
-* 속성: open
-* CSS 적용하기
-  * list-style 속성을 이용
-  * 기본으로 나오는 삼각형 모양 제거하기: `list-style: none`
-
-```html
-<details>
-    <summary>Details</summary> 
-    Something small enough to escape casual notice.
-</details>
-```
-
-toggle 이벤트 리스너를 통해 open 속성의 상태 변화를 감지할 수 있다.
-
-```js
-details.addEventListener("toggle", event => {
-  if (details.open) {
-    /* the element was toggled open */
-  } else {
-    /* the element was toggled closed */
-  }
-});
-```
-
-<details>
-
-<summary>Details</summary>
-
-Something small enough to escape casual notice.
-
-</details>
-
-***
-
-#### `<dialog>`: 대화상자
-
-닫을 수 있고, 상호작용이 가능한 컴포넌트
-
-* 속성: open
-  * 대화 상자가 활성 상태이며 상호작용이 가능.
-  * open상태가 아닐 경우 사용자에게 보여서는 안된다.
-* `<dialog>`열 때에는 `open`속성 직접 변경이 아닌 `.show(), .showModal()`메서드를 사용
-
-```html
-<dialog open>
-  <p>여러분 안녕하세요!</p>
-</dialog>
-```
-
-여러분 안녕하세요!
-
-***
-
-#### `<dl>`: 설명 목록( Description List)
-
-`<dd>` 요소와 `<dt>`요소를 포함하는 설명 목록을 제공
-
-단어 사전이나 메타데이터 등의 키-값 목록을 생성하는데 유용
-
-#### `<dt>`: 설명 목록의 정의 (Description Term)
-
-키-값 목록에서 키의 부분을 나타내거나, 단어 사전에서 단어를 나타내는 부분을 표현
-
-#### `<dd>`: 설명 목록의 정의 설명(Description Details)
-
-용어 `<dt>`에 대한 설명이나 정의, 값 등을 제공
-
-```html
-<dl>
-    <dt>Beast of Bodmin</dt>
-    <dd>A large feline inhabiting Bodmin Moor.</dd>
-</dl>
-```
-
-Beast of BodminA large feline inhabiting Bodmin Moor.
-
-***
-
-#### `<div>`: 문서의 분할
-
-순수하게 요소를 담는 컨테이너의 역할로 아무것도 표현하지 않는다.
-
-이 요소는 다른 의미를 가진 요소들이 적절하지 않을 때만 사용
-
-```html
-<div>
-  <p>
-    Any kind of content here. Such as &lt;p&gt;, &lt;table&gt;. You name it!
-  </p>
-</div>
-```
-
-***
-
-#### `<fieldset>`: 필드 집합의 라벨
-
-웹 양식(`<form>`)에서 여러 컨트롤과 레이블을 그룹화
-
-그룹에 대한 설명: `<legend>`요소로 제공
-
-속성
-
-* form
-  * 페이지 내에서 `<fieldset>`요소와 연결할 `<form>`요소의 id
-* disabled
-  * `<fieldset>`요소 내의 모든 콘텐츠를 한 번에 비활성화
-* name
-  * 그룹에 대한 이름
-
-기본 css 속성
-
-* display: block
-* border: 2px groove
-* min-inline-size: min-content
-* 약간의 내부 여백
-
-```html
-<form>
-  <fieldset>
-    <legend>Choose your favorite monster</legend>
-
-    <input type="radio" id="kraken" name="monster">
-    <label for="kraken">Kraken</label><br/>
-
-    <input type="radio" id="sasquatch" name="monster">
-    <label for="sasquatch">Sasquatch</label><br/>
-
-    <input type="radio" id="mothman" name="monster">
-    <label for="mothman">Mothman</label>
-  </fieldset>
-</form>
-```
-
-Choose your favorite monster Kraken\
-&#x20;Sasquatch\
-&#x20;Mothman
-
-***
-
-#### `<figure>`: 미디어 콘텐츠 그룹과 설명
-
-다른 부분으로 이동해도 문제가 없는 독립적인 컨텐츠를 제공
-
-요소 내부에 `<figcaption>`를 포함하여 설명을 제공
-
-#### `<figcaption>`: 그림 설명
-
-`<figure>`가 포함하는 컨텐츠에 대한 설명이나 범례 제공
-
-```html
-<figure>
-    <img src="/media/cc0-images/elephant-660-480.jpg"
-         alt="Elephant at sunset">
-    <figcaption>An elephant at sunset</figcaption>
-</figure>
-```
-
-코드 표현
-
-```html
-<figure>
-  <figcaption><code>navigator</code>를 이용하여 브라우저 정보 얻기</figcaption>
-  <pre>
-function NavigatorExample() {
-  var txt;
-  txt = "Browser CodeName: " + navigator.appCodeName;
-  txt+= "Browser Name: " + navigator.appName;
-  txt+= "Browser Version: " + navigator.appVersion ;
-  txt+= "Cookies Enabled: " + navigator.cookieEnabled;
-  txt+= "Platform: " + navigator.platform;
-  txt+= "User-agent header: " + navigator.userAgent;
-}
-  </pre>
-</figure>
-```
-
-```
-function NavigatorExample() {
-  var txt;
-  txt = "Browser CodeName: " + navigator.appCodeName;
-  txt+= "Browser Name: " + navigator.appName;
-  txt+= "Browser Version: " + navigator.appVersion ;
-  txt+= "Cookies Enabled: " + navigator.cookieEnabled;
-  txt+= "Platform: " + navigator.platform;
-  txt+= "User-agent header: " + navigator.userAgent;
-}
-  
-```
-
-인용문 표현
-
-```html
-<figure>
-  <figcaption><cite>Edsger Dijkstra:</cite></figcaption>
-  <blockquote>If debugging is the process of removing software bugs,
-  then programming must be the process of putting them in.</blockquote>
-</figure>
-```
-
-> If debugging is the process of removing software bugs, then programming must be the process of putting them in.
-
-시 표현
-
-```html
-<figure>
-  <p style="white-space:pre">
-Bid me discourse, I will enchant thine ear,
-  Or like a fairy trip upon the green,
-Or, like a nymph, with long dishevell'd hair,
-  Dance on the sands, and yet no footing seen:
-Love is a spirit all compact of fire,
-  Not gross to sink, but light, and will aspire.</p>
-  <figcaption><cite>Venus and Adonis</cite>,
-    by William Shakespeare</figcaption>
-</figure>
-```
-
-Bid me discourse, I will enchant thine ear, Or like a fairy trip upon the green, Or, like a nymph, with long dishevell'd hair, Dance on the sands, and yet no footing seen: Love is a spirit all compact of fire, Not gross to sink, but light, and will aspire.
-
-***
-
-#### `<footer>`: 페이지나 구역의 바닥글
-
-가장 가까운 구획 콘텐츠나 구획 루트에 대한 푸터를 제공
-
-푸터는 일반적으로 작성자, 저작권 정보, 관련 문서 등에 대한 내용을 포함
-
-Tip:
-
-* 푸터에 `<address>`를 이용해 작성자 정보를 표현
-* 가장 가까운 상위 요소를 본문으로 하여 전체 페이지에 적용
-* `<footer`>는 컨텐츠를 섹션화하지 하지 않아 개요에 나타나지 않는다.
-
-```html
-<footer>
-  Some copyright info or perhaps some author info for an &lt;article&gt;?
-</footer>
-```
-
-#### `<form>`: 입력 폼
-
-대화형 컨트롤을 제공
-
-CSS 의사 클래스 `:valid`, `:invalid`를 통해 양식이 유효한 경우에 대한 CSS 속성 적용 가능
-
-속성
-
-* accept-charset
-  * 서버가 허용하는 문자 인코딩 목록
-  * 기본값은 페이지 인코딩
-* action
-  * 양식 데이터를 처리할 프로그램의 URI
-  * `<button>`, `<input type="submit">`, `<input type="image">`요소의 formaction 속성으로 재정의 가능
-* autocapitalize
-  * 영문에 대한 대소문자 자동 변환 방식
-  * ios safari에서만 사용하는 비표준 특성
-* autocomplete
-  * 입력 요소의 자동완성 기능을 사용할지
-  * off: 자동완성 x
-  * on: 자동완성 o
-* entype
-  * method 속성이 post 값일 때, 양식 제출시 MIME 유형 지정
-  * 기본값: application/x-www-form-urlencoded
-  * multipart/form-data: `<input type="file">`이 존재 하는 경우 사용
-  * text/plain: html 5에서 디버깅용
-* method
-  * 양식 제출시 사용할 HTTP 메서드
-  * post: 양식 데이터를 본문인 body에 넣어 전송
-  * get: 양식 데이터를 url과 ? 구분자 뒤에 이어 붙여 전송
-  * dialog: 양식이 `<dialog>` 안에 위치할 경우, 제출과 함께 대화 상자 종료
-* name
-  * form의 의 이름
-* novalidate
-  * 지정할 경우 양식의 유효성 검증 건너 뛰기
-* target
-  * 양식 제출에 대한 결과를 표시할 위치를 지정
-  * 가능한 값: 브라우징 맥락의 이름 또는 키워드
-  * \_self: 응답을 현재 브라우징 맥락에 표시. 기본값
-  * \_blank: 응답을 새로운 브라우징 맥락에 표시. 보통 새 탭
-  * \_parent: 응답을 현재 브라우징 맥락의 부모에 표시. 부모가 없으면 \_self와 동일하게 동작
-  * \_top: 응답을 최상단 브라우징 맥락에 표시. 부모가 없으면 \_self와 동일하게 동작
-
-```html
-<form action="" method="get" class="form-example">
-  <div class="form-example">
-    <label for="name">Enter your name: </label>
-    <input type="text" name="name" id="name" required>
-  </div>
-  <div class="form-example">
-    <label for="email">Enter your email: </label>
-    <input type="email" name="email" id="email" required>
-  </div>
-  <div class="form-example">
-    <input type="submit" value="Subscribe!">
-  </div>
-</form>
-```
-
-Enter your name: Enter your email:&#x20;
-
-***
-
-#### `<h1>`\~`<h6>`: 제목
-
-6단계로 이루어진 구획 제목을 제공
-
-Tips:
-
-* 글씨 크기 조정은 h태그가 아닌 css의 `font-size` 이용
-* 제목 단계는 `h1`부터 `h2`, `h3` 순으로 건너뛰지 않고 순차적으로 사용
-* 페이지당 하나의 h1 태그를 사용
-
-`<header>`: 페이지나 구역의 헤더
-
-소개 및 탐색에 관련된 콘텐츠 제공
-
-제목이나 로고, 검색 창, 작성자 이름등의 요소를 포함
-
-```html
-<header class="page-header">
-    <h1>Cute Puppies Express!</h1>
-</header>
-
-<main>
-    <p>I love beagles <em>so</em> much! Like, really, a lot. They’re adorable and their ears are so, so snuggly soft!</p>
-</main>
-```
-
-## Cute Puppies Express!
-
-I love beagles _so_ much! Like, really, a lot. They’re adorable and their ears are so, so snuggly soft!
-
-***
-
-#### `<hgroup>`: 헤더 정보 그룹
-
-제목, 부제목과 같이 문서 구획의 다단계 제목을 표현
-
-h1\~h6 태그 여러 개를 묶을 때 사용
-
-```html
-<hgroup>
-  <h1>주요 제목</h1>
-  <h2>부제목</h2>
-</hgroup>
-```
-
-#### `<hr>`: 수평선
-
-주제를 분리하기 위한 수평선
-
-#### `<li>`: 목록의 항목
-
-목록에서 항목을 나타내므로 `<ol>`이나 `<ul>`,`<menu>`안에 위치
-
-속성
-
-* value
-  * 요소 내부에서 항목의 현재 서수 값을 나타내는 정수
-  * 비정렬 목록`<ul>`과 `<menu>`에서는 의미가 없다
-* type
-  * 넘버링 타입을 나타내는 문자
-  * 현재는 css의 list-style-type 속성을 이용
-  * a: 소문자 글자
-  * A: 대문자 글자
-  * i: 소문자 로마 숫자
-  * I: 대문자 로마 숫자
-  * 1: 숫자
-
-```html
-<ol type="I">
-    <li value="3">third item</li>
-    <li>fourth item</li>
-    <li>fifth item</li>
-</ol>
-```
-
-1. third item
-2. fourth item
-3. fifth item
-
-#### `<main>`: 문서에서 하나뿐인 중심 콘텐츠
-
-이 요소의 콘텐츠는 문서에서 유일한 내용이어야 한다.
-
-문서에는 하나의 `<main>` 요소만 존재해야 한다
-
-`<main>`요소에 id요소를 추가해 건너뛰기 링크의 대상으로 지정할 수 있다.
-
-```html
-<body>
-  <a href="#main-content">Skip to main content</a>
-
-  <!-- navigation and header content -->
-
-  <main id="main-content">
-    <!-- main page content -->
-  </main>
-</body>
-```
-
-#### `<nav>`: 탐색링크를 포함하는 네비게이터
-
-메뉴, 목차, 색인 등에 사용
-
-```html
-<nav class="crumbs">
-    <ol>
-        <li class="crumb"><a href="#">Bikes</a></li>
-        <li class="crumb"><a href="#">BMX</a></li>
-        <li class="crumb">Jump Bike 3000</li>
-    </ol>
-</nav>
-
-<h1>Jump Bike 3000</h1>
-<p>This BMX bike is a solid step into the pro world. It looks as legit as it rides and is built to polish your skills.</p>
-```
-
-Tips:
-
-* 모든 링크가 `<nav>`요소 안에 있을 필요는 없다.
-* 주요 탐색 링크를 위한 요소이다.
-* 중요하지 않은 링크는 `<footer>`에 정의 할 수 있다.
-* 하나의 페이지 내에서 여러 개의 `<nav>`를 사용 가능. 전체 탐색용 그리고 현재 페이지 탐색 등 이때 [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA\_Techniques/Using\_the\_aria-labelledby\_attribute)를 사용
-
-#### `<ol>`: 정렬된(순서있는) 목록
-
-순서가 지정된 목록을 제공
-
-```html
-<ol start="4">
-  <li>Speedwalk Stu</li>
-  <li>Saunterin’ Sam</li>
-  <li>Slowpoke Rodriguez</li>
-</ol>
-```
-
-속성
-
-* resversed
-  * 목록의 항목이 역순임을 지정
-* start
-  * 목록 항목에서 시작할 수
-* type
-  * 번호 매기기 유형
-  * a: 소문자 글자
-  * A: 대문자 글자
-  * i: 소문자 로마 숫자
-  * I: 대문자 로마 숫자
-  * 1: 숫자
-
-#### `<p>`: 문단
-
-하나의 문단을 나타내며, 문단은 블록 레벨 요소
-
-```html
-<p>Geckos are a group of usually small, usually nocturnal lizards. They are found on every continent except Australia.</p>
-```
-
-#### `<pre>`: 미리 서식 적용한 글
-
-미리 서식이 지정된 텍스트로, HTML에 내용을 그대로 표현
-
-텍스트는 보통 고정폭 글꼴을 사용해 렌더링, 요소내 공백문자를 그대로 유지
-
-```html
-<pre>
-  L          TE
-    A       A
-      C    V
-       R A
-       DOU
-       LOU
-      REUSE
-      QUE TU
-      PORTES
-    ET QUI T'
-    ORNE O CI
-     VILISÉ
-    OTE-  TU VEUX
-     LA    BIEN
-    SI      RESPI
-            RER       - Apollinaire
-</pre>
-
-```
-
-접근성
-
-* 문자를 그림이나 도표처럼 사용하면 차례대로 읽는 스크린 리더기로는 이해하지 못한다.
-* 이 때는 `<figure>`와 `<figcaption>`을 이용해 대체 설명을 작성
-
-```html
-<figure role="img" aria-labelledby="cow-caption">
-  <pre>
-  _______________________
-< 나는 이 분야의 전문가다. >
-  -----------------------
-         \   ^__^
-          \  (oo)\_______
-             (__)\       )\/\
-                 ||----w |
-                 ||     ||
-  </pre>
-  <figcaption id="cow-caption">
-    소 한 마리가 "나는 이 분야의 전문가다"라고 말하고 있습니다. 소는 미리 서식을 적용한 텍스트로 그려져있습니다.
-  </figcaption>
-</figure>
-```
-
-#### `<section>`: 웹 페이지의 구역
-
-문서에서 독립적인 구획이며 보통 제목을 포함
-
-```html
-<h1>Choosing an Apple</h1>
-<section>
-    <h2>Introduction</h2>
-    <p>This document provides a guide to help with the important task of choosing the correct Apple.</p>
-</section>
-```
-
-Tips:
-
-각각의 `<section>`을 구분할 수단이 필요. 주로 제목 태그를 포함시키는 방법 이용
-
-요소의 콘텐츠를 따로 구분이 필요할 경우에는 `<article>` 요소를 고려
-
-#### `<table>`: 표
-
-* `<tr>`: 행 구분
-* `<th>`: 셀 제목
-* `<td>`: 셀
-
-접근성
-
-* `<caption>`요소를 제공하여 사용자에게 설명 제공하여 불필요한 경우 스킵하도록 도움
-
-```html
-<table>
-  <caption>Color names and values</caption>
-  <tbody>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">HEX</th>
-      <th scope="col">HSLa</th>
-      <th scope="col">RGBa</th>
-    </tr>
-    <tr>
-      <th scope="row">Teal</th>
-      <td><code>#51F6F6</code></td>
-      <td><code>hsla(180, 90%, 64%, 1)</code></td>
-      <td><code>rgba(81, 246, 246, 1)</code></td>
-    </tr>
-    <tr>
-      <th scope="row">Goldenrod</th>
-      <td><code>#F6BC57</code></td>
-      <td><code>hsla(38, 90%, 65%, 1)</code></td>
-      <td><code>rgba(246, 188, 87, 1)</code></td>
-    </tr>
-  </tbody>
-</table>
-```
-
-#### `<ul>`: 정렬되지 않은 목록
-
-보통 불릿으로 표현되는 정렬되지 않은 목록
-
-```html
-<ul>
-  <li>first item</li>
-  <li>second item</li>
-  <li>third item</li>
-</ul>
-```
-
-## 인라인 요소(Inline elements)
+# Inline Elements
 
 * 항상 블록 레벨 요소내에 포함
 * 문장이나 단어같은 작은 부분을 표현하기 적합
 * 블록 요소와 달리 줄바꿈을 하지 않는다.
 * `<a>`, `<em>`, `<strong>` 등
 
-#### `<a>`: 앵커 요소
+## `<a>`: 앵커 요소
 
 href 속성을 이용해 다른 페이지나 같은 페이지의 어느 위치, 파일, 이메일 주소나 다른 URL로 연결할 수 있는 하이퍼 링크를 생성. 태그안의 콘텐츠는 목적지 링크에 대한 설명을 표시
 
@@ -766,7 +64,7 @@ Tips:
   </a>
   ```
 
-#### `<abbr>`: 준말 또는 머리글자
+## `<abbr>`: 준말 또는 머리글자
 
 문장에서 중심이 되는 준말 또는 머리글자
 
@@ -796,7 +94,7 @@ CSS:
 * 또는 영어 소문자를 작은 대문자로 표현
 * css 제거 : `font-variant:none`
 
-#### `<audio>`: 소리 콘텐츠 포함
+## `<audio>`: 소리 콘텐츠 포함
 
 src 속성 또는 `<source>`요소를 사용해 한 개 이상의 오디오 소스 지정
 
@@ -851,7 +149,7 @@ src 속성 또는 `<source>`요소를 사용해 한 개 이상의 오디오 소�
   * 오디오의 url
   * 대신 오디오 블록내에 `<source>` 요소를 사용 가능
 
-#### `<b>`: 굵은 글씨체
+## `<b>`: 굵은 글씨체
 
 텍스트를 굵은 글씨체로 만든다.
 
@@ -862,7 +160,7 @@ Tips:
 * 제목은 `<h1>`태그로 표현
 * `<b>`요소 대신 CSS의 `font-weight:"bold"` 사용
 
-#### `<bdi>`: 양방향 격리 요소
+## `<bdi>`: 양방향 격리 요소
 
 * 특정 텍스트를 주변 텍스트와 격리하여 텍스트 방향을 다르게 지정할 수 있는 요소
 * 왼쪽에서 오른쪽으로 정렬 (LTR) 되는 문자
@@ -878,7 +176,7 @@ Tips:
 </ul>
 ```
 
-#### `<bdo>`: 텍스트 방향 정의 요소
+## `<bdo>`: 텍스트 방향 정의 요소
 
 텍스트 방향을 지정하여 현재 텍스트의 쓰기 방향을 지정
 
@@ -896,7 +194,7 @@ Tips:
 <p><bdo dir="rtl">이 단락은 오른쪽부터 왼쪽 방향으로 써질 것입니다.</bdo></p>
 ```
 
-#### `<br>`: 줄바꿈 요소
+## `<br>`: 줄바꿈 요소
 
 텍스트 안에서 줄 바꿈(캐리지 리턴)을 생성.
 
@@ -917,7 +215,7 @@ Tips:
 </p>
 ```
 
-#### `<button>`: 버튼 요소
+## `<button>`: 버튼 요소
 
 클릭 가능한 버튼을 제공
 
@@ -977,9 +275,9 @@ Tips:
 
 최소 44x44의 CSS 픽셀 권장
 
-![주변에 보라색 사각형 영역이 있는 번역 버튼.  버튼에는 "버튼, 32 CSS 픽셀"이라는 레이블이 지정되어 있습니다. 보라색 영역에는 "대화형 영역, 44 CSS 픽셀"이라는 레이블이 지정되어 있습니다.](<Block vs inline elements.assets/touch-target-padding.svg>)
+![주변에 보라색 사각형 영역이 있는 번역 버튼.  버튼에는 "버튼, 32 CSS 픽셀"이라는 레이블이 지정되어 있습니다. 보라색 영역에는 "대화형 영역, 44 CSS 픽셀"이라는 레이블이 지정되어 있습니다.](<block-vs-inline.assets/touch-target-padding.svg>)
 
-#### `<canvas>` : 그래픽 캔버스 요소
+## `<canvas>` : 그래픽 캔버스 요소
 
 canvas scripting API , WebGL API를 사용하여 그래픽 애니메이션을 그린다.
 
@@ -1010,7 +308,7 @@ Tips:
 * 캔버스의 크기 조절은 `<canvas>`요소의 `width` 속성과 `height`속성 사용해 변경
 * 캔버스는 접근성 도구에 노출되지 않으므로 접근성 사이트에서는 피해야 한다.
 
-#### `<cite>`: 출처 표기
+## `<cite>`: 출처 표기
 
 저작물에 대한 출처를 표기하기 위해 사용.
 
@@ -1027,7 +325,7 @@ Tips:
 </figure>
 ```
 
-#### `<code>`: 인라인 코드 요소
+## `<code>`: 인라인 코드 요소
 
 짧은 코드 조각을 나타내는 스타일을 이용해 콘텐츠 표시
 
@@ -1043,7 +341,7 @@ Tips:
 * 여러 줄의 코드를 표현하려면 `<code>`요소를 `<pre>`요소로 감싼다
 * CSS의 `code`선택자를 이용해 브라우저의 기본 글씨체 변경 가능
 
-#### `<data>`: 콘텐츠를 데이터 연결
+## `<data>`: 콘텐츠를 데이터 연결
 
 주어진 콘텐츠를 기계가 읽을 수 있는 해석본(데이터)과 연결
 
@@ -1063,7 +361,7 @@ Tips:
 * value
   * 기계가 읽을 수 있는 형태의 콘텐츠 해석본
 
-#### `<datalist>`: 데이터리스트
+## `<datalist>`: 데이터리스트
 
 다른 컨트롤에서 다룰 수 있는 선택지를 나타내는 요소인 `<option>`요소를 여러개 담을 수 있다.
 
@@ -1080,7 +378,7 @@ Tips:
 </datalist>
 ```
 
-#### `<del>`: 제거된 텍스트 범위
+## `<del>`: 제거된 텍스트 범위
 
 문서에서 제거된 텍스트의 범위를 표현
 
@@ -1120,17 +418,17 @@ Tips:
     white-space: nowrap;
     width: 1px;
   }
-
+  
   del::before {
     content: " [제거 부분 시작] ";
   }
-
+  
   del::after {
     content: " [제거 부분 끝] ";
   }
   ```
 
-#### `<dfn>`: 정의 요소
+## `<dfn>`: 정의 요소
 
 현재 맥락이나 문장에서 정의하고 있는 용어는 나타낸다
 
@@ -1147,7 +445,7 @@ Tips:
 * `<dfn>`의 유일한 자식이 `<abbr>`이고 이 요소가 title 특성을 가지면 이 값을 현재 용어로 간주
 * 모두 아닌 경우 `<dfn>`의 텍스트 콘텐츠를 현재 용어로 간주
 
-#### `<em>`: 텍스트 강세 표현
+## `<em>`: 텍스트 강세 표현
 
 텍스트의 강세를 표현하며, 중첩할수록 더 큰 강세를 표현할 수있다.
 
@@ -1175,7 +473,7 @@ Tips:
 </p>
 ```
 
-#### `<embed>`: 외부 컨텐츠와의 통합
+## `<embed>`: 외부 컨텐츠와의 통합
 
 외부의 어플리케이션이나 대화형 컨텐츠와의 통합
 
@@ -1197,7 +495,7 @@ Tips:
 * width
   * 리소스가 표현될 너비. CSS 픽셀 단위
 
-#### `<i>`: 텍스트 구분 요소
+## `<i>`: 텍스트 구분 요소
 
 단락, 문장 등에서 주위 텍스트와 구분되어야 할 부분을 나타내며,
 
@@ -1219,7 +517,7 @@ Tips:
   * `<mark>`: 관련성
   * `<dfn>`: 정의 대상인 용어 표현
 
-#### `<iframe>`: 인라인 프레임 요소
+## `<iframe>`: 인라인 프레임 요소
 
 중첩 브라우징 맥락을 제공하는 요소로
 
@@ -1291,7 +589,7 @@ Tips:
 * width
   * 프레임의 너비. CSS 픽셀 단위. 기본값은 300
 
-#### `<img>`:이미지 요소
+## `<img>`:이미지 요소
 
 * 문서에 이미지를 삽입하는 요소
 * src 속성은 필수적이며, 삽입할 이미지의 경로를 지정
@@ -1352,7 +650,7 @@ Tips:
 * sizes
   * 소스 크기를 나타내는 ,(쉼표)로 구분한 하나 이상의 문자열.
   * 각각의 문자열은 다음 구성요소로 이루어진다.
-  *
+    *
     1. 미디어 조건. 마지막 항목에서는 생략
     2. 소스 크기 값.
   * 미디어 조건은 이미지의 속성이 아니라 뷰포트 속성
@@ -1367,7 +665,7 @@ Tips:
   * 사용자 에이전트가 사용할 수 있는 이미지 소스의 후보.
   * 쉼표로 구분하며 한 개 이상의 문자열 목록
   * 각각의 문자열은 다음 구성요소를 가짐
-  *
+    *
     1. 이미지의 URL
     2.  선택적으로 공백과 함께 그 뒤에
 
@@ -1387,7 +685,7 @@ Tips:
 * 이미지의 존재 여부나 이미지 파일의 이름을 나타내서는 안된다.
 * 파일 이름이 스크린 리더기에 읽힌다면 큰 혼란을 줄 수 있다.
 
-#### `<input>`: 입력 요소
+## `<input>`: 입력 요소
 
 웹 기반 양식에서 사용자의 데이터를 받을 수 있는 대화형 컨트롤 생성
 
@@ -1460,7 +758,7 @@ Tips:
 | [value](https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input#htmlattrdefvalue)                   | all                              | 양식 컨트롤의 현재 값. 이름/값 짝(name/value pair)의 일부로서 양식과 함께 전송된다     |
 | [width](https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input#htmlattrdefwidth)                   | image                            | 이미지의 `width` 속성과 같다                                         |
 
-#### `<ins>`: 추가된 텍스트 요소
+## `<ins>`: 추가된 텍스트 요소
 
 문서에 추가된 텍스트의 범위를 표시
 
@@ -1506,7 +804,7 @@ ins::after {
 }
 ```
 
-#### `<kbd>`: 키보드 입력 요소
+## `<kbd>`: 키보드 입력 요소
 
 키보드 입력, 음성 입력 등 임의의 장치를 사용한 사용자의 입력 표시
 
@@ -1537,12 +835,12 @@ Tips:
   <p>새로운 파일을 생성하려면, <kbd>
   <kbd><samp>파일</samp></kbd>⇒<kbd><samp>새 문서</samp></kbd>
   </kbd> 메뉴를 선택하세요.
-
+  
   <p>파일의 이름을 입력한 후, <kbd><samp>확인</samp></kbd>을
   누르는 걸 잊지 마세요.</p>
   ```
 
-#### `<label>`: 사용자 인터페이스 항목 설명 요소
+## `<label>`: 사용자 인터페이스 항목 설명 요소
 
 ```html
 <div class="preference">
@@ -1555,7 +853,7 @@ Tips:
 
 화면 리더기는 label을 통해 사용자가 입력해야 하는 것이 무엇인지 쉽게 알릴 수 있다.
 
-#### `<map>`, `<area>`: 이미지 맵 정의 요소, 핫스팟 영역 정의 요소
+## `<map>`, `<area>`: 이미지 맵 정의 요소, 핫스팟 영역 정의 요소
 
 `<map>`은 `<area>`요소와 함께 이미지 맵(클릭 가능한 링크 영역)을 정의
 
@@ -1585,7 +883,7 @@ Tips:
   * 각각의 name은 문서 내의 모든 `<map>`에서 유일해야 한다.
   * `id`값이 존재하는 경우 `name`과 일치해야 한다.
 
-#### `<mark>`: 하이라이트 요소
+## `<mark>`: 하이라이트 요소
 
 현재 맥락과 연관된 중요한 부분을 표시
 
@@ -1628,7 +926,7 @@ mark::after {
 }
 ```
 
-#### `<meter>`: 백분율 요소
+## `<meter>`: 백분율 요소
 
 특정 범위 내에서 스칼라 값이 어느 정도인지를 표시하는데 사용
 
@@ -1674,7 +972,7 @@ mark::after {
   * `<meter>`와 연결할 `<form>` 요소의 id값.
   * 지정하지 않아도 조상중에 `<form>`이 있으면 해당 `<form>`과 연결
 
-#### `<noscript>`:노스크립트 요소
+## `<noscript>`:노스크립트 요소
 
 페이지의 스크립트 유형을 지원하지 않거나, 브라우저가 스크립트를 비활성화한 경우 보여줄 HTML 구획을 정의
 
@@ -1688,7 +986,7 @@ mark::after {
 
 자바스크립트를 부득이하게 못 사용하는 사용자에게 html 요소를 이용해 대체 제공?
 
-#### `<object>`: 외부 리소스 요소
+## `<object>`: 외부 리소스 요소
 
 이미지, 중첩된 브라우저 컨텍스트, 플러그인에 의해 다뤄질 수 있는 리소스 등을 나타낸다.
 
@@ -1719,7 +1017,7 @@ mark::after {
 * width
   * 표시될 리소스의 너비. CSS 픽셀 단위
 
-#### `<output>`: 출력 요소
+## `<output>`: 출력 요소
 
 웹 사이트나 웹에서 계산 결과나 사용자 행동 결과를 넣을 수 있는 컨테이너 요소
 
@@ -1748,7 +1046,7 @@ mark::after {
 * 많은 브라우저가 `<output>`을 마치 `aria-live` 속성이 존재하는 것처럼 구현
 * 따라서 접근성 기술은 포커스가 바뀌지 않더라도 `<output>`내부의 UI 상호작용 결과를 표현
 
-#### `<picture>`: 사진 요소
+## `<picture>`: 사진 요소
 
 0개 이상의 `<source>`요소를 포함하고 한 개의 `<img>`요소를 대안으로서 포함하는 사진 요소
 
@@ -1773,7 +1071,7 @@ mark::after {
 * 특정 형식 이미지 지원 불가시 대체 이미지 제공
 * 다양한 뷰포트에 적절한 이미지를 불러 옴으로써 불러오는 시간과 대역폭을 절약
 
-#### `<progress>`: 진행 표시줄 요소
+## `<progress>`: 진행 표시줄 요소
 
 어느 작업이 진행된 정도를 시각적으로 표시
 
@@ -1794,7 +1092,7 @@ mark::after {
   * max 지정시, 0\~max의 값 범위내
   * max 지정안했을 경우, 0\~1범위내
 
-#### `<q>`: 인라인 인용문 요소
+## `<q>`: 인라인 인용문 요소
 
 둘러싼 텍스트가 짧은 인용문인것을 표현
 
@@ -1814,7 +1112,7 @@ mark::after {
 * cite
   * 인용문의 출처나 메시지를 가리키는 url
 
-#### `<ruby>`: 루비 주석
+## `<ruby>`: 루비 주석
 
 동아시아 문자의 발음 표기용 주석
 
@@ -1828,7 +1126,7 @@ mark::after {
 </ruby>
 ```
 
-#### `<s>`: 취소선 요소
+## `<s>`: 취소선 요소
 
 글자에 취소선(가로지르는 가로선)을 그린다.
 
@@ -1867,7 +1165,7 @@ s::after {
 }
 ```
 
-#### `<samp>`: 출력 예시 요소
+## `<samp>`: 출력 예시 요소
 
 컴퓨터 프로그램 출력의 예시를 나타낸다.
 
@@ -1877,7 +1175,7 @@ s::after {
 <p><samp>Keyboard not found <br>Press F1 to continue</samp></p>
 ```
 
-#### `<script>`: 스크립트 요소
+## `<script>`: 스크립트 요소
 
 데이터와 실행 가능한 코드를 문서에 포함시킬 때 사용
 
@@ -1930,7 +1228,7 @@ s::after {
   * 다른 모든 값
     * 내장 콘텐츠를 브라우저가 처리하지 않을 데이터 블록으로 간주
 
-#### `<select>`: 옵션 메뉴 컨트롤
+## `<select>`: 옵션 메뉴 컨트롤
 
 ```html
 <label>Please choose one or more pets:
@@ -1977,11 +1275,11 @@ s::after {
   * `<select>`를 스크롤 가능한 목록 상자로 표현할 때 목록에서 한 번에 볼 수 있는 옵션 줄의 수
   * 기본값 0
 
-#### `<slot>`: 슬롯 요소
+## `<slot>`: 슬롯 요소
 
 웹 컴포넌트 내부의 플레이스홀더
 
-#### `<small>`: 덧붙임 글 요소
+## `<small>`: 덧붙임 글 요소
 
 덧붙이는 글, 저작권, 법률 표기등의 추가적은 작은 텍스트 표현
 
@@ -1995,7 +1293,7 @@ s::after {
 <p><small>The content is licensed under a Creative Commons Attribution-ShareAlike 2.5 Generic License.</small></p>
 ```
 
-#### `<span>`: 인라인 컨테이너
+## `<span>`: 인라인 컨테이너
 
 구문 콘텐츠를 위한 인라인 컨테이너.
 
@@ -2007,7 +1305,7 @@ s::after {
 <p><span>Some text</span></p>
 ```
 
-#### `<strong>`: 높은 중요도 요소
+## `<strong>`: 높은 중요도 요소
 
 중대하거나 긴급한 컨텐츠 표현
 
@@ -2017,7 +1315,7 @@ s::after {
 <p>... the most important rule, the rule you can never forget, no matter how much he cries, no matter how much he begs: <strong>never feed him after midnight</strong>.</p>
 ```
 
-#### `<sub>`: 아래 첨자 요소
+## `<sub>`: 아래 첨자 요소
 
 활자 배치를 아래 첨자로 해야 하는 인라인 텍스트 지정
 
@@ -2032,7 +1330,7 @@ Tips:
 * 단순히 작은 글씨를 아래에 쓰기 위해 사용해서는 안된다.
 * 이를 경우 대안으로 CSS의 `vertical-align: sub`, `vertical-align: -25%` 등이 있다.
 
-#### `<sup>`: 위 첨자 요소
+## `<sup>`: 위 첨자 요소
 
 활자 배치를 위 첨자로 해야 하는 인라인 텍스트 지정
 
@@ -2047,9 +1345,9 @@ Tips:
 * 단순히 작은 글씨를 아래에 쓰기 위해 사용해서는 안된다.
 * 이를 경우 대안으로 CSS의 `vertical-align: super`, `vertical-align: 50%` 등이 있다.
 
-#### `<svg>`: 벡터 이미지 요소
+## `<svg>`: 벡터 이미지 요소
 
-#### `<template>`: 콘텐츠 템플릿 요소
+## `<template>`: 콘텐츠 템플릿 요소
 
 * 페이지를 불러온 순간 바로 그리지는 않지만, 이후 JavaScript를 통해 인스턴스를 생성할 수 있는 HTML 코드를 담을 방법을 제공.
 * 템플릿은 콘텐츠 조각을 나중에 사용하기 위해 담아놓는 컨테이너
@@ -2106,7 +1404,7 @@ if ('content' in document.createElement('template')) {
 }
 ```
 
-#### `<textarea>`: 멀티라인 컨트롤
+## `<textarea>`: 멀티라인 컨트롤
 
 여러 줄의 텍스트를 입력할 수 있는 컨트롤
 
@@ -2183,7 +1481,7 @@ It was a dark and stormy night...
 textarea { resize: none;}
 ```
 
-#### `<time>`: 시간 요소
+## `<time>`: 시간 요소
 
 시간의 특정 지점이나 구간을 나타낸다.
 
@@ -2229,7 +1527,7 @@ Tips:
 PT4H18M3S
 ```
 
-#### `<u>`: 밑줄 요소
+## `<u>`: 밑줄 요소
 
 보통 밑줄로 표시
 
@@ -2245,7 +1543,7 @@ PT4H18M3S
 
 밑줄만을 위해 사용하거나, 책 제목 등을 강조해서는 안된다.
 
-#### `<var>`: 변수 요소
+## `<var>`: 변수 요소
 
 수학 표현이나 프로그래밍에서의 변수 이름을 나타낸다.
 
@@ -2260,7 +1558,7 @@ Tips:
 * 함께 자주 사용하는 요소
   * `<code>`, `<kbd>`, `<smap>`
 
-#### `<video>`: 비디오 요소
+## `<video>`: 비디오 요소
 
 비디오 플레이백을 지원하는 미디어 플레이어를 문서에 삽입
 
@@ -2311,7 +1609,7 @@ Tips:
 * width
   * 비디오의 출력 너비. CSS 픽셀 단위
 
-#### `<wbr>`: 강제 줄바꿈 요소
+## `<wbr>`: 강제 줄바꿈 요소
 
 현재 요소의 줄 바꿈 규칙을 무시하고 브라우저가 줄을 바꿀 수 있는 위치를 나타낸다.
 

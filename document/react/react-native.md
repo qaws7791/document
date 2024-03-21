@@ -372,7 +372,7 @@ export default EventInput;
 
 - 사용자의 모바일 사용성을 고려한 터치 설계
 
-![image-20221223001645835](React-Native.assets/image-20221223001645835.png)
+![image-20221223001645835](react-native.assets/image-20221223001645835.png)
 
 # jsx 스타일링
 

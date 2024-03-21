@@ -60,8 +60,6 @@ export const signupWithEmail = async ({
 
 ![image-20240120201457329](assets/image-20240120201457329.png)
 
-## 
-
 ## 회원가입 시 db에 유저 정보 저장
 
 ### 이메일 회원가입

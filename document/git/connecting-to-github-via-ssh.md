@@ -24,25 +24,25 @@ We now need to add our public key to Github to grant access to the repositories 
 
 
 
-![Click on settings. ](./Connecting to GitHub via SSH.assets/qBM9wZ2zQJeTPcGds_CXzA_82389fbb7ed140b78c68ea0807d9aae1_settings.png)
+![Click on settings. ](./connecting-to-github-via-ssh.assets/qBM9wZ2zQJeTPcGds_CXzA_82389fbb7ed140b78c68ea0807d9aae1_settings.png)
 
 **Step 3:** On the Settings screen, on the left-hand side under the Access section, click SSH and GPG Keys
 
 
 
-![Click on SSH and GPG Keys button](./Connecting to GitHub via SSH.assets/sFSNDz83SdiUjQ8_N_nYzA_9f8816da2612456fba6ae46f3411d3e1_sshkeys.png)
+![Click on SSH and GPG Keys button](./connecting-to-github-via-ssh.assets/sFSNDz83SdiUjQ8_N_nYzA_9f8816da2612456fba6ae46f3411d3e1_sshkeys.png)
 
 **Step 4:** Click the New SSH key button in Green on the right-hand side of the screen.
 
 
 
-![Click on New SSH key button](./Connecting to GitHub via SSH.assets/JhTQN1nUTuyU0DdZ1J7sxw_d3abb3bf73884015bed813fb4b197ee1_ssh_keys_create.png)
+![Click on New SSH key button](./connecting-to-github-via-ssh.assets/JhTQN1nUTuyU0DdZ1J7sxw_d3abb3bf73884015bed813fb4b197ee1_ssh_keys_create.png)
 
 **Step 5:** Enter a title and paste in your public key that you copied previously.
 
 
 
-![Enter title and paste pubic key](./Connecting to GitHub via SSH.assets/KkE9fIBURMSBPXyAVPTEuA_c1274f2e6111466fa3fa9a35ead551e1_ssh_add_new.png)
+![Enter title and paste pubic key](./connecting-to-github-via-ssh.assets/KkE9fIBURMSBPXyAVPTEuA_c1274f2e6111466fa3fa9a35ead551e1_ssh_add_new.png)
 
 **Step 6:** Click the Add SSH key button.
 
@@ -54,4 +54,4 @@ When accessing a repository and using SSH authentication, make sure to always us
 
 
 
-![Always use the SSH address of the repository](./Connecting to GitHub via SSH.assets/rdWZsAPqTtKVmbAD6u7SbA_4f25b172a2ef410fbad513882e0ea9e1_clone_ssh.png)
+![Always use the SSH address of the repository](./connecting-to-github-via-ssh.assets/rdWZsAPqTtKVmbAD6u7SbA_4f25b172a2ef410fbad513882e0ea9e1_clone_ssh.png)

@@ -1,1 +1,277 @@
-readme
+# Nextjs
+
+- nextjs는 *React 프레임워크*
+- https://nextjs.org/blog/next-13
+
+# 0.용어 설명
+
+## 0.1.컴파일(compiling)
+
+- JSX, TS, JS 등을 모두 -> 브라우저가 이해하도록 Javascript로 변환
+
+## 0.2.축소(minifying)
+
+- 코드의 기능은 건들이지 않으면서 주석, 공백, 들여쓰기, 변수 등을 줄여 코드 경량화
+- 경량화를 통한 애플리케이션 성능 향상
+
+## 0.3.번들링(bundling)
+
+- 여러 내부 모듈과 외부 모듈, 패키지 등으로 인해 복잡한 종속성에서
+  사용자의 파일 요청을 줄이고 최적화된 번들로 병합하여 사용자에게 제공
+
+## 0.4.코드분할(code-splitting)
+
+- 애플리케이션의 번들을 각 진입점(페이지)에 필요한 더 작은 청크 단위로 분할
+- 각각의 페이지는 필요한 최소한의 코드만 로드하여 초기 로드 시간 단축
+
+## 0.5.사전렌더링(Pre-Rendering)
+
+- 일반적인 React 앱은 javascript를 비활성화하면 렌더링되지 않아 앱을 볼 수 없다.
+- 사전렌더링에서 javascript는 앱을 대화형으로 만드는데 사용된다.
+
+### Server-Side Rendering (서버사이드 렌더링)
+
+- **각 요청**에 대해 
+   서버에서 클라이언트로 전송 전에 외부 데이터를 로드하고,
+   react 요소를 html로 변환하여 페이지를 생성.
+- https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props
+
+###  Static Site Generation(정적 사이트 생성)
+
+- 애플리케이션 빌드(배포) 시 한 번만 생성
+- HTML은 CDN에 저장되어 각 요청 시 재사용
+- https://nextjs.org/docs/basic-features/data-fetching/get-static-props
+
+### 서버사이드 vs 정적 생성
+
+- 정적 생성: 
+  마케팅 페이지, 설명서 등과 같이 사용자 요청과 관련없이 미리 렌더링이 가능한 경우
+- 서버사이드: 
+  페이지에 자주 업데이트되는 데이터가 포함되거나, 
+  사용자 요청에 따라 데이터가 다를 수 있는 경우(항상 최신)
+
+## 0.6.클라이언트 렌더링(Client-Side Rendering)
+
+- React는 서버에서 빈 HTML과 Javascript를 받고, 클라이언트에서 Javascript로 그린다.
+
+# 1. 시작하기
+
+## 1. app 디렉토리 라우팅
+
+|                              |                                |      |
+| ---------------------------- | ------------------------------ | ---- |
+| site.com/                    | app/page.js                    |      |
+| site.com/dashboard/          | app/dashboard/page.js          |      |
+| site.com/dashboard/settings/ | app/dashboard/settings/page.js |      |
+
+|              |                                           |      |
+| ------------ | ----------------------------------------- | ---- |
+| page.js      | 경로에 대한 고유 UI 생성                  |      |
+| layout.js    | 세그먼트 및 해당 하위에 대한 공유 UI 생성 |      |
+| loading.js   | 세그먼트 및 하위에 대한 로딩 UI 생성      |      |
+| error.js     | 세그먼트 및 하위에 대한 오류 UI 생성      |      |
+| not-found.js | not-fonund 발생시 표시할 UI 생성          |      |
+
+https://beta.nextjs.org/docs/routing/fundamentals
+
+## 2. Link
+
+- `<a>` 대신에 사용.
+- 클라이언트 사이드 탐색으로 기본 탐색보다 더 빠름
+
+```jsx
+import Link from 'next/link';
+<Link href="/">Back to home</Link>
+```
+
+## 3. Image
+
+- `/public/images` 디렉토리에 이미지를 저장하고 불러와서 사용
+
+```jsx
+import Image from 'next/image';
+ <Image
+    src="/images/profile.jpg" // Route of the image file
+    height={144} // Desired size with correct aspect ratio
+    width={144} // Desired size with correct aspect ratio
+    alt="Your Name"
+  />
+```
+
+## 4. Metadata
+
+- `head`를 대체하여 메타데이터를 작성하는데 사용
+
+```javascript
+// Static metadata
+export const metadata = {
+  title: '...',
+};
+
+// Dynamic metadata
+export async function generateMetadata({ params, searchParams }) {
+  const product = await getProduct(params.id);
+  return { title: product.title };
+}
+```
+
+https://beta.nextjs.org/docs/api-reference/metadata
+
+## 5. Script
+
+- 서드파티 스크립트를 불러와서 사용가능
+- `strategy`: 스크립트 로드 시기 지정
+- `onLoad`: 로드 직후 실행할 스크립트 작성
+
+```jsx
+"use client";
+import Script from "next/script";
+export default function FirstPost() {
+  return (
+    <>
+      <Script
+        src="https://connect.facebook.net/en_US/sdk.js"
+        strategy="lazyOnload"
+        onLoad={() =>
+          console.log(`script loaded correctly, window.FB has been populated`)
+        }
+      />
+    </>
+  );
+}
+```
+
+## 6. layout-component
+
+- 여러 페이지 간에 공유되는 UI
+- `page.js`와 같은 경로에 `layout.js`를 만들면 자동으로 적용
+
+```jsx
+import styles from './layout.module.css';
+
+export default function Layout({ children }) {
+  return <div className={styles.container}>{children}</div>;
+}
+```
+
+```jsx
+<Layout>
+    <component></component>
+</Layout>
+```
+
+
+
+### 루트 레이아웃(필수)
+
+- `/app/layout.js`에서 작성
+- `<html><body>`를 포함하여 정의
+- `layout.js`는 `page.js`에 `import`하지 않아도 자동으로 적용된다.
+- 라우트 그룹을 통해 루트 레이아웃을 여러 개로 만들 수 있다
+- 레이아웃은 중첩될 수 있다
+
+```jsx
+import './globals.css';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+## 7. `getStaticProps`(SSG)
+
+- 정적 데이터 가져오기(기본값)
+- 함수 이름은 사용자가 임의로 작성
+- `async / await` 구문 사용
+- https://beta.nextjs.org/docs/data-fetching/fetching
+
+```jsx
+export default async function Page() {
+  const data = await getData();
+  return <main></main>;
+}
+async function getData() {
+  const res = await fetch('https://api.example.com/...');
+  return res.json();
+}
+```
+
+## 8. `getServerSideProps`(SSR)
+
+- 동적 데이터 가져오기
+- `{ cache: 'no-store' }` 옵션을 사용한 `fetch`
+
+```jsx
+export default async function Page() {
+  const data = await getData();
+  return <main></main>;
+}
+async function getData() {
+  const res = await fetch('https://api.example.com/...', { cache: 'no-store' });
+  return res.json();
+}
+```
+
+
+
+## 9. generateStaticParams(정적 경로)
+
+- 정해진 경로를 미리 만들기
+- `paths`의 목록에 있는 값만 경로로 하여 생성
+
+```jsx
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const paths = await getAllPostIds();
+  return paths;
+}
+```
+
+### 9.1 정적 경로 + 정적 데이터 가져오기
+
+- 구 버전: `getStaticPaths ` + `getStaticProps`
+- app router 버전: `generateStaticParams` + `사용자임의함수`
+
+```jsx
+import { getAllPostIds, getPostData } from "@/lib/posts";
+
+export const dynamicParams = false; // getStaticPaths의 fallback: false과 동일
+
+export default async function Post({ params }) {
+  const { id } = params;
+  const postData = await getStaticPost(id);
+  return (
+    <>
+      {postData.title}
+      <br />
+      {postData.id}
+      <br />
+      {postData.date}
+    </>
+  );
+}
+
+export async function generateStaticParams() {
+  const paths = await getAllPostIds();
+  return paths;
+}
+
+export async function getStaticPost(id) {
+  const postData = await getPostData(id);
+  return postData;
+}
+```
+
+## 10. 동적 메타데이터
+
+- https://nextjs.org/blog/next-13-2
+
+```jsx
+
+```
+

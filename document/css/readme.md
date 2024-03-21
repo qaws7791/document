@@ -1,6 +1,6 @@
 # 🎨 CSS
 
-## CSS
+## 개요
 
 ***
 
@@ -50,9 +50,9 @@ selector {
 
     https://github.com/rohjs/bugless-101/tree/master/css-basic
 
-### box
+## box
 
-#### boxmodel
+### boxmodel
 
 * 요소는 content + padding + border까지 이다
 * **content**
@@ -72,7 +72,7 @@ selector {
   * 3개 top (right-botton) bottom
   * 2개 (top-bottom) (right-bottom)
 
-#### box-sizing
+### box-sizing
 
 * default는 `box-sizing: content-box`이다
 * 요소의 크기는 width(height) + padding + border 이다
@@ -81,7 +81,9 @@ selector {
   * width와 height는 (border까지의) 요소의 크기가 되며
   * padding과 border의 크기가 달라져도 요소의 크기는 고정이므로 content의 크기가 유동적으로 달라진다
 
-#### `display`
+
+
+## display
 
 `Block`
 
@@ -103,7 +105,9 @@ selector {
 
 `none`: 요소를 없애는거나 마찬가지. 요소가 차지하던 위치가 사라짐.
 
-### Float
+
+
+## Float
 
 * 사전적 의미는 "뜨다" 이다.
 * 원래는 이미지와 텍스트를 함께 배치하기 위해 만든 속성
@@ -129,19 +133,21 @@ selector {
 * > 에 요소상에 display: flow-root을 적용하면, 컨테이너 내부의 모든 요소는 해당 컨테이너의 블록 서식 상황에 참여하게 된다
 * https://developer.mozilla.org/ko/docs/Web/CSS/CSS\_Flow\_Layout/Intro\_to\_formatting\_contexts
 
-### Position
+
+
+## Position
 
 * top, right , left, bottom으로 위치 설정
 
-#### static
+#### `static`
 
 * 디폴트 값
 
-#### relative
+#### `relative`
 
 * float처럼 뜬다
 
-#### absolute
+#### `absolute`
 
 * float처럼 뜬다
 * 집나간 자식이 된다. 부모 요소가 찾지 못함
@@ -156,22 +162,28 @@ top: 50%;
 transform: translateY(-50%); // translate는 자신 기준
 ```
 
-#### fixed
+#### `fixed`
 
 * float처럼 뜬다
 * viewport(화면) 를 기준으로 잡음
 
-#### z-index
+
+
+## z-index
 
 * z축의 순서
 * `z-index: number` 숫자가 높을수록 위에 나옴
 * 기본값은 auto, 0처럼 취급
 
-`text-align`
+
+
+## text-align
 
 * 블록 요소안의 인라인, 인라인-블록 요소를 정렬
 
-### Flexbox
+
+
+## Flexbox
 
 * 정렬하고자 하는 요소들의 부모 `display:flex` `display:inline-flex`
 * `flex-direction: row` 가로방향 `flex-direction: column` 세로방향
@@ -189,7 +201,7 @@ transform: translateY(-50%); // translate는 자신 기준
     | row    | 좌->우            | 위->아래       | 위->아래         |
     | column | 위->아래           | 좌->우        | 좌->우          |
 
-### Media Query
+## Media Query
 
 * 반응형 웹만들기
 *
@@ -200,7 +212,9 @@ transform: translateY(-50%); // translate는 자신 기준
 }
 ```
 
-### Typography
+
+
+## Typography
 
 * px 절대 단위
 * em rem 상대 단위
@@ -272,7 +286,9 @@ transform: translateY(-50%); // translate는 자신 기준
 * oblique: 기울임?
 * em 태그의 기본값이 italic임
 
-#### Webfont
+
+
+## Webfont
 
 * google이 최고임
 * https://fonts.google.com/
@@ -307,7 +323,9 @@ body {
   @import url("./fonts.css");
   ```
 
-### Background
+
+
+## Background
 
 #### background-color
 
@@ -331,7 +349,9 @@ background-position
 * x축 y축 ;
 * 가운데 배치 `background-position: center center;`
 
-### Transition
+
+
+## Transition
 
 css속성이 바뀔 때 전환효과를 줌
 
@@ -355,7 +375,9 @@ css속성이 바뀔 때 전환효과를 줌
 
 * 트랜지션 지연
 
-### animation
+
+
+## Animation
 
 animation: animation-name duration
 
@@ -400,7 +422,9 @@ animation: animation-name duration
 * 방향. reverse=> keyframs가 to -> from으로 반대로 진행
 * alternate => 기본값과 reverse가 번갈아 가며 진행
 
-### transform
+
+
+## Transform
 
 공간을 변형시키지만, 일반적인 문서 흐름을 방해하지 않음. 문서의 구조적 위치는 그대로.
 
@@ -430,7 +454,9 @@ translate: 50% 105px 5rem;
 * rotate: 회전
 * translate: 위치 이동
 
-### Grid
+
+
+## Grid
 
 부모요소 `display: grid`
 
@@ -480,7 +506,9 @@ grid-gap: 10px 20px; // item간의 간격. 속기형 row-gap column-gap.
 
 gutter는 30px (좌우 15px)
 
-### Overflow
+
+
+## Overflow
 
 `overflow: (overflow-x) (overflow-y) ;`
 
@@ -494,7 +522,9 @@ gutter는 30px (좌우 15px)
 
 `auto` : 사용자 에이전트가 결정. 콘텐츠가 넘치지 않는다면 `visible`와 동일하게 보이나 새로운 블록 서식 문맥은 생성됨. 데스크탑은 콘텐츠가 넘치면 스크롤바를 생성
 
-### 쌓임 맥락(stacking context)
+
+
+## 쌓임 맥락(stacking context)
 
 * z축이 가상으로 있다고 생각하고. html요소를 3차원으로 개념화한다.
 * `z-index`가 높을수록 z축에서 위에(다른 요소보다 앞에) 위치한다.
@@ -504,7 +534,9 @@ gutter는 30px (좌우 15px)
 * z-index가 5면 버전이 5, z-index가 4인 요소안의 z-index가 1인 요소는 4.1 인 식으로.
 * 그 후에 그냥 버전이 높은 게 위에 가장 앞인 셈이다.
 
-## 미분류
+
+
+## ETC
 
 css에서 data값 사용
 
