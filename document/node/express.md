@@ -1,6 +1,6 @@
 # Express
 
-------
+---
 
 # Express 시작하기
 
@@ -18,9 +18,9 @@
 - 호스팅 지속적 통합 서비스
 - github에서 무료로 사용 가능
 
-## Eslint 
+## Eslint
 
-##  
+##
 
 ```javascript
 //.eslintrc.js
@@ -33,7 +33,7 @@ module.exports = {
     node: true, // node 사용 명시
   },
   globals: {
-    __dirname: true, // nodejs의 전역 변수 사용 
+    __dirname: true, // nodejs의 전역 변수 사용
   },
   extends: "eslint:recommended",
   parserOptions: {
@@ -41,10 +41,7 @@ module.exports = {
   },
   rules: {},
 };
-
 ```
-
-
 
 # HTTP
 
@@ -59,8 +56,6 @@ http://localhost:3000/about?id=1#title
 5. `?id=1` -> 쿼리 스트링(Query string)
 6. `#title` -> 앵커(Anchor) 또는 해시(Hash): 서버로 전송X
 
-
-
 # Internet Media Type
 
 - HTTP 헤더에서 `Content-Type` 을 사용하여 지정
@@ -72,7 +67,7 @@ http://localhost:3000/about?id=1#title
 2. `charset`
 3. `boundary`
 
-## 
+##
 
 # Request Body
 
@@ -82,7 +77,7 @@ http://localhost:3000/about?id=1#title
 
 ### application/x-www-form-urlencoded
 
-- `Content-Type`을 설정하지 않은 경우 데이터 전송 시 기본 값
+- `Content-Type`을 설정하지 않은 경우 폼 데이터 전송 시 기본 값
 - &으로 구분되는 키-값 튜플 쌍
 - 영문자 또는 숫자가 아닌 값은 URL로 인코딩 된다.
 
@@ -94,11 +89,9 @@ http://localhost:3000/about?id=1#title
 
 - 단순 문자열
 
-`application/json`
+### application/json
 
-- json을 통한 통신
-
-
+- json을 통한 통신. 일반적인 데이터 전송 시 body에 객체를 담아 전송
 
 # Request Object
 
@@ -108,8 +101,8 @@ http://localhost:3000/about?id=1#title
 
 ```javascript
 // get /about/4234
-app.get("/about/:id", (req,res) => {
-    console.log(req.params)
+app.get("/about/:id", (req, res) => {
+  console.log(req.params);
 });
 ```
 
@@ -117,22 +110,18 @@ app.get("/about/:id", (req,res) => {
 { id: '4234' }
 ```
 
-
-
 ## req.query
 
 ```javascript
 // get /about?page=1
-app.get("/about", (req,res) => {
-    console.log(req.query)
+app.get("/about", (req, res) => {
+  console.log(req.query);
 });
 ```
 
 ```
 { page : '1' }
 ```
-
-
 
 ## req.body
 
@@ -143,138 +132,100 @@ app.use(express.json()); // parse json
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 ```
 
-
-
 ## req.route
 
 - 현재 일치하는 라우트에 관한 정보
-
-
 
 ## req.cookies/req.signedCookies
 
 - 클라이언트에서 전송한 쿠키 값 저장한 객체
 
-
-
 ## req.headers
 
 - 클라이언트에서 전송한 요청 헤더
-
-
 
 ## req.accepts
 
 - 클라이언트가 주어진 타입을 받아들이는지 확인하는 편의 메서드
 
-## 
+##
 
 ## req.ip
 
 - 클라이언트의 IP 주소
 
-## 
+##
 
 ## req.path
 
 - 요청 url중 경로 (path) 값
-
-
 
 ## req.hostname
 
 - 클라이언트에서 전송한 호스트 이름을 반환하는 편의 메서드
 - 위조 가능성이 있어 보안 목적 사용 X
 
-
-
 ## req.xhr
 
 - 요청이 ajax 요청인지 확인하고 boolean값을 반환하는 편의 프로퍼티
-
-
 
 ## req.protocol
 
 - 요청에 사용된 프로토콜
 - http 요청은 http 또는 https
 
-## 
+##
 
 ## req.secure
 
 - 암호화된 연결이면 true를 반환하는 편의 프로퍼티 (req.protocol === 'https')
 
-
-
 ## req.url / req.originalUrl
 
 - 경로와 쿼리 스트링을 반환
-
-
 
 # Response Object
 
 nodejs `http.ServerResponse`의 인스턴스
 
-
-
 ## res.status
 
 - http 상태 코드 설정. 기본 값은 200(정상 응답)
 
-
-
 ## res.set(name, value)
 
 - 응답 헤더를 설정
-
-
 
 ## res.cookie(name, value, [options])
 
 - 클라이언트에 저장될 쿠키를 설정
 - 미들 웨어 필요
 
-
-
 ## res.clearCookie(name, [options])
 
 - 클라이언트에 저장될 쿠키를 삭제
-
-
 
 ## res.redirect([status], url)
 
 - 브라우저를 리디렉트. 기본값은 302(발견됨)
 - 페이지가 영구이동 되었을 때는 301(영구 이동됨)을 사용
 
-
-
 ## res.send(body)
 
 - 클라이언트에 응답을 전송. 기본 콘텐츠 타입은 `text/html`
 - json을 보낼 때는 res.json을 사용하는 것을 권장
 
-
-
 ## res.json(json)
 
 - 클라이언트에 JSON을 전송
-
-
 
 ## res.jsonp(json)
 
 - 클라이언트에 JSONP을 전송
 
-
-
 ## res.end()
 
 - 응답을 끝내고 연결을 끊는다.
-
-
 
 ### res.type(type)
 
@@ -282,8 +233,6 @@ nodejs `http.ServerResponse`의 인스턴스
 - `res.set('Content-Type', type)`과 동등
 - `/`없는 type에 대해 자동으로 미디어 타입을 설정
 - 잘 사용하지 않음
-
-
 
 ## res.format(object)
 
@@ -294,7 +243,7 @@ nodejs `http.ServerResponse`의 인스턴스
 - `Accept` 헤더는 MIME 타입으로 표현되고, 클라이언트가 이해가능한(Acceptable) 콘텐츠 타입을 알려준다.
 - `Accept` 헤더 필드가 없는 경우에는 클라이언트가 모든 미디어 타입을 수락한다고 가정한다.
 - `Accept` 헤더 필드가 있지만 허용가능한 타입의 응답이 없는 경우 `406(Not Acceptable)` 에러를 응답해야 한다
-- `;q=1.0` 매개변수를 사용하여 타입의 상대적 품질 계수를  0 ~ 1 사이 값으로 지정할 수 있다.
+- `;q=1.0` 매개변수를 사용하여 타입의 상대적 품질 계수를 0 ~ 1 사이 값으로 지정할 수 있다.
   1. `text/html`을 지원하면 전송
   2. 그렇지 않으면 `application/xml`을 지원하면 전송
   3. 그렇지 않으면 `*/*`를 지원하면 전송
@@ -311,26 +260,24 @@ Accept : text/html, application/xml;q=0.9, */*;q=0.8
 
 ```javascript
 res.format({
-  'text/plain': function () {
-    res.send('hey')
+  "text/plain": function () {
+    res.send("hey");
   },
 
-  'text/html': function () {
-    res.send('<p>hey</p>')
+  "text/html": function () {
+    res.send("<p>hey</p>");
   },
 
-  'application/json': function () {
-    res.send({ message: 'hey' })
+  "application/json": function () {
+    res.send({ message: "hey" });
   },
 
   default: function () {
     // log the request and respond with 406
-    res.status(406).send('Not Acceptable')
-  }
-})
+    res.status(406).send("Not Acceptable");
+  },
+});
 ```
-
-
 
 ## res.attachment([filename])
 
@@ -340,15 +287,13 @@ res.format({
 - 헤더만 설정하고 파일 데이터는 따로 전송해야 한다.
 
 ```javascript
-res.attachment()
+res.attachment();
 // Content-Disposition: attachment
 
-res.attachment('path/to/logo.png')
+res.attachment("path/to/logo.png");
 // Content-Disposition: attachment; filename="logo.png"
 // Content-Type: image/png
 ```
-
-
 
 ## res.sendFile(path, [options], [callback])
 
@@ -356,28 +301,26 @@ res.attachment('path/to/logo.png')
   콘텐츠를 클라이언트에 전송
 
 ```javascript
-app.get('/file/:name', function (req, res, next) {
+app.get("/file/:name", function (req, res, next) {
   var options = {
-    root: path.join(__dirname, 'public'),
-    dotfiles: 'deny',
+    root: path.join(__dirname, "public"),
+    dotfiles: "deny",
     headers: {
-      'x-timestamp': Date.now(),
-      'x-sent': true
-    }
-  }
+      "x-timestamp": Date.now(),
+      "x-sent": true,
+    },
+  };
 
-  var fileName = req.params.name
+  var fileName = req.params.name;
   res.sendFile(fileName, options, function (err) {
     if (err) {
-      next(err)
+      next(err);
     } else {
-      console.log('Sent:', fileName)
+      console.log("Sent:", fileName);
     }
-  })
-})
+  });
+});
 ```
-
-
 
 ## res.render(view[, locals] [, callback])
 
@@ -388,24 +331,20 @@ app.get('/file/:name', function (req, res, next) {
 
 ```javascript
 // send the rendered view to the client
-res.render('index')
+res.render("index");
 
 // if a callback is specified, the rendered HTML string has to be sent explicitly
-res.render('index', function (err, html) {
-  res.send(html)
-})
+res.render("index", function (err, html) {
+  res.send(html);
+});
 
 // pass a local variable to the view
-res.render('user', { name: 'Tobi' }, function (err, html) {
+res.render("user", { name: "Tobi" }, function (err, html) {
   // ...
-})
+});
 ```
 
-
-
-------
-
-
+---
 
 ## Start Code
 
@@ -421,24 +360,17 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
 ```
-
-
 
 ### 404 Page
 
 ```javascript
 app.use((req, res) => {
-  res.type('text/plain')
-  res.status(404)
-  res.send('404 - Not Found')
-})
+  res.type("text/plain");
+  res.status(404);
+  res.send("404 - Not Found");
+});
 ```
-
-
-
-
 
 ## HTTP Method
 
@@ -477,36 +409,34 @@ app.METHOD(path, callback [, callback ...])
 ### GET
 
 ```javascript
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 ```
 
 ### POST
 
 ```javascript
-app.post('/', (req, res) => {
-  res.send('Got a POST request')
-})
+app.post("/", (req, res) => {
+  res.send("Got a POST request");
+});
 ```
 
 ### PUT
 
 ```javascript
-app.put('/user', (req, res) => {
-  res.send('Got a PUT request at /user')
-})
+app.put("/user", (req, res) => {
+  res.send("Got a PUT request at /user");
+});
 ```
 
 ### DELETE
 
 ```javascript
-app.delete('/user', (req, res) => {
-  res.send('Got a DELETE request at /user')
-})
+app.delete("/user", (req, res) => {
+  res.send("Got a DELETE request at /user");
+});
 ```
-
-
 
 ## res.send([body])
 
@@ -522,8 +452,6 @@ http 응답을 보내기
 - 매개변수가 `String`일 때 -> `text/html`
 - 매개변수가 `Array` 또는 `Object`일 때 -> JSON
 
-
-
 ### res.set(field [, value])
 
 > nodejs의 res.writeHead
@@ -531,16 +459,14 @@ http 응답을 보내기
 http 응답에 대한 헤더 설정, 여러 값을 지정해야 할 경우 객체 사용
 
 ```javascript
-res.set('Content-Type', 'text/plain')
+res.set("Content-Type", "text/plain");
 
 res.set({
-  'Content-Type': 'text/plain',
-  'Content-Length': '123',
-  ETag: '12345'
-})
+  "Content-Type": "text/plain",
+  "Content-Length": "123",
+  ETag: "12345",
+});
 ```
-
-
 
 ### res.status(code)
 
@@ -548,7 +474,7 @@ res.set({
 
 http 응답에 대한 상태 코드 설정
 
-### 
+###
 
 ### express.static(root, [options])
 
@@ -557,27 +483,23 @@ express에 내장된 미들웨어 기능으로 정적 파일을 제공
 일반적으로 프로젝트 폴더 내의 `public`폴더를 생성하여 사용
 
 ```javascript
-app.use(express.static('public'))
+app.use(express.static("public"));
 ```
 
 `/public/img/logo.jpg` -> `/img/logo.jpg`로 접근
-
-
 
 # Multer
 
 - 오직 텍스트 데이터만 가진 form
 
 ```javascript
-const multer  = require('multer')
-const upload = multer()
+const multer = require("multer");
+const upload = multer();
 
-app.post('/profile', upload.none(), function (req, res, next) {
+app.post("/profile", upload.none(), function (req, res, next) {
   // req.body contains the text fields
-})
+});
 ```
-
-
 
 # Handlebars
 
@@ -593,67 +515,59 @@ app.post('/profile', upload.none(), function (req, res, next) {
 ```
 
 ```javascript
-const engine = require('express-handlebars').engine;
+const engine = require("express-handlebars").engine;
 
-app.engine('handlebars', engine()); 
+app.engine("handlebars", engine());
 // app.engine('handlebars', engine({ defaultLayout: 'main' }));와 동일한 기본값
-app.set('view engine', 'handlebars');
+app.set("view engine", "handlebars");
 // pp.set('views', './views'); 기본값
 ```
-
-
 
 ## Main 레이아웃
 
 ```handlebars
 <!-- /views/layouts/main.handlebars -->
-<!DOCTYPE html>
+
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-  {{#if pageTitle}}
-  {{pageTitle}}
-  {{else}}
-  express page
-  {{/if}}
-  </title>
-</head>
-<body>
-  <a href="/"><h2>Express Site</h2></a>
-  {{{body}}}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {{#if pageTitle}}
+        {{pageTitle}}
+      {{else}}
+        express page
+      {{/if}}
+    </title>
+  </head>
+  <body>
+    <a href="/"><h2>Express Site</h2></a>
+    {{{body}}}
+  </body>
 </html>
 ```
 
-
-
 ## 렌더링하기
 
-
-
 ```javascript
-app.get('/', (req, res) => res.render('home'))
-app.get('/about', (req, res) => res.render('about', { name: 'alyssa howell' }))
+app.get("/", (req, res) => res.render("home"));
+app.get("/about", (req, res) => res.render("about", { name: "alyssa howell" }));
 ```
 
 ```javascript
 //레이아웃 없는 페이지 만들기 -> { layout: null }
 exports.serverError = (err, req, res, next) =>
-  res.render('500', { layout: null });
+  res.render("500", { layout: null });
 ```
-
-
 
 ## 섹션
 
 - 현재 레이아웃은 body태그에 들어 있다
-- 하지만 head 태그 안에 무언가를 넣거나 스크립트를 동작시켜야할 때도 있다. 
+- 하지만 head 태그 안에 무언가를 넣거나 스크립트를 동작시켜야할 때도 있다.
 
 ```javascript
 app.engine(
-  'handlebars',
+  "handlebars",
   engine({
     helpers: {
       section: function (name, options) {
@@ -667,25 +581,21 @@ app.engine(
 ```
 
 ```handlebars
-{{#section 'head'}}
-...
+{{#section "head"}}
+  ...
 {{/section}}
-{{#section 'scripts'}}
-...
+{{#section "scripts"}}
+  ...
 {{/section}}
 ```
 
-
-
 ## HTML 이스케이프
 
-- 
+-
 
 ```handlebars
 {{{htmlCode}}}
 ```
-
-
 
 ## 주석
 
@@ -693,8 +603,6 @@ app.engine(
 {{! 서버에서만 보이는 주석}}
 <!-- 클라이언트에서도 보이는 주석 -->
 ```
-
-
 
 ## 반복문
 
@@ -729,8 +637,6 @@ app.engine(
 <a href='#'>{{.}}</a>
 {{/each}}
 ```
-
-
 
 ## 파셜
 
