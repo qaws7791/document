@@ -1,11 +1,9 @@
-# Amazon Web Service
+# ☁️AWS
 
-- [Cloud](cloud.md)
-- [Start AWS](start-aws.md)
-
-
+* [Cloud](cloud.md)
+* [Start AWS](start-aws.md)
 
 ## Services
 
-- [EC2](ec2/readme.md)
-- [Lambda](lambda/readme.md)
+* [EC2](ec2/)
+* [Lambda](lambda/)
