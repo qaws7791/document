@@ -8,6 +8,10 @@
 
 
 
+지속적 통합(코드 변경 -> 빌드 -> 테스트 -> 코드 병합) -> 지속적 제공(자동 릴리스) -> 지속적 배포(자동 배포)
+
+
+
 ### 지속적 통합(Continuous Integration)
 
 * 코드 변경사항을 공통 브랜치로 병합하기 용이 하도록 자동화하는 단계
@@ -26,4 +30,305 @@
 ### 지속적 배포(Continious Deployment)
 
 * 지속적 제공에서 한 단계 더 나아가 코드 변경 사항 발생 시 프로덕션 배포까지 자동으로 수행
+* 더 빠른 소프트웨어 출시 및 피드백 반영
 
+
+
+# Github Actions
+
+Github Actions는 Github의 Repository에서 빌드, 테스트 및 배포 파이프라인을 자동화할 수 있는 **CI/CD 플랫폼**
+
+
+
+워크플로우 스타터: https://github.com/actions/starter-workflows
+
+타입스크립트 Actions: https://github.com/actions/typescript-action
+
+## 구성 요소
+
+### 워크플로(workflows)
+
+YAML을 사용하여 정의되고, 하나 이상의 작업으로 구성된 구성 가능한 자동화 프로세스
+
+워크플로는 순차적으로 또는 병렬적으로 실행될 수 있다.
+
+각 작업은 가상 머신 또는 컨테이너 내부에서 실행된다. 
+
+ [YAML](yaml.md) 
+
+> [!NOTE]
+>
+> 워크 플로 파일은 리포지토리의 `.github/workflows` 디렉터리 내에 `.yml`,  `.yaml`파일로 저장되어야 한다
+>
+> 서로 다른 작업을 위한 여러 개의 워크플로 파일이 존재할 수 있다(빌드 워크플로, 테스트 워크플로, 배포 워크플로 등)
+
+
+
+### 이벤트(events)
+
+워크플로를 실행하도록 트리거하는 특정 활동. 리포지토리 내의 활동, REST API를 통한 활동이거나 cron을 통한 일정 예약 등을 할 수 있다
+
+| 이벤트                                   | 이벤트 설명                                                  |
+| ---------------------------------------- | ------------------------------------------------------------ |
+| branch_protection_rule                   | 분기 보호 규칙이 변경될 때                                   |
+| check_run                                | 검사 실행과 관련된 작업이 발생될 때                          |
+| check_suite                              | 검사 도구 모음 작업이 발생할                                 |
+| create                                   | Git 참조(Git 분기 또는 태그)를 만들 때                       |
+| delete                                   | Git 참조(Git 분기 또는 태그)를 삭제할 때                     |
+| deployment                               | 배포를 만들 때                                               |
+| deployment_status                        | 타사에서 배포 상태를 제공할 때                               |
+| discussion                               | 토론이 만들어지거나 수정될 때                                |
+| discussion_comment                       | 토론의 댓글이 만들어지거나 수정될 때                         |
+| fork                                     | 리포지토리를 포크할 때                                       |
+| gollum                                   | Wiki 페이지를 만들거나 업데이트할 때                         |
+| issue_comment                            | 문제 또는 끌어오기 요청 설명이 생성, 편집 또는 삭제될 때     |
+| issues                                   | 문제가 만들어지거나 수정될 때                                |
+| label                                    | 레이블이 만들어지거나 수정될 때                              |
+| merge_group                              | 끌어오기 요청이 병합 큐에 추가될 때                          |
+| milestone                                | 마일스톤이 만들어지거나 수정될 때                            |
+| page_build                               | GitHub Pages의 게시 원본인 분기로 푸시할 때                  |
+| project                                  | 프로젝트(클래식)을(를) 생성하거나 수정할 때                  |
+| project_card                             | 프로젝트(클래식)에서 카드를 생성하거나 수정할 때             |
+| project_column                           | 프로젝트(클래식)에서 열을 생성하거나 수정할 때               |
+| public                                   | 공개 상태가 프라이빗에서 퍼블릭으로 변경될 때                |
+| pull_request                             | 끌어오기 요청에 대한 작업이 발생할 때                        |
+| pull_request_comment(issue_comment 사용) | (끌어오기 요청의 diff가 아닌) 끌어오기 요청에 대한 주석이 생성, 편집 또는 삭제될 때 |
+| pull_request_review                      | 끌어오기 요청 검토가 제출되거나 편집되거나 해제될 때         |
+| pull_request_review_comment              | 끌어오기 요청 검토 주석이 수정될 때                          |
+| pull_request_target                      | 끌어오기 요청에 대한 작업이 발생할 때                        |
+| push                                     | 커밋 또는 태그를 푸시하거나 템플릿에서 리포지토리를 만들 때  |
+| registry_package                         | 리포지토리에서 GitHub Packages에 관련된 작업이 발생할 때     |
+| release                                  | 릴리스 작업이 발생할 때                                      |
+| repository_dispatch                      | GitHub 외부에서 발생하는 작업에 대한 워크플로를 트리거하려는 경우 |
+| schedule                                 | [POSIX cron 구문](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07)을 사용하여 특정 UTC 시간에 워크플로를 실행하도록 예약 |
+| status                                   | Git 커밋의 상태가 변경될 때                                  |
+| watch                                    | 워크플로의 리포지토리가 별표로 표시되면                      |
+| workflow_call                            | 다른 워크플로에서 워크플로를 호출할 수 있음을 나타내는 데 사용 |
+| workflow_dispatch                        | 워크플로우가 수동으로 트리거되도록 하기위해 사용             |
+| workflow_run                             | 워크플로 실행을 요청하거나 완료할 때 발생                    |
+
+
+
+### 작업(jobs)
+
+동일한 러너에서 실행되는 워크플로의 일련의 단계로
+
+각 단계는 `shell script` 또는 `action`이며 순서대로 실행된다
+
+단계(step) 간에는 서로 종속적이며 데이터를 공유할 수 있다
+
+```yaml
+jobs:
+  my_first_job:
+    name: My first job
+  my_second_job:
+    name: My second job
+```
+
+
+
+반면 작업 간에는 기본적으로 종속성이 없고, 병렬로 실행된다. 특정 작업이 다른 작업 이후에 실행되어야 한다면 `needs`를 통해 종속성을 지정해야 한다
+
+```yaml
+jobs:
+  job1:
+  job2:
+    needs: job1
+  job3:
+    needs: [job1, job2]
+```
+
+
+
+### 액션(actions)
+
+자주 반복되는 복잡한 작업을 재사용하도록 만든 **Github Actions 플랫폼 전용** 사용자 지정 애플리케이션
+
+마켓플레이스 https://github.com/marketplace
+
+액션의 예시
+
+- Github에서 Git 리포지토리가져오기(checkout)
+- 빌드를 위한 도구 설정(setup)
+- 클라우드 공급자에 대한 인증
+
+
+
+
+
+### 러너(runner)
+
+워크플로를 실행하는 서버. 각 서버는 한 번에 하나의 작업을 실행
+
+
+
+### `name`
+
+워크플로의 이름으로 Github 리포지토리의 "Actions" 탭에서 표시할 때 사용
+
+생략하면 워크플로 파일 경로를 사용하여 표시
+
+```yaml
+name: hello-world
+```
+
+
+
+### `run-name`
+
+워크플로에서 생성된 실행에 대한 이름
+
+생략하면 실행에 대한 이벤트 정보로 설정
+
+
+
+### `on`
+
+워크플로를 자동으로 트리거하기 위한 이벤트를 정의
+
+- 이벤트 정의하기
+- 시간 설정하기
+- 특정 파일, 태그, 분기에서만 워크플로가 실행되도록 제한하기
+
+https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+
+```yaml
+on: push
+```
+
+
+
+### `jobs`
+
+워크플로 실행은 병렬로 실행되는 하나 이상의 `jobs`로 구성
+
+작업은 하나 이상의 단계(steps)로 구성
+
+jobs는 `jobs.<job_id>.runs-on`에서 실행된다
+
+`jobs.<job_id>.needs`을 통해 작업을 순차적으로 실행하도록 작업에 대한 종속성을 정의할 수 있다
+
+```yaml
+jobs: 
+  hello-world-job:
+
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "$(cat hello_world.txt)"
+```
+
+### 
+
+### `jobs.<job_id>.runs-on`
+
+작업을 실행할 머신 유형을 정의
+
+깃허브 호스팅 러너, 더 큰 러너,  자체 호스팅 러너 중에서 사용 할 수 있음
+
+```yaml
+jobs: 
+  hello-world-job:
+    runs-on: ubuntu-latest
+```
+
+깃허브 호스팅 러너
+
+- `ubuntu-latest`
+- `windows-latest`
+- `macos-latest`
+
+
+
+## Checkout
+
+리포지토리의 코드를 검색하고 워크플로에서 리포지토리의 콘텐츠에 액세스 가능하도록 체크 아웃
+
+https://github.com/marketplace/actions/checkout
+
+```yaml
+   - name: Check out repository code
+     uses: actions/checkout@v3
+   - run: echo "$(cat hello_world.txt)"
+```
+
+
+
+## Nodejs 환경 구성 및 빌드
+
+https://github.com/marketplace/actions/setup-node-js-environment
+
+https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+Nodejs 환경 구성 및 빌드 `job`
+
+```yaml
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm run build 
+```
+
+테스트 `job`
+
+```yaml
+  test: 
+    needs: build
+    runs-on: ubuntu-latest
+    steps: 
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm test
+```
+
+
+
+## 여러 환경 동시 병렬 테스트
+
+배열을 사용하여 운영체와과 버전을 지정하면, 해당하는 환경에 대해서 동시에 테스트하여 시간 절약
+
+```yaml
+jobs:
+  example_matrix:
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
+```
+
+```json
+{version: 10, os: ubuntu-latest}
+{version: 10, os: windows-latest}
+{version: 12, os: ubuntu-latest}
+{version: 12, os: windows-latest}
+{version: 14, os: ubuntu-latest}
+{version: 14, os: windows-latest}
+```
+
+
+
+## secrets 사용
+
+
+
+repository -> Settings -> Security -> Actions secrets and variables
+
+https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+
+```yaml
+${{ secrets.MY_GITHUB_SECRET }}
+```
