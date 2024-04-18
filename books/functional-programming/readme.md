@@ -108,4 +108,112 @@
 
 
 
-173
+### 구조적 공유
+
+전체 데이터를 복사하지 않고 내부 데이터가 같은 데이터를 참조하는 방법
+
+복사본 간에 영향을 미치지 않게 하려면 깊은 복사를 사용하여 전체를 복사할 수 있다. 깊은 복사는 모든 데이터 구조를 복사하기 때문에 성능에 부정적 영향을 줄 수 있다
+
+다른 방법으로는 `Object.freeze()`과 같은 메서드를 사용하여 데이터를 변경되지 않도록 할 수 있다. 변경되지 않는 데이터는 얕은 복사로 변경해도 안전하다
+
+구조적 공유는 데이터를 복사할 때 데이터가 변경되지 않는 부분에 대해서는 복사를 하는 대신 재사용하는 방법이다
+
+- 얕은 복사: 복사본의 속성이 복사본이 만들어진 원본 객체와 같은 참조를 공유하는 복사 - 적은 비용
+- 깊은 복사: 원본과 복사본이 완전히 독립적인 복사 - 많은 비용
+
+```javascript
+//name="john"인 사람의 age를 20으로 수정
+const people = [
+  { name: 'john', age: 25 },
+  { name: 'jane', age: 30 },
+  { name: 'bob', age: 35 }
+];
+
+const setAgeByName = (people, name, age) => {
+	return people.map(p => {
+        return p.name === name ? {...p, age} : p
+    })
+}
+
+const changedPeople = setAgeByName(people,'john',20)
+```
+
+
+
+## 방어적 복사
+
+ 방어적 복사는 불변성 코드에서 데이터가 변경될 수도 있는 코드와 데이터를 주고받기 위한 방법으로, 데이터를 내보내거나 가져올 때 **깊은 복사본**을 만들어 사용합니다
+
+깊은 복사: `JSON.stringify()` - 객체 -> JSON 문자열, `JSON.parse()` - 문자열 -> js 객체
+
+```mermaid
+flowchart LR
+    subgraph 안전한 구역
+    	Code1
+    	Code4
+    end
+    subgraph 안전하지 않은 구역
+    	Code2
+    	Code3
+    end
+    Code1 -. 방어적 복사 .->Code2
+    Code2 -. 데이터 변경 .->Code3
+    Code3 -. 방어적 복사 .->Code4
+```
+
+```javascript
+const function_safe(data) => {
+	const copy = deep_copy(data)
+	changeMutableData(copy)
+	return deep_copy(copy)
+}
+```
+
+https://lodash.com/docs/4.17.15#cloneDeep
+
+
+
+## 계층형 설계
+
+- 한 함수에서는 자신보다 낮은 추상화 계층 중 같은 계층에 있는 함수들을 호출한다
+- 함수 내의 추상화 수준이 제각각이라면 구체화 수준을 같도록 추출·정리한다 
+- 더 작은 함수로 분리할수록 재사용 및 테스트하기 하기 쉬워진다
+
+```javascript
+const makeItem = (name,price) => {
+    return {
+        name,
+        price
+    }
+}
+
+const addItem = (cart, item) => {
+    return cart.push(item)
+}
+
+const isInCart = (cart, name) => {
+    return cart.some(c => c.name === name)
+}
+```
+
+```javascript
+// 넥타이를 하나 사면 넥타이 클립을 하나 무료로 주는 코드
+const freeTieClipWhenBuyTie = (cart) => {
+    const hasTie = isInCart(cart, "tie")
+    const hasTieClip = isInCart(cart, "tie clip")
+    if(hasTie && !hasTieClip) {
+        const tieClip = makeItem("tie clip", 0)
+        return addItem(cart, tieClip)
+    }
+    return cart
+}
+```
+
+### 목적별 계층
+
+1. 장바구니 비지니스 규칙
+2. 일반 비지니스 규칙
+3. 장바구니 기본 동작
+4. 제품 기본 동작
+5. copy-on-write 동작
+6. 자바스크립트 기능
