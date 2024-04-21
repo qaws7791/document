@@ -50,18 +50,31 @@ REST(REpresentational State Transfer)는 웹 서비스에 설계에 대한 아�
 
 
 
-## 명확한 네이밍
+## 합리적인 URI 설계
 
 - 특정 리소스에 접근하기 위해 쿼리 스트링 대신 식별자를 사용
-  - `/posts?id=123` -> `/posts/123`
+  - ❌ `/posts?id=123`
+  - ✅ `/posts/123`
 - URI에는 동사 대신 리소스를 표현하는 명사를 사용하고 http method를 사용하여 동작을 표현
-  - `POST /update-post/123` -> `PATCH posts/213`
+  - ❌ `POST /update-post/123`
+  - ✅ `PATCH posts/213`
 - 일반적으로 컬렉션을 참조하는 URI에는 복수 명사를 사용한다
-  - `/post/123` -> `/posts/123`
+  - ❌ `/post/123` 
+  - ✅ `/posts/123`
 - URI에는 대문자보다는 소문자를 사용하고 하이픈(-)을 사용하여 단어를 구분
-  - `/UserProfile` -> `/user-profile`
+  - ❌ `/UserProfile` 
+  - ✅ `/user-profile`
+- URI의 마지막에는 슬래시(/)를 포함하지 않습니다
+  - ❌ `/posts/`
+  - ✅ `/posts`
+
 - 컬렉션 표현을 그대로 사용할 필요는 없습니다. 더 적합한 표현을 사용하세요
-  -   customer_list 리소스를 사용할 때 `/customer_list` ->  `/customers`
+  -   ❌ customer_list 리소스를 사용할 때 `/customer_list` 
+  -   ✅ `/customers`
+- 파일 확장자는 URI에 포함하지 않습니다. Accept 헤더를 사용하여 미디어 형식을 지정할 수 있습니다
+  - ❌ `/posts/3/image.jpg`
+  - ✅ `/posts/3/image Accept: image/jpg`
+
 
 모든 게시글: `/posts`
 
@@ -128,6 +141,7 @@ id가 "123"인 사용자가 작성한 모든 게시글: `/users/123/posts`
   - ex. 성공적으로 리소스를 찾았을 때
 - 요청은 이행되었지만 포함할 응답이 없는 경우: `204(콘텐츠 없음)`
   - ex. 특정 조건에 대한 리소스를 검색했지만 해당하는 리소스가 없을 때
+- 리소스를 찾을 수 없는 경우: `404(찾을 수 없음)`
 
 
 
@@ -143,6 +157,7 @@ id가 "123"인 사용자가 작성한 모든 게시글: `/users/123/posts`
 - 리소스를 생성했지만 반환할 결과가 없는 경우: `204(콘텐츠 없음)`
 - 클라이언트가 잘못된 요청 데이터를 입력: `400(잘못된 요청)`
   - form 입력 값 검증 실패 - > 오류에 대한 정보나 링크를 응답 본문에 포함하여 제공
+- 리소스가 이미 존재하는 경우: `409(충돌)`
 
 
 
@@ -155,6 +170,7 @@ id가 "123"인 사용자가 작성한 모든 게시글: `/users/123/posts`
 - 성공적인 리소스 생성: `201(생성됨)`
 - 기존 리소스 업데이트: `200(정상)` 
 - 리소스 생성 또는 업데이트에 성공했지만 반환할 결과가 없는 경우: `204(콘텐츠 없음)`
+- 리소스를 찾을 수 없는 경우: `404(찾을 수 없음)`
 - 기존 리소스 업데이트 실패: `409(충돌)`
 
 
@@ -167,6 +183,7 @@ id가 "123"인 사용자가 작성한 모든 게시글: `/users/123/posts`
 - 리소스 생성 또는 업데이트에 성공했지만 반환할 결과가 없는 경우: `204(콘텐츠 없음)`
 - 지원하지 않은 패치 문서 형식: `415(지원되지 않는 미디어 유형)`
 - 잘못된 패치 문서: `400(잘못된 요청)`
+- 리소스를 찾을 수 없는 경우: `404(찾을 수 없음)`
 - 패치 문서는 유효하지만 변경 사항을 적용할 수 없음: `409(충돌)`
 
 https://datatracker.ietf.org/doc/html/rfc5789
@@ -230,7 +247,8 @@ https://datatracker.ietf.org/doc/html/rfc5789
 
 지정된 URI에 대한 리소스 제거
 
-- 성공적으로 리소스 제거: `204(콘텐츠 없음)`
+- 성공적인 리소스 수정: `200(정상)`
+- 리소스 제거에 성공했지만 반환할 결과가 없는 경우: `204(콘텐츠 없음)`
 - 삭제해야 할 리소스가 존재하지 않음: `404(찾을 수 없음)`
 
 
@@ -498,7 +516,7 @@ TLS 암호화를 통해 엔드투엔드 전송을 보호
 
 
 
-## 애플리케이션 아키텍처
+## 애플리케이션 아키텍처(Layered Architecture)
 
 ```mermaid
 flowchart TD
@@ -519,6 +537,10 @@ google API 디자인 가이드 https://cloud.google.com/apis/design
 
 
 
+
+salesforce api 문서 https://developer.salesforce.com/docs/apis
+
+x(구 twitter) api 문서 https://developer.twitter.com/en/docs/api-reference-index
 
 wix의 rest api 문서 https://dev.wix.com/docs/rest
 
