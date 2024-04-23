@@ -141,6 +141,7 @@ id가 "123"인 사용자가 작성한 모든 게시글: `/users/123/posts`
   - ex. 성공적으로 리소스를 찾았을 때
 - 요청은 이행되었지만 포함할 응답이 없는 경우: `204(콘텐츠 없음)`
   - ex. 특정 조건에 대한 리소스를 검색했지만 해당하는 리소스가 없을 때
+- 클라이언트의 캐싱 버전이 유효함: `304(수정되지 않음)`
 - 리소스를 찾을 수 없는 경우: `404(찾을 수 없음)`
 
 
@@ -438,9 +439,21 @@ Link: <https://api-documentation.org/docs/posts>; rel="profile"
 
 해당 컬렉션에서 사용 가능한 총 리소스 수(total)를 응답에 포함
 
+```json
+"pagination": {
+   "total_records": 20,
+   "current_page": 1,
+   "total_pages": 2,
+   "next_page": 2,
+   "prev_page": null
+ }
+```
+
+
+
 ### offset based pagination
 
-`page(offset)`와 `page_size(limit)`를 사용
+`offset`와 `limit`를 사용
 
 ```
 /posts?offset=10&limit=10
@@ -455,6 +468,40 @@ Link: <https://api-documentation.org/docs/posts>; rel="profile"
 ```
 /posts?cursor=10&limit=10
 ```
+
+
+
+### page based pagination
+
+`page`와 `limit`를 사용
+
+```
+/posts?page=1&limit=10
+```
+
+
+
+### time based pagination
+
+`start_time`와 `end_time`를 사용
+
+```
+/posts?start_time=2024-04-01T00:00:00Z&end_time=2024-05-01T00:00:00Z
+```
+
+
+
+### key based pagination
+
+`last_key`를 사용
+
+```
+/posts?last_key=3
+```
+
+
+
+### 
 
 
 
