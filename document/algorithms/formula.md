@@ -10,7 +10,7 @@ n * (n + 1) / 2
 
 ## 피보나치 수
 
-- 반복문이 재귀보다 더 빠름
+- 속도: DP > 반복문 > 재귀
 
 ```javascript
 function fibonacci(n) {
@@ -19,7 +19,7 @@ function fibonacci(n) {
 ```
 
 ```javascript
-function fibonacci2(n) {
+function fibonacci(n) {
   let a = 1,
     b = 0,
     temp;
@@ -32,6 +32,16 @@ function fibonacci2(n) {
   }
 
   return b;
+}
+```
+
+```javascript
+function fibonacci(n, memo = {}) {
+  if (n <= 2) return 1;
+  if (n in memo) return memo[n];
+
+  memo[n] = fiboDP2(n - 1, memo) + fiboDP2(n - 2, memo);
+  return memo[n];
 }
 ```
 
@@ -118,6 +128,44 @@ function maxSubarraySum2(arr, num) {
 # 집합 공식
 
 
+
+### 슈퍼셋
+
+```javascript
+const isSuperset = (set, subset) => {
+  return [...subset].every((item) => set.has(item));
+};
+```
+
+
+
+### 합집합
+
+```javascript
+const union = (set1, set2) => {
+  return new Set([...set1, ...set2]);
+};
+```
+
+
+
+### 교집합
+
+```javascript
+const intersection = (set1, set2) => {
+  return new Set([...set1].filter((item) => set2.has(item)));
+};
+```
+
+
+
+### 차집합
+
+```javascript
+const difference = (set1, set2) => {
+  return new Set([...set1].filter((item) => !set2.has(item)));
+};
+```
 
 
 

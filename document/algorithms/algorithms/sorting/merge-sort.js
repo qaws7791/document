@@ -4,24 +4,42 @@
 // 3. (정복)각 부분 리스트를 재귀적으로 합병 정렬을 이용해 정렬한다.
 // 4. (조합)두 부분 리스트를 다시 하나의 정렬된 리스트로 합병한다.
 // 시간 복잡도: O(nlogn)
-export default function margeSort(array) {
-  const arr = [...array]
-  if (arr.length < 2) return arr
-  const mid = Math.floor(arr.length / 2)
-  const left = arr.slice(0, mid)
-  const right = arr.slice(mid)
-  return merge(margeSort(left), margeSort(right))
+// export default function margeSort(array) {
+//   const arr = [...array];
+//   if (arr.length < 2) return arr;
+//   const mid = Math.floor(arr.length / 2);
+//   const left = arr.slice(0, mid);
+//   const right = arr.slice(mid);
+//   return merge(margeSort(left), margeSort(right));
+// }
+
+function margeSort(arr) {
+  if (arr.length < 2) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = margeSort(arr.slice(0, mid));
+  const right = margeSort(arr.slice(mid));
+
+  return merge(left, right);
 }
 
 function merge(left, right) {
-  const result = []
-  while (left.length && right.length) {
-    if (left[0] <= right[0]) result.push(left.shift())
-    else result.push(right.shift())
+  const result = [];
+
+  let leftIndex = 0,
+    rightIndex = 0;
+
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      result.push(right[rightIndex]);
+      rightIndex++;
+    }
   }
-  while (left.length) result.push(left.shift())
-  while (right.length) result.push(right.shift())
-  return result
+
+  return result.concat(left.slice(leftIndex), right.slice(rightIndex));
 }
 
-console.log(margeSort([5, 4, 3, 2, 1]))
+console.log(margeSort([5, 4, 3, 2, 1]));
