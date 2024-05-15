@@ -291,3 +291,7 @@ const freeTieClipWhenBuyTie = (cart) => {
 재사용하기 좋은가
 
 - 하단에 위치한 함수가 적을 수록 재사용하기 더 쉽습니다
+
+
+
+## 일급함수
