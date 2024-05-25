@@ -288,7 +288,7 @@ const todoKeys = {
 
 ## ErrorHandling
 
-- 비동기 에어를 던지도록 `throwOnError` 플래그 지정
+- 비동기 에러를 던지도록 `throwOnError` 플래그 지정
 - 오류 경계를 사용하여 에러를 처리
 
 ```javascript

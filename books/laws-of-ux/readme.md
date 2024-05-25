@@ -1,10 +1,22 @@
 # Laws of UX
 
-book: [https://lawsofux.com/](https://lawsofux.com/)
+<img src="assets/800w.jpeg" alt="img" style="zoom:50%;" />
 
 > 기존의 디자인을 바꿔야 한다는 기반 데이터가 없는 상황에서 초기 디자인의 정당성을 어떻게 입증할까? -> 심리학을 통한 설득
 
-**인간 중심 디자인**은 심리학을 통해 사용자에게 제품이나 경험 디자인에 적응하라고 강요하지 않으면서도 인간에게 잘 맞는 디자인이다
+심리학 법칙을 통해 설명하는 디자인의 10가지 원칙. UI를 넘어 UX가 중요해지고 있다. 심리학 법칙들이 사용자 경험에 어떤 긍정적 영향을 줄 수 있는지 실제 적용된 예시와 함께 설명한다
+
+책 읽기⬇️
+
+https://learning.oreilly.com/library/view/laws-of-ux/9781098146955/
+
+site: [https://lawsofux.com/](https://lawsofux.com/)
+
+
+
+**인간 중심 디자인**(Human-centered design;HCD)은 심리학을 통해 사용자에게 제품이나 경험 디자인에 적응하라고 강요하지 않으면서도 인간에게 잘 맞는 디자인이다
+
+**사용자 경험(User Experience;UX)**은 인터페이스를 포함한 최종 사용자와 시스템 간의 상호 작용의 모든 측면을 포함하는 개념이다
 
 
 
@@ -60,7 +72,7 @@ book: [https://lawsofux.com/](https://lawsofux.com/)
 
 \-폴 피츠(Pau Fitts)
 
-대상에 도달하는 시간 => 대상의 크기와 대상과의거리
+대상에 도달하는 시간 => 대상의 크기와 대상과의 거리
 
 대상이 작아지고 멀이지면 더 많은 시간이 소요된다
 
