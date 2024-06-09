@@ -1,4 +1,4 @@
-# Design
+# Design Pattern
 
 | **Creational**            | Based on the concept of creating an object                   |
 | ------------------------- | ------------------------------------------------------------ |
@@ -42,7 +42,7 @@
 
 # 1. 생성 패턴
 
-## 생성자 패턴
+## 생성자(Constructor) 패턴
 
 객체를 생성하는 메커니즘
 
@@ -99,7 +99,7 @@ Person.prototype.toString = function() {
 
 
 
-## 모듈 패턴
+## 모듈(Module) 패턴
 
 ### 객체 리터럴 패턴
 
@@ -258,7 +258,7 @@ export default ShoppingCart;
 
 
 
-## 싱글톤 패턴
+## 싱글톤(Singleton) 패턴
 
 클래스의 인스턴스를 하나로 제한. 
 
@@ -308,7 +308,7 @@ console.log(singleton1 === singleton2); // true
 
 
 
-## 프로토타입 패턴
+## 프로토타입(Prototype) 패턴
 
 기존 객체의 템플릿을 기반으로 복사하여 객체를 생성하는 패턴
 
@@ -341,7 +341,7 @@ const clone = original.clone();
 
 
 
-## 팩토리 패턴
+## 팩토리(Factory) 패턴
 
 생성자를 명시적으로 사용하지 않고 객체 생성을 위한 인터페이스(ex. `create`)를 제공
 
@@ -524,7 +524,7 @@ const laptop: PhysicalProduct = factory.createPhysicalProduct('Laptop', 2.5);
 
 
 
-## 빌더 패턴
+## 빌더(Builder) 패턴
 
 - 객체를 단계별로 구성
 - 생성 단계를 단순하고 유연하게 할 수 있다
@@ -828,7 +828,7 @@ allCategories.display("- ");
 
 
 
-## Facade 패턴
+## 퍼사드(Facade) 패턴
 
 복잡한 시스템의 여러 인터페이스를 단순한 하나의 인터페이스로 통합하여  사용자가 시스템을 쉽게 사용할 수 있도록 한다.
 
@@ -895,7 +895,7 @@ ecommerce.placeOrder(123, 250.0);
 
 
 
-## 데코레이터 패턴
+## 데코레이터(Decorator) 패턴
 
 기존 클래스에 동적으로 새로운 동작을 추가
 
@@ -950,7 +950,7 @@ console.log(product.getDetails()); // Output: Laptop costs $1000
 
 
 
-## 플라이웨이트 패턴
+## 플라이웨이트(Flyweight) 패턴
 
 객체를 공유하여 메모리 사용을 최적화
 
@@ -1026,9 +1026,401 @@ console.log(product2.getProductInfo());
 
 
 
+## 프록시(proxy) 패턴
+
+다른 객체에 대한 접근을 제어하기 위해 객체의 대리인 역할을 하는 객체를 제공하는 구조
+
+- 지연 초기화, 액세스 제어, 원격 서비스, 로깅, 캐싱
+
+  
+
+```typescript
+/// 1. Subject 인터페이스
+interface Product {
+    getId(): number;
+    getName(): string;
+    getDetails(): string;
+}
+
+/// 2. RealSubject 클래스
+class RealProduct implements Product {
+    private id: number;
+    private name: string;
+    private details: string;
+
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
+        // 실제 데이터베이스 호출을 통해 제품 세부 정보를 로드
+        this.details = this.loadDetailsFromDatabase();
+    }
+
+    getId(): number {
+        return this.id;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    getDetails(): string {
+        return this.details;
+    }
+
+    private loadDetailsFromDatabase(): string {
+        // 가정: 데이터베이스에서 제품 세부 정보를 로드
+        console.log(`Loading details from database for product ${this.id}`);
+        return `Details of product ${this.id}`;
+    }
+}
+
+/// 3. Proxy 클래스
+class ProductProxy implements Product {
+    private id: number;
+    private name: string;
+    private realProduct: RealProduct | null = null;
+
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+
+    getId(): number {
+        return this.id;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    getDetails(): string {
+        if (this.realProduct === null) {
+            this.realProduct = new RealProduct(this.id, this.name);
+        }
+        return this.realProduct.getDetails();
+    }
+}
+
+/// 4. 사용법
+// 제품 프록시 생성
+const productProxy = new ProductProxy(1, "Laptop");
+
+// 제품 ID와 이름은 즉시 사용할 수 있음
+console.log(productProxy.getId()); // Output: 1
+console.log(productProxy.getName()); // Output: Laptop
+
+// 제품 세부 정보는 실제로 필요한 시점에 로드됨
+console.log(productProxy.getDetails()); 
+// Output: Loading details from database for product 1
+// Output: Details of product 1
+
+```
+
+
+
 # 3. 행동 패턴
 
-## 옵저버 패턴
+## 책임 연쇄(chain-of-responsibility) 패턴
+
+- 요청을 처리하는 객체를 순차적으로 연결하고 요청을 처리
+- 처리 방법이나 순서를 변경하기 쉽다
+- 특정 요청을 여러 객체가 다룰 수 있다
+- 요청이 확실히 처리된다는 보장이 없다
+
+```typescript
+/// 1. Handler 인터페이스
+interface OrderHandler {
+    setNext(handler: OrderHandler): OrderHandler;
+    handle(request: Order): void;
+}
+
+/// 2. Base Handler 클래스
+abstract class AbstractOrderHandler implements OrderHandler {
+    private nextHandler: OrderHandler | null = null;
+
+    public setNext(handler: OrderHandler): OrderHandler {
+        this.nextHandler = handler;
+        return handler;
+    }
+
+    public handle(request: Order): void {
+        if (this.nextHandler) {
+            this.nextHandler.handle(request);
+        }
+    }
+}
+
+/// 3. Concrete Handlers 클래스
+class PaymentHandler extends AbstractOrderHandler {
+    public handle(request: Order): void {
+        if (request.isPaymentValid()) {
+            console.log('Payment processed for order', request.getId());
+            super.handle(request);
+        } else {
+            console.log('Payment failed for order', request.getId());
+        }
+    }
+}
+
+class InventoryHandler extends AbstractOrderHandler {
+    public handle(request: Order): void {
+        if (request.isInStock()) {
+            console.log('Inventory checked for order', request.getId());
+            super.handle(request);
+        } else {
+            console.log('Out of stock for order', request.getId());
+        }
+    }
+}
+
+class ShippingHandler extends AbstractOrderHandler {
+    public handle(request: Order): void {
+        console.log('Shipping prepared for order', request.getId());
+        super.handle(request);
+    }
+}
+
+/// 4. Order 클래스
+class Order {
+    private id: number;
+    private paymentValid: boolean;
+    private inStock: boolean;
+
+    constructor(id: number, paymentValid: boolean, inStock: boolean) {
+        this.id = id;
+        this.paymentValid = paymentValid;
+        this.inStock = inStock;
+    }
+
+    public getId(): number {
+        return this.id;
+    }
+
+    public isPaymentValid(): boolean {
+        return this.paymentValid;
+    }
+
+    public isInStock(): boolean {
+        return this.inStock;
+    }
+}
+
+/// 5. 사용법
+const order = new Order(1, true, true);
+
+const paymentHandler = new PaymentHandler();
+const inventoryHandler = new InventoryHandler();
+const shippingHandler = new ShippingHandler();
+
+paymentHandler.setNext(inventoryHandler).setNext(shippingHandler);
+
+// 주문 처리 파이프라인 시작
+paymentHandler.handle(order);
+
+```
+
+
+
+## 이터레이터(Iterator) 패턴
+
+컬렉션의 내부 구현을 노출하지 않고 순차적으로 접근할 수 있도록 하는 패턴
+
+Iterator 개체 마다 고유한 반복 상태를 가지고 있어 병렬적으로 탐색 가능
+
+```typescript
+/// 1. Product 클래스
+class Product {
+    constructor(private id: number, private name: string) {}
+
+    getId(): number {
+        return this.id;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+}
+
+/// 2. Iterator 인터페이스
+interface Iterator<T> {
+    current(): T;
+    next(): T;
+    hasNext(): boolean;
+}
+
+/// 3. Concrete Iterator 클래스
+class ProductIterator implements Iterator<Product> {
+    private position: number = 0;
+
+    constructor(private products: Product[]) {}
+
+    current(): Product {
+        if (this.position < this.products.length) {
+            return this.products[this.position];
+        }
+        throw new Error("Out of bounds");
+    }
+
+    next(): Product {
+        if (this.hasNext()) {
+            return this.products[this.position++];
+        }
+        throw new Error("No more elements");
+    }
+
+    hasNext(): boolean {
+        return this.position < this.products.length;
+    }
+}
+
+/// 4. Aggregate 인터페이스
+interface Aggregate<T> {
+    createIterator(): Iterator<T>;
+}
+
+/// 5. Concrete Aggregate 클래스
+class ProductCollection implements Aggregate<Product> {
+    private products: Product[] = [];
+
+    addProduct(product: Product): void {
+        this.products.push(product);
+    }
+
+    createIterator(): Iterator<Product> {
+        return new ProductIterator(this.products);
+    }
+}
+
+/// 6. 사용법
+const product1 = new Product(1, "Laptop");
+const product2 = new Product(2, "Smartphone");
+const product3 = new Product(3, "Tablet");
+
+const productCollection = new ProductCollection();
+productCollection.addProduct(product1);
+productCollection.addProduct(product2);
+productCollection.addProduct(product3);
+
+const iterator = productCollection.createIterator();
+
+while (iterator.hasNext()) {
+    const product = iterator.next();
+    console.log(`Product ID: ${product.getId()}, Name: ${product.getName()}`);
+}
+
+```
+
+
+
+## 메멘토(Memento) 패턴
+
+- 객체의 상태를 기억하고, 되돌릴 수 있도록 해주는 패턴
+- 객체 상태의 스냅샷 저장
+- 스냅샷이 너무 많으면 메모리 소모가 커짐
+
+
+
+```typescript
+/// 1. Originator 클래스
+class Originator {
+    private state: string;
+
+    constructor(state: string) {
+        this.state = state;
+    }
+
+    public setState(state: string): void {
+        console.log(`Originator: Setting state to ${state}`);
+        this.state = state;
+    }
+
+    public getState(): string {
+        return this.state;
+    }
+
+    public save(): Memento {
+        console.log(`Originator: Saving to Memento.`);
+        return new Memento(this.state);
+    }
+
+    public restore(memento: Memento): void {
+        this.state = memento.getState();
+        console.log(`Originator: State after restoring from Memento: ${this.state}`);
+    }
+}
+
+/// 2. Memento 클래스
+class Memento {
+    private readonly state: string;
+
+    constructor(state: string) {
+        this.state = state;
+    }
+
+    public getState(): string {
+        return this.state;
+    }
+}
+
+/// 3. Caretaker 클래스
+class Caretaker {
+    private mementos: Memento[] = [];
+    private originator: Originator;
+
+    constructor(originator: Originator) {
+        this.originator = originator;
+    }
+
+    public backup(): void {
+        console.log(`Caretaker: Saving Originator's state...`);
+        this.mementos.push(this.originator.save());
+    }
+
+    public undo(): void {
+        if (!this.mementos.length) {
+            return;
+        }
+        const memento = this.mementos.pop();
+        console.log(`Caretaker: Restoring state to: ${memento.getState()}`);
+        this.originator.restore(memento);
+    }
+
+    public showHistory(): void {
+        console.log(`Caretaker: Here's the list of mementos:`);
+        for (const memento of this.mementos) {
+            console.log(memento.getState());
+        }
+    }
+}
+
+/// 4. 사용법
+// Client code
+const originator = new Originator("State1");
+const caretaker = new Caretaker(originator);
+
+caretaker.backup();
+originator.setState("State2");
+
+caretaker.backup();
+originator.setState("State3");
+
+caretaker.backup();
+originator.setState("State4");
+
+console.log("");
+caretaker.showHistory();
+
+console.log("\nClient: Now, let's rollback!\n");
+caretaker.undo();
+
+console.log("\nClient: Once more!\n");
+caretaker.undo();
+
+```
+
+
+
+## 옵저버(Observer) 패턴
 
 변경 사항을 자동으로 알리는 패턴
 
@@ -1128,7 +1520,365 @@ product.setStock(5);  // Observer 1 notified. Laptop stock is now 5.  // Observe
 
 ```
 
-## 발행/구독 패턴
+
+
+## 상태(State) 패턴
+
+```typescript
+/// 1. State 인터페이스
+interface State {
+    start(task: Task): void;
+    complete(task: Task): void;
+    cancel(task: Task): void;
+}
+
+/// 2. Task 클래스
+class Task {
+    private state: State;
+    private name: string;
+
+    constructor(name: string) {
+        this.name = name;
+        this.state = new PendingState();
+    }
+
+    public setState(state: State): void {
+        this.state = state;
+    }
+
+    public start(): void {
+        this.state.start(this);
+    }
+
+    public complete(): void {
+        this.state.complete(this);
+    }
+
+    public cancel(): void {
+        this.state.cancel(this);
+    }
+
+    public getName(): string {
+        return this.name;
+    }
+
+    public getState(): State {
+        return this.state;
+    }
+}
+
+/// 3. 구체적인 상태 클래스
+class PendingState implements State {
+    public start(task: Task): void {
+        console.log(`Starting task: ${task.getName()}`);
+        task.setState(new InProgressState());
+    }
+
+    public complete(task: Task): void {
+        console.log(`Task ${task.getName()} cannot be completed because it is still pending.`);
+    }
+
+    public cancel(task: Task): void {
+        console.log(`Cancelling task: ${task.getName()}`);
+        // Optional: Transition to a CancelledState if needed
+    }
+}
+
+class InProgressState implements State {
+    public start(task: Task): void {
+        console.log(`Task ${task.getName()} is already in progress.`);
+    }
+
+    public complete(task: Task): void {
+        console.log(`Completing task: ${task.getName()}`);
+        task.setState(new CompletedState());
+    }
+
+    public cancel(task: Task): void {
+        console.log(`Cancelling task: ${task.getName()}`);
+        // Optional: Transition to a CancelledState if needed
+    }
+}
+
+class CompletedState implements State {
+    public start(task: Task): void {
+        console.log(`Task ${task.getName()} is already completed and cannot be started.`);
+    }
+
+    public complete(task: Task): void {
+        console.log(`Task ${task.getName()} is already completed.`);
+    }
+
+    public cancel(task: Task): void {
+        console.log(`Task ${task.getName()} is already completed and cannot be cancelled.`);
+    }
+}
+
+/// 4. 사용법
+const task1 = new Task("Write unit tests");
+const task2 = new Task("Implement feature X");
+
+task1.start();    // Starting task: Write unit tests
+task1.complete(); // Completing task: Write unit tests
+task1.start();    // Task Write unit tests is already completed and cannot be started.
+
+task2.start();    // Starting task: Implement feature X
+task2.cancel();   // Cancelling task: Implement feature X
+task2.complete(); // Task Implement feature X cannot be completed because it is still pending.
+
+```
+
+
+
+## 전략(Strategy) 패턴
+
+- 일련의 알고리즘을 정의하고 각 알고리즘을 별도의 클래스에 배치하며 객체를 상호 교환 가능하게 만드는 패턴
+- 다양한 알고리즘이 필요할 때, 알고리즘의 세부 구현을 분리
+- 상속을 구성으로 대체
+
+```typescript
+/// 1. Strategy 인터페이스
+interface PaymentStrategy {
+    pay(amount: number): void;
+}
+
+/// 2. 구체적인 전략 클래스
+class CreditCardStrategy implements PaymentStrategy {
+    private name: string;
+    private cardNumber: string;
+    private cvv: string;
+    private dateOfExpiry: string;
+
+    constructor(name: string, cardNumber: string, cvv: string, dateOfExpiry: string) {
+        this.name = name;
+        this.cardNumber = cardNumber;
+        this.cvv = cvv;
+        this.dateOfExpiry = dateOfExpiry;
+    }
+
+    public pay(amount: number): void {
+        console.log(`${amount} paid with credit card.`);
+    }
+}
+
+class PayPalStrategy implements PaymentStrategy {
+    private emailId: string;
+    private password: string;
+
+    constructor(emailId: string, password: string) {
+        this.emailId = emailId;
+        this.password = password;
+    }
+
+    public pay(amount: number): void {
+        console.log(`${amount} paid using PayPal.`);
+    }
+}
+
+class BitcoinStrategy implements PaymentStrategy {
+    private walletAddress: string;
+
+    constructor(walletAddress: string) {
+        this.walletAddress = walletAddress;
+    }
+
+    public pay(amount: number): void {
+        console.log(`${amount} paid using Bitcoin.`);
+    }
+}
+
+/// 3. Context 클래스
+class ShoppingCart {
+    private items: { name: string, price: number }[] = [];
+    private paymentStrategy: PaymentStrategy;
+
+    public addItem(item: { name: string, price: number }): void {
+        this.items.push(item);
+    }
+
+    public setPaymentStrategy(paymentStrategy: PaymentStrategy): void {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public checkout(): void {
+        const totalAmount = this.items.reduce((sum, item) => sum + item.price, 0);
+        this.paymentStrategy.pay(totalAmount);
+    }
+}
+
+/// 4. 사용법
+// Client code
+const cart = new ShoppingCart();
+
+cart.addItem({ name: "Book", price: 10 });
+cart.addItem({ name: "Pen", price: 2 });
+
+cart.setPaymentStrategy(new CreditCardStrategy("John Doe", "1234567890123456", "123", "12/23"));
+cart.checkout(); // 12 paid with credit card.
+
+cart.setPaymentStrategy(new PayPalStrategy("john.doe@example.com", "password"));
+cart.checkout(); // 12 paid using PayPal.
+
+cart.setPaymentStrategy(new BitcoinStrategy("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"));
+cart.checkout(); // 12 paid using Bitcoin.
+
+```
+
+## 
+
+## 템플릿 메서드(Template Method) 패턴
+
+- 슈퍼 클래스의 알고리즘의 뼈대만 정의하고, 하위 클래스에서는 알고리즘의 구조를 변경하지 않고 알고리즘의 특정 단계를 재정의
+
+```typescript
+/// 1. abstract class
+abstract class OrderProcessor {
+    public processOrder(): void {
+        this.selectProduct();
+        this.calculateTotal();
+        this.applyDiscount();
+        this.confirmPayment();
+        this.shipProduct();
+    }
+
+    protected abstract selectProduct(): void;
+    protected abstract calculateTotal(): void;
+    protected abstract applyDiscount(): void;
+
+    protected confirmPayment(): void {
+        console.log("Payment confirmed.");
+    }
+
+    protected shipProduct(): void {
+        console.log("Product shipped.");
+    }
+}
+
+/// 2. concrete classes
+class CreditCardOrderProcessor extends OrderProcessor {
+    protected selectProduct(): void {
+        console.log("Product selected for Credit Card payment.");
+    }
+
+    protected calculateTotal(): void {
+        console.log("Total amount calculated for Credit Card payment.");
+    }
+
+    protected applyDiscount(): void {
+        console.log("Discount applied for Credit Card payment.");
+    }
+}
+
+class PayPalOrderProcessor extends OrderProcessor {
+    protected selectProduct(): void {
+        console.log("Product selected for PayPal payment.");
+    }
+
+    protected calculateTotal(): void {
+        console.log("Total amount calculated for PayPal payment.");
+    }
+
+    protected applyDiscount(): void {
+        console.log("Discount applied for PayPal payment.");
+    }
+}
+
+/// 3. 사용법
+const creditCardOrderProcessor = new CreditCardOrderProcessor();
+creditCardOrderProcessor.processOrder();
+
+const payPalOrderProcessor = new PayPalOrderProcessor();
+payPalOrderProcessor.processOrder();
+
+```
+
+
+
+## 방문자(Visitor) 패턴
+
+- 객체의 구조와 기능(알고리즘)을 분리하는 패턴
+- 유연성 증가
+
+```typescript
+/// 1. Visitor (방문자) 인터페이스
+interface Visitor {
+    visitProduct(product: Product): void;
+    visitCoupon(coupon: Coupon): void;
+    visitShippingInfo(shippingInfo: ShippingInfo): void;
+}
+
+/// 2. ConcreteVisitor (구체적인 방문자)
+class OrderProcessingVisitor implements Visitor {
+    visitProduct(product: Product): void {
+        console.log(`Processing product: ${product.name}`);
+    }
+
+    visitCoupon(coupon: Coupon): void {
+        console.log(`Applying coupon: ${coupon.code}`);
+    }
+
+    visitShippingInfo(shippingInfo: ShippingInfo): void {
+        console.log(`Processing shipping: ${shippingInfo.address}`);
+    }
+}
+
+/// 3. Element (요소) 인터페이스
+interface Element {
+    accept(visitor: Visitor): void;
+}
+
+/// 4. ConcreteElement (구체적인 요소)
+class Product implements Element {
+    constructor(public name: string) {}
+
+    accept(visitor: Visitor): void {
+        visitor.visitProduct(this);
+    }
+}
+
+class Coupon implements Element {
+    constructor(public code: string) {}
+
+    accept(visitor: Visitor): void {
+        visitor.visitCoupon(this);
+    }
+}
+
+class ShippingInfo implements Element {
+    constructor(public address: string) {}
+
+    accept(visitor: Visitor): void {
+        visitor.visitShippingInfo(this);
+    }
+}
+
+/// 5. ObjectStructure (객체 구조)
+class Order {
+    private elements: Element[] = [];
+
+    addElement(element: Element): void {
+        this.elements.push(element);
+    }
+
+    accept(visitor: Visitor): void {
+        this.elements.forEach(element => element.accept(visitor));
+    }
+}
+
+/// 6. 사용법
+const order = new Order();
+order.addElement(new Product("Laptop"));
+order.addElement(new Coupon("DISCOUNT20"));
+order.addElement(new ShippingInfo("123 Main St."));
+
+const orderProcessingVisitor = new OrderProcessingVisitor();
+order.accept(orderProcessingVisitor);
+
+```
+
+
+
+## 발행/구독(Publish–subscribe) 패턴
 
 ```typescript
 /// 1. 이벤트 버스 클래스 정의
@@ -1218,7 +1968,7 @@ product.setStock(5);  // Subscriber 1 notified. Laptop stock is now 5.
 
 
 
-## 중재자 패턴
+## 중재자(Mediator) 패턴
 
 중앙 객체인 중재자(mediator)를 통해 통신
 
@@ -1337,7 +2087,7 @@ shoppingCart.checkout();  // Processing payment of $1050
 
 
 
-## 명령 패턴
+## 명령(Command) 패턴
 
 메서드 호출, 요청 또는 작업을 캡슐화하고 단일 객체로 통합.
 
