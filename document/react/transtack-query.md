@@ -1,21 +1,16 @@
-> [!CAUTION]
->
-> queryCache를 로컬 상태 관리자로 사용하지 마세요
-
-> [!TIP]
->
-> 데이터가 없는 것보다 오래된 데이터가 있는 것이 낫다
-
 # Tanstack-query 
 
 Tanstack-query as ASync State Manager
+
+- queryCache를 로컬 상태 관리자로 사용하지 마세요
+- 데이터가 없는 것보다 오래된 데이터가 있는 것이 낫다
 
 
 
 ## server state, client state
 
-- 서버에 원본이 위치한 상태, 일반적으로 비동기적으로 가져올 수 있으며, 가져올 시점의 스냅샷만 볼 수 있다
-- 클라이언트 상태: 프론트엔드에서 완전히 제어할 수 있는 상태. 일반적으로 동기적이고, 정확한 값을 알 수 있다
+- Server State: 서버에 원본이 위치한 상태,일반적으로 비동기적으로 가져올 수 있으며, 가져올 시점의 스냅샷만 볼 수 있다
+- Client State: 프론트엔드에서 완전히 제어할 수 있는 상태. 일반적으로 동기적이고, 정확한 값을 알 수 있다
 
 
 
@@ -27,7 +22,7 @@ Tanstack-query as ASync State Manager
 
   - > 해당 시간 내에 요청을 중복 제거하기 위해 최소 20초로 설정하는 것을 선호 - tkdodo.eu
 
-  - 신선한 쿼리는 캐시에서 데이터를 가져오므로 네트워크 요청이 발생하지 않는다
+  - 신선한 쿼리는 캐시에서 데이터를 가져오므로 **네트워크 요청이 발생하지 않는다**
 
   - 쿼리가 오래된(stale) 경우 네트워크 요청을 통해 다시 가져올 수 있다
 
@@ -38,10 +33,8 @@ Tanstack-query as ASync State Manager
         staleTime: Infinity,
       })
     
-      return data ? <MyForm initialData={data} /> : null
+    return data ? <MyForm initialData={data} /> : null
     ```
-
-    
 
 - `gcTime(cacheTime)`: 비활성화된(화면에 표시되지 않는) 쿼리가 캐시에서 제거될 때까지의 시간.
 
@@ -57,12 +50,12 @@ Tanstack-query as ASync State Manager
 
 ## pre-populating data
 
-|                 | 메서드의 부모 | 호출하는 곳 | 캐싱 |
-| --------------- | ------------- | ----------- | ---- |
-| prefetchQuery   | queryClient   | server      | O    |
-| setQueryData    | queryClient   | client      | O    |
-| placeholderData | useQuery      | client      | X    |
-| initialData     | useQuery      | client      | O    |
+|                 | 메서드를 사용하는 주체 | 호출하는 곳 | 캐싱 |
+| --------------- | ---------------------- | ----------- | ---- |
+| prefetchQuery   | queryClient            | server      | O    |
+| setQueryData    | queryClient            | client      | O    |
+| placeholderData | useQuery               | client      | X    |
+| initialData     | useQuery               | client      | O    |
 
 다음 탐색을 위한 데이터를 미리 가져와서 데이터를 페칭하는 시간 시간 감소
 
@@ -97,6 +90,18 @@ useQuery
 
 `select` 옵션을 사용하여 데이터를 필터링
 
+```tsx
+return useQuery({
+	...
+    select: (data) => {
+      return {
+        title: data.title,
+        description: data.description,
+      }
+    }
+});
+```
+
 
 
 ## data transform
@@ -124,6 +129,11 @@ useQuery
 3. `select` 옵션 사용하기
 
    ```javascript
+   const transformTodo = (data) => {
+       ...data,
+       title: title.toUpperCase()
+   }
+   
    const useTodosQuery = () => {
    	return useQuery({
    		...,
@@ -131,7 +141,7 @@ useQuery
    	})
    }
    ```
-
+   
    
 
 ## enabled
@@ -145,7 +155,7 @@ useQuery
 
 ## 기본 사용법
 
-v4 이전 `idle`-> v4 `loading` ->  v5 `pending`
+이름 변경: v4 이전 `idle` → v4 `loading` → v5 `pending`
 
 ```jsx
 const todos = useTodos()
@@ -216,7 +226,7 @@ onSuccess: (newPost) => {
 
 ```jsx
 function Component() {
-  const [filters, setFilters] = React.useState()
+  const [filters, setFilters] = React.useState(null)
   const { data } = useQuery({
     queryKey: ['todos', filters],
     queryFn: () => fetchTodos(filters),
@@ -282,6 +292,17 @@ const todoKeys = {
   details: () => [...todoKeys.all, 'detail'] as const,
   detail: (id: number) => [...todoKeys.details(), id] as const,
 }
+```
+
+```typescript
+import { createQueryKeys } from "@lukemorales/query-key-factory";
+
+const todoKeys = createQueryKeys("todos", {
+    lists: () => ['list'],
+    list: (filters:string) => ['list', {filters}]
+    details: () => ['details'],
+    detail: (id: number) => ['details', id]
+})
 ```
 
 
