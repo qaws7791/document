@@ -1,30 +1,42 @@
 # ⚛ React
 
-### React는 무엇인가
+## React는 무엇인가
 
 * Facebook에서 만든 오픈 소스 프로젝트
 * 사용자 인터페이스(UI)를 만들기 위한 JavaScript 라이브러리
-* 선언형 프로그래밍, 컴포넌트 기반
+* 선언형 프로그래밍 패러다임
+* 컴포넌트 기반
+  * 함수형 컴포넌트
+  * 클래스형 컴포넌트
+
 * 재사용 가능한 요소를 통해 UI를 효율적으로 빌드
+* 단방향 데이터 흐름
+* 템플릿, HTML 지시문이 아닌 자바스크립트를 통한 구성 요소 생성
+  * 마크업과 뷰 로직의 통합
+  * 마크업과의 연결 불필요
 
-###  React는 왜 생겼나
-
-- 템플릿, HTML 지시문이 아닌 자바스크립트를 통한 구성 요소 생성
-  - 마크업과 뷰 로직의 통합
-  - 마크업과의 연결 불필요
-- 복잡한 리렌더링 문제를 해결
-  - `render` 메서드 호출 간 변경 사항을 수집하여 효율적 업데이트
+* 가상 DOM(실제 DOM 트리를 모방한 자바스크립트 객체)을 통해 효율적인 업데이트 수행(이를 ***reconciliation***이라 부름)
+* 쉽게 상태를 추적하고 일관되게 유지. 불변 상태
+* 입력하는 데이터에 대해 자동으로 이스케이프하여 XSS와 같은 공격을 방지
 
 
 
-#### React 프로젝트 시작하기
+## React 프로젝트 시작하기
 
 * 기본 주소: `localhost:3000`
-* react 앱 시작하기
+* vite를 사용하여 react 앱 시작하기
 
 ```bash
-npx	create-react-app [project-name]
+npm create vite@latest
 ```
+
+- next를 사용하여 react 앱 시작하기
+
+```bash
+npx create-next-app@latest
+```
+
+
 
 * 개발용 CDN 링크
 
@@ -42,7 +54,7 @@ npx	create-react-app [project-name]
 
 
 
-#### React 프로젝트 구조
+### React 프로젝트 구조
 
 * /public
 * /node\_modules
@@ -54,11 +66,31 @@ npx	create-react-app [project-name]
 * package.json
 * README.md
 
-#### React 개발자 도구
+### React 개발자 도구
 
 리액트 디버깅 툴
 
 https://github.com/facebook/react/tree/main/packages/react-devtools-extensions
+
+
+
+## Flux 데이터 흐름
+
+Facebook에서 고안한 디자인 패턴으로 단방향 데이터 흐름을 강조
+
+행위(Action): 유형(type)과 데이터(data)를 포함하는 객체
+
+디스패처(Dispatcher): 액션을 받아서 Store로 전달
+
+스토어(Store):상태와 상태를 관리하는 로직을 포함
+
+```mermaid
+flowchart LR
+    Action --> Dispathcer
+    Dispathcer --> Store
+    Store --> View
+    View -->|Action| Dispathcer
+```
 
 
 

@@ -6,6 +6,11 @@
 
 Class없이 React를 사용 -> 함수형 컴포넌트
 
+- ✅ 캡슐화된 상태 및 부수 효과 재사용
+- ✅ 컴포넌트 내의 논리를 재사용 가능하도록 격리
+- ✅ props, hoc 같은 패턴과 달리 불필요한 중첩이 발생하지 않음
+- ❌ 클래스 내부에서 동작하지 않
+
 > Hook은 계층의 변화 없이 상태 관련 로직을 재사용할 수 있도록 도와줍니다.
 
 <figure><img src="../../.gitbook/assets/hook-flow.png" alt=""><figcaption></figcaption></figure>
