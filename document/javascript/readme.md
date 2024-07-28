@@ -26,36 +26,50 @@ description: javascript에 대한 페이지
 * 함수형 언어
 * 논리형 언어
 
-### 자바스크립트 특징
 
-#### 인터프리터 언어이다
 
-* 웹 브라우저에 JIT 컴파일러(Just In Time Compiler) 내장으로 빠른 실행 속도
+## 자바스크립트 특징
 
-#### 동적 프로토타입 기반 객체 지향 언어이다
+### 인터프리터 언어의 특징을 가지지만 컴파일 언어에 가깝다
+
+1. 코드 작성 -> 트랜스 파일 -> 번들링 -> JS코드
+2. JS 엔진이 JS 코드 파싱 -> 추상 구문 트리(AST)
+3. AST -> 이진 바이트 코드로 변환 (JIT 컴파일러 작동) - **인터프리터 언어 특징**
+4. JS 가상 머신이 프로그램을 실행
+
+### 동적 프로토타입 기반 객체 지향 언어이다
 
 * 프로토타입을 상속하는 프로토타입 기반 객체 지향 언어
 
-#### 동적 타입 언어이다
+### 동적 타입 언어이다
 
 * 프로그램 실행 도중 변수에 저장되는 데이터 타입에 따라 타입이 동적으로 바뀌는 언어
 
-#### 함수가 일급 객체이다
+### 함수가 일급 객체이다
 
 * 자바스크립트의 함수는 객체이다
 * 함수에 함수를 인자로 넘길 수도 있다
 * 함수형 프로그래밍 가능
 
-#### 함수가 클로저를 정의한다
+### 함수가 클로저를 정의한다
 
 * 자바스크립트의 함수는 클로저(closure)를 정의
 * 클로저를 통해 변수를 은닉하거나 영속성을 보장하는 등의 다양한 기능 구현
 
-#### 자바스크립트의 기술적 요소
+### 하위 호환성을 보장한다
 
-**1. ECMAScript(코어 언어)**
+- 오래된 웹사이트도 현재 아무 문제 없이 이용할 수 있다
+- 아주 드물지 하위 호환성을 의도적으로 부수는 것이 훨씬 이득이 큰 경우 포기하기도 한다
 
-**2. 클라이언트 측의 자바스크립트 고유 기술**
+### 다중 패러다임 언어이다
+
+- 절차적 방식, 객체 지향적 방식, 함수형 방식 등으로 코드를 작성할 수 있다
+
+## 자바스크립트의 기술적 요소
+
+### ECMAScript(코어 언어)
+
+### 클라이언트 측의 자바스크립트 고유 기술
 
 웹브라우저의 주요 API
 
@@ -75,11 +89,27 @@ HTML5의 주요 API
 * Geolocation : GPS 등의 위치 정보 기능
 * Canvas : 2차원, 3차원의 그래픽스 기능
 
-**3.서버 측의 자바스크립트 고유 기술**
+### 서버 측의 자바스크립트 고유 기술
 
 * Node.js
 
-## Statements(구문)과 declarations(선언)은 다르다
+
+
+## 이전 브라우저 지원하기
+
+### 트랜스파일
+
+- 명세서에 추가되었지만 구 엔진과 호환되지 않는 문법을 해결하기 위한 방법
+- 최신 js 문법을 오래된 문법으로 변환하여 구 엔진에서 문제없이 동작하도록 한다
+- `Babel`, `ESBuild` 등
+
+### 폴리필
+
+- 이전 브라우저에서 최신 기능을 제공하기 위해 직접 코드를 작성하여 지원하도록 하는 방법
+
+
+
+## 구문(Statements)과 선언(declarations)은 다르다
 
 ### declarations
 
@@ -158,348 +188,11 @@ else
   * `label`
   * `with`
 
-## 조건문
 
-### if 문
 
-* 지정된 `condition`의 값이 `truthy`하면 `statement1`구문을 실행하고,
-* `falsy`하면 `statement2` 구문이 실행된다
 
-```javascript
-if (condition)
-  statement1
 
-// With an else clause
-if (condition)
-  statement1
-else
-  statement2
-```
 
-* if 문을 중첩할 수 있다.
-* `elseif`가 아닌 `else if`로 뛰어쓰기에 주의해야 한다.
-
-```javascript
-if (condition1)
-  statement1
-else if (condition2)
-  statement2
-else
-  statementN
-```
-
-### Switch 문
-
-* 표현신을 평가하여 평가된 값이 `case`와 일치하면 그 case의 구문을 실행하고 아래로 이동한다.
-* break가 없으면 모든 `case`를 위에서 부터 아래로 검사한다.
-* 모든 `case`가 일치하지 않으면 `default`의 구문을 실행한다.
-
-```javascript
-switch (expression) {
-  case value1:
-    //Statements executed when the
-    //result of expression matches value1
-    [break;]
-  case value2:
-    //Statements executed when the
-    //result of expression matches value2
-    [break;]
-  ...
-  case valueN:
-    //Statements executed when the
-    //result of expression matches valueN
-    [break;]
-  [default:
-    //Statements executed when none of
-    //the values match the value of the expression
-    [break;]]
-}
-```
-
-## 반복문
-
-### break:
-
-* 반복문, `switch`문, `label`문을 종료하고 다음 문으로 이동
-
-### continue:
-
-* 현재 또는 레이블이 지정된 반복문에소 현재 반복을 종료하고 다음 반복을 진행
-
-###
-
-### while 문
-
-* 조건이 참인지 먼저 확인하고, 참이면 구문이 실행된다. 조건이 거짓이 되면 반복이 끝난다.
-
-```javascript
- while (condition)
-      statement
-```
-
-### do...while
-
-* 조건이 거짓일 때까지 구문을 실행한다.
-* while문과 달리 구문이 먼저 실행된다. 따라서 최소 1번 구문이 실행된다.
-
-```javascript
-do
-  statement
-while (condition);
-
-```
-
-### for 문
-
-* 세개의 선택식으로 이루어진 반복문
-* `initialization`: 식 또는 변수를 선언
-* `condition` : 매 반복될 때마다 평가되는 식. 평가 결과가 참이면 구문을 실행하고, 거짓이면 구문을 나간다.
-* `final-expression`: 매 반복된 후 평가할 식.
-* 실행 순서: `initialization` -> `condition===true` -> `statement` -> `final-expression`
-
-```javascript
-for ([initialization]; [condition]; [final-expression])
-	statement
-
-```
-
-### for...in 문
-
-* 객체에서 열거 가능한 속성들을 반복
-* 속성에 대한 값은 object\[variable]로 접근 가능
-
-```javascript
-for (const variable in object) {
-  statement
-}
-```
-
-### for...of 문
-
-* 반복 가능한 객체에 대해 각 개별 속성값을 반복
-* Array, Map, Set, String 등
-
-```javascript
-for (variable of iterable) {
-  statement
-}
-```
-
-## 구조적 분해
-
-### 객체 구조 분해
-
-* 구조 분해된 name과 age가 바뀌어도 원래 객체의 값에 영향을 주지 않는다.
-* ```javascript
-    const user = {
-      name: "foo",
-      age: 20,
-    };
-    let { name, age } = user;
-    console.log(name, age); // foo 20
-    name = "bar";
-    age = 24;
-    console.log(name, age); // bar 24
-  ```
-*   객체를 분해하여 인자로 넘기거나, 구조 분해하여 가져올 수 있다.
-
-    ```javascript
-    const printName = ({ name }) => {
-        console.log(`Name is : ${name}`);
-    };
-    printName(user);
-    ```
-
-    ```javascript
-    const user = {
-            name: "foo",
-            age: 20,
-            favorite: {
-              sport: "soccer",
-              food: "cake",
-            },
-          };
-    
-    const printFavoriteSport = ({ favorite: { sport } }) => {
-    	console.log(`Favorite sport is ${sport}`);
-    };
-    printFavoriteSport(user);
-    ```
-
-### 배열 구조 분해
-
-```javascript
-const arr = [1, 2, 3, 4, 5];
-const [first, second] = arr;
-const [, , third] = arr;
-const [last] = [...arr].reverse();
-console.log(first, second, third, last); // 1 2 3 5
-```
-
-### 객체 리터럴 개선
-
-```javascript
-const name = "foo";
-const age = 20;
-const favorite = {
-    sport: "soccer",
-    food: "cake",
-};
-const printFavoriteSport = ({ favorite: { sport } }) => {
-    console.log(`Favorite sport is ${sport}`);
-};
-
-const user = { name, age, favorite, printFavoriteSport };
-console.log(user);
-```
-
-## 스프레드 연산자(...)
-
-spread 프로퍼티를 제외한 iterable 객체 전용
-
-*   기존에 함수의 인수로 배열을 사용하기 위해 썼던 `apply()`를 대체할 수 있다.
-
-    ```javascript
-    function sum(x, y, z) {
-        return x + y + z;
-    }
-    const numbers = [1, 2, 3];
-    console.log(sum(numbers));
-    console.log(sum(numbers[0], numbers[1], numbers[2]));
-    console.log(sum(...numbers));
-    console.log(sum.apply(null, numbers));
-    ```
-
-### 배열 합치기 (배열 리터럴 전개)
-
-```javascript
-const numbers = [1, 2, 3];
-const numbers2 = [4, 5, 6];
-console.log([numbers, numbers2]); // [[1,2,3],[4,5,6]]
-console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
-```
-
-### 문자열을 배열로 분해하기
-
-```javascript
-const greeting = "Hello";
-const arrayOfChars = [...greeting];
-console.log(arrayOfChars); //  ['H', 'e', 'l', 'l', 'o']
-```
-
-### 배열 복사
-
-> ❗︎단 1레벨 깊에서만 효과적으로 동작
-
-```javascript
-const numbers = [1, 2, 3];
-const numbers2 = numbers;
-numbers2.push(4);
-console.log(numbers); // [1,2,3,4]
-console.log(numbers2); // [1,2,3,4]
-```
-
-```javascript
-const numbers = [1, 2, 3];
-const numbers2 = [...numbers];
-numbers2.push(4);
-console.log(numbers); // [1,2,3]
-console.log(numbers2); // [1,2,3,4]
-```
-
-### 객체 리터럴 전개
-
-```javascript
-const user = {
-    name: "foo",
-    age: 20,
-};
-user2 = { ...user };
-user2.name = "bar";
-console.log(user.name, user2.name); // foo bar
-```
-
-## 나머지 매개변수(...args)
-
-함수에서 정해지지 않은 수의 매개변수를 배열로 받을 수 있다.
-
-```javascript
-function sum(...theArgs) {
-  let total = 0;
-  for (const arg of theArgs) {
-    total += arg;
-  }
-  return total;
-}
-
-console.log(sum(1, 2, 3));
-// expected output: 6
-
-console.log(sum(1, 2, 3, 4));
-// expected output: 10
-```
-
-* 나머지 매개변수는 매개변수 앞에 `...`을 붙여 사용한다
-* 나머지 매개변수를 사용하면 모든 후속 매개변수를 배열에 저장하고
-* 마지막 매개변수 하나에만 나머지 매개변수로 설정할 수 있다.
-
-```javascript
-function printArgs(first, second, ...moreArgs) {
-	console.log(first, second) // 1 2
-	console.log(moreArgs) // [3,4,5]
-}
-printArgs(1,2,3,4,5)
-```
-
-### Arguments와 나머지매개변수의 차이점
-
-* `Arguments`는 배열이 아니다 -> \[\[Prototype]]: Object 이다
-  * `callee`와 같은 기능도 있다.
-  * Array 메서드를 사용하기 위해 변환이 필요하다.
-  * 전체 매개변수를 포함한다.
-* `나머지매개변수`는 실제 배열이다 -> \[\[Prototype]]: Array 이다
-  * 사용자가 정의한 매개변수를 제외한 나머지만을 가진다.
-
-![image-20230110191822853](document/JavaScript/readme.assets/image-20230110191822853.png)
-
-## 클래스
-
-### 프로토타입을 통한 객체 생성
-
-> User.prototype.printName()을 변경하면 참조중인 모든 User 객체의 메서드가 변경됨
-
-```javascript
-function User(name, age) {
-    this.name = name;
-    this.age = age;
-
-    User.prototype.printName = function () {
-        console.log(`name: ${name}, age: ${age}`);
-    };
-}
-const foo = new User("foo", 20);
-foo.printName();
-console.log(foo);
-
-```
-
-### 클래스를 통한 객체 생성
-
-> 이미 생성된 객체는 User를 변경해도 영향을 받지 않음
-
-```javascript
-class User {
-    constructor(name, age) {
-      this.name = name;
-      this.age = age;
-    }
-    printName() {
-      console.log(`name: ${this.name}, age: ${this.age}`);
-    }
-}
-const foo = new User("foo", 20);
-foo.printName();
-```
 
 ## ES6 모듈
 
@@ -652,94 +345,5 @@ console.log(a); // 1
         },
       };
       obj1.outer();
-```
-
-## 동기와 비동기
-
-**동기**
-
-* 순서대로 작업을 처리하여 작업이 끝나지 않으면 기다리는 방식
-* 비동기: 작업을 시작하고 끝날 때까지 다른 작업을 수행할 수 있는 방식
-* 콜백지옥과 효율적인 작업 시간 소모를 위해 비동기의 필요성
-
-### 비동기
-
-* 순서를 보장하지 않는다. 작업이 언제 끝날지 알 수 없기 때문이다.
-* 따라서 비동기 작업의 동기적 표현이 필요하다
-
-#### Promise
-
-* Promise에는 함수를 전달한다. 이때 함수를 `executor(실행자)`라고 한다.
-* 실행자 내부에서는 작업이 종료되면 `resolve`와 `reject` 중 하나를 반드시 호출 해야 한다.
-* `resolve(value)` - 작업이 성공적으로 끝났을 때 값과 함께 호출
-* `reject(error)` - 작업이 실패했을 때 에러와 함께 호출
-* Promise의 3가지 상태
-  1. 대기(pending): 초기 상태
-  2. 이행(fulfilled): 성공
-  3. 거부(rejected): 실패
-
-#### Promise의 3가지 상태
-
-*   Promise.then() 작업이 완료되었을 때와 실패 했을 때 실행할 두 개의 콜백 함수를 받고 Promise를 반환
-
-    ```javascript
-    promise.then((value)=>{}, (reason)=>{});
-    ```
-*   Promise.catch() 작업이 실패 했을 때 실행할 콜백 함수를 받아 실행하고 새로운 Promise를 반환
-
-    ```javascript
-    promise.catch((error)=>{})
-    ```
-*   Promise.finally() 작업이 성공했든 실패했든 최종적으로 실행되는 코드
-
-    ```javascript
-    promise.finally(()=>{});
-    ```
-
-```javascript
-myPromise
-.then(response => {
-  doSomething(response);
-})
-.catch(e => {
-  returnError(e);
-})
-.finally(() => {
-  runFinalCode();
-});
-```
-
-```mermaid
-stateDiagram-v2
-direction LR
-    state "(pending) Promise" as start
-    state "(settled) .then()" as then
-    state "(settled) .catch()" as catch
-    start --> then : fulfill
-    start --> catch : reject
-    state "async actions" as actions
-    then --> actions
-    state "error handing" as errors
-    catch --> errors
-    state "(pending) Promise" as end
-    then --> end : return
-    catch --> end : return
-```
-
-```javascript
-const myPromise = new Promise((resolve, reject) => {
-    if(성공) {
-        resolve('성공')
-    } else {
-        reject("실패")
-    }
-});
-```
-
-```javascript
-myPromise
-.then((res)=> console.log(res)) // 성공
-.catch((error)=> console.log(error)) // 실패
-
 ```
 
