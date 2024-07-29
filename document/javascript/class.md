@@ -41,3 +41,24 @@ const foo = new User("foo", 20);
 foo.printName();
 ```
 
+
+
+## 상속과 다형성
+
+**상속**: 다른 클래스의 동작을 확장(extend)하여 사용하는 방법
+
+**다형성**: 상속받은 메서드와 동일한 이름으로 만든 새 메서드가 공존할 수 있는 것
+
+```javascript
+class Admin extends User {
+	constructor(name, age) {
+		super(name, age)
+	}
+	
+	printName() {
+		super.printName();
+		console.log('This user is an administrator')
+	}
+}
+```
+

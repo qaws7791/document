@@ -26,6 +26,38 @@ description: javascript에 대한 페이지
 * 함수형 언어
 * 논리형 언어
 
+```mermaid
+mindmap
+  root((자바스크립트))
+    함수
+    기본사항
+     값
+     변수
+     표현식과 문
+     비교
+     스코프와 클로저
+     표현식과 연산자
+     this 키워드
+    타입
+      원시 타입
+       number
+       string
+       boolean
+       bigint
+       undefined
+       null
+       symbol
+      객체 타입
+    객체
+    배열
+    프로토타입
+    클래스
+    에러
+    비동기
+    이터레이터,제너레이터
+    모듈
+```
+
 
 
 ## 자바스크립트 특징

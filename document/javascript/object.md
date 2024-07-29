@@ -410,28 +410,3 @@ set.delete(value)
 ## Set.values()
 
 - Map과 동일
-
-
-
-# Generator
-
-반복 가능한 객체를 통해 값을 반환하는 객체
-
-- `generator.next()`를 사용하면 다음 yield문에서 멈추고 value와 done을 가지는 객체를 반환
-
-```javascript
-function* infinite() {
-  let counter = 0;
-
-  while (true) {
-    yield {counter: counter++};
-  }
-}
-
-const generator = infinite();
-
-console.log(generator.next()); //  { done: false, value: { counter: 0 }}
-console.log(generator.next().value.counter); // 1
-console.log(generator.next().value.counter); // 2
-```
-
