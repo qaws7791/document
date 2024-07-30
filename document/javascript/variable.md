@@ -304,6 +304,30 @@ typeof <Variable>
 | [Function](https://developer.mozilla.org/ko/docs/Glossary/Function) 객체 (ECMA-262 표현으로는 \[\[Call]]을 구현하는 객체)            | `"function"`                                                                                               |
 | 다른 모든 객체                                                                                                               | `"object"`                                                                                                 |
 
+
+
+| x                             | typeof x    | String(x)                     | Number(x) | Boolean(x) |
+| ----------------------------- | ----------- | ----------------------------- | --------- | ---------- |
+| undefined                     | 'undefined' | 'undefined'                   | NaN       | false      |
+| null                          | 'object'    | 'null'                        | 0         | false      |
+| true                          | 'boolean'   | 'true'                        | 1         | true       |
+| false                         | 'boolean'   | 'false'                       | 0         | false      |
+| ""                            | 'string'    | ""                            | 0         | false      |
+| "2"                           | 'string'    | '2'                           | 2         | true       |
+| "A"                           | 'string'    | 'A'                           | NaN       | true       |
+| 0                             | 'number'    | '0'                           | 0         | false      |
+| -0                            | 'number'    | '0'                           | -0        | false      |
+| 3                             | 'number'    | '3'                           | 3         | true       |
+| Infinity                      | 'number'    | 'Infinity'                    | Infinity  | true       |
+| -Infinity                     | 'number'    | '-Infinity'                   | -Infinity | true       |
+| NaN                           | 'number'    | 'NaN'                         | NaN       | false      |
+| {}                            | 'object'    | [object Object]               | NaN       | true       |
+| []                            | 'object'    | ''                            | 0         | true       |
+| [1,2]                         | 'object'    | '1,2'                         | NaN       | true       |
+| function add(x,y){return x+y} | 'function'  | function add(x,y){return x+y} | NaN       | true       |
+
+
+
 ## 자바스크립트 연산자
 
 ### 연산자 우선순위
@@ -424,8 +448,8 @@ console.log('a'>'A') // true
 
 #### == 과 === 연산자
 
-* `==`(동등 연산자): 피연산자의 타입이 다를 경우 타입 변환 후 비교
-* `===`(엄격한 동등 연산자) : 타입 변환없이 비교
+* `==`(**동등 연산자**): 피연산자의 타입이 다를 경우 타입 변환 후 비교
+* `===`(엄격한 동등 연산자, **일치 연산자**) : 타입 변환없이 비교
 
 ```javascript
 console.log(1 == "1"); // true
