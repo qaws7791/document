@@ -101,3 +101,26 @@ export default function Loading() {
 }
 ```
 
+
+
+## 주문형 isr(on-demand isr)
+
+외부에서 경로를 무효화시키기 위해 api를 제공하고, 이를 호출하면 nextjs 서버에서 `revalidatePath()`를 호출하여 경로를 무효화한다
+
+```typescript
+// app/api/revalidate/route.ts
+import { revalidatePath } from 'next/cache';
+
+export async function POST(request: Request) {
+    // 권한 확인
+    const headersList = headers()
+    
+    // revalidate할 경로 가져오기
+    const body = await request.json()
+    const { path } = body;
+    revalidatePath(path)
+    
+}
+```
+
+https://github.com/vercel/on-demand-isr/tree/main
