@@ -307,20 +307,21 @@ typeof <Variable>
 
 
 | x                             | typeof x    | String(x)                     | Number(x) | Boolean(x) |
-| ----------------------------- | ----------- | ----------------------------- | --------- | ---------- |
-| undefined                     | 'undefined' | 'undefined'                   | NaN       | false      |
-| null                          | 'object'    | 'null'                        | 0         | false      |
+| ----------------------------- | :---------- | :---------------------------- | :-------- | :--------- |
+| undefined                     | 'undefined' | 'undefined'                   | NaN       | **false**  |
+| null                          | 'object'    | 'null'                        | 0         | **false**  |
 | true                          | 'boolean'   | 'true'                        | 1         | true       |
-| false                         | 'boolean'   | 'false'                       | 0         | false      |
-| ""                            | 'string'    | ""                            | 0         | false      |
+| false                         | 'boolean'   | 'false'                       | 0         | **false**  |
+| ""                            | 'string'    | ""                            | 0         | **false**  |
 | "2"                           | 'string'    | '2'                           | 2         | true       |
 | "A"                           | 'string'    | 'A'                           | NaN       | true       |
-| 0                             | 'number'    | '0'                           | 0         | false      |
-| -0                            | 'number'    | '0'                           | -0        | false      |
+| 0                             | 'number'    | '0'                           | 0         | **false**  |
+| -0                            | 'number'    | '0'                           | -0        | **false**  |
 | 3                             | 'number'    | '3'                           | 3         | true       |
+| 7n                            | 'bigint'    | '7'                           | 7         | true       |
 | Infinity                      | 'number'    | 'Infinity'                    | Infinity  | true       |
 | -Infinity                     | 'number'    | '-Infinity'                   | -Infinity | true       |
-| NaN                           | 'number'    | 'NaN'                         | NaN       | false      |
+| NaN                           | 'number'    | 'NaN'                         | NaN       | **false**  |
 | {}                            | 'object'    | [object Object]               | NaN       | true       |
 | []                            | 'object'    | ''                            | 0         | true       |
 | [1,2]                         | 'object'    | '1,2'                         | NaN       | true       |
