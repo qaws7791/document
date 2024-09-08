@@ -502,3 +502,94 @@ const useTodos = () => {
 queryClient.prefetchQuery(todosQuery)
 ```
 
+
+
+## optimistic-updates
+
+```tsx
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { updateBookmarkReadStatus } from "../../../server/bookmarks/bookmarks.actions";
+import { BookmarkRow } from "../../../supabase/supabase";
+
+export default function useBookmarkReadMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      bookmarkId,
+      readAt,
+      collectionId,
+    }: {
+      bookmarkId: string;
+      readAt: string | null;
+      collectionId: string;
+    }) => {
+      return updateBookmarkReadStatus(bookmarkId, readAt);
+    },
+
+    onMutate: ({ bookmarkId, readAt, collectionId }) => {
+      // 1. 타입을 지정하여 현재 캐시를 가져오기
+      const previousBookmarks = queryClient.getQueryData<
+        InfiniteData<BookmarkRow[]>
+      >(["bookmarks", collectionId]);
+      console.log("previousBookmarks", previousBookmarks);
+
+      if (!previousBookmarks) return;
+
+      // 2. muatation에 대해 기대하는 상태로 미리 캐시를 변경
+      const newBookmarks = previousBookmarks.pages.map((page) => {
+        return page.map((bookmark) => {
+          if (bookmark.id === bookmarkId) {
+            return {
+              ...bookmark,
+              read_at: readAt,
+            };
+          }
+          return bookmark;
+        });
+      });
+
+      // 3. 실제 쿼리 캐시를 업데이트
+      queryClient.setQueryData<InfiniteData<BookmarkRow[]> | undefined>(
+        ["bookmarks", collectionId],
+        (data) => {
+          if (!data) return;
+          return {
+            ...data,
+            pages: newBookmarks,
+          };
+        },
+      );
+
+      // 4. previousBookmarks를 반환하여 context에 저장
+      return { previousBookmarks };
+    },
+
+    onError: (error, { collectionId }, context) => {
+      // 5. 에러 발생 시 context에서 이전 상태를 가져와서 복구
+      if (!context) return;
+      queryClient.setQueryData<InfiniteData<BookmarkRow[]> | undefined>(
+        ["bookmarks", collectionId],
+        (data) => {
+          if (!data) return;
+          return {
+            ...data,
+            pages: context.previousBookmarks.pages,
+          };
+        },
+      );
+      console.error(error);
+    },
+    // 6. 성공하든 실패하든 항상 쿼리를 무효화하여 서버와 상태 일치(선택 사항)
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["bookmarks", collectionId] })
+    },
+  });
+}
+
+```
+
