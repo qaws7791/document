@@ -1,8 +1,48 @@
 # TypeScript
 
+- 배열 유형이 아니라면 모두 단수형을 사용하세요
+
 ```typescript
 const Locales = ["ko", "en"] as const
 
 type Locale = (typeof Locales)[number] // type Locale = "ko" | "en"
+```
+
+
+
+```typescript
+export const OrderStatusEnum = {
+    Placed: 'placed',
+    Approved: 'approved',
+    Delivered: 'delivered'
+} as const;
+export type OrderStatusEnum = typeof OrderStatusEnum[keyof typeof OrderStatusEnum];
+//type OrderStatusEnum = "placed" | "approved" | "delivered"
+```
+
+
+
+타입스크립트 5.5부터 제대로 동작하게 된 타입 가드 추론
+
+```typescript
+// typescript 5.4.5
+const isString = (x:unknown) => typeof x === "string"
+
+const arr = [1,'arr',[]]
+
+const filterd = arr.filter(isString)
+// const filterd: (string | number | never[])[]
+```
+
+
+
+```typescript
+// typescript 5.5.4
+const isString = (x:unknown) => typeof x === "string"
+
+const arr = [1,'arr',[]]
+
+const filterd = arr.filter(isString)
+// const filterd: string[]
 ```
 
