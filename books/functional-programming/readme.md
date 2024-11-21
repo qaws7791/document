@@ -1,20 +1,40 @@
 # 함수형 프로그래밍
 
-
-
 ## 함수형 프로그래밍이란
 
 **부수 효과(side effect)**없이 **순수 함수**만 사용하는 프로그래밍
 
-부수 효과(side effect): 함수가 반환하는 값 이외의 일
+- 부수 효과(side effect): 함수가 반환하는 값 이외의 일
 
-순수 함수: 같은 입력에 대해 항상 같은 출력을 반환하는 부수 효과 없는 함수
+- 순수 함수: 같은 입력에 대해 항상 같은 출력을 반환하는 부수 효과 없는 함수. 평가 도중에 다른 값이나 외부 상태의 영향을 받지 않는다
 
 하지만 부수 효과는 프로그래밍에서 필요하기 때문에 함수형 프로그래밍이 부수 효과를 배제하는 것은 아니다
 
+### 명령형과 선언적 프로그래밍
+
+함수형 프로그래밍은 크게 보면 선언적(declarative) 프로그래밍에 해당한다.
+
+- 명령형 프로그래밍은 컴퓨터에게 원하는 작업을 어떻게 하는지 설명한다
+- 선언적 프로그래밍은 컴퓨터에게 원하는 결과를 설명한다
+
+### 함수형 프로그래밍의 지향점
+
+- 무상태성(stateless): 함수형 프로그래밍은 상태를 가지지 않는다
+- 불변성(immutable): 함수형 프로그래밍은 데이터를 변경하지 않는다
+- 참조 투명성(referential transparency): 함수형 프로그래밍은 같은 입력에 대해 항상 같은 출력을 반환한다
+- 지연 평가(lazy evaluation): 함수형 프로그래밍은 필요할 때만 계산한다
+- 분해와 합성(decomposition and composition): 함수형 프로그래밍은 작은 함수로 나누어 작성하고 합성한다
+
+### 함수형 프로그래밍의 장점
+
+- 하나의 함수가 하나의 기능만 담당하기 때문에 코드가 간결해진다
+- 시스템의 상태를 예측하기 쉽다
+- 재사용성이 높아진다
+- 코드를 테스트하기 쉽다
+
 ## 액션과 계산, 데이터
 
-- 액션: 호출하는 시점이나 횟수에 의존하거나 외부 시스템과 상호작용하는 함수. 
+- 액션: 호출하는 시점이나 횟수에 의존하거나 외부 시스템과 상호작용하는 함수.
   - 상태 변경 보장
   - 순서 보장
   - 실행 횟수 보장
@@ -27,23 +47,17 @@
   - 안전한 데이터 보관
   - 데이터 분석
 
-
-
-## 계산보다 액션
+### 계산보다 액션
 
 - 테스트하기 쉽다 - 계산은 같은 입력에 대해 항상 같은 값을 반환하므로 테스트하기 쉽습니다
-- 정적 분석이 쉽다 
+- 정적 분석이 쉽다
 - 조합하기 쉽다
 
-
-
-## 액션을 부르면 액션이다
+### 액션을 부르면 액션이다
 
 어떤 함수가 내부에서 액션을 사용한다면 이 함수도 액션이 됩니다. 이 함수가 언제 실행하는지가 이 함수 내부의 액션 호출 시점에 영향을 주기 때문입니다.
 
-
-
-## 자바스크립트에서 액션
+### 자바스크립트에서 액션이 되는 것들
 
 - DOM 관련 메서드
   - `document.METHOD`
@@ -59,39 +73,33 @@
   - 값 할당
   - 속성 변경, 삭제
 
-
-
-## 액션은 어렵다
+### 액션은 어렵다
 
 액션은 소프트웨어를 사용하는 가장 큰 이유이지만 그만큼 잘못 사용하면 위험합니다
 
-1. 액션을 필요할 때만 최대한 적게 사용해야 합니다. 
+1. 액션을 필요할 때만 최대한 적게 사용해야 합니다.
 2. 액션은 가장 작게 만들어야 합니다. 불필요한 부분은 제거하거나 빼내야 합니다
    1. 암묵적 입력과 출력을 제거하여 계산으로 만들기
 3. 액션이 외부 세계와 상호작용하는 것을 제한 할 수 있다
 4. 엑션이 호출 시점에 의존하는 것을 제한할 수 있다
 
-## 재사용하기
+### 재사용하기
 
 - 전역 변수에 의존하지 않기 & 전역변수를 변경하지 않고 값을 반환하기
 - 특정 조건에서 실행된다고 가정하지 않기
 
-## 액션에서 계산으로 변경하기
+### 액션에서 계산으로 변경하기
 
 - 계산 부분은 별도의 함수로 분리하기
 - 암묵적 입력은 인자(명시적 입력)로, 암묵적 출력은 반환 값(명시적 출력)으로 변경하기
   - 암묵적 입력: 인자가 아닌 입력
   - 암묵적 출력: 반환 값이 아닌 출력
 
-
-
 ## 작게 분리된 코드의 장점
 
 - 재사용하기 쉽다
 - 유지보수가 쉽다
 - 테스트가 쉽다
-
-
 
 ## 데이터 불변성 유지
 
@@ -105,8 +113,6 @@
 
 - 변경 가능한 데이터를 읽는 것 -> 액션
 - 불변 데이터를 읽는 것 -> 계산
-
-
 
 ### 구조적 공유
 
@@ -124,25 +130,23 @@
 ```javascript
 //name="john"인 사람의 age를 20으로 수정
 const people = [
-  { name: 'john', age: 25 },
-  { name: 'jane', age: 30 },
-  { name: 'bob', age: 35 }
+  { name: "john", age: 25 },
+  { name: "jane", age: 30 },
+  { name: "bob", age: 35 },
 ];
 
 const setAgeByName = (people, name, age) => {
-	return people.map(p => {
-        return p.name === name ? {...p, age} : p
-    })
-}
+  return people.map((p) => {
+    return p.name === name ? { ...p, age } : p;
+  });
+};
 
-const changedPeople = setAgeByName(people,'john',20)
+const changedPeople = setAgeByName(people, "john", 20);
 ```
-
-
 
 ## 방어적 복사
 
- 방어적 복사는 불변성 코드에서 데이터가 변경될 수도 있는 코드와 데이터를 주고받기 위한 방법으로, 데이터를 내보내거나 가져올 때 **깊은 복사본**을 만들어 사용합니다
+방어적 복사는 불변성 코드에서 데이터가 변경될 수도 있는 코드와 데이터를 주고받기 위한 방법으로, 데이터를 내보내거나 가져올 때 **깊은 복사본**을 만들어 사용합니다
 
 깊은 복사: `JSON.stringify()` - 객체 -> JSON 문자열, `JSON.parse()` - 문자열 -> js 객체
 
@@ -171,8 +175,6 @@ const function_safe(data) => {
 
 https://lodash.com/docs/4.17.15#cloneDeep
 
-
-
 # 계층형 설계
 
 - 패턴1: 직접 구현
@@ -180,42 +182,40 @@ https://lodash.com/docs/4.17.15#cloneDeep
 - 패턴 3: 작은 인터페이스
 - 패턴 4: 편리한 계층
 
-
-
 ## 패턴 1: 직접 구현
 
 - 한 함수에서는 자신보다 낮은 추상화 계층 중 같은 계층에 있는 함수들을 호출한다
-- 함수 내의 추상화 수준이 제각각이라면 구체화 수준을 같도록 추출·정리한다 
+- 함수 내의 추상화 수준이 제각각이라면 구체화 수준을 같도록 추출·정리한다
 - 더 작은 함수로 분리할수록 재사용 및 테스트하기 하기 쉬워진다
 
 ```javascript
-const makeItem = (name,price) => {
-    return {
-        name,
-        price
-    }
-}
+const makeItem = (name, price) => {
+  return {
+    name,
+    price,
+  };
+};
 
 const addItem = (cart, item) => {
-    return cart.push(item)
-}
+  return cart.push(item);
+};
 
 const isInCart = (cart, name) => {
-    return cart.some(c => c.name === name)
-}
+  return cart.some((c) => c.name === name);
+};
 ```
 
 ```javascript
 // 넥타이를 하나 사면 넥타이 클립을 하나 무료로 주는 코드
 const freeTieClipWhenBuyTie = (cart) => {
-    const hasTie = isInCart(cart, "tie")
-    const hasTieClip = isInCart(cart, "tie clip")
-    if(hasTie && !hasTieClip) {
-        const tieClip = makeItem("tie clip", 0)
-        return addItem(cart, tieClip)
-    }
-    return cart
-}
+  const hasTie = isInCart(cart, "tie");
+  const hasTieClip = isInCart(cart, "tie clip");
+  if (hasTie && !hasTieClip) {
+    const tieClip = makeItem("tie clip", 0);
+    return addItem(cart, tieClip);
+  }
+  return cart;
+};
 ```
 
 ### 목적별 계층
@@ -226,8 +226,6 @@ const freeTieClipWhenBuyTie = (cart) => {
 4. 제품 기본 동작
 5. copy-on-write 동작
 6. 자바스크립트 기능
-
-
 
 ## 패턴 2: 추상화 벽
 
@@ -262,21 +260,15 @@ const freeTieClipWhenBuyTie = (cart) => {
 
 편리한 계층은 설계와 기능 사이에서 어느 지점에 머물지를 생각
 
-
-
 ## 호출 그래프
 
 세 가지 비기능적 요구사항
 
-
-
 ### 유지보수성
 
-쉽게 변경할 수 있는가 
+쉽게 변경할 수 있는가
 
 - 위로 연결된 함수가 적은 함수일수록(호출 그래프의 상단에 위치할 수록) 고치기 쉽다
-
-
 
 ### 테스트성
 
@@ -284,14 +276,10 @@ const freeTieClipWhenBuyTie = (cart) => {
 
 - 위로 많이 연결된 함수일수록(하단에 위치한 코드) 테스트가 중요하다
 
-
-
 ### 재사용성
 
 재사용하기 좋은가
 
 - 하단에 위치한 함수가 적을 수록 재사용하기 더 쉽습니다
-
-
 
 ## 일급함수
