@@ -1,0 +1,141 @@
+# Docker를 통한 next 앱 배포
+
+터보레포(모노레포의 한 종류)를 통한 배포
+
+```
+package.json
+pnpm-lock.yaml
+apps
+-web
+packages
+-eslint-config
+-tailwind-config
+-typescript-config
+-ui
+```
+
+
+
+1. apps/web 디렉토리에 `Dockerfile` 생성
+
+설명
+
+- `node:20-alpine` node의 alpine 버전(최종 이미지 크기가 작은 경량화 버전)
+
+- `libc6-compat`: Alpine Linux에서 호환성(특히 glibc를 필요로 하는)을 제공하기 위한 패키지(https://pkgs.alpinelinux.org/package/v3.17/main/x86/libc6-compat)
+
+- `turbo`: 사용하고 있는 모노레포의 cli 설치. 여기서는 turborepo를 사용
+
+- `turbo prune web --docker`: 타겟을 빌드하기 위한 *부분적 모노레포*를 생성한다.
+
+  - `json 디렉토리`: 각 패키지와 앱 디렉토리에 package.json을 생성한 디렉토리
+
+  - ```
+    json
+    -package.json (from repo root)
+    -packages
+    --ui
+    ---package.json
+    --shared
+    ---package.json
+    --frontend
+    ---package.json
+    ```
+
+  - `full 디렉토리`: 빌드에 필요한 전체 소스가 포함되어 있음
+
+  - ```
+    full
+    -package.json (from repo root)
+    -apps
+    -packages
+    ```
+
+- `corepack enable pnpm`: nodejs의 corepack을 통한 pnpm 설치
+
+  - https://pnpm.io/installation#using-corepack
+  - https://nodejs.org/api/corepack.html#enabling-the-feature
+
+```dockerfile
+FROM node:20-alpine AS base
+
+# 1. Builder
+# Install dependencies only when needed
+FROM base AS builder
+RUN apk update
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+# Install turbo for monorepo
+RUN npm i -g turbo@^2
+COPY . .
+# Generate a partial monorepo with a pruned lockfile
+RUN turbo prune web --docker
+
+# 2. Installer
+# Add lockfile and package.json's of isolated subworkspace
+FROM base AS installer
+RUN apk update
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+# Install dependencies based on the pnpm
+COPY --from=builder /app/out/json/ .
+RUN corepack enable pnpm && pnpm i --frozen-lockfile;
+# Rebuild the source code only when needed
+COPY --from=builder /app/out/full/ .
+RUN corepack enable pnpm && pnpm build;
+
+# 3. Runner
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+
+USER nextjs
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "apps/web/server.js"]
+```
+
+
+
+
+
+2. 루트 디렉토리에서 도커 빌드
+
+```bash
+docker build -f apps/web/Dockerfile . -t web-docker
+```
+
+3. 도커 이미지 보기
+
+```bash
+docker images
+```
+
+4. 도커 이미지 실행
+
+```bash
+docker run -p 3000:3000 web-docker
+```
+
+https://www.youtube.com/watch?v=sIVL4JMqRfc
+
+https://nextjs.org/docs/app/building-your-application/deploying#docker-image
+
+https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
+
+https://docs.docker.com/reference/cli/docker/build-legacy/
+
+- 터보레포
+  - https://turbo.build/repo/docs/guides/tools/docker
+  - https://turbo.build/repo/docs/reference/prune
+  - https://github.com/vercel/turborepo/tree/main/examples/with-docker
+
+
+
