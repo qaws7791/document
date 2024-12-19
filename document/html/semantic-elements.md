@@ -71,13 +71,13 @@
 
 ### `<nav>`: 탐색링크를 포함하는 네비게이션 
 
-페이지 내에서 다른 부분으로 이동하거나 다른 페이지로 이동하는 링크를 포함하는 섹션. 메뉴, 목차, 색인 등에 사용
+페이지 내에서 다른 부분으로 이동하거나 다른 페이지로 이동하는 링크를 포함하는 섹션이다. 메뉴, 목차, 색인 등에 사용할 수 있다
 
 - 모든 링크가 `<nav>`요소 안에 있을 필요는 없다.
 - 반드시 목록 형태로 제공해야 하는 것은 아니다.
 - 주요 탐색 링크를 위한 요소이다.
 - 중요하지 않은 링크는 `<footer>`에 정의 할 수 있다.
-- 하나의 페이지 내에서 여러 개의 `<nav>`를 사용 가능. 전체 탐색용 그리고 현재 페이지 탐색 등 이때 [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)를 사용
+- 하나의 페이지 내에서 여러 개의 `<nav>`를 사용 가능. 전체 탐색용 그리고 현재 페이지 탐색 등 이때 [aria-labelledby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-labelledby_attribute)를 사용한다
 
 ```html
 <nav class="menu">
@@ -1242,5 +1242,4 @@ UTF-8인코딩을 사용한 페이지의 `<wbr>`은 bidi 정렬 영향을 받지
 ```
 <div dir=rtl>123,<wbr>456</div> => 123,456
 ```
-
 
