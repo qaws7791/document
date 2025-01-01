@@ -5,96 +5,11 @@
 * 블록 요소와 달리 줄바꿈을 하지 않는다.
 * `<a>`, `<em>`, `<strong>` 등
 
-## `<a>`: 앵커 요소
 
-href 속성을 이용해 다른 페이지나 같은 페이지의 어느 위치, 파일, 이메일 주소나 다른 URL로 연결할 수 있는 하이퍼 링크를 생성. 태그안의 콘텐츠는 목적지 링크에 대한 설명을 표시
 
-```html
-<a href="https://www.mozilla.com">절대 URL연결</a> 
-<a href="//example.com">상대URL연결</a>
-<p><a href="#Section_further_down">아래 제목으로 건너뛰기</a></p>
-<a href="mailto:nowhere@mozilla.org">Send email to nowhere</a>
-<a href="tel:+49.157.0156">+49 157 0156</a>
- <a href="" download="my_painting.png">다운로드</a>
-```
 
-속성
 
-* download
-  * 링크로 이동하는 대신 URL을 저장
-  * 값이 없으면 파일 이름과 확장자는 브라우저가 생성하여 제안
-  * 값을 지정하면 저장할 때 파일 이름으로서 제안. /와\는 \_로 변환되어 제안
-  * 다운로드는 동일 출처 URL과 blob:, data: 스킴에서만 동작
-* href
-  * 하이퍼링크가 가지는 URL
-  * 브라우저가 지원하는 모든 URL 스킴 사용 가능
-  * 페이지 구획을 가리키는 프래그먼트 URL (#을 이용)
-  * 미디어 파일 일부를 가리키는 미디어 프래그먼트
-  * tel: URL을 사용하는 전화번호
-  * mailto: URL을 사용하는 이메일 주소
-  * 웹사이트는 [`Navigator.registerProtocolHandler()`](https://developer.mozilla.org/ko/docs/Web/API/Navigator/registerProtocolHandler)를 통해 지원 가능
-* hreflang
-* 링크 URL의 인간 언어에 대한 힌트
-* ping
-  * 하나의 스페이스로 구분하는 URL 목록
-  * 브라우저가 URL 각각에 POST 요청을 전송
-* referrerpolicy
-  * URL을 가져올 때 사용할 리퍼러
-* rel
-  * URL을 가져올 때 사용할 리퍼러
-* target
-  * 링크한 URL을 표시할 위치
-  * 가능한 값은 브라우징 맥락. 탭, 창 `<iframe>`의 이름이나 키워드
-  * \_self: 응답을 현재 브라우징 맥락에 표시. 기본값
-  * \_blank: 응답을 새로운 브라우징 맥락에 표시. 보통 새 탭
-  * \_parent: 응답을 현재 브라우징 맥락의 부모에 표시. 부모가 없으면 \_self와 동일하게 동작
-  * \_top: 응답을 최상단 브라우징 맥락에 표시. 부모가 없으면 \_self와 동일하게 동작
-* type
-  * 링크 URL의 MIME type에 대한 힌트
-
-Tips:
-
-* target 사용시 `rel="noreferrer"`을 추가해 `window.opener`API의 악의적인 사용을 방지
-* 최근 브라우저는 `target="_blank"` 지정시 임의로 `rel="noopener"` 설정과 동일한 보호 수준 적용
-* href 태그에서 페이지 새로고침을 막고 `click`이벤트 처리기를 이용해 가짜 버튼 만들지 말자 대신 `<button>`을 사용
-* 링크를 클릭했을 때 어떤 일이 발생하는지( 새 탭에서 열리거나 다른 파일이 열리는 등)를 명시적으로 표시
-* ```html
-  <a target="_blank" href="https://ko.wikipedia.org">
-    위키백과 (새 탭에서 열림)
-  </a>
-  ```
-
-## `<abbr>`: 준말 또는 머리글자
-
-문장에서 중심이 되는 준말 또는 머리글자
-
-이 요소에 마우스 hover시 title의 설명이 표시
-
-```html
-<p>Using <abbr title="Hypertext Markup Language">HTML</abbr> is fun and easy!</p>
-```
-
-속성
-
-* title
-  * 준말에 대한 전체 설명 혹은 사람이 읽을 수 있는 형태의 값
-
-Tips:
-
-* 모든 준말을 `<abbr>`로 표시할 필요는 없다.
-* 머리글자를 문서플로우 밖에서 설명할 때 사용 할 수 있다.
-* 독자에게 익숙하지 않을 수 있는 준말 사용시 사용할 수 있다.
-* 준말임을 명시적으로 나타내야 할 때 사용할 수 있다.
-* `<abbr>`를 `<dfn>`과 같이 사용하여 정의와 연결할 수 있다.
-
-CSS:
-
-* IE 등 일부 브라우저는 `<span>`과 같이 동작
-* Opera, FireFox 등은 점선 밑줄이 표시
-* 또는 영어 소문자를 작은 대문자로 표현
-* css 제거 : `font-variant:none`
-
-## `<audio>`: 소리 콘텐츠 포함
+### `<audio>`: 소리 콘텐츠 포함
 
 src 속성 또는 `<source>`요소를 사용해 한 개 이상의 오디오 소스 지정
 
@@ -149,73 +64,13 @@ src 속성 또는 `<source>`요소를 사용해 한 개 이상의 오디오 소�
   * 오디오의 url
   * 대신 오디오 블록내에 `<source>` 요소를 사용 가능
 
-## `<b>`: 굵은 글씨체
 
-텍스트를 굵은 글씨체로 만든다.
 
-Tips:
 
-* 요약 키워드, 리뷰의 제품명 등, 특별히 중요성은 없지만 굵게 표시할 부분에 `<b>`사용
-* `<strong>`요소는 중요한 글에 사용 `<em>`요소는 약간의 강조가 필요한 글에 사용 `<mark>`요소는 관련성이 있는 글에 사용 `<b>`요소는 아무런 의미가 없으므로 다른 요소가 적합하지 않을 때 사용
-* 제목은 `<h1>`태그로 표현
-* `<b>`요소 대신 CSS의 `font-weight:"bold"` 사용
 
-## `<bdi>`: 양방향 격리 요소
 
-* 특정 텍스트를 주변 텍스트와 격리하여 텍스트 방향을 다르게 지정할 수 있는 요소
-* 왼쪽에서 오른쪽으로 정렬 (LTR) 되는 문자
-* 오른쪽에서 왼쪽으로 정렬(RTL) 되는 문자
-* 유니코드 양방향 알고리즘을 사용하여 처리
-* 브라우저는 텍스트의 언어에 맞는 방향성을 지정
-* 아래의 예와 같이 이름을 나타내는 언어가 각기 달라 방향성이 다를 경우 `<bdi>`를 통해 처리
 
-```html
-<ul>
- <li><bdi class="name">اَلأَعْشَى</bdi> - 1st place</li>
- <li><bdi class="name">Jerry Cruncher</bdi> - 2nd place</li>
-</ul>
-```
-
-## `<bdo>`: 텍스트 방향 정의 요소
-
-텍스트 방향을 지정하여 현재 텍스트의 쓰기 방향을 지정
-
-원래의 언어의 쓰기 방향와 다른 방향으로 텍스트를 렌더링할 때 사용
-
-속성:
-
-* dir
-  * 요소 콘텐츠의 텍스트 쓰기 방향
-  * ltr: 텍스트를 왼쪽에서 오른쪽으로 써야 함을 나타냄
-  * rtl: 텍스트를 오른쪽에서 왼쪽으로 써야 함을 나타냄
-
-```html
-<p>이 단락은 왼쪽부터 오른쪽 방향으로 써질 것입니다.</p>
-<p><bdo dir="rtl">이 단락은 오른쪽부터 왼쪽 방향으로 써질 것입니다.</bdo></p>
-```
-
-## `<br>`: 줄바꿈 요소
-
-텍스트 안에서 줄 바꿈(캐리지 리턴)을 생성.
-
-Tips:
-
-* 문단 사이의 여백은 `<br>`대신 css의 `margin`속성을 사용
-* 줄 간격은 margin의 조정이 아닌 css의 `line-height`속성을 사용
-
-```html
-<p> O’er all the hilltops<br>
-    Is quiet now,<br>
-    In all the treetops<br>
-    Hearest thou<br>
-    Hardly a breath;<br>
-    The birds are asleep in the trees:<br>
-    Wait, soon like these<br>
-    Thou too shalt rest.
-</p>
-```
-
-## `<button>`: 버튼 요소
+### `<button>`: 버튼 요소
 
 클릭 가능한 버튼을 제공
 
@@ -277,7 +132,7 @@ Tips:
 
 ![주변에 보라색 사각형 영역이 있는 번역 버튼.  버튼에는 "버튼, 32 CSS 픽셀"이라는 레이블이 지정되어 있습니다. 보라색 영역에는 "대화형 영역, 44 CSS 픽셀"이라는 레이블이 지정되어 있습니다.](<block-vs-inline.assets/touch-target-padding.svg>)
 
-## `<canvas>` : 그래픽 캔버스 요소
+### `<canvas>` : 그래픽 캔버스 요소
 
 canvas scripting API , WebGL API를 사용하여 그래픽 애니메이션을 그린다.
 
@@ -308,60 +163,11 @@ Tips:
 * 캔버스의 크기 조절은 `<canvas>`요소의 `width` 속성과 `height`속성 사용해 변경
 * 캔버스는 접근성 도구에 노출되지 않으므로 접근성 사이트에서는 피해야 한다.
 
-## `<cite>`: 출처 표기
 
-저작물에 대한 출처를 표기하기 위해 사용.
 
-제목을 반드시 포함
 
-```html
-<figure>
-    <blockquote>
-        <p>It was a bright cold day in April, and the clocks were striking thirteen.</p>
-    </blockquote>
-    <figcaption>First sentence in 
-        <cite>
-            <a href="http://www.george-orwell.org/1984/0.html">Nineteen Eighty-Four</a>			</cite> by George Orwell (Part 1, Chapter 1).</figcaption>
-</figure>
-```
 
-## `<code>`: 인라인 코드 요소
-
-짧은 코드 조각을 나타내는 스타일을 이용해 콘텐츠 표시
-
-기본 스타일은 사용자 에이전트의 고정폭 글씨체
-
-```html
-<p>함수 <code>selectAll()</code>는 입력 필드의 모든 텍스트를 선택하므로,
-사용자가 복사 혹은 삭제를 손쉽게 할 수 있습니다.</p>
-```
-
-Tips:
-
-* 여러 줄의 코드를 표현하려면 `<code>`요소를 `<pre>`요소로 감싼다
-* CSS의 `code`선택자를 이용해 브라우저의 기본 글씨체 변경 가능
-
-## `<data>`: 콘텐츠를 데이터 연결
-
-주어진 콘텐츠를 기계가 읽을 수 있는 해석본(데이터)과 연결
-
-콘텐츠가 시간이나 날짜 관련 정보라면 대신 `<time>`요소를 사용
-
-```html
-<p>New Products:</p>
-<ul>
-    <li><data value="398">Mini Ketchup</data></li>
-    <li><data value="399">Jumbo Ketchup</data></li>
-    <li><data value="400">Mega Jumbo Ketchup</data></li>
-</ul>
-```
-
-속성
-
-* value
-  * 기계가 읽을 수 있는 형태의 콘텐츠 해석본
-
-## `<datalist>`: 데이터리스트
+### `<datalist>`: 데이터리스트
 
 다른 컨트롤에서 다룰 수 있는 선택지를 나타내는 요소인 `<option>`요소를 여러개 담을 수 있다.
 
@@ -378,7 +184,7 @@ Tips:
 </datalist>
 ```
 
-## `<del>`: 제거된 텍스트 범위
+### `<del>`: 제거된 텍스트 범위
 
 문서에서 제거된 텍스트의 범위를 표현
 
@@ -428,52 +234,9 @@ Tips:
   }
   ```
 
-## `<dfn>`: 정의 요소
 
-현재 맥락이나 문장에서 정의하고 있는 용어는 나타낸다
 
-`<dfn>`에서 가장 가까운 `<p>`, `<dt>`,`<dd>`,`<section>` 조상 요소를 용어 정의로 간주한다.
-
-```html
-<p>A <dfn id="def-validator">validator</dfn> is a program that checks for syntax errors in code or documents.</p>
-```
-
-Tips:
-
-* `<dfn>`요소가 title 속성을 가지고 있으면 그 값을 현재 정의중인 용어로 간주
-* `<dfn>`은 텍스트 콘텐츠를 가지지만, 완전한 용어가 아닌 준말(`<abbr>`)이나 다른 대체 형태일 수 있다
-* `<dfn>`의 유일한 자식이 `<abbr>`이고 이 요소가 title 특성을 가지면 이 값을 현재 용어로 간주
-* 모두 아닌 경우 `<dfn>`의 텍스트 콘텐츠를 현재 용어로 간주
-
-## `<em>`: 텍스트 강세 표현
-
-텍스트의 강세를 표현하며, 중첩할수록 더 큰 강세를 표현할 수있다.
-
-```html
-<p>Get out of bed <em>now</em>!</p>
-```
-
-Tips:
-
-* `<em>`은 주로 기울임꼴로 표현되며, 단순히 기울임꼴이 필요하다면 css의 `font-style`을 사용해야 한다.
-* 저작물의 제목은 `<cite>`요소로, 학명이나 과학관련 이름 및 다른 언어의 단어등에는 `<i>` 요소를 사용
-* 주변보다 훨씬 중요한 조 텍스트에는 `<strong>`요소를 사용해 강조
-
-`<i>`와 `<em>`
-
-* 두 요소는 시각적 표현은 동일
-* `<em>`은 콘텐츠를 강조, `<i>`는 외국어, 등장인물 생각 등 일반적인 산문에서 벗어난 경우 사용
-
-```html
-명시적이나 암시적인 대조에서 사용한 경우
-<p>
-  과거에 <em>block-level</em>이라 불렸던
-  콘텐츠는 HTML 5부터 <em>flow</em> 콘텐츠라고
-  말합니다.
-</p>
-```
-
-## `<embed>`: 외부 컨텐츠와의 통합
+### `<embed>`: 외부 컨텐츠와의 통합
 
 외부의 어플리케이션이나 대화형 컨텐츠와의 통합
 
@@ -495,29 +258,9 @@ Tips:
 * width
   * 리소스가 표현될 너비. CSS 픽셀 단위
 
-## `<i>`: 텍스트 구분 요소
 
-단락, 문장 등에서 주위 텍스트와 구분되어야 할 부분을 나타내며,
 
-주로 기술 용어, 외국어 구절, 등장인물의 생각 등에서 사용될 수 있다.
-
-기울임꼴로 표현된다.
-
-```html
-<p>라틴어 문구 <i>Veni, vidi, vici</i>는 음악과 예술, 문학에 자주 등장합니다.</p>
-```
-
-Tips:
-
-* 산문에서 문체가 다른 텍스트에 `<i>`를 적용할 수 있다.
-* 단순히 기울임꼴 스타일이 필요하다면 CSS의 `font-style`을 사용
-* `<i>`요소에 적합한 텍스트인지 고려
-  * `<em>`: 강세 표현
-  * `<strong>`: 훨씬 강한 강조 표현
-  * `<mark>`: 관련성
-  * `<dfn>`: 정의 대상인 용어 표현
-
-## `<iframe>`: 인라인 프레임 요소
+### `<iframe>`: 인라인 프레임 요소
 
 중첩 브라우징 맥락을 제공하는 요소로
 
@@ -589,7 +332,7 @@ Tips:
 * width
   * 프레임의 너비. CSS 픽셀 단위. 기본값은 300
 
-## `<img>`:이미지 요소
+### `<img>`:이미지 요소
 
 * 문서에 이미지를 삽입하는 요소
 * src 속성은 필수적이며, 삽입할 이미지의 경로를 지정
@@ -685,7 +428,7 @@ Tips:
 * 이미지의 존재 여부나 이미지 파일의 이름을 나타내서는 안된다.
 * 파일 이름이 스크린 리더기에 읽힌다면 큰 혼란을 줄 수 있다.
 
-## `<input>`: 입력 요소
+### `<input>`: 입력 요소
 
 웹 기반 양식에서 사용자의 데이터를 받을 수 있는 대화형 컨트롤 생성
 
@@ -758,7 +501,7 @@ Tips:
 | [value](https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input#htmlattrdefvalue)                   | all                              | 양식 컨트롤의 현재 값. 이름/값 짝(name/value pair)의 일부로서 양식과 함께 전송된다     |
 | [width](https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input#htmlattrdefwidth)                   | image                            | 이미지의 `width` 속성과 같다                                         |
 
-## `<ins>`: 추가된 텍스트 요소
+### `<ins>`: 추가된 텍스트 요소
 
 문서에 추가된 텍스트의 범위를 표시
 
@@ -804,43 +547,9 @@ ins::after {
 }
 ```
 
-## `<kbd>`: 키보드 입력 요소
 
-키보드 입력, 음성 입력 등 임의의 장치를 사용한 사용자의 입력 표시
 
-관례에 따라 사용자 에이전트의 고정폭 글꼴로 표시
-
-```html
-<p>Please press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> to re-render an MDN page.</p>
-```
-
-Tips:
-
-* `<kbd>`요소를 다른 요소와 조합하여 더 자세한 상황을 표현 가능
-* `<kbd>`를 다른 `<kbd>`안에 배치 -> 하나의 입력안의 작은 부분, 실제 타이핑 키를 하나씩 표현
-* ```html
-  <p>새로운 문서는 키보드 단축키
-  <kbd><kbd>Ctrl</kbd>+<kbd>N</kbd></kbd>으로 만들 수 있습니다.</p>
-  ```
-* `<kbd>`를 `<samp>`안에 배치 -> 시스템이 에코로써 다시 출력한 사용자 입력을 표현
-* ```html
-  <p>구문 오류가 발생하면, 오류 원인을 찾을 수 있도록
-  입력받은 명령을 다시 출력합니다.</p>
-  <blockquote>
-    <samp><kbd>custom-git ad my-new-file.cpp</kbd></samp>
-  </blockquote>
-  ```
-* `<samp>`를 `<kbd>`안에 배치 -> 화면에 표시된 메뉴 이름, 메뉴 항목, 버튼 이름 등 시스템이 출력한 텍스트를 기반으로 한 입력 표현
-* ```html
-  <p>새로운 파일을 생성하려면, <kbd>
-  <kbd><samp>파일</samp></kbd>⇒<kbd><samp>새 문서</samp></kbd>
-  </kbd> 메뉴를 선택하세요.
-  
-  <p>파일의 이름을 입력한 후, <kbd><samp>확인</samp></kbd>을
-  누르는 걸 잊지 마세요.</p>
-  ```
-
-## `<label>`: 사용자 인터페이스 항목 설명 요소
+### `<label>`: 사용자 인터페이스 항목 설명 요소
 
 ```html
 <div class="preference">
@@ -853,7 +562,7 @@ Tips:
 
 화면 리더기는 label을 통해 사용자가 입력해야 하는 것이 무엇인지 쉽게 알릴 수 있다.
 
-## `<map>`, `<area>`: 이미지 맵 정의 요소, 핫스팟 영역 정의 요소
+### `<map>`, `<area>`: 이미지 맵 정의 요소, 핫스팟 영역 정의 요소
 
 `<map>`은 `<area>`요소와 함께 이미지 맵(클릭 가능한 링크 영역)을 정의
 
@@ -883,50 +592,9 @@ Tips:
   * 각각의 name은 문서 내의 모든 `<map>`에서 유일해야 한다.
   * `id`값이 존재하는 경우 `name`과 일치해야 한다.
 
-## `<mark>`: 하이라이트 요소
 
-현재 맥락과 연관된 중요한 부분을 표시
 
-```html
-<p>Several species of <mark>salamander</mark> inhabit the temperate rainforest of the Pacific Northwest.</p>
-```
-
-Tips:
-
-일반적인 `<mark>`의 사용 방법
-
-* 인용문 등에서 중요한 부분을 형광펜 칠하듯이 강조 표시하는 데 사용
-* 문서 컨텐츠에서 사용자의 현재 행동과 관련 있는 부분을 나타낼 때 사용
-* `<mark>`연관성을 가진 부분에, `<strong>`은 중요도를 가진 부분에 사용
-
-접근성
-
-대부분의 리더기에서는 `<mark>`요소를 표현하지 않는다.
-
-CSS 속성과 요소를 이용해 시작과 끝 부분을 알릴 수 있다.
-
-```css
-mark::before,
-mark::after {
-  clip-path: inset(100%);
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-mark::before {
-  content: " [강조 시작] ";
-}
-
-mark::after {
-  content: " [강조 끝] ";
-}
-```
-
-## `<meter>`: 백분율 요소
+### `<meter>`: 백분율 요소
 
 특정 범위 내에서 스칼라 값이 어느 정도인지를 표시하는데 사용
 
@@ -972,7 +640,7 @@ mark::after {
   * `<meter>`와 연결할 `<form>` 요소의 id값.
   * 지정하지 않아도 조상중에 `<form>`이 있으면 해당 `<form>`과 연결
 
-## `<noscript>`:노스크립트 요소
+### `<noscript>`:노스크립트 요소
 
 페이지의 스크립트 유형을 지원하지 않거나, 브라우저가 스크립트를 비활성화한 경우 보여줄 HTML 구획을 정의
 
@@ -986,7 +654,7 @@ mark::after {
 
 자바스크립트를 부득이하게 못 사용하는 사용자에게 html 요소를 이용해 대체 제공?
 
-## `<object>`: 외부 리소스 요소
+### `<object>`: 외부 리소스 요소
 
 이미지, 중첩된 브라우저 컨텍스트, 플러그인에 의해 다뤄질 수 있는 리소스 등을 나타낸다.
 
@@ -1017,7 +685,7 @@ mark::after {
 * width
   * 표시될 리소스의 너비. CSS 픽셀 단위
 
-## `<output>`: 출력 요소
+### `<output>`: 출력 요소
 
 웹 사이트나 웹에서 계산 결과나 사용자 행동 결과를 넣을 수 있는 컨테이너 요소
 
@@ -1046,7 +714,7 @@ mark::after {
 * 많은 브라우저가 `<output>`을 마치 `aria-live` 속성이 존재하는 것처럼 구현
 * 따라서 접근성 기술은 포커스가 바뀌지 않더라도 `<output>`내부의 UI 상호작용 결과를 표현
 
-## `<picture>`: 사진 요소
+### `<picture>`: 사진 요소
 
 0개 이상의 `<source>`요소를 포함하고 한 개의 `<img>`요소를 대안으로서 포함하는 사진 요소
 
@@ -1071,7 +739,7 @@ mark::after {
 * 특정 형식 이미지 지원 불가시 대체 이미지 제공
 * 다양한 뷰포트에 적절한 이미지를 불러 옴으로써 불러오는 시간과 대역폭을 절약
 
-## `<progress>`: 진행 표시줄 요소
+### `<progress>`: 진행 표시줄 요소
 
 어느 작업이 진행된 정도를 시각적으로 표시
 
@@ -1092,90 +760,13 @@ mark::after {
   * max 지정시, 0\~max의 값 범위내
   * max 지정안했을 경우, 0\~1범위내
 
-## `<q>`: 인라인 인용문 요소
 
-둘러싼 텍스트가 짧은 인용문인것을 표현
 
-대부분의 브라우저에서는 앞 뒤에 따옴표를 붙여 표현
 
-짧은 인용문에 유용하며, 긴 인용문에서는 `<blockquote>`를 사용
 
-```html
-<p>Mozilla 재단의 웹사이트에 따르면,
-  <q
-  cite="https://www.mozilla.org/en-US/about/history/details/">Firefox 1.0
-  은 2004년 처음 공개되어 큰 성공을 거두었습니다.</q></p>
-```
 
-속성
 
-* cite
-  * 인용문의 출처나 메시지를 가리키는 url
-
-## `<ruby>`: 루비 주석
-
-동아시아 문자의 발음 표기용 주석
-
-```html
-<ruby>
-  漢 <rp>(</rp><rt>Kan</rt><rp>)</rp>
-  字 <rp>(</rp><rt>ji</rt><rp>)</rp>
-</ruby>
-<ruby>
-明日 <rp>(</rp><rt>Ashita</rt><rp>)</rp>
-</ruby>
-```
-
-## `<s>`: 취소선 요소
-
-글자에 취소선(가로지르는 가로선)을 그린다.
-
-더이상 관계없거나 정확하지 않은 부분을 표시할 때 사용
-
-```html
-<p><s>There will be a few tickets available at the box office tonight.</s></p>
-
-<p>SOLD OUT!</p>
-```
-
-접근성
-
-대부분의 스크린 리더기는 `<s>`의 존재를 표현하지 않는다.
-
-css를 이용해 요소의 시작 부분과 끝 부분을 알릴 수 있다.
-
-```css
-s::before,
-s::after {
-  clip-path: inset(100%);
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-s::before {
-  content: " [취소선 시작] ";
-}
-
-s::after {
-  content: " [취소선 끝] ";
-}
-```
-
-## `<samp>`: 출력 예시 요소
-
-컴퓨터 프로그램 출력의 예시를 나타낸다.
-
-```html
-<p>I was trying to boot my computer, but I got this hilarious message:</p>
-
-<p><samp>Keyboard not found <br>Press F1 to continue</samp></p>
-```
-
-## `<script>`: 스크립트 요소
+### `<script>`: 스크립트 요소
 
 데이터와 실행 가능한 코드를 문서에 포함시킬 때 사용
 
@@ -1228,7 +819,7 @@ s::after {
   * 다른 모든 값
     * 내장 콘텐츠를 브라우저가 처리하지 않을 데이터 블록으로 간주
 
-## `<select>`: 옵션 메뉴 컨트롤
+### `<select>`: 옵션 메뉴 컨트롤
 
 ```html
 <label>Please choose one or more pets:
@@ -1275,79 +866,17 @@ s::after {
   * `<select>`를 스크롤 가능한 목록 상자로 표현할 때 목록에서 한 번에 볼 수 있는 옵션 줄의 수
   * 기본값 0
 
-## `<slot>`: 슬롯 요소
+### `<slot>`: 슬롯 요소
 
 웹 컴포넌트 내부의 플레이스홀더
 
-## `<small>`: 덧붙임 글 요소
 
-덧붙이는 글, 저작권, 법률 표기등의 추가적은 작은 텍스트 표현
 
-콘텐츠를 한 사이즈 작은 글꼴로 표시
 
-```html
-<p>MDN Web Docs is a learning platform for Web technologies and the software that powers the Web.</p>
 
-<hr>
+### `<svg>`: 벡터 이미지 요소
 
-<p><small>The content is licensed under a Creative Commons Attribution-ShareAlike 2.5 Generic License.</small></p>
-```
-
-## `<span>`: 인라인 컨테이너
-
-구문 콘텐츠를 위한 인라인 컨테이너.
-
-본질적으로 아무것도 나타내지 않는다.
-
-적절한 의미를 가진 다른 요소가 없을 경우에만 사용해야 한다.
-
-```
-<p><span>Some text</span></p>
-```
-
-## `<strong>`: 높은 중요도 요소
-
-중대하거나 긴급한 컨텐츠 표현
-
-보통 브라우저들은 굵은 글씨로 표현
-
-```
-<p>... the most important rule, the rule you can never forget, no matter how much he cries, no matter how much he begs: <strong>never feed him after midnight</strong>.</p>
-```
-
-## `<sub>`: 아래 첨자 요소
-
-활자 배치를 아래 첨자로 해야 하는 인라인 텍스트 지정
-
-```
-<p>Almost every developer's favorite molecule is
-C<sub>8</sub>H<sub>10</sub>N<sub>4</sub>O<sub>2</sub>, also known as "caffeine."</p>
-```
-
-Tips:
-
-* 이 요소는 타이포그래피적으로 이유가 있을 경우에만 사용. 각주, 변수, 화학식 등
-* 단순히 작은 글씨를 아래에 쓰기 위해 사용해서는 안된다.
-* 이를 경우 대안으로 CSS의 `vertical-align: sub`, `vertical-align: -25%` 등이 있다.
-
-## `<sup>`: 위 첨자 요소
-
-활자 배치를 위 첨자로 해야 하는 인라인 텍스트 지정
-
-```html
-<p>The <b>Pythagorean theorem</b> is often expressed as the following equation:</p>
-<p><var>a<sup>2</sup></var> + <var>b<sup>2</sup></var> = <var>c<sup>2</sup></var></p>
-```
-
-Tips:
-
-* 이 요소는 타이포그래피적으로 이유가 있을 경우에만 사용. 거듭제곱, 서수 표현 등
-* 단순히 작은 글씨를 아래에 쓰기 위해 사용해서는 안된다.
-* 이를 경우 대안으로 CSS의 `vertical-align: super`, `vertical-align: 50%` 등이 있다.
-
-## `<svg>`: 벡터 이미지 요소
-
-## `<template>`: 콘텐츠 템플릿 요소
+### `<template>`: 콘텐츠 템플릿 요소
 
 * 페이지를 불러온 순간 바로 그리지는 않지만, 이후 JavaScript를 통해 인스턴스를 생성할 수 있는 HTML 코드를 담을 방법을 제공.
 * 템플릿은 콘텐츠 조각을 나중에 사용하기 위해 담아놓는 컨테이너
@@ -1404,7 +933,7 @@ if ('content' in document.createElement('template')) {
 }
 ```
 
-## `<textarea>`: 멀티라인 컨트롤
+### `<textarea>`: 멀티라인 컨트롤
 
 여러 줄의 텍스트를 입력할 수 있는 컨트롤
 
@@ -1481,84 +1010,11 @@ It was a dark and stormy night...
 textarea { resize: none;}
 ```
 
-## `<time>`: 시간 요소
 
-시간의 특정 지점이나 구간을 나타낸다.
 
-`datetime` 속성을 지정해 보다 적절하게 검색 결과나 특정 기능을 구현 시 사용
 
-```html
-<p>The Cure will be celebrating their 40th anniversary on <time datetime="2018-07-07">July 7</time> in London's Hyde Park.</p>
-```
 
-Tips:
-
-* 복잡한 계산 문제로 인해,그레고리력 도입 이전 시간을 나타낼 때 사용하면 안된다.
-* `datetitme`속성에서 적절한 형식을 선택해서 지정해야 하며,
-* `datetime`이 없는 경우 어떠한 자식 요소도 있으면 안되며,
-* 요소의 텍스트 콘텐츠를 `datetime`속성 값으로 간주
-
-```
-유효한 연도 문자열
-2011
-유효한 연-월 문자열
-2011-11
-유효한 연-월-일 문자열
-2011-11-18
-유효한 월-일 문자열
-11-18
-유효한 주차 문자열
-2011-W47
-유효한 시간 문자열
-14:54
-14:54:39
-14:54:39.929
-유효한 현지 날짜 및 시간 문자열
-2011-11-18T14:54:39.929
-2011-11-18 14:54:39.929
-유효한 국제 날짜 및 시간 문자열
-2011-11-18T14:54:39.929Z
-2011-11-18T14:54:39.929-0400
-2011-11-18T14:54:39.929-04:00
-2011-11-18 14:54:39.929Z
-2011-11-18 14:54:39.929-0400
-2011-11-18 14:54:39.929-04:00
-유효한 기간 문자열
-PT4H18M3S
-```
-
-## `<u>`: 밑줄 요소
-
-보통 밑줄로 표시
-
-```html
-<p>You could use this element to highlight <u>speling</u> mistakes, so the writer can <u>corect</u> them.</p>
-<p>맞춤법을 틀리면 <u class="spelling">않돼요</u>.</p>
-```
-
-사용처
-
-* 철자 오류 강조
-* 중국어의 고유명사 표시
-
-밑줄만을 위해 사용하거나, 책 제목 등을 강조해서는 안된다.
-
-## `<var>`: 변수 요소
-
-수학 표현이나 프로그래밍에서의 변수 이름을 나타낸다.
-
-보통 기울임꼴로 표시
-
-```html
-<p>The volume of a box is <var>l</var> × <var>w</var> × <var>h</var>, where <var>l</var> represents the length, <var>w</var> the width and <var>h</var> the height of the box.</p>
-```
-
-Tips:
-
-* 함께 자주 사용하는 요소
-  * `<code>`, `<kbd>`, `<smap>`
-
-## `<video>`: 비디오 요소
+### `<video>`: 비디오 요소
 
 비디오 플레이백을 지원하는 미디어 플레이어를 문서에 삽입
 
@@ -1609,25 +1065,9 @@ Tips:
 * width
   * 비디오의 출력 너비. CSS 픽셀 단위
 
-## `<wbr>`: 강제 줄바꿈 요소
 
-현재 요소의 줄 바꿈 규칙을 무시하고 브라우저가 줄을 바꿀 수 있는 위치를 나타낸다.
 
-```html
-<div id="example-paragraphs">
-    <p>Fernstraßenbauprivatfinanzierungsgesetz</p>
-    <p>Fernstraßen<wbr>bau<wbr>privat<wbr>finanzierungs<wbr>gesetz</p>
-    <p>Fernstraßen&shy;bau&shy;privat&shy;finanzierungs&shy;gesetz</p>
-</div>
-```
-
-UTF-8인코딩을 사용한 페이지의 `<wbr>`은 bidi 정렬 영향을 받지 않는다.
-
-```
-<div dir=rtl>123,<wbr>456</div> => 123,456
-```
-
-## 두 요소의 차이점
+### 두 요소의 차이점
 
 * 콘텐츠 모델: 블록 요소는 인라인 요소 혹은 다른 블록 요소를 포함할 수 있다
 * 기본 서식: 기본적으로 블록 요소는 새로운 줄에서 시작, 인라인 요소는 줄의 어느 곳에서든 시작 할 수 있다.
