@@ -1,5 +1,6 @@
 # 💻 Computer Science
 
+
 ### 컴퓨터의 구성
 
 ```mermaid
@@ -14,34 +15,31 @@ flowchart LR
     id4(핵심 부품) --> id8(입출력장치)
 ```
 
+
 ## Computer System
 
-- [ ] CPU (ALU, CU, Register)
-- [ ] Instruction cycle (Fetch, Decode, Execute)
-- [ ] Memory (RAM, Cache Memory) and Memory hierarchy
-- [ ] Storage
-- [ ] Input/Output Devices
-- [ ] System Bus
-- [ ] Data-representation (Binary, Octal, Hexadecimal)
-- [ ] Character Encodings (Unicode, ASCII)
-- [ ] Von Neumann architecture
-- [ ] Pipelining
-- [ ] Concurrency and Parallelism
-- [ ] CPU Interrupts
+- [x] [CPU (ALU, CU, Register)](./computer-system/cpu.md)
+- [ ] [Memory (RAM, Cache Memory) and Memory hierarchy](./computer-system/memory.md)
+- [ ] [Input/Output Devices](./computer-system/io-devices.md)
+- [ ] [Bus](./computer-system/bus.md)
+- [ ] [Data-representation (Binary, Octal, Hexadecimal)](./computer-system/data-representation.md)
+- [ ] [Character Encodings (Unicode, ASCII)](./computer-system/character-encodings.md)
+- [ ] [Von Neumann architecture](./computer-system/von-neumann-architecture.md)
+- [ ] [Pipelining](./computer-system/pipelining.md)
+- [ ] [Concurrency and Parallelism](./computer-system/concurrency-and-parallelism.md)
+- [ ] [CPU Interrupts](./computer-system/cpu-interrupts.md)
 - [ ] Scheduling Algorithms
-
 
 
 ## Operating System
 
 - [ ] Process vs Thread
 - [ ] Process Management
-- [ ] Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)
+- [ ] [Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)](./operating-system/memory-management.md)
 - [ ] Synchronization (Semaphoresm, Mutexes, Spinlocks)
 - [ ] I/O Management
 - [ ] File System(directory structure, permissions)
 - [ ] Basic Linux Commands
-
 
 
 ## Data Structures
@@ -57,7 +55,6 @@ flowchart LR
   - [ ] graph
 
 
-
 ## Algorithms
 
 - [ ] Complexity analysis and Big-O notation
@@ -67,7 +64,6 @@ flowchart LR
 - [ ] Divide and conquer algorithms
 - [ ] Backtracking and Brute Force
 - [ ] Hashing and set/map operations
-
 
 
 ## Database
@@ -85,7 +81,6 @@ flowchart LR
 - [ ] Distributed database
 
 
-
 ## Networking
 
 - [ ] OSI Model
@@ -98,7 +93,6 @@ flowchart LR
 - [ ] Firewall
 
 
-
 ## Security
 
 - [ ] Encryption (Symmetric-key cryptography, Public-key cryptography)
@@ -107,7 +101,6 @@ flowchart LR
 - [ ] encryption vulnerabilities
 - [ ] Integrity and Confidentiality
 - [ ] OWASP Top 10
-
 
 
 ## Compiler
