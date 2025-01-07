@@ -19,10 +19,11 @@ flowchart LR
 ## Computer System
 
 - [x] [CPU (ALU, CU, Register)](./computer-system/cpu.md)
-- [ ] [Memory (RAM, Cache Memory) and Memory hierarchy](./computer-system/memory.md)
-- [ ] [Input/Output Devices](./computer-system/io-devices.md)
-- [ ] [Bus](./computer-system/bus.md)
-- [ ] [Data-representation (Binary, Octal, Hexadecimal)](./computer-system/data-representation.md)
+- [x] [Memory (RAM, Cache Memory) and Memory hierarchy](./computer-system/memory.md)
+- [x] [Input/Output Devices](./computer-system/io-devices.md)
+- [x] [Bus](./computer-system/bus.md)
+- [x] [Data-representation (Binary, Octal, Hexadecimal)](./computer-system/data-representation.md)
+- [ ] [Data Types (Integer, Floating Point, Fixed Point)](./computer-system/data-types.md)
 - [ ] [Character Encodings (Unicode, ASCII)](./computer-system/character-encodings.md)
 - [ ] [Von Neumann architecture](./computer-system/von-neumann-architecture.md)
 - [ ] [Pipelining](./computer-system/pipelining.md)
