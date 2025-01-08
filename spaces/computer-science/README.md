@@ -23,17 +23,15 @@ flowchart LR
 - [x] [Input/Output Devices](./computer-system/io-devices.md)
 - [x] [Bus](./computer-system/bus.md)
 - [x] [Data-representation (Binary, Octal, Hexadecimal)](./computer-system/data-representation.md)
-- [ ] [Data Types (Integer, Floating Point, Fixed Point)](./computer-system/data-types.md)
-- [ ] [Character Encodings (Unicode, ASCII)](./computer-system/character-encodings.md)
-- [ ] [Von Neumann architecture](./computer-system/von-neumann-architecture.md)
-- [ ] [Pipelining](./computer-system/pipelining.md)
-- [ ] [Concurrency and Parallelism](./computer-system/concurrency-and-parallelism.md)
-- [ ] [CPU Interrupts](./computer-system/cpu-interrupts.md)
-- [ ] Scheduling Algorithms
+- [x] [Data Types (Integer, Floating Point, Fixed Point)](./computer-system/data-types.md)
+- [x] [Character Encodings (Unicode, ASCII)](./computer-system/character-encodings.md)
+- [x] [Concurrency and Parallelism](./computer-system/concurrency-and-parallelism.md)
 
 
 ## Operating System
 
+- [x] [Components of Operating System](./operating-system/components.md)
+- [x] [Kernel](./operating-system/kernel.md)
 - [ ] Process vs Thread
 - [ ] Process Management
 - [ ] [Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)](./operating-system/memory-management.md)
