@@ -32,13 +32,10 @@ flowchart LR
 
 - [x] [Components of Operating System](./operating-system/components.md)
 - [x] [Kernel](./operating-system/kernel.md)
-- [ ] Process vs Thread
-- [ ] Process Management
-- [ ] [Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)](./operating-system/memory-management.md)
-- [ ] Synchronization (Semaphoresm, Mutexes, Spinlocks)
-- [ ] I/O Management
-- [ ] File System(directory structure, permissions)
-- [ ] Basic Linux Commands
+- [x] [Process Management](./operating-system/process-management.md)
+- [x] [Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)](./operating-system/memory-management.md)
+- [x] [I/O Management](./operating-system/io-management.md)
+- [x] [File System(directory structure, permissions)](./operating-system/file-system.md)
 
 
 ## Data Structures
