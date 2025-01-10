@@ -53,6 +53,8 @@ flowchart LR
 
 ## Algorithms
 
+- [ ] Designing Algorithms
+  - [ ] [Recursion](./algorithms/recursion.md)
 - [ ] Complexity analysis and Big-O notation
 - [ ] Sorting Algorithms (Bubble, Insert, Select, Quick, Merge)
 - [ ] Traversal algorithms (binary traversal, sequential traversal)
