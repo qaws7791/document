@@ -1,0 +1,207 @@
+# 재귀(Recursion)
+
+
+## 재귀란
+
+재귀는 **함수 자신을 호출하는 프로그래밍 기법**입니다.
+어떤 문제를 동일한 형태의 더 작은 문제로 나누어 해결할 때 유용하며, 반복문을 대신해 사용할 수 있습니다.
+
+
+### 재귀의 기본 요소
+
+1. **기본 조건(Base Case)**
+   - 재귀 호출을 중단하기 위한 조건.
+   - 기본 조건이 없다면 무한 루프가 발생합니다.
+
+2. **재귀 호출(Recursive Call)**
+   - 함수가 자기 자신을 호출하여 더 작은 문제를 해결하려는 단계.
+   - 문제를 점점 단순화하거나 작게 만들어야 합니다.
+
+
+### 재귀의 작동 방식
+
+- 함수 호출 스택(Call Stack)을 이용합니다.
+- 각 호출은 새로운 함수 호출 컨텍스트를 스택에 추가하며, 기본 조건을 만족하면 스택에서 하나씩 제거됩니다.
+
+
+## 재귀 기법
+
+
+### 분할 정복 전략(Divide and Conquer)
+
+복잡한 문제를 더 작은 부분의 문제로 나누고 모든 부분 문제를 해결하여 전체 문제를 해결하는 방법입니다.
+
+- **분할(Divide)**: 문제를 더 작은 부분 문제로 나눕니다.
+- **정복(Conquer)**: 부분 문제를 재귀적으로 해결합니다.
+
+
+### 재귀를 사용한 간단한 예제
+
+
+#### 1. **팩토리얼 계산**
+
+- 수 `n`의 팩토리얼은 `n! = n × (n-1)!`로 정의됩니다.
+- 기본 조건: `n === 0`일 때, `1` 반환.
+
+```javascript
+// n이 0일 때 -> 기본 조건
+// n이 0이 아닐 때 -> n * factorial(n - 1)
+function factorial(n) {
+  return n === 0 ? 1 : n * factorial(n - 1);
+}
+
+console.log(factorial(5)); // 출력: 120
+```
+
+**동작 과정** (입력 `5`):
+
+1. `factorial(5)` → `5 * factorial(4)`
+2. `factorial(4)` → `4 * factorial(3)`
+3. `factorial(3)` → `3 * factorial(2)`
+4. `factorial(2)` → `2 * factorial(1)`
+5. `factorial(1)` → `1 * factorial(0)`
+6. `factorial(0)` → `1` (기본 조건 도달)
+   결과: `5 * 4 * 3 * 2 * 1 = 120`
+
+
+#### 2. **피보나치 수열**
+
+- 피보나치 수열은 `F(n) = F(n-1) + F(n-2)`로 정의됩니다.
+- 기본 조건:
+  - `F(0) = 0`
+  - `F(1) = 1`
+
+```javascript
+function fibonacci(n) {
+  if (n === 0) return 0; // 기본 조건
+  if (n === 1) return 1; // 기본 조건
+  return fibonacci(n - 1) + fibonacci(n - 2); // 재귀 호출
+}
+
+console.log(fibonacci(6)); // 출력: 8
+```
+
+**동작 과정** (입력 `6`):
+
+- `fibonacci(6)` → `fibonacci(5) + fibonacci(4)`
+- `fibonacci(5)` → `fibonacci(4) + fibonacci(3)`
+- 반복...
+
+
+### 재귀 설계 시 주의점
+
+1. 기본 조건 설정
+   - 기본 조건이 명확하지 않으면 무한 호출로 스택 오버플로우(Stack Overflow)가 발생합니다.
+
+2. 시간 복잡도
+   - 재귀 호출이 중복 계산을 포함하면 성능 저하가 발생할 수 있습니다(예: 피보나치 수열).
+   - **메모이제이션(Memoization)** 또는 **동적 계획법(Dynamic Programming)**을 적용해 중복 호출을 방지할 수 있습니다.
+
+
+#### 메모이제이션 예제
+
+```javascript
+function fibonacciMemo(n, memo = {}) {
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  if (memo[n]) return memo[n]; // 이미 계산된 값 반환
+  memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo); // 계산 후 저장
+  return memo[n];
+}
+
+console.log(fibonacciMemo(50)); // 출력: 12586269025 (빠름)
+```
+
+
+### 재귀를 활용한 실용적인 예제
+
+
+#### 1. **폴더 구조 탐색**
+
+- 재귀는 계층적인 데이터(예: 디렉토리 구조)를 탐색하는 데 유용합니다.
+
+```javascript
+const fileSystem = {
+  name: "root",
+  files: ["file1.txt", "file2.txt"],
+  folders: [
+    {
+      name: "subfolder1",
+      files: ["file3.txt"],
+      folders: []
+    },
+    {
+      name: "subfolder2",
+      files: [],
+      folders: [
+        {
+          name: "subsubfolder1",
+          files: ["file4.txt"],
+          folders: []
+        }
+      ]
+    }
+  ]
+};
+
+function printFileSystem(folder, indent = 0) {
+  console.log(" ".repeat(indent) + folder.name); // 현재 폴더 이름 출력
+  folder.files.forEach(file => console.log(" ".repeat(indent + 2) + file)); // 파일 출력
+  folder.folders.forEach(subfolder => printFileSystem(subfolder, indent + 2)); // 하위 폴더 탐색
+}
+
+printFileSystem(fileSystem);
+```
+
+**출력**:
+
+```markdown
+root
+  file1.txt
+  file2.txt
+  subfolder1
+    file3.txt
+  subfolder2
+    subsubfolder1
+      file4.txt
+```
+
+
+#### 2. **DFS(깊이 우선 탐색)**
+
+- 그래프 탐색에서 자주 사용됩니다.
+
+```javascript
+const graph = {
+  A: ["B", "C"],
+  B: ["D", "E"],
+  C: ["F"],
+  D: [],
+  E: ["F"],
+  F: []
+};
+
+function dfs(node, visited = new Set()) {
+  if (visited.has(node)) return; // 이미 방문한 노드이면 종료
+  console.log(node); // 노드 출력
+  visited.add(node); // 방문 표시
+  graph[node].forEach(neighbor => dfs(neighbor, visited)); // 이웃 노드 탐색
+}
+
+dfs("A"); // 출력: A B D E F C
+```
+
+
+### 재귀의 장단점
+
+
+#### 장점
+
+1. 코드가 간결하고 이해하기 쉬움.
+2. 트리, 그래프, 재귀적 수학 정의 등에서 직관적으로 문제 해결 가능.
+
+
+#### 단점
+
+1. 반복적으로 호출되면 스택 메모리 사용이 증가.
+2. 잘못된 설계 시 성능 저하 및 무한 루프 발생 가능.
