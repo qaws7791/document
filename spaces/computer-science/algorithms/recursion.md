@@ -35,6 +35,14 @@
 - **정복(Conquer)**: 부분 문제를 재귀적으로 해결합니다.
 
 
+### 백트래킹(Backtracking)
+
+모든 가능한 경우의 수를 탐색하면서 해를 찾는 방법입니다. 해를 찾을 때까지 가능한 모든 경로를 탐색하다가 해결책이 아닌 경우 되돌아와 다른 경로를 탐색합니다.
+
+- **탐색(Search)**: 가능한 모든 경로를 탐색합니다.
+- **되돌아가기(Backtrack)**: 해결책이 아닌 경우 이전 상태로 되돌아갑니다.
+
+
 ### 재귀를 사용한 간단한 예제
 
 
@@ -86,6 +94,25 @@ console.log(fibonacci(6)); // 출력: 8
 - `fibonacci(6)` → `fibonacci(5) + fibonacci(4)`
 - `fibonacci(5)` → `fibonacci(4) + fibonacci(3)`
 - 반복...
+
+
+#### 3. 하노이의 탑
+
+- 하노이의 탑은 3개의 기둥과 원판으로 이루어진 퍼즐입니다.
+- 첫 번째 기둥에는 크기가 점점 커지는 원판이 쌓여 있습니다.
+- 다른 두 기둥은 비어 있습니다.
+- 한 번에 하나의 원판만 옮길 수 있으며, 큰 원판이 작은 원판 위에 쌓이지 않습니다.
+- 최종적으로 모든 원판을 세 번째 기둥으로 옮기는 문제입니다.
+
+```javascript
+function hanoi(disks, origin, extra, destination) {
+  if (disks > 0) {
+    hanoi(disks - 1, origin, destination, extra); // 1. n-1개 원판을 extra로 이동
+    console.log(`Move disk ${disks} from ${origin} to ${destination}`); // 2. n번째 원판을 destination으로 이동
+    hanoi(disks - 1, extra, origin, destination); // 3. n-1개 원판을 destination로 이동
+  }
+}
+```
 
 
 ### 재귀 설계 시 주의점
