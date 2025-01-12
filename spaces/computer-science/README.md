@@ -54,7 +54,10 @@ flowchart LR
 ## Algorithms
 
 - [ ] Designing Algorithms
-  - [ ] [Recursion](./algorithms/recursion.md)
+  - [x] [Recursion](./algorithms/recursion.md)
+  - [x] [Dynamic Programming](./algorithms/dynamic-programming.md)
+  - [x] [Brute Force Search](./algorithms/brute-force-search.md)
+  - [x] [Greedy Algorithm](./algorithms/greedy-algorithm.md)
 - [ ] Complexity analysis and Big-O notation
 - [ ] Sorting Algorithms (Bubble, Insert, Select, Quick, Merge)
 - [ ] Traversal algorithms (binary traversal, sequential traversal)

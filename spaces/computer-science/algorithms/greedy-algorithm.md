@@ -1,0 +1,229 @@
+# 탐욕 알고리즘 (Greedy Algorithm)
+
+## 탐욕 알고리즘이란
+
+탐욕 알고리즘은 **현재 단계에서 가장 최선의 선택(최적의 선택)**을 반복적으로 수행하여 문제를 해결하는 방법입니다.
+이 접근법은 문제를 국소적으로 최적화하면서 전체 최적해를 찾으려고 시도합니다.
+
+
+## 탐욕 알고리즘 특징
+
+1. **현재 최선의 선택**:
+   - 각 단계에서 **가장 최적인 선택**을 하여 후퇴하지 않음.
+   - 현재 단계에서의 최선은 충분히 앞을 내다보지 않기 때문에 항상 최선의 선택인 것은 아님.
+2. **국소 최적 -> 전체 최적**:
+   - 국소적인 최적해가 전체적인 최적해로 이어질 수 있는 문제에서 유용.
+3. **빠른 실행 시간**:
+   - 대부분의 경우 **O(n)** 또는 **O(n log n)**로 효율적.
+4. **단순함**:
+   - 문제를 직관적으로 해결하며 구현이 간단함.
+
+### 적용 가능한 문제의 조건
+
+탐욕 알고리즘이 최적해를 보장하려면 다음 조건을 만족해야 합니다:
+
+1. **Greedy Choice Property (탐욕적 선택 속성)**:
+   - 국소적으로 최적의 선택을 했을 때, 이를 기반으로 문제를 최적화할 수 있어야 함.
+2. **Optimal Substructure (최적 부분 구조)**:
+   - 문제의 최적해가 하위 문제의 최적해를 포함해야 함.
+
+### 장점
+
+- 구현이 간단하며 이해하기 쉬움.
+- 빠른 실행 시간으로 효율적.
+- 최적화와 관련된 많은 문제에서 유용하게 적용 가능.
+
+### 단점
+
+- 모든 문제에서 최적해를 보장하지 않음.
+- 탐욕 알고리즘이 실패하면 다른 알고리즘(동적 계획법 등)을 고려해야 함.
+
+
+## 예제 1: 동전 거스름돈 문제
+
+
+### 문제 설명
+
+특정 금액을 거슬러 주기 위해 필요한 최소 동전 개수를 구합니다.
+단, 동전은 {500원, 100원, 50원, 10원}으로 구성됩니다.
+
+- 항상 가장 큰 단위의 동전을 먼저 사용.
+- 시간 복잡도: **O(n)** (동전 종류의 수에 비례).
+
+```javascript
+function minCoins(amount, coins) {
+  coins.sort((a, b) => b - a); // 동전을 큰 순서대로 정렬
+  let count = 0;
+
+  for (const coin of coins) {
+    const numCoins = Math.floor(amount / coin);
+    count += numCoins; // 해당 동전의 개수 추가
+    amount -= numCoins * coin; // 남은 금액 갱신
+
+    if (amount === 0) break; // 거슬러 줄 금액이 없으면 종료
+  }
+
+  return count;
+}
+
+console.log(minCoins(1260, [500, 100, 50, 10])); // 출력: 6
+```
+
+
+
+
+## 예제 2: 활동 선택 문제 (Activity Selection Problem)
+
+
+### 문제 설명
+
+여러 개의 활동이 주어졌을 때, 각 활동은 시작 시간과 종료 시간이 있습니다.
+서로 겹치지 않으면서 최대한 많은 활동을 선택하려면 어떻게 해야 할까요?
+
+- 종료 시간이 빠른 활동을 우선 선택.
+- 시간 복잡도: **O(n log n)** (정렬 + 탐색).
+
+```javascript
+function activitySelection(activities) {
+  // 종료 시간을 기준으로 정렬
+  activities.sort((a, b) => a[1] - b[1]);
+
+  let selected = [];
+  let lastEndTime = 0;
+
+  for (const [start, end] of activities) {
+    if (start >= lastEndTime) {
+      selected.push([start, end]);
+      lastEndTime = end; // 마지막 선택된 활동의 종료 시간 갱신
+    }
+  }
+
+  return selected;
+}
+
+// [시작 시간, 종료 시간] 배열
+const activities = [
+  [1, 4],
+  [3, 5],
+  [0, 6],
+  [5, 7],
+  [8, 9],
+  [5, 9],
+];
+
+console.log(activitySelection(activities));
+// 출력: [[1, 4], [5, 7], [8, 9]]
+```
+
+
+## 예제 3: Huffman Encoding
+
+
+### 문제 설명
+
+문자열의 각 문자 빈도수를 기반으로 최소 비용으로 압축하기 위해 **허프만 코딩(Huffman Coding)**을 사용합니다.
+
+- 빈도수가 낮은 문자부터 트리를 구성하여 압축.
+- 시간 복잡도: **O(n log n)** (정렬 + 트리 생성).
+
+```javascript
+class Node {
+  constructor(char, freq, left = null, right = null) {
+    this.char = char;
+    this.freq = freq;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+function huffmanCoding(frequencies) {
+  // 빈도수를 노드로 변환
+  const nodes = frequencies.map(([char, freq]) => new Node(char, freq));
+
+  while (nodes.length > 1) {
+    nodes.sort((a, b) => a.freq - b.freq); // 빈도수 기준 정렬
+
+    // 두 개의 최소 빈도수 노드 선택
+    const left = nodes.shift();
+    const right = nodes.shift();
+
+    // 새로운 부모 노드 생성
+    const newNode = new Node(null, left.freq + right.freq, left, right);
+    nodes.push(newNode);
+  }
+
+  const tree = nodes[0]; // 최종 트리
+
+  const codes = {};
+  function buildCodes(node, code = "") {
+    if (!node) return;
+
+    if (node.char) {
+      codes[node.char] = code; // 문자에 해당하는 코드 저장
+    }
+
+    buildCodes(node.left, code + "0");
+    buildCodes(node.right, code + "1");
+  }
+
+  buildCodes(tree);
+  return codes;
+}
+
+// [문자, 빈도수] 배열
+const frequencies = [
+  ["a", 5],
+  ["b", 9],
+  ["c", 12],
+  ["d", 13],
+  ["e", 16],
+  ["f", 45],
+];
+
+console.log(huffmanCoding(frequencies));
+// 출력: { f: '0', c: '100', d: '101', a: '1100', b: '1101', e: '111' }
+```
+
+
+
+
+## 예제 4: 배낭 문제 (Fractional Knapsack Problem)
+
+
+### 문제 설명
+
+각 물건의 무게와 가치가 주어질 때, 배낭의 용량을 초과하지 않으면서 최대 가치를 얻는 문제입니다.
+(물건은 쪼갤 수 있음)
+
+- 무게 당 가치를 기준으로 물건을 선택.
+- 시간 복잡도: **O(n log n)** (정렬 + 탐색).
+
+```javascript
+function fractionalKnapsack(items, capacity) {
+  // 무게 당 가치 기준으로 정렬
+  items.sort((a, b) => b.value / b.weight - a.value / a.weight);
+
+  let totalValue = 0;
+
+  for (const item of items) {
+    if (capacity >= item.weight) {
+      capacity -= item.weight;
+      totalValue += item.value;
+    } else {
+      totalValue += (item.value / item.weight) * capacity;
+      break; // 남은 용량이 없으므로 종료
+    }
+  }
+
+  return totalValue;
+}
+
+// [무게, 가치] 배열
+const items = [
+  { weight: 10, value: 60 },
+  { weight: 20, value: 100 },
+  { weight: 30, value: 120 },
+];
+
+console.log(fractionalKnapsack(items, 50)); // 출력: 240
+```
