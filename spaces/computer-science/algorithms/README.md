@@ -1,7 +1,4 @@
-# Algorithm
-
-
-
+# 알고리즘
 
 
 ## 사칙연산
@@ -13,7 +10,6 @@ a*b
 parseInt(a/b)
 a%b
 ```
-
 
 
 ### 조건문
@@ -28,7 +24,6 @@ else
 
 
 ```
-
 
 
 ## 반복문
@@ -46,7 +41,6 @@ while (조건문) {
 ```
 
 
-
 ## 형태 변환
 
 - Int -> String
@@ -55,7 +49,6 @@ while (조건문) {
   - `Number(s)`
   - `parseInt(s)`
   - `+s`
-
 
 
 ## 숫자 변환
@@ -69,9 +62,7 @@ console.log(num.toFixed(2))
 ```
 
 
-
 ## 배열
-
 
 
 ### 배열 초기화
@@ -82,13 +73,11 @@ const arr = new Array(10).fill(0)
 ```
 
 
-
 ### 2차원 배열 만들기
 
 ```javascript
 const array2d = (n) => Array.from(Array(n), () => new Array(n))
 ```
-
 
 
 ## Set 자료형
@@ -112,11 +101,7 @@ for (const item of set) console.log(item)
 ```
 
 
-
-
-
 ## 입출력
-
 
 
 ### 파일 입력받기
@@ -136,7 +121,6 @@ console.log(input)
 ```
 
 
-
 ### 백준 입력받기
 
 ```javascript
@@ -144,7 +128,6 @@ const fs = require('fs')
 const input = fs.readFileSync('/dev/stdin').toString().split('\n')
 const n = Number(input[0])
 ```
-
 
 
 ```bash
@@ -157,7 +140,6 @@ const fs = require('fs')
 const input = fs.readFileSync('/dev/stdin').toString().split('\n')
 const [a,b,c] = input.split(' ').map(Number)
 ```
-
 
 
 ### 터미널에서 입력받기
@@ -182,7 +164,6 @@ rl.on('line', (input) => {
 ```
 
 
-
 ### 출력 시간 단축하기
 
 때로는 출력을 한 번에 하는 것이 더 빠를 수도 있다
@@ -191,7 +172,7 @@ rl.on('line', (input) => {
 
 ```javascript
 for(let i = 0; i < 100; i++) {
-	console.log(i)
+ console.log(i)
 }
 ```
 
@@ -199,7 +180,7 @@ for(let i = 0; i < 100; i++) {
 // 문자열 이용. 시간은 배열에 비해 느리지만 메모리를 덜 사용
 let answer = '';
 for(let i = 0; i < 100; i++) {
-	answer+= i + '\n'
+ answer+= i + '\n'
 }
 console.log(answer)
 ```
@@ -208,11 +189,10 @@ console.log(answer)
 // 배열 이용. 메모리는 더 사용하지만 시간은 빠름
 const answer = [];
 for(let i = 0; i < 100; i++) {
-	answer.push(i)
+ answer.push(i)
 }
 console.log(answer.join('\n'))
 ```
-
 
 
 ## Big-O 표기법(점근 표기법)
@@ -227,7 +207,6 @@ console.log(answer.join('\n'))
 - O(2^n) : 지수 - 지수적 증가는 n이 조금만 높아져도 매우 큰 값을 가지게 되므로 유의해야 한다
 
 
-
 ### 배열과 연결 리스트이 Big-O 비교
 
 |                  | 앞부분 삽입 | 뒤로 삽입 | 가운데 삽입 | 삭제           | 찾다   |
@@ -237,7 +216,6 @@ console.log(answer.join('\n'))
 | 이중 연결 리스트 | `O(1)`      | `O(1)`    | `O(n)`      | `O(1) or O(n)` | `O(n)` |
 
 
-
 ## 유용한 함수
 
 repeat: 문자열 반복
@@ -245,7 +223,6 @@ repeat: 문자열 반복
 ```javascript
 console.log("*".repeat(5)) // *****
 ```
-
 
 
 ## 팁
