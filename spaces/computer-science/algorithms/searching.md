@@ -1,0 +1,172 @@
+# 검색 (Searching)
+
+검색(Search)은 알고리즘 설계에서 데이터를 탐색하거나 특정 조건을 만족하는 데이터를 찾는 중요한 작업입니다. 검색 알고리즘은 데이터의 구조, 크기, 그리고 조건에 따라 다양하게 설계됩니다. 검색은 크게 **순차 검색**과 **이진 검색**을 포함하여 다양한 변형 알고리즘으로 확장됩니다.
+
+- 찾아야 할 데이터의 수에 따라 단일(single) 검색 또는 다중(many) 검색일 수 있습니다.
+- 데이터를 찾지 못할 경우 undefined 또는 여러 JavaScript의 메서드처럼 -1을 반환해야 합니다.
+- 여러 일치하는 데이터가 있을 때 처음 등장하는 위치나 마지막 위치를 찾고 싶을 수도 있습니다.
+- 데이터가 정렬된 상태인 경우, 정렬되지 않은 상태일 때보다 더 효율적으로 검색이 가능합니다.
+
+
+## 1. **순차 검색(Linear Search)**
+
+- **개념**: 데이터를 처음부터 끝까지 하나씩 순차적으로 탐색합니다. JavaScript의 `indexOf()` 메서드의 구현입니다.
+
+- 시간 복잡도: **O(n)**
+  
+- **특징**: 정렬되지 않은 데이터에서도 작동하며 간단하지만, 비효율적일 수 있습니다.
+
+```javascript
+function linearSearch(arr, key) {
+  const n = arr.length;
+  for (let i = 0; i < n; i++) {
+    if (arr[i] === target) {
+      return i; // 타겟의 인덱스 반환
+    }
+  }
+  return -1; // 타겟이 없을 경우
+}
+```
+
+
+### 센티넬 사용하기
+
+센티넬이란 검색할 데이터를 배열의 마지막에 추가하여 성능을 약간 향상시키는 기법입니다. 배열의 끝에 특정 값(센티넬)을 추가하며 검색을 수행하며 검색 도중 경계를 검사하는 것을 생략합니다.
+
+- **장점**: 시간 복잡도는 그대로 O(n)이지만, 반복문의 조건 검사를 줄여 검색 성능을 향상시킬 수 있습니다.
+- **단점**: 센티넬을 추가,제거하기 위해 배열을 조작하는 과정이 필요하며 성능 향상이 미미할 수 있습니다.
+
+```javascript
+function linearSearch(arr, target) {
+  const n = arr.length;
+  const last = arr[n - 1];
+  arr[n - 1] = target; // 센티넬 추가
+
+  let i = 0;
+  while (arr[i] !== target) {
+    i++;
+  }
+
+  arr[n - 1] = last; // 센티넬 제거
+
+  if (i < n - 1 || arr[n - 1] === target) {
+    return i; // 타겟의 인덱스 반환
+  }
+
+  return -1; // 타겟이 없을 경우
+}
+```
+
+
+## 2. 점프 검색 (Jump Search)
+
+정렬된 배열에서 일정한 간격으로 데이터를 비교하여 검색 범위를 줄여나가는 방식입니다. 이는 마치 책에서 특정 페이지를 찾기 위해 한번에 여러 페이지를 넘기고, 찾고자 하는 페이지에 가까워지면 한 페이지씩 넘기는 것과 유사합니다.
+
+- 정렬된 데이터에서만 사용 가능합니다.
+- 최대 점프 수: 단계 크기가 s이고 배열의 길이가 n일 때 최대 n/s 번의 큰 점프와 s개의 작은 점프가 필요합니다..
+- **시간 복잡도**: **O(√n)**
+
+```javascript
+function jumpSearch(arr, target) {
+  const n = arr.length;
+  const step = Math.floor(Math.sqrt(n));
+  let prev = 0;
+
+  // 단계적으로 범위 탐색
+  while (arr[Math.min(step, n) - 1] < target) {
+    prev = step;
+    step += Math.floor(Math.sqrt(n)) ;
+    if (prev >= n) return -1; // 타겟이 없을 경우
+  }
+
+  // 범위 내에서 선형 검색
+  for (let i = prev; i < Math.min(step, n); i++) {
+    if (arr[i] === target) return i;
+  }
+
+  return -1; // 타겟이 없을 경우
+}
+```
+
+
+## 3. **이진 검색(Binary Search)**
+
+분할 정복 알고리즘을 사용하여 정렬된 배열에서 중간 값을 기준으로 검색 범위를 반으로 줄여나가는 방식입니다. 이진 검색은 순차 검색보다 훨씬 빠른 속도로 데이터를 찾을 수 있습니다.
+
+- 정렬된 데이터에서만 사용 가능합니다.
+- **시간 복잡도**: **O(log⁡n)**
+
+```javascript
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right) {
+    const mid = (left + right) >> 1; // 중간 인덱스 계산
+
+    if (arr[mid] === target) {
+      return mid; // 타겟의 인덱스 반환
+    } else if (arr[mid] < target) {
+      left = mid + 1; // 오른쪽 탐색
+    } else {
+      right = mid - 1; // 왼쪽 탐색
+    }
+  }
+  return -1; // 타겟이 없을 경우
+}
+```
+
+
+## 4. 지수 검색(Exponential Search)
+
+지수 검색은 이진 검색을 보조하는 알고리즘으로, 배열의 크기를 2의 지수로 증가시키며 타겟 값을 찾는 방식입니다. 이진 검색과 유사하지만, 배열의 크기를 두 배씩 증가시키며 탐색 범위를 확장합니다.
+
+- 정렬된 데이터에서만 사용 가능합니다.
+- **시간 복잡도**: **O(log ⁡n)**
+
+```javascript
+function exponentialSearch(arr, target) {
+    const n = arr.length;
+    
+    let i = 1;
+    while (i < n && arr[i] < target) {
+        i <<= 1;
+    }
+    
+    return binarySearch(arr, target, i >> 1, Math.min(i, n - 1));
+}
+```
+
+
+## 5. 보간 검색(Interpolation Search)
+
+보간 검색은 데이터의 분포를 고려하여 위치할 가능성이 높은 인덱스를 계산하여 검색 범위를 줄이는 방식입니다.
+
+보간 공식: `pos = low + ((target - arr[low]) * (high - low) / (arr[high] - arr[low]))`
+설명: `low`와 `high` 사이의 데이터를 `target`과 비교하여 타겟이 위치할 가능성이 높은 인덱스를 계산합니다.
+
+- 정렬된 데이터에서만 사용 가능합니다.
+- 보간 공식을 사용하기 위해 데이터가 균등하게 분포되어 있어야 합니다.
+- 숫자 데이터 또는 숫자로 변환 가능한 데이터에 적합합니다.
+- **시간 복잡도**: **O(log(log n))** (균등하게 분포된 데이터)
+
+```javascript
+function interpolationSearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left <= right && target >= arr[left] && target <= arr[right]) {
+    const pos = left + Math.floor(((target - arr[left]) * (right - left)) / (arr[right] - arr[left]));
+
+    if (arr[pos] === target) {
+      return pos;
+    } else if (arr[pos] < target) {
+      left = pos + 1;
+    } else {
+      right = pos - 1;
+    }
+  }
+
+  return -1; // 타겟이 없을 경우
+}
+```
