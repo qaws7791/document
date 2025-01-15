@@ -41,11 +41,12 @@ flowchart LR
 ## Data Structures
 
 - [ ] Linear data
-  - [ ] array
+  - [ ] [List](./data-structures/list.md)  
+  - [ ] [Stack](./data-structures/stack.md)
   - [ ] queue
-  - [ ] stack
   - [ ] linked list
 - [ ] Non-linear
+  - [ ] [Set](./data-structures/set.md)
   - [ ] tree
   - [ ] hash table
   - [ ] graph
