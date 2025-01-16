@@ -16,14 +16,14 @@ flowchart LR
 
 ## Computer System
 
-* [x] [CPU (ALU, CU, Register)](undefined-1/cpu.md)
-* [x] [Memory (RAM, Cache Memory) and Memory hierarchy](undefined-1/memory.md)
-* [x] [Input/Output Devices](undefined-1/io-devices.md)
-* [x] [Bus](undefined-1/bus.md)
-* [x] [Data-representation (Binary, Octal, Hexadecimal)](undefined-1/data-representation.md)
-* [x] [Data Types (Integer, Floating Point, Fixed Point)](undefined-1/data-types.md)
-* [x] [Character Encodings (Unicode, ASCII)](undefined-1/character-encodings.md)
-* [x] [Concurrency and Parallelism](undefined-1/concurrency-and-parallelism.md)
+* [x] [CPU (ALU, CU, Register)](computer-system/cpu.md)
+* [x] [Memory (RAM, Cache Memory) and Memory hierarchy](computer-system/memory.md)
+* [x] [Input/Output Devices](computer-system/io-devices.md)
+* [x] [Bus](computer-system/bus.md)
+* [x] [Data-representation (Binary, Octal, Hexadecimal)](computer-system/data-representation.md)
+* [x] [Data Types (Integer, Floating Point, Fixed Point)](computer-system/data-types.md)
+* [x] [Character Encodings (Unicode, ASCII)](computer-system/character-encodings.md)
+* [x] [Concurrency and Parallelism](computer-system/concurrency-and-parallelism.md)
 
 ## Operating System
 
@@ -36,26 +36,26 @@ flowchart LR
 
 ## Data Structures
 
-* [ ] Linear data
-  * [ ] [List](undefined-2/list.md)
-  * [ ] [Stack](undefined-2/stack.md)
-  * [ ] queue
+* [x] Linear data
+  * [x] [List](data-structure/list.md)
+  * [x] [Stack](data-structure/stack.md)
+  * [x] Queue
   * [ ] linked list
 * [ ] Non-linear
-  * [ ] [Set](data-structures/set.md)
+  * [x] [Set](data-structures/set.md)
   * [ ] tree
   * [ ] hash table
   * [ ] graph
 
 ## Algorithms
 
-* [x] [Recursion](undefined/recursion.md)
-* [x] [Dynamic Programming](undefined/dynamic-programming.md)
-* [x] [Brute Force Search](undefined/brute-force-search.md)
-* [x] [Greedy Algorithm](undefined/greedy-algorithm.md)
-* [x] [Sorting](undefined/sorting.md)
-* [x] [Selecting](undefined/selecting.md)
-* [x] [Searching](undefined/searching.md)
+* [x] [Recursion](algorithms/recursion.md)
+* [x] [Dynamic Programming](algorithms/dynamic-programming.md)
+* [x] [Brute Force Search](algorithms/brute-force-search.md)
+* [x] [Greedy Algorithm](algorithms/greedy-algorithm.md)
+* [x] [Sorting](algorithms/sorting.md)
+* [x] [Selecting](algorithms/selecting.md)
+* [x] [Searching](algorithms/searching.md)
 
 ## Database
 
