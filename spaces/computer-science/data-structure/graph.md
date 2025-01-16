@@ -1,6 +1,6 @@
 # Graph
 
-![image-20240503141947782](../data-structures/assets/image-20240503141947782.png)
+![image-20240503141947782](./assets/image-20240503141947782.png)
 
 ```javascript
 class Graph {
