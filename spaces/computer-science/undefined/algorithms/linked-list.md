@@ -1,14 +1,12 @@
 # Linked list
 
-![image-20240501222322394](assets/image-20240501222322394.png)
+![image-20240501222322394](../../algorithms/assets/image-20240501222322394.png)
 
-
-
-- 내부적으로 Node라는 데이터 구조를 연결하여 사용한다
-- 동적 사이즈를 통해 배열을 쉽게 확장하거나 축소할 수 있다
-- 맨 앞이나 맨 뒤에 삽입, 삭제하는 것이 쉽다
-- 유연한 메모리 할당
-- 다른 데이터 구조들을 구현할 수 있다
+* 내부적으로 Node라는 데이터 구조를 연결하여 사용한다
+* 동적 사이즈를 통해 배열을 쉽게 확장하거나 축소할 수 있다
+* 맨 앞이나 맨 뒤에 삽입, 삭제하는 것이 쉽다
+* 유연한 메모리 할당
+* 다른 데이터 구조들을 구현할 수 있다
 
 ```javascript
 class Node {
@@ -115,10 +113,6 @@ class LinkedList {
 }
 ```
 
-
-
-
-
 ```javascript
 function findMiddle(list) {
   let slow = list.head;
@@ -134,4 +128,3 @@ function findMiddle(list) {
 }
 
 ```
-

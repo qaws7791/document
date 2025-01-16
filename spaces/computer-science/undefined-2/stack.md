@@ -2,33 +2,29 @@
 
 스택은 접시가 아래에서 부터 쌓이는 것 처럼 요소가 추가되고 제거되는 순서는 **후입선출(Last In First Out)** 방식에 따라 이루어진다. 배열이나 연결 리스트를 사용하여 쉽게 구현할 수 있다
 
-![image-20240501202303005](assets/image-20240501202303005.png)
-
+![image-20240501202303005](../data-structures/assets/image-20240501202303005.png)
 
 ## 스택의 기본 동작
 
-| **Operation** | **Signature**          | **Description**                              | Performance |
-| ------------- | ---------------------- | -------------------------------------------- | ----------- |
-| **Create**    | → S                    | 새로운 스택을 생성합니다.                    | O(1)        |
-| **Is Empty**  | S → boolean            | 스택이 비어있는지 확인합니다.                | O(1)        |
+| **Operation** | **Signature**          | **Description**           | Performance |
+| ------------- | ---------------------- | ------------------------- | ----------- |
+| **Create**    | → S                    | 새로운 스택을 생성합니다.            | O(1)        |
+| **Is Empty**  | S → boolean            | 스택이 비어있는지 확인합니다.          | O(1)        |
 | **Size**      | S → number             | 스택에 얼마나 많은 요소가 있는지 확인합니다. | O(1)        |
-| **Push**      | S × value → S          | 스택의 맨 위에 요소를 추가합니다.            | O(1)        |
-| **Pop**       | S → value \| undefined | 스택의 맨 위에서 값을 제거하고 반환합니다.   | O(1)        |
-| **Peek**      | S → value \| undefined | 스택의 맨 위에 있는 값을 확인합니다.         | O(1)        |
-
+| **Push**      | S × value → S          | 스택의 맨 위에 요소를 추가합니다.       | O(1)        |
+| **Pop**       | S → value \| undefined | 스택의 맨 위에서 값을 제거하고 반환합니다.  | O(1)        |
+| **Peek**      | S → value \| undefined | 스택의 맨 위에 있는 값을 확인합니다.     | O(1)        |
 
 ## 스택의 추가 동작
 
-| **Operation** | **Signature**       | **Description**                         | Performance |
-| ------------- | ------------------- | --------------------------------------- | ----------- |
-| **Clear**     | S → S               | 스택의 모든 요소를 제거합니다.          | O(1)        |
+| **Operation** | **Signature**       | **Description**        | Performance |
+| ------------- | ------------------- | ---------------------- | ----------- |
+| **Clear**     | S → S               | 스택의 모든 요소를 제거합니다.      | O(1)        |
 | **Contains**  | S × value → boolean | 특정 값이 스택에 존재하는지 확인합니다. | O(n)        |
-| **Copy**      | S → S               | 스택의 복사본을 생성합니다.             | O(n)        |
-| Reverse       | S → S               | 스택의 순서를 뒤집습니다.               | O(n)        |
-
+| **Copy**      | S → S               | 스택의 복사본을 생성합니다.        | O(n)        |
+| Reverse       | S → S               | 스택의 순서를 뒤집습니다.         | O(n)        |
 
 ## 스택의 구현 방법
-
 
 ### 배열(Array) 기반 구현
 
@@ -106,7 +102,6 @@ console.log("Reversed stack:", reversedStack.items); // Reversed stack: [20, 10]
 stack.clear();
 console.log("After clear, is empty?", stack.isEmpty()); // After clear, is empty? true
 ```
-
 
 ### 연결 리스트(Linked List) 기반 구현
 
