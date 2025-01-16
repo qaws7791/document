@@ -32,6 +32,17 @@
 | **Subset**    | S × S → boolean        | 한 집합이 다른 집합의 부분집합인지 확인합니다. |
 
 
+자바스크립트에서는 표준 내장 객체인 `Set`의 메서드로 대수 연산을 지원합니다.
+
+- `Set.prototype.union(other)`: 두 집합의 합집합을 반환합니다.
+- `Set.prototype.intersection(other)`: 두 집합의 교집합을 반환합니다.
+- `Set.prototype.difference(other)`: 두 집합의 차집합을 반환합니다.
+- `Set.prototype.symmetricDifference(other)`: 두 집합의 대칭 차집합을 반환합니다.
+- `Set.prototype.isSubsetOf(other)`: 한 집합이 다른 집합의 부분집합인지 확인합니다.
+- `Set.prototype.isSupersetOf(other)`: 한 집합이 다른 집합의 상위집합인지 확인합니다.
+- `Set.prototype.isDisjointFrom(other)`: 두 집합이 서로 교집합이 없는지 확인합니다.
+
+
 ## 집합의 구현
 
 자바스크립트에서는 표준 내장 객체인 `Set`을 지원하며, `new Set()`으로 집합을 생성할 수 있습니다. 아래는 집합을 객체를 사용하여 구현한 예시입니다.
