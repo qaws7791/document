@@ -2,37 +2,32 @@
 
 큐의 요소가 추가되고 제거되는 순서는 **선입선출(First In First Out, FIFO)** 방식에 따라 이루어진다. 따라서 요소는 큐의 마지막에만 추가되며, 큐의 첫 부분에서만 나갈 수 있다. 큐는 먼저 들어간 것이 먼저 나오므로 차례대로 처리하는 일상의 줄 서기와 비슷하다
 
-![image-20240501220458641](assets/image-20240501220458641.png)
-
+![image-20240501220458641](../data-structures/assets/image-20240501220458641.png)
 
 ## 큐의 특징
 
-- **Front**: 큐의 맨 앞을 가리키며, 요소가 제거되는 위치입니다.
-- **Rear (Back)**: 큐의 맨 뒤를 가리키며, 요소가 추가되는 위치입니다.
-
+* **Front**: 큐의 맨 앞을 가리키며, 요소가 제거되는 위치입니다.
+* **Rear (Back)**: 큐의 맨 뒤를 가리키며, 요소가 추가되는 위치입니다.
 
 ## 큐의 기본 동작
 
-| **Operation** | **Signature**          | **Description**                          | **Performance** |
-| ------------- | ---------------------- | ---------------------------------------- | --------------- |
-| **Enqueue**   | Q × value → Q          | 큐의 맨 뒤에 새로운 값을 추가합니다.     | O(1)            |
+| **Operation** | **Signature**          | **Description**         | **Performance** |
+| ------------- | ---------------------- | ----------------------- | --------------- |
+| **Enqueue**   | Q × value → Q          | 큐의 맨 뒤에 새로운 값을 추가합니다.   | O(1)            |
 | **Dequeue**   | Q → value \| undefined | 큐의 맨 앞에서 값을 제거하고 반환합니다. | O(1)            |
-| **Front**     | Q → value \| undefined | 큐의 맨 앞 요소를 반환합니다.            | O(1)            |
-| **Is Empty**  | Q → boolean            | 큐가 비어 있는지 확인합니다.             | O(1)            |
-| **Size**      | Q → number             | 큐에 있는 요소의 개수를 반환합니다.      | O(1)            |
-
+| **Front**     | Q → value \| undefined | 큐의 맨 앞 요소를 반환합니다.       | O(1)            |
+| **Is Empty**  | Q → boolean            | 큐가 비어 있는지 확인합니다.        | O(1)            |
+| **Size**      | Q → number             | 큐에 있는 요소의 개수를 반환합니다.    | O(1)            |
 
 ## 큐의 추가 동작과 Signature
 
-| **Operation** | **Signature**       | **Description**                       | **Performance** |
-| ------------- | ------------------- | ------------------------------------- | --------------- |
-| **Clear**     | Q → Q               | 큐의 모든 요소를 제거합니다.          | O(1)            |
+| **Operation** | **Signature**       | **Description**       | **Performance** |
+| ------------- | ------------------- | --------------------- | --------------- |
+| **Clear**     | Q → Q               | 큐의 모든 요소를 제거합니다.      | O(1)            |
 | **Contains**  | Q × value → boolean | 특정 값이 큐에 존재하는지 확인합니다. | O(n)            |
-| **To Array**  | Q → array           | 큐의 모든 요소를 배열로 반환합니다.   | O(n)            |
-
+| **To Array**  | Q → array           | 큐의 모든 요소를 배열로 반환합니다.  | O(n)            |
 
 ## 큐의 구현
-
 
 ### 배열(List) 기반 구현
 
@@ -91,7 +86,6 @@ console.log("Queue contains 20?", queue.contains(20)); // Queue contains 20? tru
 queue.clear();
 console.log("After clear, is empty?", queue.isEmpty()); // After clear, is empty? true
 ```
-
 
 ### 연결 리스트(Linked List) 기반 구현
 
@@ -185,25 +179,22 @@ queue.clear();
 console.log("After clear, is empty?", queue.isEmpty()); // After clear, is empty? true
 ```
 
-
 ## 양방향 큐 (Deque)
 
 양방향 큐(Double-Ended Queue; Deque)는 앞과 뒤 양쪽 모두에서 요소를 삽입하거나 제거할 수 있다
 
-
 ### 양방향 큐의 동작
 
-| **Operation**    | **Signature**          | **Description**                          | **Performance** |
-| ---------------- | ---------------------- | ---------------------------------------- | --------------- |
-| **Add Front**    | D × value → D          | 덱의 맨 앞에 값을 추가합니다.            | O(1)            |
-| **Add Back**     | D × value → D          | 덱의 맨 뒤에 값을 추가합니다.            | O(1)            |
+| **Operation**    | **Signature**          | **Description**         | **Performance** |
+| ---------------- | ---------------------- | ----------------------- | --------------- |
+| **Add Front**    | D × value → D          | 덱의 맨 앞에 값을 추가합니다.       | O(1)            |
+| **Add Back**     | D × value → D          | 덱의 맨 뒤에 값을 추가합니다.       | O(1)            |
 | **Remove Front** | D → value \| undefined | 덱의 맨 앞에서 값을 제거하고 반환합니다. | O(1)            |
 | **Remove Back**  | D → value \| undefined | 덱의 맨 뒤에서 값을 제거하고 반환합니다. | O(1)            |
-| **Front**        | D → value \| undefined | 덱의 맨 앞 값을 반환합니다.              | O(1)            |
-| **Back**         | D → value \| undefined | 덱의 맨 뒤 값을 반환합니다.              | O(1)            |
-| **Is Empty**     | D → boolean            | 덱이 비어 있는지 확인합니다.             | O(1)            |
-| **Size**         | D → number             | 덱에 있는 요소의 개수를 반환합니다.      | O(1)            |
-
+| **Front**        | D → value \| undefined | 덱의 맨 앞 값을 반환합니다.        | O(1)            |
+| **Back**         | D → value \| undefined | 덱의 맨 뒤 값을 반환합니다.        | O(1)            |
+| **Is Empty**     | D → boolean            | 덱이 비어 있는지 확인합니다.        | O(1)            |
+| **Size**         | D → number             | 덱에 있는 요소의 개수를 반환합니다.    | O(1)            |
 
 ### 양방향 큐의 구현
 
@@ -321,4 +312,3 @@ deque.removeFront();
 deque.removeBack();
 console.log("Is Empty after all removals?", deque.isEmpty()); // Is Empty after all removals? true
 ```
-

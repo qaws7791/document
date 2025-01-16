@@ -1,5 +1,4 @@
-# 💻 Computer Science
-
+# Computer Science
 
 ### 컴퓨터의 구성
 
@@ -15,95 +14,87 @@ flowchart LR
     id4(핵심 부품) --> id8(입출력장치)
 ```
 
-
 ## Computer System
 
-- [x] [CPU (ALU, CU, Register)](./computer-system/cpu.md)
-- [x] [Memory (RAM, Cache Memory) and Memory hierarchy](./computer-system/memory.md)
-- [x] [Input/Output Devices](./computer-system/io-devices.md)
-- [x] [Bus](./computer-system/bus.md)
-- [x] [Data-representation (Binary, Octal, Hexadecimal)](./computer-system/data-representation.md)
-- [x] [Data Types (Integer, Floating Point, Fixed Point)](./computer-system/data-types.md)
-- [x] [Character Encodings (Unicode, ASCII)](./computer-system/character-encodings.md)
-- [x] [Concurrency and Parallelism](./computer-system/concurrency-and-parallelism.md)
-
+* [x] [CPU (ALU, CU, Register)](computer-system/cpu.md)
+* [x] [Memory (RAM, Cache Memory) and Memory hierarchy](computer-system/memory.md)
+* [x] [Input/Output Devices](computer-system/io-devices.md)
+* [x] [Bus](computer-system/bus.md)
+* [x] [Data-representation (Binary, Octal, Hexadecimal)](computer-system/data-representation.md)
+* [x] [Data Types (Integer, Floating Point, Fixed Point)](computer-system/data-types.md)
+* [x] [Character Encodings (Unicode, ASCII)](computer-system/character-encodings.md)
+* [x] [Concurrency and Parallelism](computer-system/concurrency-and-parallelism.md)
 
 ## Operating System
 
-- [x] [Components of Operating System](./operating-system/components.md)
-- [x] [Kernel](./operating-system/kernel.md)
-- [x] [Process Management](./operating-system/process-management.md)
-- [x] [Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)](./operating-system/memory-management.md)
-- [x] [I/O Management](./operating-system/io-management.md)
-- [x] [File System(directory structure, permissions)](./operating-system/file-system.md)
-
+* [x] [Components of Operating System](operating-system/components.md)
+* [x] [Kernel](operating-system/kernel.md)
+* [x] [Process Management](operating-system/process-management.md)
+* [x] [Memory Management (Virtual Memory, Paging, and Segmentation, Page Replacement Algorithm)](operating-system/memory-management.md)
+* [x] [I/O Management](operating-system/io-management.md)
+* [x] [File System(directory structure, permissions)](operating-system/file-system.md)
 
 ## Data Structures
 
-- [ ] Linear data
-  - [ ] [List](./data-structures/list.md)  
-  - [ ] [Stack](./data-structures/stack.md)
-  - [ ] queue
-  - [ ] linked list
-- [ ] Non-linear
-  - [ ] [Set](./data-structures/set.md)
-  - [ ] tree
-  - [ ] hash table
-  - [ ] graph
-
+* [x] Linear data
+  * [x] [List](data-structure/list.md)
+  * [x] [Stack](data-structure/stack.md)
+  * [x] Queue
+  * [ ] linked list
+* [ ] Non-linear
+  * [x] [Set](data-structures/set.md)
+  * [ ] tree
+  * [ ] hash table
+  * [ ] graph
 
 ## Algorithms
 
-- [x] [Recursion](./algorithms/recursion.md)
-- [x] [Dynamic Programming](./algorithms/dynamic-programming.md)
-- [x] [Brute Force Search](./algorithms/brute-force-search.md)
-- [x] [Greedy Algorithm](./algorithms/greedy-algorithm.md)
-- [x] [Sorting](./algorithms/sorting.md)
-- [x] [Selecting](./algorithms/selecting.md)
-- [x] [Searching](./algorithms/searching.md)
-
+* [x] [Recursion](algorithms/recursion.md)
+* [x] [Dynamic Programming](algorithms/dynamic-programming.md)
+* [x] [Brute Force Search](algorithms/brute-force-search.md)
+* [x] [Greedy Algorithm](algorithms/greedy-algorithm.md)
+* [x] [Sorting](algorithms/sorting.md)
+* [x] [Selecting](algorithms/selecting.md)
+* [x] [Searching](algorithms/searching.md)
 
 ## Database
 
-- [ ] DBMS
-- [ ] SQL and NoSQL
-- [ ] Normalization and Denormalization
-- [ ] Entity Relationship Model (ERM, ERD)
-- [ ] DDL (Data Definition Language) - CREATE, ALTER, DROP
-- [ ] DML (Data Manipulation Language) - SELECT, INSERT, UPDATE, DELETE
-- [ ] DCL (Data Control Language) - GRANT, REVOKE
-- [ ] DQL (Data Query Language) - SELECT
-- [ ] Transaction - ACID(Atomicity, Consistency, Isolation, Durability)
-- [ ] Database index
-- [ ] Distributed database
-
+* [ ] DBMS
+* [ ] SQL and NoSQL
+* [ ] Normalization and Denormalization
+* [ ] Entity Relationship Model (ERM, ERD)
+* [ ] DDL (Data Definition Language) - CREATE, ALTER, DROP
+* [ ] DML (Data Manipulation Language) - SELECT, INSERT, UPDATE, DELETE
+* [ ] DCL (Data Control Language) - GRANT, REVOKE
+* [ ] DQL (Data Query Language) - SELECT
+* [ ] Transaction - ACID(Atomicity, Consistency, Isolation, Durability)
+* [ ] Database index
+* [ ] Distributed database
 
 ## Networking
 
-- [ ] OSI Model
-- [ ] TCP/IP Model
-- [ ] DNS, DHCP, NAT
-- [ ] HTTP
-- [ ] HTTPS & TLS/SSL
-- [ ] Sockets
-- [ ] Routing and Switching
-- [ ] Firewall
-
+* [ ] OSI Model
+* [ ] TCP/IP Model
+* [ ] DNS, DHCP, NAT
+* [ ] HTTP
+* [ ] HTTPS & TLS/SSL
+* [ ] Sockets
+* [ ] Routing and Switching
+* [ ] Firewall
 
 ## Security
 
-- [ ] Encryption (Symmetric-key cryptography, Public-key cryptography)
-- [ ] Cryptographic hash functions
-- [ ] Cryptocurrencies
-- [ ] encryption vulnerabilities
-- [ ] Integrity and Confidentiality
-- [ ] OWASP Top 10
-
+* [ ] Encryption (Symmetric-key cryptography, Public-key cryptography)
+* [ ] Cryptographic hash functions
+* [ ] Cryptocurrencies
+* [ ] encryption vulnerabilities
+* [ ] Integrity and Confidentiality
+* [ ] OWASP Top 10
 
 ## Compiler
 
-- [ ] difference between compilers and interpreters
-- [ ] preprocessing, lexical analysis, parsing, semantic analysis
-- [ ] abstract syntax tree
-- [ ] Interpreter
-- [ ] Virtual machine
+* [ ] difference between compilers and interpreters
+* [ ] preprocessing, lexical analysis, parsing, semantic analysis
+* [ ] abstract syntax tree
+* [ ] Interpreter
+* [ ] Virtual machine

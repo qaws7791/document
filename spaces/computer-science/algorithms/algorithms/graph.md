@@ -1,6 +1,6 @@
 # Graph
 
-![image-20240503141947782](assets/image-20240503141947782.png)
+![image-20240503141947782](../../algorithms/assets/image-20240503141947782.png)
 
 ```javascript
 class Graph {
@@ -65,10 +65,6 @@ graph.removeVertex("A");
 graph.print();
 ```
 
-
-
-
-
 ## 깊이 우선 탐색
 
 ```javascript
@@ -97,8 +93,6 @@ function depthFirstSearch(graph, start) {
 depthFirstSearch(graph.adjacencyList, "A"); // A C E F D B
 ```
 
-
-
 ## 너비 우선 탐색
 
 ```javascript
@@ -125,4 +119,3 @@ function breadthFirstSearch(graph, start) {
 
 breadthFirstSearch(graph.adjacencyList, "A");
 ```
-

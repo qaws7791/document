@@ -2,11 +2,11 @@
 
 양방향 연결 리스트
 
-![image-20240502104458498](assets/image-20240502104458498.png)
+![image-20240502104458498](../../algorithms/assets/image-20240502104458498.png)
 
-- 양방향 탐색
-- 효율적인 삽입, 삭제
-- 반대로 탐색 가능
+* 양방향 탐색
+* 효율적인 삽입, 삭제
+* 반대로 탐색 가능
 
 ```javascript
 class Node {
@@ -131,4 +131,3 @@ class DoublyLinkedList {
   }
 }
 ```
-
