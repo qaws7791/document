@@ -1,5 +1,6 @@
 # Computer Science
 
+
 ### 컴퓨터의 구성
 
 ```mermaid
@@ -14,6 +15,7 @@ flowchart LR
     id4(핵심 부품) --> id8(입출력장치)
 ```
 
+
 ## Computer System
 
 * [x] [CPU (ALU, CU, Register)](computer-system/cpu.md)
@@ -25,6 +27,7 @@ flowchart LR
 * [x] [Character Encodings (Unicode, ASCII)](computer-system/character-encodings.md)
 * [x] [Concurrency and Parallelism](computer-system/concurrency-and-parallelism.md)
 
+
 ## Operating System
 
 * [x] [Components of Operating System](operating-system/components.md)
@@ -34,18 +37,20 @@ flowchart LR
 * [x] [I/O Management](operating-system/io-management.md)
 * [x] [File System(directory structure, permissions)](operating-system/file-system.md)
 
+
 ## Data Structures
 
 * [x] Linear data
-  * [x] [List](data-structure/list.md)
-  * [x] [Stack](data-structure/stack.md)
+  * [x] [List](data-structures/list.md)
+  * [x] [Stack](data-structures/stack.md)
   * [x] Queue
   * [ ] linked list
 * [ ] Non-linear
   * [x] [Set](data-structures/set.md)
-  * [ ] tree
+  * [x] [Binary tree](data-structures/binary-tree.md)
   * [ ] hash table
   * [ ] graph
+
 
 ## Algorithms
 
@@ -56,6 +61,7 @@ flowchart LR
 * [x] [Sorting](algorithms/sorting.md)
 * [x] [Selecting](algorithms/selecting.md)
 * [x] [Searching](algorithms/searching.md)
+
 
 ## Database
 
@@ -71,6 +77,7 @@ flowchart LR
 * [ ] Database index
 * [ ] Distributed database
 
+
 ## Networking
 
 * [ ] OSI Model
@@ -82,6 +89,7 @@ flowchart LR
 * [ ] Routing and Switching
 * [ ] Firewall
 
+
 ## Security
 
 * [ ] Encryption (Symmetric-key cryptography, Public-key cryptography)
@@ -90,6 +98,7 @@ flowchart LR
 * [ ] encryption vulnerabilities
 * [ ] Integrity and Confidentiality
 * [ ] OWASP Top 10
+
 
 ## Compiler
 
