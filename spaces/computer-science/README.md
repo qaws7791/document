@@ -48,6 +48,7 @@ flowchart LR
 * [ ] Non-linear
   * [x] [Set](data-structures/set.md)
   * [x] [Binary tree](data-structures/binary-tree.md)
+  * [x] [Tree](data-structures/tree.md)
   * [ ] hash table
   * [ ] graph
 
