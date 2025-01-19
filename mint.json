@@ -1,0 +1,72 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Documentation",
+  "logo": {
+    "dark": "/images/logo/dark.svg",
+    "light": "/images/logo/light.svg"
+  },
+  "favicon": "/images/logo/favicon.svg",
+  "colors": {
+    "primary": "#0d7d93",
+    "light": "#077bc9",
+    "dark": "#0d7d93",
+    "anchors": {
+      "from": "#0d7d93",
+      "to": "#077bc9"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Blog",
+      "url": "https://refetch.pages.dev"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.mintlify.com"
+  },
+  "tabs": [
+    {
+      "name": "Computer Science",
+      "url": "computer-science"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Documentation",
+      "icon": "book-open-cover",
+      "url": "https://mintlify.com/docs"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://mintlify.com/community"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://mintlify.com/blog"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Computer System",
+      "pages": [
+        "computer-science/computer-system/overview",
+        "computer-science/computer-system/cpu"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/mintlify",
+    "github": "https://github.com/mintlify",
+    "linkedin": "https://linkedin.com/company/mintlify"
+  },
+  "font": {
+    "family": "Noto Serif Korean"
+  },
+  "layout": "topnav",
+  "sidebar": {
+    "items": "border"
+  }
+}
