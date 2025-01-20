@@ -53,20 +53,62 @@
       "group": "Computer System",
       "pages": [
         "computer-science/computer-system/overview",
-        "computer-science/computer-system/cpu"
+        "computer-science/computer-system/cpu",
+        "computer-science/computer-system/memory",
+        "computer-science/computer-system/io-devices",
+        "computer-science/computer-system/bus",
+        "computer-science/computer-system/data-representation",
+        "computer-science/computer-system/data-types",
+        "computer-science/computer-system/character-encodings",
+        "computer-science/computer-system/concurrency-and-parallelism"
+      ]
+    },
+    {
+      "group": "Algorithms",
+      "pages": [
+        "computer-science/algorithms/overview",
+        "computer-science/algorithms/brute-force-search",
+        "computer-science/algorithms/dynamic-programming",
+        "computer-science/algorithms/formula",
+        "computer-science/algorithms/greedy-algorithm",
+        "computer-science/algorithms/javascript",
+        "computer-science/algorithms/recursion",
+        "computer-science/algorithms/searching",
+        "computer-science/algorithms/selecting",
+        "computer-science/algorithms/sorting"
+      ]
+    },
+    {
+      "group": "Data Structures",
+      "pages": [
+        "computer-science/data-structures/overview",
+        "computer-science/data-structures/list",
+        "computer-science/data-structures/tree",
+        "computer-science/data-structures/binary-tree",
+        "computer-science/data-structures/graph",
+        "computer-science/data-structures/queue",
+        "computer-science/data-structures/set",
+        "computer-science/data-structures/stack",
+        "computer-science/data-structures/heap"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "github": "https://github.com/qaws7791"
   },
   "font": {
-    "family": "Noto Serif Korean"
+    "headings": {
+      "family": "KIMM_Bold",
+      "url": "https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2",
+      "format": "woff2"
+    },
+    "body": {
+      "family": "Noto Sans Korean"
+    }
   },
   "layout": "topnav",
   "sidebar": {
     "items": "border"
-  }
+  },
+  "theme": "prism"
 }
