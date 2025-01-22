@@ -13,10 +13,7 @@
    정점에 연결된 간선의 개수입니다.
 4. **이웃(Neighbor)**
    정점 A와 B가 간선으로 연결되어 있을 때, A와 B는 서로 이웃입니다.
-5. **방향성**
-   - **무방향 그래프(Undirected Graph)**: 간선에 방향이 없습니다. 정점 A와 B가 연결되면 A에서 B로, B에서 A로 이동 가능합니다.
-   - **방향 그래프(Directed Graph)**: 간선에 방향이 있습니다. 정점 A에서 B로 이동 가능하지만, B에서 A로는 이동할 수 없습니다.
-6. **가중치(Weight)**
+5. **가중치(Weight)**
    간선에 비용이나 거리가 부여될 수 있습니다. 예: 도로의 길이.
 
 ![image-20240503141947782](./assets/image-20240503141947782.png)
@@ -24,28 +21,60 @@
 
 ## 그래프의 종류
 
-1. **무방향 그래프(Undirected Graph)**
-   - 간선에 방향이 없는 그래프입니다.
-   - 정점 A와 B가 연결되어 있으면 A에서 B로, B에서 A로 이동 가능합니다.
-2. **방향 그래프(Directed Graph)**
-    - 간선에 방향이 있는 그래프입니다.
-    - 정점 A에서 B로 이동 가능하지만, B에서 A로는 이동할 수 없습니다.
-3. **가중 그래프(Weighted Graph)**
-    - 간선에 가중치가 있는 그래프입니다.
-    - 간선에 비용이나 거리가 부여됩니다.
-4. **순환 그래프(Cyclic Graph)**
-    - 한 정점에서 출발해 다시 돌아와 출발점으로 돌아올 수 있는 그래프입니다.
+
+### 무방향 그래프(Undirected Graph)
+
+- 간선에 방향이 없는 그래프입니다.
+- 정점 A와 B가 연결되어 있으면 A에서 B로, B에서 A로 이동 가능합니다.
+
+```plaintext
+[ A ] --- [ B ]
+  |         |
+  |         |
+[ C ] --- [ D ]
+```
+
+
+### 방향 그래프(Directed Graph)
+
+- 간선에 방향이 있는 그래프입니다.
+- 정점 A에서 B로 이동 가능하지만, B에서 A로는 이동할 수 없습니다.
+
+
+```plaintext
+[ A ] ---> [ B ]
+  |          |
+  |          |
+  v          v
+[ C ] <--- [ D ]
+```
+
+
+### 가중 그래프(Weighted Graph)
+
+- 간선에 가중치가 있는 그래프입니다.
+- 간선에 비용이나 거리가 부여됩니다.
+
+```plaintext
+[ A ] -1- [ B ]
+  |         |
+  2         3
+  |         |
+[ C ] -4- [ D ]
+```
 
 
 ## 그래프의 표현 방법
 
-1. **인접 행렬(Adjacency Matrix)**
-   - 2차원 배열로 그래프를 표현합니다.
-   - 정점 A와 B가 연결되어 있으면 `matrix[A][B] = 1`로 표현합니다.
-   - 무방향 그래프의 경우 `matrix[B][A] = 1`로도 표현합니다.
-   - 가중치가 있는 경우 `matrix[A][B] = weight`로 표현합니다.
-   - 장점: 간선의 존재 여부를 빠르게 확인할 수 있습니다.
-   - 단점: 정점의 개수가 많을 경우 메모리 낭비가 발생합니다.
+
+### 인접 행렬(Adjacency Matrix)
+
+- 2차원 배열로 그래프를 표현합니다.
+- 정점 A와 B가 연결되어 있으면 `matrix[A][B] = 1`로 표현합니다.
+- 무방향 그래프의 경우 `matrix[B][A] = 1`로도 표현합니다.
+- 가중치가 있는 경우 `matrix[A][B] = weight`로 표현합니다.
+- 장점: 간선의 존재 여부를 빠르게 확인할 수 있습니다.
+- 단점: 정점의 개수가 많을 경우 메모리 낭비가 발생합니다.
 
 ```javascript
 const graph = [
@@ -56,13 +85,15 @@ const graph = [
 ];
 ```
 
-2. **인접 리스트(Adjacency List)**
-    - 연결 리스트로 그래프를 표현합니다.
-    - 각 정점마다 연결된 정점들을 리스트로 저장합니다.
-    - 무방향 그래프의 경우 양방향으로 저장합니다.
-    - 가중치가 있는 경우 정점과 가중치를 함께 저장합니다.
-    - 장점: 메모리를 효율적으로 사용할 수 있습니다.
-    - 단점: 간선의 존재 여부를 확인하는 데 시간이 더 걸립니다.
+
+### 인접 리스트(Adjacency List)
+
+- 연결 리스트로 그래프를 표현합니다.
+- 각 정점마다 연결된 정점들을 리스트로 저장합니다.
+- 무방향 그래프의 경우 양방향으로 저장합니다.
+- 가중치가 있는 경우 정점과 가중치를 함께 저장합니다.
+- 장점: 메모리를 효율적으로 사용할 수 있습니다.
+- 단점: 간선의 존재 여부를 확인하는 데 시간이 더 걸립니다.
 
 ```javascript
 const graph = {
@@ -199,7 +230,12 @@ matrixGraph.printGraph();
 ```
 
 
-## 깊이 우선 탐색
+## 그래프 탐색 알고리즘
+
+그래프 탐색 알고리즘은 그래프의 모든 정점을 방문하는 알고리즘입니다. 대표적인 탐색 알고리즘으로 **깊이 우선 탐색(DFS)**과 **너비 우선 탐색(BFS)**이 있습니다.
+
+
+### 깊이 우선 탐색
 
 **깊이 우선 탐색**(Depth First Search, **DFS**)은 그래프를 탐색하는 알고리즘 중 하나입니다. 시작 정점에서 한 방향으로 최대한 깊게 탐색한 후, 다른 방향의 정점을 탐색합니다. 모든 정점을 탐색할 때까지 반복합니다. 방문한 정점을 추적하기 위해 별도의 메모리(일반적으로 스택)가 필요합니다.
 
@@ -230,7 +266,7 @@ depthFirstSearch(exampleGraph, 'A'); // A -> B -> D -> E -> F -> C
 ```
 
 
-## 너비 우선 탐색
+### 너비 우선 탐색
 
 **너비 우선 탐색**(Breadth First Search, **BFS**)은 그래프를 탐색하는 알고리즘 중 하나입니다. 시작 정점에서 인접한 정점을 모두 방문한 후, 방문한 정점을 기준으로 다시 인접한 정점을 방문합니다. 발견했지만 아직 방문하지 않은 정점을 추적하기 위해 별도의 메모리(일반적으로 큐)가 필요합니다.
 
@@ -255,4 +291,182 @@ function breadthFirstSearch(graph, start) {
 }
 
 breadthFirstSearch(exampleGraph, 'A'); // A -> B -> C -> D -> E -> F
+```
+
+
+## 최단 경로 알고리즘
+
+그래프에서의 일반적인 문제 중 한 가지는 두 정점 사이의 최단 경로를 찾는 것입니다. 대표적인 최단 경로 알고리즘으로 **다익스트라(Dijkstra)**와 **벨만-포드(Bellman-Ford)** 알고리즘이 있습니다.
+
+
+### 플로이드-워셜 알고리즘
+
+플로이드-워셜(Floyd-Warshall) 알고리즘은 가중치를 가지는 유향 그래프에서 최단 경로를 찾는 알고리즘입니다. 이 알고리즘은 모든 정점 쌍 사이의 최단 경로의 길이를 구할 수 있습니다.
+
+- 동적 계획법 활용: 모든 정점 쌍 사이의 최단 경로를 구하기 위해 3중 반복문을 사용합니다.
+- 시간 복잡도: 3중 반복문을 사용하므로 시간 복잡도는 `O(V^3)`입니다.
+
+
+동작 과정:
+
+```plaintext
+[0, 5, Infinity, 8],
+[7, 0, 9, Infinity],
+[2, Infinity, 0, 4],
+[Infinity, Infinity, 3, 0]
+```
+
+1. `shortestPath(i, j, k)`는 정점 i에서 j로 가는 최단 경로의 길이를 의미하며, k는 경유하는 정점을 의미합니다.
+2. `shortestPath(i, j, k)`의 값은 k를 경유하는 경우와 경유하지 않는 경우 중 작은 값이어야 합니다. 이를 식으로 나타내면 `shortestPath(i, j, k) = min(shortestPath(i, j, k), shortestPath(i, k, k) + shortestPath(k, j, k))`입니다.
+3. 정의는 재귀적으로 이루어지며, 모든 정점 쌍에 대해 최단 경로를 구할 때까지 반복합니다.
+
+```javascript
+function floydWarshall(graph) {
+  const distance = graph.map((row) => row.slice());
+
+  for (let k = 0; k < graph.length; k++) {
+    for (let i = 0; i < graph.length; i++) {
+      for (let j = 0; j < graph.length; j++) {
+        distance[i][j] = Math.min(distance[i][j], distance[i][k] + distance[k][j]);
+      }
+    }
+  }
+
+  return distance;
+}
+
+const graph = [
+  [0, 5, Infinity, 8],
+  [7, 0, 9, Infinity],
+  [2, Infinity, 0, 4],
+  [Infinity, Infinity, 3, 0],
+];
+
+const result = floydWarshall(graph);
+console.log(result);
+// [
+//   [0, 5, 11, 8],
+//   [7, 0, 9, 13],
+//   [2, 7, 0, 4],
+//   [5, 10, 3, 0]
+// ]
+```
+
+
+### 벨만-포드 알고리즘
+
+벨만-포드(Bellman-Ford) 알고리즘은 가중치가 있는 유향 그래프에서 특정 정점에서 다른 모든 정점까지의 최단 경로를 찾는 알고리즘입니다. 다익스트라(Dijkstra) 알고리즘과 달리 음수 가중치를 가진 간선도 처리할 수 있어 더 유연합니다.
+
+- 동적 계획법 활용: 모든 간선을 순회하며 최단 거리를 갱신합니다.
+- 시간 복잡도: 간선을 순회하는 과정을 정점의 개수만큼 반복(2중 for문)하므로 시간 복잡도는 `O(V * E)`입니다.
+
+동작 과정:
+
+1. 시작 정점에서 다른 모든 정점까지의 거리를 무한대로 초기화하고 시작 정점의 거리를 0으로 설정합니다.
+2. 모든 간선을 순회하며 시작 정점에서 각 정점까지의 거리를 갱신합니다.
+
+
+```javascript
+function bellmanFord(graph, start) {
+  const n = graph.length;
+
+  // 초기화
+  const previous = Array(n).fill(null);
+  const distance = Array(n).fill(Infinity);
+  distance[start] = 0;
+
+  // 간선 순회
+  const edges = [];
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (graph[i][j] !== undefined) {
+        edges.push({ from: i, to: j, distance: graph[i][j] });
+        
+      }
+    }
+  }
+
+  // 최단 거리 계산
+  for (let i = 0; i < n - 1; i++) {
+    edges.forEach((edge) => {
+      const newDistance = distance[edge.from] + edge.distance;
+      if (newDistance < distance[edge.to]) {
+        distance[edge.to] = newDistance;
+        previous[edge.to] = edge.from;
+      }
+    });
+  }
+
+  return [distance, previous];
+}
+
+const graph = [
+  [[1, 5], [2, 8]],
+  [[0, 7], [2, 9], [3, 4]],
+  [[0, 2], [3, 4]],
+  [[2, 3]],
+];
+
+const result = bellmanFord(graph, 0);
+console.log(result); // [0, 5, 7, 10]
+```
+
+
+### 다익스트라 알고리즘
+
+다익스트라(Dijkstra) 알고리즘은 가중치가 있는 유향 그래프에서 특정 정점에서 다른 모든 정점까지의 최단 경로를 찾는 알고리즘입니다. 벨만-포드(Bellman-Ford) 알고리즘과 달리 음수 가중치를 가진 간선은 처리할 수 없지만 더 효율적으로 동작합니다.
+
+
+동작 과정:
+
+1. 시작 정점은 방문한 것으로 간주하여 거리를 0으로 설정하고, 다른 모든 지점은 방문하지 않은 것으로 간주하여 거리를 무한대로 설정합니다.
+2. 현재 노드의 방문하지 모든 이웃 노드를 순회하며, 시작 노드에서 현재 노드를 거쳐 이웃 노드로 가는 경로를 계산한 후 방문한 것으로 간주합니다.
+3. 모든 노드를 방문할 때까지 반복합니다.
+
+
+```javascript
+function dijkstra(graph, start) {
+  const n = graph.length;
+
+  // 초기화
+  const visited = Array(n).fill(false);
+  const distance = Array(n).fill(Infinity);
+  distance[start] = 0;
+
+  // 최단 거리 계산
+  for (let i = 0; i < n; i++) {
+    let minDistance = Infinity;
+    let current = -1;
+
+    // 방문하지 않은 정점 중 최단 거리인 정점 선택
+    for (let j = 0; j < n; j++) {
+      if (!visited[j] && distance[j] < minDistance) {
+        minDistance = distance[j];
+        current = j;
+      }
+    }
+
+    // 현재 정점 방문 처리
+    visited[current] = true;
+
+    // 현재 정점을 경유지로 하여 다른 정점까지의 거리 갱신
+    for (let j = 0; j < n; j++) {
+      if (!visited[j] && graph[current][j] !== undefined) {
+        distance[j] = Math.min(distance[j], distance[current] + graph[current][j]);
+      }
+    }
+  }
+
+  return distance;
+}
+
+const graph = [
+  [0, 5, 8, undefined],
+  [7, 0, 9, 4],
+  [2, undefined, 0, 4],
+  [undefined, undefined, 3, 0],
+];
+
+const result = dijkstra(graph, 0);
+console.log(result); // [0, 5, 7, 10]
 ```
