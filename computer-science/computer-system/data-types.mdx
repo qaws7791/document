@@ -1,6 +1,10 @@
-# 데이터 타입 (Data Types)
+---
+title: Data Types
+description: 데이터 유형은 프로그래밍 언어에서 사용되는 값의 종류를 나타내며, 변수에 저장되는 데이터의 형식을 정의합니다.
+---
 
 ## 기본 데이터 유형
+
 
 ### 정수(Integer, Int)
 
@@ -26,7 +30,9 @@ int main() {
 }
 ```
 
+
 ### 실수(Floating Point, Float, Real)
+
 
 #### 고정소수점(Fixed Point)
 
@@ -35,6 +41,7 @@ int main() {
 * 고정 소수점 표현 방식: (정수부).(소수부)
 * 소수 부분이 고정되어 표현할 값의 범위가 이미 정해져 있어 더 빠르게 연산할 수 있다.
 * 일반적으로 화폐의 가치를 표현할 때 고정 소수점이 사용될 수 있다.
+
 
 #### 부동소수점(Floating Point)
 
@@ -54,6 +61,7 @@ int main() {
 }
 ```
 
+
 #### IEEE 754 표준
 
 IEEE에서 만든 표준으로 컴퓨터에서 부동소수점을 표현하기 위해 널리 사용된다
@@ -68,6 +76,7 @@ IEEE에서 만든 표준으로 컴퓨터에서 부동소수점을 표현하기 �
 | 단정밀도(single precision)   | 32비트  | 1비트   | 8비트   | 23비트       | float       |
 | 배정밀도(double precision)   | 64비트  | 1비트   | 11비트  | 52비트       | double      |
 | 확장밀도(extended precision) | 80비트  | 1비트   | 15비트  | 64비트       | long double |
+
 
 ### 복소수(Complex)
 
@@ -86,6 +95,7 @@ int main() {
 }
 ```
 
+
 ### 논리(Boolean, Bool)
 
 * 부울 자료형은 참(true)과 거짓(false) 중 하나를 갖는 자료형이다.
@@ -102,6 +112,7 @@ int main() {
     return 0;
 }
 ```
+
 
 ### 문자열(Character, String, Char)
 
@@ -133,7 +144,9 @@ int main() {
 }
 ```
 
+
 ## 복합 데이터 유형
+
 
 ### 배열(Array)
 
@@ -151,6 +164,7 @@ int main() {
     return 0;
 }
 ```
+
 
 ### 구조체(Struct, Record, Tuple)
 
@@ -173,6 +187,7 @@ int main() {
 }
 ```
 
+
 ### 열거(Enumeration, Enum)
 
 * 열거형 또는 이넘으로 불리며, 연속된 정수 값을 가지는 자료형이다.
@@ -190,6 +205,7 @@ int main() {
 }
 ```
 
+
 ### 집합(Set)
 
 * 집합은 중복되지 않는 원소들의 모임으로, 수학적인 집합 개념을 프로그래밍에 적용한 것이다.
@@ -204,6 +220,7 @@ print(my_set)  # {1, 3, 4, 5}
 print(3 in my_set)  # True
 ```
 
+
 ### 맵(Map, Dictionary)
 
 * 맵은 키와 값의 쌍으로 이루어진 자료형으로, 키를 통해 값을 찾을 수 있다.
@@ -216,6 +233,7 @@ my_map["key3"] = 30  # 새로운 키-값 추가
 print(my_map)  # {'key1': 10, 'key2': 20, 'key3': 30}
 print(my_map.get("key1"))  # 10
 ```
+
 
 ### 객체(Object)
 
@@ -249,7 +267,9 @@ public class Main {
 
 ```
 
+
 ## 기타 데이터 유형
+
 
 ### 포인터(Pointer)
 
@@ -267,7 +287,9 @@ int main() {
 }
 ```
 
+
 ## 주요 언어의 기본 데이터 유형
+
 
 ### Java의 기본 데이터 유형
 
@@ -307,6 +329,7 @@ Java에서는 8가지의 기본 데이터 유형(**Primitive Data Types**)을 �
    * **용도**: 논리 상태를 나타내며 조건문 등에 사용됩니다.
 
 ***
+
 
 ### C의 기본 데이터 유형
 
@@ -355,6 +378,7 @@ C 언어에서는 데이터의 크기와 범위가 구현하는 시스템에 따
 
 ***
 
+
 ### JavaScript의 기본 데이터 유형
 
 JavaScript에서는 7가지의 기본 데이터 유형과 객체(Object)를 제공합니다.
@@ -385,6 +409,7 @@ JavaScript에서는 7가지의 기본 데이터 유형과 객체(Object)를 제�
    * **생성 방법**: `const sym = Symbol('description');`
 
 ***
+
 
 ### Python의 기본 데이터 유형
 

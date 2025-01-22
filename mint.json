@@ -55,7 +55,7 @@
         "computer-science/computer-system/overview",
         "computer-science/computer-system/cpu",
         "computer-science/computer-system/memory",
-        "computer-science/computer-system/io-devices",
+        "computer-science/computer-system/inputoutput-devices",
         "computer-science/computer-system/bus",
         "computer-science/computer-system/data-representation",
         "computer-science/computer-system/data-types",
@@ -67,15 +67,13 @@
       "group": "Algorithms",
       "pages": [
         "computer-science/algorithms/overview",
-        "computer-science/algorithms/brute-force-search",
-        "computer-science/algorithms/dynamic-programming",
-        "computer-science/algorithms/formula",
-        "computer-science/algorithms/greedy-algorithm",
-        "computer-science/algorithms/javascript",
         "computer-science/algorithms/recursion",
         "computer-science/algorithms/searching",
         "computer-science/algorithms/selecting",
-        "computer-science/algorithms/sorting"
+        "computer-science/algorithms/sorting",
+        "computer-science/algorithms/brute-force-search",
+        "computer-science/algorithms/greedy-algorithm",
+        "computer-science/algorithms/dynamic-programming"
       ]
     },
     {
@@ -83,13 +81,13 @@
       "pages": [
         "computer-science/data-structures/overview",
         "computer-science/data-structures/list",
+        "computer-science/data-structures/stack",
+        "computer-science/data-structures/queue",
         "computer-science/data-structures/tree",
         "computer-science/data-structures/binary-tree",
-        "computer-science/data-structures/graph",
-        "computer-science/data-structures/queue",
+        "computer-science/data-structures/heap",
         "computer-science/data-structures/set",
-        "computer-science/data-structures/stack",
-        "computer-science/data-structures/heap"
+        "computer-science/data-structures/graph"
       ]
     }
   ],

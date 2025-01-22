@@ -1,4 +1,7 @@
-# 알고리즘 개요
+---
+title: Overview
+description: 알고리즘은 문제를 해결하기 위한 절차나 방법을 의미합니다.
+---
 
 ## 사칙연산
 
@@ -9,6 +12,7 @@ a*b
 parseInt(a/b)
 a%b
 ```
+
 
 ### 조건문
 
@@ -22,6 +26,7 @@ else
 
 
 ```
+
 
 ## 반복문
 
@@ -37,6 +42,7 @@ while (조건문) {
 }
 ```
 
+
 ## 형태 변환
 
 * Int -> String
@@ -45,6 +51,7 @@ while (조건문) {
   * `Number(s)`
   * `parseInt(s)`
   * `+s`
+
 
 ## 숫자 변환
 
@@ -56,7 +63,9 @@ const num = 123.456
 console.log(num.toFixed(2))
 ```
 
+
 ## 배열
+
 
 ### 배열 초기화
 
@@ -65,11 +74,13 @@ console.log(num.toFixed(2))
 const arr = new Array(10).fill(0)
 ```
 
+
 ### 2차원 배열 만들기
 
 ```javascript
 const array2d = (n) => Array.from(Array(n), () => new Array(n))
 ```
+
 
 ## Set 자료형
 
@@ -91,7 +102,9 @@ set.delete(1)
 for (const item of set) console.log(item)
 ```
 
+
 ## 입출력
+
 
 ### 파일 입력받기
 
@@ -108,6 +121,7 @@ const input = fs.readFileSync('test.txt', 'utf8').toString().split('\r\n')
 
 console.log(input)
 ```
+
 
 ### 백준 입력받기
 
@@ -127,6 +141,7 @@ const fs = require('fs')
 const input = fs.readFileSync('/dev/stdin').toString().split('\n')
 const [a,b,c] = input.split(' ').map(Number)
 ```
+
 
 ### 터미널에서 입력받기
 
@@ -148,6 +163,7 @@ rl.on('line', (input) => {
 })
 
 ```
+
 
 ### 출력 시간 단축하기
 
@@ -179,6 +195,7 @@ for(let i = 0; i < 100; i++) {
 console.log(answer.join('\n'))
 ```
 
+
 ## Big-O 표기법(점근 표기법)
 
 입력이 커짐에 따라 알고리즘의 실행 시간(시간 복잡도)과 메모리 사용량(공간 복잡도)이 얼마나 빠르게 증가하는지를 표현
@@ -190,6 +207,7 @@ console.log(answer.join('\n'))
 * O(n^2) : 제곱 - 리소스가 많아질 경우 복잡도가 빠르게 증가하여 관리하기 힘들어진다
 * O(2^n) : 지수 - 지수적 증가는 n이 조금만 높아져도 매우 큰 값을 가지게 되므로 유의해야 한다
 
+
 ### 배열과 연결 리스트이 Big-O 비교
 
 |           | 앞부분 삽입 | 뒤로 삽입  | 가운데 삽입 | 삭제             | 찾다     |
@@ -198,6 +216,7 @@ console.log(answer.join('\n'))
 | 단일 연결 리스트 | `O(1)` | `O(n)` | `O(n)` | `O(n)`         | `O(n)` |
 | 이중 연결 리스트 | `O(1)` | `O(1)` | `O(n)` | `O(1) or O(n)` | `O(n)` |
 
+
 ## 유용한 함수
 
 repeat: 문자열 반복
@@ -205,6 +224,7 @@ repeat: 문자열 반복
 ```javascript
 console.log("*".repeat(5)) // *****
 ```
+
 
 ## 팁
 

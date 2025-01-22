@@ -1,8 +1,12 @@
-# 동적 계획법(Dynamic Programming)
+---
+title: Dynamic Programming
+description: 동적 계획법은 복잡한 문제를 작은 하위 문제로 나누어 풀고, 그 결과를 저장(memoization)하여 동일한 하위 문제를 반복해서 계산하지 않도록 하는 알고리즘 설계 기법입니다.
+---
 
 ## 동적 계획법이란
 
 동적 계획법(Dynamic Programming, DP)은 \*\*복잡한 문제를 작은 하위 문제로 나누어 풀고, 그 결과를 저장(memoization)\*\*하여 동일한 하위 문제를 반복해서 계산하지 않도록 하는 알고리즘 설계 기법입니다.
+
 
 ### 하향식 방법 (Top-Down Approach)
 
@@ -29,6 +33,7 @@ function fibonacci(n) {
 }
 ```
 
+
 ### 상향식 방법 (Bottom-Up Approach)
 
 * 작은 하위 문제부터 순차적으로 계산하며 테이블을 채워감.
@@ -51,6 +56,7 @@ function fibonacci(n) {
 }
 ```
 
+
 ### 하향식과 상향식의 비교
 
 | **특징**       | **하향식(Top-Down)**            | **상향식(Bottom-Up)**              |
@@ -64,6 +70,7 @@ function fibonacci(n) {
 | **속도 최적화**   | 초기 실행 속도 느림                  | 반복문 기반으로 초기 실행 속도 빠름            |
 
 ![fibonacci-benchmark](../algorithms/assets/fibonacci-benchmark.png)
+
 
 ### 동적 계획법의 핵심 개념
 
@@ -80,6 +87,7 @@ function fibonacci(n) {
    * 하위 문제를 작은 순서부터 계산해 결과를 테이블에 저장하는 방식.
    * 보통 반복문 방식에서 사용.
 
+
 ### 동적 계획법의 단계
 
 1. 문제를 작은 하위 문제로 나눈다.
@@ -87,7 +95,9 @@ function fibonacci(n) {
 3. 작은 문제의 결과를 저장(메모이제이션 또는 테이블화).
 4. 저장된 결과를 사용하여 전체 문제를 해결한다.
 
+
 ### 예제: 피보나치 수열
+
 
 #### 1. 재귀 방식 + 메모이제이션
 
@@ -107,6 +117,7 @@ console.log(fibonacciMemo(50)); // 출력: 12586269025
 
 * **시간 복잡도**: O(n)
 * **공간 복잡도**: O(n) (재귀 호출 스택 + 메모이제이션)
+
 
 #### 2. 반복문 방식 + 테이블화
 
@@ -130,12 +141,15 @@ console.log(fibonacciTabulation(50)); // 출력: 12586269025
 * **시간 복잡도**: O(n)
 * **공간 복잡도**: O(n) (테이블 크기)
 
+
 ### 예제: 배낭 문제(Knapsack Problem)
+
 
 #### 문제 설명
 
 * 물건이 각각의 \*\*가치(value)\*\*와 \*\*무게(weight)\*\*를 가진다.
 * 배낭에 넣을 수 있는 최대 무게(capacity)가 주어질 때, 최대의 가치를 얻도록 물건을 선택해야 한다.
+
 
 #### 입력
 
@@ -143,12 +157,14 @@ console.log(fibonacciTabulation(50)); // 출력: 12586269025
 * `values = [3, 4, 5, 6]` (가치 배열)
 * `capacity = 5` (최대 용량)
 
+
 #### DP 해결 방법
 
 * **dp\[i]\[w]**: 첫 번째 `i`개의 물건을 고려할 때, 무게 `w`까지의 배낭에 넣을 수 있는 최대 가치.
 * 점화식:
   * `dp[i][w] = dp[i-1][w]` (현재 물건을 넣지 않음)
   * `dp[i][w] = max(dp[i-1][w], dp[i-1][w - weights[i-1]] + values[i-1])` (현재 물건을 넣는 경우)
+
 
 #### 구현
 
@@ -182,17 +198,21 @@ const capacity = 5;
 console.log(knapsack(values, weights, capacity)); // 출력: 7
 ```
 
+
 ### 예제: 문자열 편집 거리(Edit Distance)
+
 
 #### 문제 설명
 
 * 두 문자열 `word1`과 `word2`를 변환하기 위해 최소한의 연산(insert, delete, replace)을 수행해야 한다.
 * 이때 필요한 최소 연산 횟수를 계산.
 
+
 #### 입력
 
 * `word1 = "horse"`
 * `word2 = "ros"`
+
 
 #### DP 해결 방법
 
@@ -200,6 +220,7 @@ console.log(knapsack(values, weights, capacity)); // 출력: 7
 * 점화식:
   * `dp[i][j] = dp[i-1][j-1]` (글자가 같을 때)
   * `dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])` (삽입, 삭제, 교체 중 최소값)
+
 
 #### 구현
 
@@ -233,12 +254,15 @@ function minDistance(word1, word2) {
 console.log(minDistance("horse", "ros")); // 출력: 3
 ```
 
+
 ### 동적 계획법의 장단점
+
 
 #### 장점
 
 1. **효율성**: 중복된 계산을 방지하여 시간 복잡도를 크게 줄임.
 2. **명확성**: 문제를 단계적으로 해결할 수 있음.
+
 
 #### 단점
 
