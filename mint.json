@@ -29,6 +29,10 @@
     {
       "name": "Computer Science",
       "url": "computer-science"
+    },
+    {
+      "name": "Project",
+      "url": "project"
     }
   ],
   "anchors": [
@@ -88,6 +92,18 @@
         "computer-science/data-structures/heap",
         "computer-science/data-structures/set",
         "computer-science/data-structures/graph"
+      ]
+    },
+    {
+      "group": "Database",
+      "pages": [
+        "computer-science/database/overview"
+      ]
+    },
+    {
+      "group": "Overview",
+      "pages": [
+        "project/overview"
       ]
     }
   ],
