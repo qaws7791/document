@@ -1,0 +1,263 @@
+---
+title: choose tech stack
+description: 이 문서는 프로젝트의 기술 스택을 선택하는 방법에 대해 설명합니다.
+---
+
+## 도움이 되는 도구
+
+- GitHub 스타 추이 비교
+  - [GitHub Star History](https://star-history.com/)
+- npm 패키지의 다운로드 수 추이 비교
+  - [npm trends: Compare NPM package downloads](https://npmtrends.com/)
+- 번들 사이즈 확인
+  - [Bundlephobia | Size of npm dependencies](https://bundlephobia.com/)
+
+
+# 🫶공통 또는 그외
+
+
+## Authentication & Authorization
+
+- 인증을 위한 개방형 표준
+
+  [OAuth 2.0 — OAuth](https://oauth.net/2/)
+
+- JSON Web Token
+
+  [JWT.IO](https://jwt.io/)
+
+
+## API Design
+
+- REST - 가장 널리 사용하는 API로 리소스 기반의 주소를 지정하여 데이터를 자고 받는 방법
+
+  [https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm](https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)
+
+- GraphQL - API를 위한 쿼리 언어. 단일 엔드 포인트. 원하는 것을 요청하고 받는 방식
+
+  [GraphQL | A query language for your API](https://graphql.org/)
+
+
+## Logging & Monitoring
+
+- Sentry - 애플리케이션 로깅 및 모니터링
+
+  [Application Performance Monitoring & Error Tracking Software](https://sentry.io/welcome/)
+
+
+## Analysis
+
+Lighthouse - 웹 성능 및 모범 사례, 그리고 감사를 위한 자동화 도구
+
+[https://github.com/GoogleChrome/lighthouse](https://github.com/GoogleChrome/lighthouse)
+
+
+# 🗄️백엔드
+
+<aside>
+👉 백엔드를 위한 기술 나열
+
+
+</aside>
+
+
+## Database
+
+- PostgreSQL - 가장 인기 많은 RDBMS
+
+  [PostgreSQL](https://www.postgresql.org/)
+
+- SQLite - 하나의 파일만으로 동작하는 임베디드를 위한 RDBMS
+
+  [SQLite Home Page](https://www.sqlite.org/index.html)
+
+- Mongodb - 문서 지향 NoSQL
+
+  [MongoDB: The Developer Data Platform](https://www.mongodb.com/)
+
+- Redis: key-value 형태로 데이터를 저장하는 in-memory 기반의 NoSQL
+
+
+## Web Application
+
+- nestjs - nodejs 진영에서 가장 인기 많은 웹 프레임워크
+
+[https://github.com/nestjs/nest](https://github.com/nestjs/nest)
+
+- express - 오래 됨. 사용자 많음
+
+  [https://github.com/expressjs/express](https://github.com/expressjs/express)
+
+- fastify - 빠름. 플러그인 다양
+
+  [https://github.com/fastify/fastify](https://github.com/fastify/fastify)
+
+
+## ORM
+
+- Prisma - 인기 많음. 사용자 많음. ❗전체 텍스트 검색 이슈
+
+  [https://github.com/prisma/prisma](https://github.com/prisma/prisma)
+
+- TypeORM - 클래스 기반 ORM. nestjs에서 자주 사용
+
+  [https://github.com/typeorm/typeorm](https://github.com/typeorm/typeorm)
+
+- Drizzle - SQL 구문과 유사하게 사용하고 가볍고 빠른 ORM
+
+  [https://github.com/drizzle-team/drizzle-orm](https://github.com/drizzle-team/drizzle-orm)
+
+
+### json 검증
+
+[https://github.com/ajv-validator/ajv](https://github.com/ajv-validator/ajv)
+
+
+# 💻프론트엔드
+
+<aside>
+👉 프론트엔드를 위한 기능 나열
+
+
+</aside>
+
+
+## Web Framework
+
+- Next - React 기반의 풀스택 웹 프레임워크
+
+  [https://github.com/vercel/next.js](https://github.com/vercel/next.js)
+
+- Nuxt - Vue 기반의 풀스택 웹 프레임워크
+
+  [https://github.com/nuxt/nuxt](https://github.com/nuxt/nuxt)
+
+- Remix - 사용자 경험을 중점으로 하는 풀스택 웹 프레임워크
+
+  [https://github.com/remix-run/remix](https://github.com/remix-run/remix)
+
+- SvelteKit - Svelte 기반의 강력하고 성능이 좋은 웹 프레임워크
+
+  [https://github.com/sveltejs/kit](https://github.com/sveltejs/kit)
+
+- Astro - 콘턴츠 중심 웹사이트를 위한 웹 프레임워크. 주요 UI 프레임워크와 통합
+
+  [https://github.com/withastro/astro](https://github.com/withastro/astro)
+
+
+## CSS
+
+- Sass - CSS를 확장하여 여러 고급 기능을 제공. 빌드를 통해 CSS로 변환. 학습 곡선이 높음. 오래된 만큼 큰 커뮤니티
+
+  [https://github.com/sass/sass](https://github.com/sass/sass)
+
+- CSS Modules - 파일 별로 스타일을 캡슐화하여 고유 클래스명을 부여하는 방식. 컴포넌트 기반 개발에 적합
+
+  [https://github.com/css-modules/css-modules](https://github.com/css-modules/css-modules)
+
+- Styled Components - JavaScript 내에서 스타일을 정의하는 CSS-in-JS 라이브러리. 동적 스타일링에 유리. 오버헤드 존재
+
+  [https://github.com/styled-components/styled-components](https://github.com/styled-components/styled-components)
+
+- Tailwind CSS - 유틸리티 우선 방식의 CSS 프레임워크. 마크업하는 곳에서 스타일링을 함께 하여 빠른 개발. 커스터마이징 용이. 클래스 명을 고민하지 않아도 됨. 클래스 명이 너무 길어져서 지저분해 보임
+
+  [https://github.com/tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss)
+
+
+## Build Tools
+
+- Vite - 웹 프로젝트를 위한 차세대 빌드 도구. `create-react-app`의 사실상 대체제
+
+  [https://github.com/vitejs/vite](https://github.com/vitejs/vite)
+
+- ESBuild - 웹을 위한 매우 빠른 번들러
+
+  [https://github.com/evanw/esbuild](https://github.com/evanw/esbuild)
+
+
+## Date and Time
+
+- dayjs - 2kB의 가벼운 날짜 시간 라이브러리
+  <https://github.com/iamkun/dayjs/>
+
+
+## Client State Manage
+
+- Redux - 아직까지 가장 많이 쓰이는 전역 상태 라이브러리. 학습 곡선이 높다
+
+  [https://github.com/reduxjs/redux](https://github.com/reduxjs/redux)
+
+- Zustand - react 상태 관리 라이브러리로 가볍고 사용법이 쉽다
+
+  [https://github.com/pmndrs/zustand](https://github.com/pmndrs/zustand)
+
+
+## Server State Manage
+
+- Tanstack Query - 비동기 상태 관리를 위한 라이브러리
+
+  [https://github.com/TanStack/query](https://github.com/TanStack/query)
+
+
+## Table
+
+TanStack Table - 테이블과 데이터 그리드를 위한 헤드리스 UI 라이브러리
+
+[https://github.com/TanStack/table](https://github.com/TanStack/table)
+
+
+## Data Validation
+
+- Zod - 타입스크립트 우선 스키마 검증 라이브러리
+
+  [https://github.com/colinhacks/zod](https://github.com/colinhacks/zod)
+
+- Ajv - 가장 빠른 json 스키마 검증 라이브러리
+
+  [https://github.com/ajv-validator/ajv](https://github.com/ajv-validator/ajv)
+
+
+## Form
+
+- React Hook Form - React에서 Form 상태를 관리하기 위한 라이브러리
+
+  [https://github.com/react-hook-form/react-hook-form](https://github.com/react-hook-form/react-hook-form)
+
+
+## Testing
+
+- Vitest - jest과 거의 유사하지만 vite으로 구현되어 더 빠른 테스팅 라이브러리
+
+  [https://github.com/vitest-dev/vitest](https://github.com/vitest-dev/vitest)
+
+- Raact Testing Library - React 요소를 테스팅하기 위한 라이브러리
+
+  [https://github.com/testing-library/react-testing-library](https://github.com/testing-library/react-testing-library)
+
+- Playwright - 웹 테스트와 자동화를 위한 프레임워크
+
+  [https://github.com/microsoft/playwright](https://github.com/microsoft/playwright)
+
+- Cypress - E2E 테스트 및 컴포넌트 테스트 러너
+
+  [https://github.com/cypress-io/cypress](https://github.com/cypress-io/cypress)
+
+- Storybook - UI 테스트를 위한 워크숍
+
+  [https://github.com/storybookjs/storybook](https://github.com/storybookjs/storybook)
+
+
+## Mocking
+
+- MSW - JavaScript 애플리케이션을 위한 REST/GraphQL API 모킹 라이브러리
+
+  [https://github.com/mswjs/msw](https://github.com/mswjs/msw)
+
+
+## Accessibility
+
+접근성을 지원하는 UI 라이브러리
+
+[https://github.com/adobe/react-spectrum](https://github.com/adobe/react-spectrum)
+
+[https://github.com/radix-ui/primitives](https://github.com/radix-ui/primitives)
