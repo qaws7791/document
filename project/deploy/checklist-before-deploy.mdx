@@ -22,3 +22,58 @@ description: 배포 전 체크리스트를 정리한 문서입니다.
 3. 사용하지 않는 변수 및 import 문 제거
 4. console.log 제거
 5. 인라인 스타일 정리
+
+
+## 기술 관점
+
+
+### HTML
+
+1. 시멘틱한 마크업 구조 사용하기
+2. h 태그 순서 신경 스기
+3. HTML 요소의 아이디, 클래스 명 통일하기
+4. html 파일에 인라인 자바스크립트 작성 줄이기
+5. html 파일 내의 자바스크립트 파일 연결 시 <script> 작성 위치와 defer, module 속성 고려하기
+6. form 사용 시 submit을 통한 전송
+7. 입력 받을 때 유효성 검사 및 검사 실패 시 피드백
+8. 이미지에 alt 태그 넣기, 대체 텍스트 넣기, 대체 이미지 넣기
+9. svg나 폰트이미지 등을 사용할 때 스크린리더기에서 알 수 있도록 글자 넣기
+10. 공통 로딩 스피너, 스켈레톤 이미지 사용
+11. **Doctype:** Doctype은 HTML5이며 모든 HTML 페이지의 맨 위에 있습니다
+12. **Charset:** 선언된 문자 집합(UTF-8)이 올바르게 선언되었습니다.
+13. **Viewport:** 뷰포트가 올바르게 선언되었습니다.
+14. Title: 제목은 모든 페이지에 사용됩니다.
+15. 메타 태그 Description: 고유해야 하며 150자를 넘지 않아야 합니다.
+16. Favicon이 올바르게 생성되고 표시되어야 합니다
+17. ****Apple meta-tags가 제대로 표시되어야 합니다
+18. Windows tiles이 제대로 표시되어야 합니다
+19. 중복 콘텐츠를 피하기 위해  `rel="canonical”` 를 사용합니다
+20. **Direction attribute: 텍스트의 읽는 방향을 알려줍니다**
+21. **Language attribute: 해당 페이지의 언어를 알려줍니다**
+22. **Alternate language: 대체 언어를 알려줍니다**
+23. IE를 위한 조건부 주석을 추가합니다
+24. 게시판이나 블로그와 같이 기사가 있는 경우 `RSS 링크`를 제공합니다
+25. 인라인 스타일을 추출하여 <head>태그 안에 넣어 사용합니다
+26. 모든 css 파일을 <head>안에 넣어 빠르게 로드되도록 합니다
+27. **Facebook Open Graph를 지원합니다**
+28. Twitter Card를 지원합니다
+29. 에러 발생 시 적절한 에러 페이지를 표시합니다
+30. 신뢰할 수 없는 외부 링크를 사용할 때 `rel="noopener"` 속성을 사용하여 안전하게 사용할 수 있다
+31. W3C 검증 도구를 사용하여 문제점을 찾기
+32. 링크 검사기를 사용하여 잘못된 링크가 없는지 찾기
+33. 광고 차단기를 사용할 경우 페이지가 어떻게 보이는지 확인하기
+34. 브라우저 기본 스타일 초기화 합니다(reset css, [apperance](https://developer.mozilla.org/en-US/docs/Web/CSS/appearance))
+35. 브라우저 간 스타일을 통일합니다(css normalize)
+36. 웹폰트 WOFF,WOFF2 형식을 사용하세요
+37. 웹폰트 크기를 줄이세요
+38. 인쇄를 위한 스타일시트를 추가하세요([https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing))
+
+
+### JavaScript
+
+1. 모듈을 통한 기능별 파일 분리
+2. 비동기 함수에 async / await 사용하기
+3. 이벤트핸들러 사용 시 이벤트 버블링 유의하기 e.target, e.currentTarget
+4. 이벤트핸들러 필요 없어지면 삭제하기
+5. 오류 발생 시 개발자와 사용자에게 피드백 보내기
+6. 페이지에서 자바스크립트가 비활성화되어 있을 때 noscript 태그를 사용하여 적절한 내용을 표시하세요
