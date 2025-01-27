@@ -1,0 +1,413 @@
+---
+title: Next.js
+description: Next.js에 대해 정리한 문서입니다.
+---
+
+## Nextjs
+
+
+
+[Find your Template – Vercel](https://vercel.com/templates)
+
+```bash
+├─ public
+│  └─ favicon.ico
+├─ src  Optional application source folder
+│  ├─ app App Router
+│  │  ├─ layout.tsx root layout
+│  │  ├─ loading.tsx loading ui
+│  │  └─ page.tsx
+|  ├─ features
+|  │  ├─ api
+|  │  ├─ assets
+|  │  ├─ components
+|  │  ├─ hooks
+|  │  ├─ stores
+|  │  ├─ types
+|  │  └─ utils
+|  ├─ config
+|  |  ├─ env.ts
+|  |  └─ site.ts
+|  ├─ test
+|  |  └─ task.test.ts
+|  ├─ hooks
+|  |  └─ use-mounted.ts
+|  ├─ stores
+|  |  └─ global-store.ts
+|  ├─ types
+|  |  ├─ a.types.ts
+|  |  └─ b.types.ts
+|  ├─ utils
+|  |  ├─ date.ts
+|  |  └─ string.ts
+|  └─ styles
+|     └─ globals.css
+├─ next.config.js Configuration file for Next.js
+├─ package.json Project dependencies and scripts
+├─ package-lock.json Project dependencies and scripts 
+├─ middleware.ts Next.js request middleware
+├─ .env.example Environment variables example
+├─ .env.local Local environment variables
+├─ .eslintrc.json Configuration file for ESLint
+├─ .gitignore Git files and folders to ignore
+├─ next-env.d.ts TypeScript declaration file for Next.js
+└─ tsconfig.json Configuration file for TypeScript
+```
+
+- http client 단일 인스턴스를 통한 요청, 응답 관리
+
+  ```tsx
+  // before
+  fetch("/posts")
+  // after
+  httpClient.get("/posts")
+  ```
+
+- api 관련 함수를 모듈화
+
+  ```tsx
+  // before
+  httpClient.get("/posts")
+  
+  // after
+  postApi.getPosts()
+  ```
+
+
+## 파일(폴더) 구조
+
+> 방금 프로젝트를 시작하는 경우 파일 구조를 선택하는 데 [5분 이상 걸리지 마세요](https://en.wikipedia.org/wiki/Analysis_paralysis) . 위의 접근 방식(기능 별, 유형 별) 중 하나를 선택하고(또는 직접 생각해 보세요) 코드 작성을 시작하세요! 실제 코드를 작성한 후에는 어쨌든 다시 생각해보고 싶을 것입니다.
+
+> 완전히 막혔다고 느낀다면 모든 파일을 단일 폴더에 보관하는 것으로 시작하세요. 결국 폴더가 충분히 커져서 일부 파일을 나머지 파일과 분리하고 싶을 것입니다. - React Docs
+
+
+### FSD
+
+```
+└── src/
+    ├── app/ 
+    |      ├ app.module 
+    |      ├ app-routing.module.ts
+    |      └── store
+    |        └──store.module.ts
+    |
+    ├── pages/
+    |       ├── not-found/
+    |       ├── task-details/
+    |       └── tasks-list/       
+    ├── widgets/ # not represented in this example. See extended edition.
+    ├── features/
+    |      └── tasks-filter
+    |      |    |  ├── component/ # html, scss, ts
+    |      |    |  └── model/     # config.service.ts - some logic for filtering 
+    |      |    └──tasks-filter.module.ts
+    |      └── toggle-task
+    |        |  ├── component/ # html, scss, ts
+    |        |  └── model/     # config.service.ts - some logic for filtering 
+    |        └──toggle-task.module.ts
+    ├── entities/
+    |      └── task
+    |      |  ├── task-card/ # html, scss, ts
+    |      |  └── task-row/ # html, scss, ts
+    |      └──task.module.ts
+    └── shared/
+           ├── api #getTasksList api is here
+           ├── lib/ # routerSelectors
+           └── ui/ #ui-kit modules
+```
+
+
+### by Blitz.js
+
+[File Structure - Blitz.js](https://blitzjs.com/docs/file-structure)
+
+```
+├── src/
+│   ├── blitz-client.ts
+│   ├── blitz-server.ts
+│   ├── core/
+│   │   ├── components/
+│   │   │   ├── Form.tsx
+│   │   │   └── LabeledTextField.tsx
+│   │   └── layouts/
+│   │       └── Layout.tsx
+│   ├── auth/
+│   │   ├── components/
+│   │   │   ├── LoginForm.tsx
+│   │   │   └── SignupForm.tsx
+│   │   ├── mutations/
+│   │   │   ├── login.ts
+│   │   │   ├── logout.ts
+│   │   │   └── signup.ts
+│   │   ├── auth-utils.ts
+│   │   └── validations.ts
+│   ├── users/
+│   │   ├── hooks/
+│   │   │   └── useCurrentUser.ts
+│   │   └── queries/
+│   │       └── getCurrentUser.ts
+│   ├── projects/
+│   │   ├── components/
+│   │   │   ├── Project.tsx
+│   │   │   ├── ProjectForm.tsx
+│   │   │   └── Projects.tsx
+│   │   ├── mutations/
+│   │   │   ├── createProject.ts
+│   │   │   ├── createProject.test.ts
+│   │   │   ├── deleteProject.ts
+│   │   │   ├── deleteProject.test.ts
+│   │   │   ├── updateProject.ts
+│   │   │   └── updateProject.test.ts
+│   │   └── queries/
+│   │       ├── getProject.ts
+│   │       └── getProjects.ts
+│   └── pages/
+│       ├── api/
+│       │   └── stripe-webhook.ts
+│       ├── 404.tsx
+│       ├── _app.tsx
+│       ├── _document.tsx
+│       ├── index.test.tsx
+│       ├── index.tsx
+│       ├── auth/
+│       │   ├── login.tsx
+│       │   └── signup.tsx
+│       └── projects/
+│           ├── [id]/
+│           │   └── edit.tsx
+│           ├── [id].tsx
+│           ├── index.tsx
+│           └── new.tsx
+├── db/
+│   ├── index.ts
+│   ├── schema.prisma
+│   └── seeds.ts
+├── integrations/
+│   └── sentry.ts
+├── public/
+│   ├── favicon.ico*
+│   └── logo.png
+├── test/
+│   ├── setup.ts
+│   └── utils.tsx
+├── README.md
+├── next.config.js
+├── vitest.config.ts
+├── package.json
+├── tsconfig.json
+├── types.ts
+└── yarn.lock
+```
+
+
+### by t3 app
+
+[Folder Structure (App) 🚀 Create T3 App](https://create.t3.gg/en/folder-structure-app)
+
+```
+├─ public
+│  └─ favicon.ico
+├─ src
+│  ├─ app
+│  │  ├─ _components
+│  │  │  └─ post.tsx
+│  │  ├─ api
+│  │  │  ├─ auth
+│  │  │  │  └─ [...nextauth]
+│  │  │  │     └─ route.ts
+│  │  │  └─ trpc
+│  │  │     └─ [trpc]
+│  │  │        └─ route.ts
+│  │  ├─ layout.tsx
+│  │  └─ page.tsx
+│  ├─ server
+│  │  ├─ auth.ts
+│  │  ├─ db
+│  │  │  ├─ index.ts
+│  │  │  └─ schema.ts
+│  │  └─ api
+│  │     ├─ routers
+│  │     │  └─ example.ts
+│  │     ├─ trpc.ts
+│  │     └─ root.ts
+│  ├─ styles
+│  │  └─ globals.css
+│  ├─ env.js
+│  └─ trpc
+│     ├─ query-client.ts
+│     ├─ react.tsx
+│     └─ server.ts
+├─ .env
+├─ .env.example
+├─ .eslintrc.cjs
+├─ .gitignore
+├─ db.sqlite (after `db:push`, sqlite only)
+├─ drizzle.config.ts
+├─ next-env.d.ts
+├─ next.config.js
+├─ package.json
+├─ postcss.config.cjs
+├─ prettier.config.js
+├─ README.md
+├─ start-database.sh (mysql or postgres only)
+├─ tailwind.config.ts
+└─ tsconfig.json
+
+```
+
+
+### by alan2207
+
+[https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
+
+프로젝트 전체 구조
+
+```
+src
+|
++-- app               # application layer containing:
+|   |
+|   +-- routes        # application routes / can also be called pages
+    +-- app.tsx       # main application component
+    +-- provider.tsx  # application provider that wraps the entire application with different global providers
+    +-- router.tsx    # application router configuration
++-- assets            # assets folder can contain all the static files such as images, fonts, etc.
+|
++-- components        # shared components used across the entire application
+|
++-- config            # global configurations, exported env variables etc.
+|
++-- features          # feature based modules
+ |
+ +-- api         # exported API request declarations and api hooks related to a specific feature
+ |
+ +-- assets      # assets folder can contain all the static files for a specific feature
+ |
+ +-- components  # components scoped to a specific feature
+ |
+ +-- hooks       # hooks scoped to a specific feature
+ |
+ +-- stores      # state stores for a specific feature
+ |
+ +-- types       # typescript types used within the feature
+ |
+ +-- utils       # utility functions for a specific feature
+|
++-- hooks             # shared hooks used across the entire application
+|
++-- lib               # reusable libraries preconfigured for the application
+|
++-- stores            # global state stores
+|
++-- test              # test utilities and mocks
+|
++-- types             # shared types used across the application
+|
++-- utils             # shared utility functions
+```
+
+
+### React
+
+기능 또는 경로 별 그룹화
+
+```tsx
+common/
+  Avatar.js
+  Avatar.css
+  APIUtils.js
+  APIUtils.test.js
+feed/
+  index.js
+  Feed.js
+  Feed.css
+  FeedStory.js
+  FeedStory.test.js
+  FeedAPI.js
+profile/
+  index.js
+  Profile.js
+  ProfileHeader.js
+  ProfileHeader.css
+  ProfileAPI.js
+```
+
+파일 유형 별 그룹화
+
+```
+api/
+  APIUtils.js
+  APIUtils.test.js
+  ProfileAPI.js
+  UserAPI.js
+components/
+  Avatar.js
+  Avatar.css
+  Feed.js
+  Feed.css
+  FeedStory.js
+  FeedStory.test.js
+  Profile.js
+  ProfileHeader.js
+  ProfileHeader.css
+```
+
+2가지 혼합형
+
+- 1차 - 기능 별
+- 2차 - 유형 별
+
+```tsx
+common/
+  api/
+  components/
+  utils/
+feed/
+  api/
+  components/
+  utils/
+profile/
+  api/
+  components/
+  utils/
+```
+
+
+### 레퍼런스
+
+- 전반적인 상용 프로젝트
+
+  [https://github.com/midday-ai/midday](https://github.com/midday-ai/midday)
+
+- 이커머스 앞단 구축
+
+  [https://github.com/vercel/commerce](https://github.com/vercel/commerce)
+
+- 어드민 페이지구축
+
+  [https://github.com/vercel/nextjs-postgres-nextauth-tailwindcss-template](https://github.com/vercel/nextjs-postgres-nextauth-tailwindcss-template)
+
+- 구독 결제 시스템 구축
+
+  [https://github.com/vercel/nextjs-subscription-payments](https://github.com/vercel/nextjs-subscription-payments)
+
+- 전반적인 프로젝트 구축
+
+  [https://github.com/ixartz/Next-js-Boilerplate](https://github.com/ixartz/Next-js-Boilerplate)
+
+- nextjs 인터셉트 라우트 활용
+
+  [https://github.com/vercel/nextgram](https://github.com/vercel/nextgram)
+
+- 멀티 테넌시 구축
+
+  [https://github.com/vercel/platforms](https://github.com/vercel/platforms)
+
+- strapi를 사용한 회사 사이트
+
+  [https://github.com/strapi/nextjs-corporate-starter](https://github.com/strapi/nextjs-corporate-starter)
+
+
+## nextjs with mongodb
+
+[NextAuth.js Authentication With MongoDB | MongoDB](https://www.mongodb.com/developer/languages/typescript/nextauthjs-authentication-mongodb/)
