@@ -1,5 +1,21 @@
 # ⚛ React
 
+
+## 팁
+
+1. 컴포넌트가 포함된 파일은 jsx,tsx 확장자로, 일반 파일은 js,ts로 만들기
+2. props는 구조분해 할당으로 받기
+3. [**StrictMode**](https://react.dev/reference/react/StrictMode) 사용하기
+4. map 함수를 사용하여 컴포넌트를 렌더링 할 때 `key` 속성을 항상 추가하기(랜덤값은 사용하지 마세요. 컴포넌트 별 고유한 값을 부여)
+5. [error-boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)를 사용하여 에러 발생 시 중단되지 않도록 처리하세요
+6. 중복된 상태를 제거하세요
+7. 상태를 최소한으로 가지세요
+8. 상태에서 파생된 값은 또 다른 상태가 아닌 변수로 사용하고 최적화가 필요한 경우 useMemo를 사용하세요
+9. 컴포넌트를 작고 단순하게 만드세요
+10. `Context`를 사용하여 props드릴링을 피하세요
+11. 하나의 버튼에서 두 가지 일을 하지 마세요
+
+
 ## React는 무엇인가
 
 * Facebook에서 만든 오픈 소스 프로젝트
@@ -20,7 +36,6 @@
 * 입력하는 데이터에 대해 자동으로 이스케이프하여 XSS와 같은 공격을 방지
 
 
-
 ## React 프로젝트 시작하기
 
 * 기본 주소: `localhost:3000`
@@ -30,12 +45,11 @@
 npm create vite@latest
 ```
 
-- next를 사용하여 react 앱 시작하기
+* next를 사용하여 react 앱 시작하기
 
 ```bash
 npx create-next-app@latest
 ```
-
 
 
 * 개발용 CDN 링크
@@ -53,7 +67,6 @@ npx create-next-app@latest
 ```
 
 
-
 ### React 프로젝트 구조
 
 * /public
@@ -66,12 +79,12 @@ npx create-next-app@latest
 * package.json
 * README.md
 
+
 ### React 개발자 도구
 
 리액트 디버깅 툴
 
-https://github.com/facebook/react/tree/main/packages/react-devtools-extensions
-
+<https://github.com/facebook/react/tree/main/packages/react-devtools-extensions>
 
 
 ## Flux 데이터 흐름
@@ -93,7 +106,6 @@ flowchart LR
 ```
 
 
-
 ## Key 속성 사용하기
 
 React에서는 배열로 렌더링할 때 Key 속성이 필수적이다.
@@ -105,7 +117,7 @@ React에서는 배열로 렌더링할 때 Key 속성이 필수적이다.
 ```jsx
 // ❌ 단축 문법에 Key 사용 불가
 {items.map((item)=>(
-	<key={item.id}>
+ <key={item.id}>
         <span>{item.name}</span>
         <p>{item.price}</p>
     <>
@@ -115,12 +127,13 @@ React에서는 배열로 렌더링할 때 Key 속성이 필수적이다.
 ```jsx
 //✅ Fragment를 사용하여 Key 속성 사용
 {items.map((item)=>(
-	<React.Fragment key={item.id}>
+ <React.Fragment key={item.id}>
         <span>{item.name}</span>
         <p>{item.price}</p>
     </React.Fragment>
 ))}
 ```
+
 
 ### Key 속성을 사용해 props 변경 시 state 초기화
 
@@ -134,13 +147,13 @@ props가 변경되면 state를 초기화해야 할 때가 있다. 예를 들어 
 ```
 
 
-
 ## Element
 
 * React 앱에서 사용되는 가장 작은 단위
 * virtual DOM 노드의 객체 표현
 * 생명주기를 가지지 않는다.
 * 한 번 생성되면 변하지 않는 불변 객체이다.
+
 
 ### Element 렌더링
 
@@ -162,13 +175,9 @@ root.render(element);
 ```
 
 
-
-
-
 ### 상태가 없다
 
-- 엘리먼트는 생명 주기를 포함해 메서드, 상태를 가지지 않는다.
-
+* 엘리먼트는 생명 주기를 포함해 메서드, 상태를 가지지 않는다.
 
 
 #### 변경된 부분만 업데이트
@@ -176,8 +185,8 @@ root.render(element);
 * 리액트 DOM은 현재 상태와 변경될 상태를 비교하여 변경이 필요한 부분만 업데이트한다.
 
 
-
 ## Component
+
 
 ### Component 정의
 
@@ -186,12 +195,11 @@ root.render(element);
 * 이름은 대문자로 시작한다.
 
 
-
 **함수형 컴포넌트**
 
 ```jsx
 function Component(props) {
-	return <h1> Component </h1>;
+ return <h1> Component </h1>;
 }
 ```
 
@@ -199,26 +207,25 @@ function Component(props) {
 
 ```jsx
 const Component = (props) => {
-	return <h1> Component </h1>;
+ return <h1> Component </h1>;
 }
 ```
-
 
 
 **클래스 컴포넌트** - ES6 Class 문법
 
 ```jsx
 class Component extends React.Component {
-	render() {
-		return <h1> Component </h1>;
-	}
+ render() {
+  return <h1> Component </h1>;
+ }
 }
 ```
+
 
 ### rendering
 
 부모 컴포넌트가 리렌더링되면 모든 하위 컴포넌트가 리렌더링
-
 
 
 ### props
@@ -232,10 +239,9 @@ class Component extends React.Component {
 
 ```jsx
 const Button = (props) => {
-	return <button type={props.type}>{props.children}</button>
+ return <button type={props.type}>{props.children}</button>
 } 
 ```
-
 
 
 **props를 전달 받을 때 구조 분해를 사용하여 속성을 바로 가져올 수 있다.**
@@ -243,39 +249,36 @@ const Button = (props) => {
 ```jsx
 // 구조분해를 사용한 props 가져오기
 const Button = ({ type, children }) => {
-	return <button type={type}>{children}</button>
+ return <button type={type}>{children}</button>
 } 
 ```
-
 
 
 **props 기본값 지정하기**
 
 ```jsx
 const Button = ({ type='submit', children, placeholder='enter...' }) => {
-	return <button type={type} placeholder={placeholder}>{children}</button>
+ return <button type={type} placeholder={placeholder}>{children}</button>
 } 
 ```
 
 
+**모든 props를 엘리먼트에 전달하기**
 
-**모든 props를 엘리먼트에 전달하기** 
-
-- 스프레드 구문을 사용하여 모든 props, 또는 나머지 props를 엘리먼트에 전달할 수 있다.
+* 스프레드 구문을 사용하여 모든 props, 또는 나머지 props를 엘리먼트에 전달할 수 있다.
 
 ```jsx
 const Image = (props) => {
-	return <img {...props} />
+ return <img {...props} />
 }
 ```
 
 ```jsx
 const Image = ({a, b, ...props}) => {
     // a와 b를 사용하는 로직
-	return <img {...props} />
+ return <img {...props} />
 }
 ```
-
 
 
 ### children  속성
@@ -285,7 +288,7 @@ const Image = ({a, b, ...props}) => {
 
 ```jsx
 const TitleContainer ({ chlidren }) => {
-	return(
+ return(
         <div className="TitleContainer">
             {children}
         </div>
@@ -302,14 +305,12 @@ const TitleContainer ({ chlidren }) => {
 ```jsx
 // 렌더링 결과 
 <div className="TitleContainer">
-	<h1>Title: React</h1>
+ <h1>Title: React</h1>
 </div>
 ```
 
 
-
 * 자신의 `content`로 어떤 자식 엘리먼트가 올 지 예측하기 어려울 때 그대로 출력으로 전달 할 수 있다.
-
 
 
 ### 컴포넌트 구체화(특수화)
@@ -328,14 +329,12 @@ function WelcomeDialog() {
 ```
 
 
-
-
-
 ## Pure Component
 
-- 순수 함수와 같이 동일한 입력에 대해 동일한 출력을 렌더링하는 컴포넌트
-- 다른 객체나 변수를 변경시키지 않는다.
-- React에서는 함수형 컴포넌트가 순수 함수일 것으로 예상하고 동작한다
+* 순수 함수와 같이 동일한 입력에 대해 동일한 출력을 렌더링하는 컴포넌트
+* 다른 객체나 변수를 변경시키지 않는다.
+* React에서는 함수형 컴포넌트가 순수 함수일 것으로 예상하고 동작한다
+
 
 ### 순수하게 유지하는 방법
 
@@ -344,19 +343,16 @@ function WelcomeDialog() {
 3. unit test를 작성
 
 
-
-
-
 ## import / export
 
-어느 방식을 사용하든 의미 있는 이름을 사용하여야 한다. 
+어느 방식을 사용하든 의미 있는 이름을 사용하여야 한다.
 
 `export default () => {}`와 같은 방식은 권장되지 않는다.
+
 
 ### 기본 내보내기 방식
 
 기본 내보내기 방식은 가져올 때 원하는 이름으로 가져올 수도 있다.
-
 
 
 ```javascript
@@ -378,10 +374,9 @@ import AppContainer from './App.js';
 ```
 
 
-
 ### 명명된 내보내기 방식
 
-명명된 내보내기 방식은 가져올 때 양쪽의 이름이 일치해야 한다. 
+명명된 내보내기 방식은 가져올 때 양쪽의 이름이 일치해야 한다.
 
 가져온 후에는 이름을 변경할 수있다.
 
@@ -403,7 +398,6 @@ import { App as AppContainer } from './App.js'
 ```
 
 
-
 ## Virtual DOM
 
 > The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called [reconciliation](https://legacy.reactjs.org/docs/reconciliation.html). -react docs
@@ -417,8 +411,8 @@ import { App as AppContainer } from './App.js'
 가상DOM이라는 단어를 점점 안쓰는 추세이다. 컴포넌트가 항상 DOM을 나타내는 것도 아니다.
 
 
-
 ## State
+
 
 ### State란
 
@@ -431,22 +425,19 @@ import { App as AppContainer } from './App.js'
 **불변성**: React의 모든 상태를 불변해야 한다. (이전 상태와 현재 상태를 비교하여 최적화)
 
 
-
 ### 필요한 이유
 
 1. 지역 변수는 렌더링 간에 데이터가 유지되지 않는다.
    1. 렌더링 될 때마다 변수 값이 초기화
-2. 변수가 변경되더라도 리렌더링되지 않는다. 
+2. 변수가 변경되더라도 리렌더링되지 않는다.
    1. 변수의 값과 렌더링되어 보여지는 값이 다를 수 있다.
-
 
 
 ### State 고르기
 
-- 시간이 지나도 변함없이 유지 되는 값 -> 상태가 아님(상수)
-- 부모 요소로 부터 내려 받는 값 -> 상태가 아님(props)
-- 존재하는 상태와 props를 사용해 계산되어질 수 있는 값 -> 상태가 아님(useMemo를 사용)
-
+* 시간이 지나도 변함없이 유지 되는 값 -> 상태가 아님(상수)
+* 부모 요소로 부터 내려 받는 값 -> 상태가 아님(props)
+* 존재하는 상태와 props를 사용해 계산되어질 수 있는 값 -> 상태가 아님(useMemo를 사용)
 
 
 ### State 위치 정하기
@@ -455,21 +446,24 @@ import { App as AppContainer } from './App.js'
 2. 찾은 요소들의 공통 조상 요소를 찾기
 3. State 위치 정하기. 적절한 위치를 찾지 못했다면 새로운 공통 요소를 만들어 상위에 위치시키기
 
+
 ### 배열을 상태로 사용
 
-- 배열을 상태로 사용할 때에도 읽기 전용으로 간주하여 배열 요소에 값을 직접 할당하거나 변경해서는 안된다.
-- `concat`, `filter`, `slice`, `map` 등의 새로운 배열을 반환하는 메서드를 사용하여 상태를 업데이트한다.
-
+* 배열을 상태로 사용할 때에도 읽기 전용으로 간주하여 배열 요소에 값을 직접 할당하거나 변경해서는 안된다.
+* `concat`, `filter`, `slice`, `map` 등의 새로운 배열을 반환하는 메서드를 사용하여 상태를 업데이트한다.
 
 
 ###
 
+
 ## 폼
+
 
 #### 제어 컴포넌트
 
 * HTML에서의 폼은 엘리먼트 자체가 내부 상태를 가진다
 * React에서는 `State`를 사용해 \*\*`신뢰 가능한 단일 출처`\*\*를 통해 제어된다.
+
 
 #### 기본적인 Input 사용법
 
@@ -485,9 +479,11 @@ import { App as AppContainer } from './App.js'
 <select multiple={true} value={['grapefruit', 'lime']}>
 ```
 
+
 #### file Input
 
 * 읽기 전용 값으로 React에서 비제어 컴포넌트
+
 
 #### 핸들링 함수 재사용
 
@@ -505,6 +501,7 @@ handleInputChange(event) {
   }
 ```
 
+
 #### Input Null값 조심하기
 
 * `input`의 value `prop`으로 `null`이나 `undefined`를 넘기지 않아야 한다.
@@ -518,22 +515,25 @@ handleInputChange(event) {
         <form onSubmit={handleSubmit}>
           <label>
             Name:
-            <input type="text" value={value} onChange={(e) => 						         setValue(e.target.value)} />
+            <input type="text" value={value} onChange={(e) =>                setValue(e.target.value)} />
           </label>
           <input type="submit" value="Submit" />
         </form>
       );
 ```
 
+
 #### 폼 라이브러리
 
-https://formik.org/
+<https://formik.org/>
+
 
 ## 외부 데이터
 
 > HTTP 요청과 Promise에는 3가지 상태 진행중, 성공,실패가 있다.
 >
 > 반드시 3가지 상태에 대해 모두 처리를 해야 한다.
+
 
 ### fetch() 로 가져오기
 
@@ -559,6 +559,7 @@ const GitHubUser = ({ username }) => {
 export default GitHubUser;
 ```
 
+
 ### 로컬 스토리지로 가져오기
 
 * key값을 사용해 문자열 형태로 저장
@@ -569,25 +570,26 @@ export default GitHubUser;
 
 ```javascript
 const loadJSON = key =>
-	key && JSON.parse(localStorage.getItem(key));
+ key && JSON.parse(localStorage.getItem(key));
 const saveJSON = (key, data) => 
-	localStorage.setItem(key, JSON.stringify(data));
+ localStorage.setItem(key, JSON.stringify(data));
 ```
 
 ```jsx
 const [data, setData] = useState(loadJSON(`user: ${login}`));
 useEffect(() => {
-	if(!data) return;
-	if (data.login === login) return;
-	const {name, avatar_url, location} = data;
-	saveJSON(`user: ${login}`, {
-		name, 
-		login,
-		avatar_url,
-		location,
-	});
+ if(!data) return;
+ if (data.login === login) return;
+ const {name, avatar_url, location} = data;
+ saveJSON(`user: ${login}`, {
+  name, 
+  login,
+  avatar_url,
+  location,
+ });
 }, [data]);
 ```
+
 
 ### Context
 
@@ -595,9 +597,11 @@ useEffect(() => {
 * 전역적인 데이터를 공유하기 위한 방법
 * ex. 현재 로그인 유저, 테마, 선호하는 언어 등
 * 실제 사용되는 곳은 최하위 컴포넌트인데 props로 계속 내려 받는 것은 비효율적이기 때문
+
 * ```react
   const MyContext = React.createContext(defaultValue);
   ```
+
 
 #### `Context.Provider`
 
@@ -607,6 +611,7 @@ useEffect(() => {
 ```react
 <MyContext.Provider value={/* 어떤 값 */}>
 ```
+
 
 #### `Context.Consumer`
 
@@ -620,6 +625,7 @@ useEffect(() => {
   {value => /* context 값을 이용한 렌더링 */}
 </MyContext.Consumer>
 ```
+
 
 ## Render Props
 
@@ -641,15 +647,19 @@ const List ({ render,data }) => {
 }
 ```
 
-https://ko.reactjs.org/docs/render-props.html
+<https://ko.reactjs.org/docs/render-props.html>
+
 
 ## 목록 가상화
 
-https://ko.reactjs.org/docs/optimizing-performance.html#virtualize-long-lists
+<https://ko.reactjs.org/docs/optimizing-performance.html#virtualize-long-lists>
+
 
 ## 스타일링
 
+
 ### 클래스
+
 
 #### 클래스 동적으로 할당하기
 
@@ -658,13 +668,10 @@ https://ko.reactjs.org/docs/optimizing-performance.html#virtualize-long-lists
 ```
 
 
-
-
-
 ## Event
 
-- 이벤트 함수 이름은 관례적으로 `handle`로 시작하고 뒤에는 대문자를 사용(ex. handleClick)
-- 함수 결과가 아닌 함수 자체를 전달
+* 이벤트 함수 이름은 관례적으로 `handle`로 시작하고 뒤에는 대문자를 사용(ex. handleClick)
+* 함수 결과가 아닌 함수 자체를 전달
 
 ```jsx
 export default function Button() {
@@ -680,9 +687,10 @@ export default function Button() {
 }
 ```
 
+
 ### props로 이벤트 핸들러 전달
 
-- props로 이벤트 핸들러를 전달할 때는 `on`으로 시작하고 뒤에는 대문자를 사용(ex. onClick)
+* props로 이벤트 핸들러를 전달할 때는 `on`으로 시작하고 뒤에는 대문자를 사용(ex. onClick)
 
 ```jsx
 export default function Button({ onClick }) {
@@ -695,19 +703,21 @@ export default function Button({ onClick }) {
 }
 ```
 
+
 ### 이벤트 전파 중지
 
 ```jsx
 const handleClick = (e) => {
-	e.stopPropagation();
+ e.stopPropagation();
 }
 ```
+
 
 ### 기본 동작 방지
 
 ```jsx
 const handleSubmit = (e) => {
-	e.preventDefault();
+ e.preventDefault();
 }
 ```
 
