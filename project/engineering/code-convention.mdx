@@ -1,0 +1,63 @@
+---
+title: Code Convention
+description: 코드 컨벤션에 대해 정리한 문서입니다.
+---
+
+## 코드 컨벤션
+
+코드 컨벤션은 개발자들이 코드를 작성할 때 일관성을 유지하고 가독성을 높이기 위해 정해놓은 규칙입니다. 코드 컨벤션을 지키면 코드의 유지보수가 쉬워지고, 팀원 간의 협업이 원활해집니다.
+
+
+## 1. [prettier](https://prettier.io/)
+
+```tsx
+{
+  "printWidth": 80, // 줄바꿈을할 줄의 길이(기본 값: 80)
+  "tabWidth": 2, // 들여쓰기 수준당 공백 수(기본 값: 2)
+  "useTabs": false, // 공백 대신 탭을 사용(기본 값: false)
+  "semi": true, // 문장 끝에 세미콜론 사용(기본 값: true)
+  "singleQuote": false, // 큰 따옴표 대신 작은 따옴표 사용(기본 값: false)
+  "quoteProps": "as-needed", // 객체의 속성을 사용할 때 따옴표 사용(기본 값: "as-needed")
+  "jsxSingleQuote": false, // JSX에서 큰 따옴표 대신 작은 따옴표 사용(기본 값: false)
+  "trailingComma": "all", // 쉼표로 구분된 다중 줄 구문에서 가능하면 끝에 쉼표 사용(기본 값: "all")
+  "bracketSpacing": true, // 객체 리터럴 괄호 사이에 공백 사용(기본 값:true)
+  "bracketSameLine": false, // 여러 줄로 구성된 HTML 요소에서 마지막 줄 끝에 ">"를 함께 표시(기본값: false)
+  "arrowParens": "always", // 단일 화살표 인자 함수에서 괄호를 포함(기본 값: "always")
+  "requirePragma": false // 파일 맨 위에 특수 주석이 포함된 파일만 포맷하도록 강제(기본 값: false)
+  "insertPragma": false // 파일 맨 위에 @format 마커를 삽입할 수 있도록 설정(기본 값: false)
+  "proseWrap": "preserve" // 줄바꿈에 민감한 렌더러를 위해 줄바꿈 지정(기본 값: "preserve")
+  "htmlWhitespaceSensitivity": "css" // HTML 등에서 글로벌 공백 민감도 지정(기본 값: "css")
+  "endOfLine": "lf" // 수용할 줄 끝 표현을 지정(기본 값: "lf"는 \n만 포함)
+  "embeddedLanguageFormatting": "auto" // 문자열 내에서 형식을 지정할 지 결정(기본 값: "auto")
+  "singleAttributePerLine": "true" // HTML, JSX 등에서 한 줄에 하나의 속성만 적용(기본 값: "false")
+}
+
+```
+
+[npm: prettier-plugin-organize-imports](https://www.npmjs.com/package/prettier-plugin-organize-imports)
+
+
+## 2. [eslint](https://eslint.org/)
+
+
+### 접근성
+
+[https://github.com/jsx-eslint/eslint-plugin-jsx-a11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y)
+
+
+### 코딩 컨벤션
+
+[https://github.com/sindresorhus/eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn)
+
+[npm: eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
+
+[npm: eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
+
+[npm: @next/eslint-plugin-next](https://www.npmjs.com/package/@next/eslint-plugin-next)
+
+[https://github.com/airbnb/javascript](https://github.com/airbnb/javascript)
+
+[Google URL 구조 가이드라인 | Google 검색 센터  |  문서  |  Google for Developers](https://developers.google.com/search/docs/crawling-indexing/url-structure?hl=ko)
+
+[](https://google.github.io/styleguide/jsoncstyleguide.xml)
+
