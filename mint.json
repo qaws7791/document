@@ -33,6 +33,10 @@
     {
       "name": "Project",
       "url": "project"
+    },
+    {
+      "name": "Software Engineering",
+      "url": "software-engineering"
     }
   ],
   "anchors": [
@@ -104,6 +108,29 @@
       "group": "Overview",
       "pages": [
         "project/overview"
+      ]
+    },
+    {
+      "group": "Architectures",
+      "pages": [
+        "software-engineering/architectures/overview",
+        "software-engineering/architectures/layered-architecture",
+        "software-engineering/architectures/pipeline-architecture"
+      ]
+    },
+    {
+      "group": "Code",
+      "pages": [
+        "software-engineering/code/how-to-write-code",
+        "software-engineering/code/refactoring",
+        "software-engineering/code/solid-principles"
+      ]
+    },
+    {
+      "group": "Programming Paradigms",
+      "pages": [
+        "software-engineering/programming-paradigms/overview",
+        "software-engineering/programming-paradigms/defensive-programming"
       ]
     }
   ],
