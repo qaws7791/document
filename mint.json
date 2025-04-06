@@ -15,15 +15,9 @@
       "to": "#077bc9"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Blog",
-      "url": "https://refetch.pages.dev"
-    }
-  ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "type": "github",
+    "url": "https://github.com/qaws7791/document"
   },
   "tabs": [
     {
@@ -37,6 +31,10 @@
     {
       "name": "Software Engineering",
       "url": "software-engineering"
+    },
+    {
+      "name": "Development",
+      "url": "development"
     }
   ],
   "anchors": [
@@ -72,6 +70,18 @@
       ]
     },
     {
+      "group": "Operating System",
+      "pages": [
+        "computer-science/operating-system/overview",
+        "computer-science/operating-system/components",
+        "computer-science/operating-system/file-system",
+        "computer-science/operating-system/io-management",
+        "computer-science/operating-system/memory-management",
+        "computer-science/operating-system/kernel",
+        "computer-science/operating-system/process-management"
+      ]
+    },
+    {
       "group": "Algorithms",
       "pages": [
         "computer-science/algorithms/overview",
@@ -101,14 +111,13 @@
     {
       "group": "Database",
       "pages": [
-        "computer-science/database/overview"
+        "computer-science/database/overview",
+        "computer-science/database/sql"
       ]
     },
     {
       "group": "Overview",
-      "pages": [
-        "project/overview"
-      ]
+      "pages": ["project/overview"]
     },
     {
       "group": "Architectures",
@@ -131,6 +140,89 @@
       "pages": [
         "software-engineering/programming-paradigms/overview",
         "software-engineering/programming-paradigms/defensive-programming"
+      ]
+    },
+    {
+      "group": "API",
+      "pages": ["development/api/overview"]
+    },
+    {
+      "group": "AWS",
+      "pages": [
+        "development/aws/getting-started",
+        "development/aws/container",
+        "development/aws/cloud",
+        "development/aws/aws-container-service",
+        "development/aws/create-iam-user",
+        {
+          "group": "ec2",
+          "pages": [
+            "development/aws/ec2/overview",
+            "development/aws/ec2/instance",
+            "development/aws/ec2/deploy-nextjs-project",
+            "development/aws/ec2/ec2-auto-scaling",
+            "development/aws/ec2/http-with-certbot",
+            "development/aws/ec2/https-with-alb"
+          ]
+        },
+        {
+          "group": "lambda",
+          "pages": [
+            "development/aws/lambda/overview",
+            "development/aws/lambda/start-lambda",
+            "development/aws/lambda/use-lambda-with-s3",
+            "development/aws/lambda/use-lambda-with-apigateway",
+            "development/aws/lambda/uses-of-lambda"
+          ]
+        },
+        {
+          "group": "cloudfront",
+          "pages": ["development/aws/cloudfront/overview"]
+        }
+      ]
+    },
+    {
+      "group": "CI And CD",
+      "pages": ["development/cicd/overview", "development/cicd/yaml"]
+    },
+    {
+      "group": "CSS",
+      "pages": ["development/css/overview"]
+    },
+    {
+      "group": "Docker",
+      "pages": ["development/docker/overview"]
+    },
+    {
+      "group": "Firebase",
+      "pages": [
+        "development/firebase/getting-started",
+        "development/firebase/authentication",
+        "development/firebase/resize-image",
+        "development/firebase/rules"
+      ]
+    },
+    {
+      "group": "Git",
+      "pages": [
+        "development/git/overview",
+        "development/git/git-conventional-commits",
+        "development/git/connecting-to-github-via-ssh",
+        "development/git/connecting-to-github-via-https"
+      ]
+    },
+    {
+      "group": "GraphQL",
+      "pages": ["development/graphql/overview", "development/graphql/apollo"]
+    },
+    {
+      "group": "Linux",
+      "pages": [
+        "development/linux/1.getting-started",
+        "development/linux/2.core-linux-concepts",
+        "development/linux/3.essential-commands",
+        "development/linux/4.intermediate-usage",
+        "development/linux/5.advanced-topics"
       ]
     }
   ],
