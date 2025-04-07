@@ -218,11 +218,24 @@
     {
       "group": "Linux",
       "pages": [
-        "development/linux/1.getting-started",
-        "development/linux/2.core-linux-concepts",
-        "development/linux/3.essential-commands",
-        "development/linux/4.intermediate-usage",
-        "development/linux/5.advanced-topics"
+        {
+          "group": "Linux 소개",
+          "pages": [
+            "development/linux/1.introduction-to-linux/1.operating-systems-and-the-story-of-linux",
+            "development/linux/1.introduction-to-linux/2.setting-up-your-linux-environment",
+            "development/linux/1.introduction-to-linux/3.your-first-steps-terminal-and-shell"
+          ]
+        },
+        {
+          "group": "Linux 기본",
+          "pages": [
+            "development/linux/2.exploring-basic-linux/4.files-and-directories",
+            "development/linux/2.exploring-basic-linux/5.linux-editors",
+            "development/linux/2.exploring-basic-linux/6.managing-users-and-groups",
+            "development/linux/2.exploring-basic-linux/7.file-permissions-and-ownership",
+            "development/linux/2.exploring-basic-linux/8.process-management"
+          ]
+        }
       ]
     }
   ],
