@@ -221,19 +221,52 @@
         {
           "group": "Linux 소개",
           "pages": [
-            "development/linux/1.introduction-to-linux/1.operating-systems-and-the-story-of-linux",
-            "development/linux/1.introduction-to-linux/2.setting-up-your-linux-environment",
-            "development/linux/1.introduction-to-linux/3.your-first-steps-terminal-and-shell"
+            "development/linux/1.introduction/1.operating-systems-and-the-story-of-linux",
+            "development/linux/1.introduction/2.setting-up-your-linux-environment",
+            "development/linux/1.introduction/3.your-first-steps-terminal-and-shell"
           ]
         },
         {
           "group": "Linux 기본",
           "pages": [
-            "development/linux/2.exploring-basic-linux/4.files-and-directories",
-            "development/linux/2.exploring-basic-linux/5.linux-editors",
-            "development/linux/2.exploring-basic-linux/6.managing-users-and-groups",
-            "development/linux/2.exploring-basic-linux/7.file-permissions-and-ownership",
-            "development/linux/2.exploring-basic-linux/8.process-management"
+            "development/linux/2.basic/4.files-and-directories",
+            "development/linux/2.basic/5.linux-editors"
+          ]
+        },
+        {
+          "group": "Linux 시스템 관리",
+          "pages": [
+            "development/linux/3.system-management/6.managing-users-and-groups",
+            "development/linux/3.system-management/7.file-permissions-and-ownership",
+            "development/linux/3.system-management/8.process-management",
+            "development/linux/3.system-management/9.package-management",
+            "development/linux/3.system-management/10.disk-and-filesystem-management"
+          ]
+        },
+        {
+          "group": "Linux 쉘",
+          "pages": [
+            "development/linux/4.shell-scripting/11.mastering-the-shell",
+            "development/linux/4.shell-scripting/12.introduction-to-shell-scripting",
+            "development/linux/4.shell-scripting/13.control-flow-and-functions",
+            "development/linux/4.shell-scripting/14.text-processing-trio"
+          ]
+        },
+        {
+          "group": "Linux 네트워킹",
+          "pages": [
+            "development/linux/5.networking/15.linux-network-configuration",
+            "development/linux/5.networking/16.remote-access-and-file-transfer",
+            "development/linux/5.networking/17.building-and-managing-network-services"
+          ]
+        },
+        {
+          "group": "Linux 고급",
+          "pages": [
+            "development/linux/6.advanced/18.linux-security",
+            "development/linux/6.advanced/19.performance-analysis-and-tuning",
+            "development/linux/6.advanced/20.virtualization-and-containerization",
+            "development/linux/6.advanced/21.hands-on-projects"
           ]
         }
       ]
