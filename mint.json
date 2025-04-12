@@ -144,7 +144,7 @@
     },
     {
       "group": "API",
-      "pages": ["development/api/overview"]
+      "pages": ["development/api/overview", "development/api/compression"]
     },
     {
       "group": "AWS",
