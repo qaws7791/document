@@ -144,7 +144,12 @@
     },
     {
       "group": "API",
-      "pages": ["development/api/overview", "development/api/compression"]
+      "pages": [
+        "development/api/overview",
+        "development/api/compression",
+        "development/api/rate-limiting",
+        "development/api/serialization"
+      ]
     },
     {
       "group": "AWS",
