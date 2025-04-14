@@ -196,7 +196,10 @@
     },
     {
       "group": "Docker",
-      "pages": ["development/docker/overview"]
+      "pages": [
+        "development/docker/overview",
+        "development/docker/01-virtualization-and-container"
+      ]
     },
     {
       "group": "Firebase",
