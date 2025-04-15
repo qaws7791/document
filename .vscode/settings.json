@@ -4,5 +4,19 @@
     "source.fixAll.markdownlint": "always"
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["mintlify"]
+  "cSpell.words": ["mintlify"],
+  "markdownlint.config": {
+    "MD012": {
+      "maximum": 2
+    },
+    "MD013": {
+      "line_length": 2000
+    },
+    "MD022": {
+      "lines_above": 2
+    },
+    "MD033": {
+      "allowed_elements": ["Note", "Warning", "Info", "Tip"]
+    }
+  }
 }
