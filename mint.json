@@ -199,7 +199,9 @@
       "pages": [
         "development/docker/overview",
         "development/docker/01-virtualization-and-container",
-        "development/docker/02-what-is-docker"
+        "development/docker/02-what-is-docker",
+        "development/docker/03-install-docker",
+        "development/docker/04-running-docker-containers"
       ]
     },
     {
