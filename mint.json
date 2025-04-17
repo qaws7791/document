@@ -198,7 +198,8 @@
       "group": "Docker",
       "pages": [
         "development/docker/overview",
-        "development/docker/01-virtualization-and-container"
+        "development/docker/01-virtualization-and-container",
+        "development/docker/02-what-is-docker"
       ]
     },
     {
