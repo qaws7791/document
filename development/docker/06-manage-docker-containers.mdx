@@ -1,0 +1,252 @@
+---
+title: "6. Docker 컨테이너 관리"
+description: "Docker 컨테이너를 관리하는 방법에 대해 알아보겠습니다."
+---
+
+## 6.1 컨테이너 실행 기본 (`docker run`)
+
+Chapter 4에서 `docker run` 명령어를 사용하여 `hello-world`와 `nginx` 컨테이너를 실행해 보았습니다. `docker run` 명령어는 이미지를 기반으로 새로운 컨테이너를 생성하고 시작하는 가장 기본적인 방법이며, 다양한 옵션을 통해 실행 방식을 제어할 수 있습니다.
+
+기본 형식: `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`
+
+
+### 6.1.1 포그라운드(Foreground) vs. 백그라운드(Background) 실행 (`-d` 옵션)
+
+`docker run` 명령어를 별다른 옵션 없이 실행하면 기본적으로 **포그라운드(Foreground)** 모드로 실행됩니다. 이는 현재 사용 중인 터미널이 컨테이너의 표준 입력(STDIN), 표준 출력(STDOUT), 표준 에러(STDERR)에 연결(attach)되는 것을 의미합니다.
+
+* **일회성 작업 실행:** 컨테이너가 특정 작업을 수행하고 바로 종료되는 경우 포그라운드 실행이 적합합니다.
+
+  ```bash
+  # ubuntu:latest 이미지로 컨테이너를 실행하고, "Hello Ubuntu" 문자열을 출력한 후 종료
+  docker run ubuntu:latest echo "Hello Ubuntu"
+  ```
+
+* **인터랙티브 쉘 실행:** 컨테이너 내부와 상호작용해야 하는 경우(예: 쉘 접속) `-i` (interactive) 옵션과 `-t` (pseudo-TTY 할당) 옵션을 함께 사용합니다. `-it` 옵션으로 실행된 컨테이너는 사용자가 `exit` 명령어를 입력하거나 `Ctrl+D`를 누를 때까지 종료되지 않고 터미널 연결을 유지합니다.
+
+  ```bash
+  # ubuntu:latest 이미지로 컨테이너를 실행하고 내부 bash 쉘에 접속
+  docker run -it ubuntu:latest bash
+  # (컨테이너 내부 쉘에서) ls, pwd 등 명령어 실행 가능
+  # exit 입력 시 컨테이너 종료 및 터미널로 복귀
+  ```
+
+* **백그라운드 실행 (`-d`):** 웹 서버, 데이터베이스 등 오랫동안 계속 실행되어야 하는 서비스는 **백그라운드(Background)** 또는 **분리 모드(Detached mode)** 로 실행해야 합니다. 이때 `-d` (또는 `--detach`) 옵션을 사용합니다. `-d` 옵션으로 실행하면 Docker는 컨테이너 ID만 출력하고 즉시 터미널 제어권을 사용자에게 돌려줍니다. 컨테이너는 백그라운드에서 계속 실행됩니다.
+
+  ```bash
+  # nginx 이미지를 백그라운드에서 실행 (이전 챕터 예제)
+  docker run --name my-nginx-bg -d -p 8081:80 nginx
+  # (컨테이너 ID 출력 후 터미널 프롬프트로 돌아옴)
+  ```
+
+
+### 6.1.2 컨테이너 이름 지정 (`--name` 옵션)
+
+Docker는 컨테이너 생성 시 자동으로 고유한 ID(긴 16진수 문자열)를 부여하지만, 사람이 기억하고 사용하기에는 불편합니다. `--name <컨테이너_이름>` 옵션을 사용하면 컨테이너에 식별하기 쉬운 이름을 직접 지정할 수 있습니다.
+
+```bash
+docker run --name my-ubuntu -it ubuntu:latest bash
+docker run --name my-nginx -d -p 8080:80 nginx
+```
+
+이렇게 이름을 지정하면 이후 `docker stop my-nginx`, `docker logs my-ubuntu` 와 같이 컨테이너 ID 대신 이름을 사용하여 컨테이너를 제어하거나 참조할 때 매우 편리합니다. 단, **컨테이너 이름은 Docker 호스트 내에서 고유해야 합니다.** 이미 사용 중인 이름을 다시 사용하려고 하면 오류가 발생합니다.
+
+
+### 6.1.3 컨테이너 자동 삭제 (`--rm` 옵션)
+
+일회성 작업을 수행하거나 테스트 목적으로 잠시 컨테이너를 실행했다가 종료 후에는 더 이상 필요 없는 경우가 많습니다. 이때 `--rm` 옵션을 사용하면 컨테이너가 **종료될 때 자동으로 삭제**되도록 할 수 있습니다. 이는 중지된 컨테이너가 불필요하게 시스템에 남아 디스크 공간을 차지하는 것을 방지해 줍니다.
+
+```bash
+# 메시지 출력 후 바로 종료되고 컨테이너도 자동 삭제됨
+docker run --rm ubuntu:latest echo "This container will disappear"
+
+# bash 쉘 실행 후 exit으로 종료하면 컨테이너 자동 삭제됨
+docker run --rm -it ubuntu:latest bash
+```
+
+`--rm` 옵션으로 실행된 컨테이너는 종료 후 `docker ps -a` 목록에도 나타나지 않습니다. 단, 컨테이너가 종료되면서 컨테이너의 쓰기 가능 레이어에 저장된 모든 데이터도 함께 사라지므로 주의해야 합니다.
+
+
+## 6.2 실행 중인 컨테이너 목록 확인 (`docker ps`)
+
+현재 Docker 호스트에서 **실행 중인 컨테이너**들의 목록을 확인하려면 `docker ps` 또는 `docker container ls` 명령어를 사용합니다.
+
+```bash
+docker ps
+```
+
+백그라운드로 실행한 Nginx 컨테이너(`my-nginx-bg`)가 있다면 다음과 유사한 출력을 볼 수 있습니다.
+
+```
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                  NAMES
+a1b2c3d4e5f6   nginx     "/docker-entrypoint.…"   10 minutes ago   Up 10 minutes   0.0.0.0:8081->80/tcp   my-nginx-bg
+```
+
+각 열의 의미는 다음과 같습니다.
+
+* **CONTAINER ID:** 컨테이너의 고유 ID (앞 12자리)
+* **IMAGE:** 컨테이너 생성에 사용된 이미지
+* **COMMAND:** 컨테이너 내부에서 실행 중인 명령어
+* **CREATED:** 컨테이너가 생성된 시간
+* **STATUS:** 컨테이너의 현재 상태 (예: `Up 10 minutes` - 10분째 실행 중). 상태 점검(Health Check)이 설정된 경우 건강 상태도 표시될 수 있습니다.
+* **PORTS:** 포트 포워딩 설정 정보 (예: `0.0.0.0:8081->80/tcp` - 호스트의 모든 IP 주소의 8081 포트가 컨테이너의 80번 TCP 포트로 연결됨)
+* **NAMES:** 컨테이너에 부여된 이름
+
+
+## 6.3 중지된 컨테이너 포함 목록 확인 (`docker ps -a`)
+
+`docker ps` 명령어는 기본적으로 실행 중인 컨테이너만 보여줍니다. **중지된(Exited) 컨테이너를 포함하여 모든 컨테이너** 목록을 확인하려면 `-a` (또는 `--all`) 옵션을 추가합니다.
+
+```bash
+docker ps -a
+```
+
+이 명령어를 실행하면 이전에 실행했다가 종료된 컨테이너들(예: `--rm` 옵션 없이 실행했던 `ubuntu` 컨테이너)이나 `docker stop` 명령으로 중지시킨 컨테이너들의 목록까지 모두 볼 수 있습니다. `STATUS` 열에 `Exited (0) 5 minutes ago` 와 같이 종료 상태와 종료 시점이 표시됩니다.
+
+
+## 6.4 컨테이너 시작, 중지, 재시작 (`start`, `stop`, `restart`)
+
+이미 생성된 컨테이너의 실행 상태를 제어하는 명령어들입니다. 컨테이너 ID 또는 이름을 사용하여 대상을 지정합니다.
+
+* **컨테이너 중지 (`docker stop`):** 실행 중인 컨테이너를 정상적으로 종료시킵니다. 기본적으로 컨테이너 내부의 메인 프로세스에 `SIGTERM` 시그널을 보내고, 일정 시간(기본 10초) 내에 종료되지 않으면 `SIGKILL` 시그널을 보내 강제 종료합니다.
+
+  ```bash
+  # my-nginx-bg 컨테이너 중지
+  docker stop my-nginx-bg
+  # docker ps 로 확인하면 목록에서 사라짐 (docker ps -a 에는 Exited 상태로 표시됨)
+  ```
+
+* **컨테이너 시작 (`docker start`):** 중지된 상태의 컨테이너를 다시 시작합니다.
+
+  ```bash
+  # 중지된 my-nginx-bg 컨테이너 다시 시작
+  docker start my-nginx-bg
+  # docker ps 로 확인하면 다시 실행 중 상태로 나타남
+  # 웹 브라우저에서 http://localhost:8081 접속 확인
+  ```
+
+* **컨테이너 재시작 (`docker restart`):** 실행 중인 컨테이너를 중지시킨 후 다시 시작합니다. 서비스를 재시작해야 하는 경우(예: 설정 변경 적용 후) 사용할 수 있지만, 컨테이너 자체를 새로 만드는 것이 더 권장되는 경우도 많습니다.
+
+  ```bash
+  docker restart my-nginx-bg
+  ```
+
+
+## 6.5 실행 중인 컨테이너에 명령어 전달 (`docker exec`)
+
+이미 **실행 중인 컨테이너 내부에서 추가적인 명령어**를 실행하고 싶을 때 `docker exec` 명령어를 사용합니다. 이는 컨테이너 내부 상태를 확인하거나 디버깅할 때, 또는 임시 작업을 수행해야 할 때 매우 유용합니다. `docker run`이 새로운 컨테이너를 만드는 명령어라면, `docker exec`는 기존에 실행 중인 컨테이너 안에서 무언가를 하는 명령어입니다.
+
+기본 형식: `docker exec [OPTIONS] <컨테이너 ID 또는 이름> <실행할 명령어> [인자...]`
+
+
+### 6.5.1 인터랙티브 쉘 접속 (`-it` 옵션)
+
+`docker exec`의 가장 흔한 사용 사례는 실행 중인 컨테이너 내부에 쉘(Shell)로 접속하는 것입니다. 이때 `docker run`에서처럼 `-i` (interactive)와 `-t` (pseudo-TTY) 옵션을 함께 사용합니다.
+
+```bash
+# 실행 중인 my-nginx-bg 컨테이너 내부에 bash 쉘로 접속
+docker exec -it my-nginx-bg bash
+```
+
+위 명령어를 실행하면 터미널 프롬프트가 컨테이너 내부의 쉘로 변경됩니다. 여기서 리눅스 명령어들을 사용하여 컨테이너의 파일 시스템을 탐색하거나(`ls -l`, `cd /etc/nginx`), 실행 중인 프로세스를 확인하거나(`ps aux`), 설정 파일을 조회(`cat nginx.conf`)하는 등의 작업을 할 수 있습니다.
+
+컨테이너 내부 작업을 마친 후 `exit`를 입력하거나 `Ctrl+D`를 누르면 `exec` 세션만 종료되고, **컨테이너 자체는 계속 실행 중인 상태를 유지**합니다.
+
+만약 `bash` 쉘이 없는 가벼운 이미지(예: Alpine Linux 기반 이미지)라면 `sh`를 사용해야 할 수도 있습니다 (`docker exec -it <container_name> sh`).
+
+`-it` 옵션 없이 명령어를 실행하면, 해당 명령어만 컨테이너 내부에서 실행되고 그 결과만 출력됩니다.
+
+```bash
+# my-nginx-bg 컨테이너 내부의 Nginx 버전 확인
+docker exec my-nginx-bg nginx -v
+```
+
+
+## 6.6 컨테이너 로그 확인 (`docker logs`)
+
+백그라운드에서 실행 중인 컨테이너(-d 옵션 사용)의 표준 출력(STDOUT)과 표준 에러(STDERR) 로그를 확인하려면 `docker logs` 명령어를 사용합니다. 서비스 애플리케이션의 동작 상태를 모니터링하거나 오류 발생 시 원인을 파악하는 데 필수적인 명령어입니다.
+
+```bash
+# my-nginx-bg 컨테이너의 현재까지 기록된 모든 로그 출력
+docker logs my-nginx-bg
+```
+
+웹 브라우저에서 `http://localhost:8081` 페이지를 몇 번 새로고침한 후 위 명령어를 실행하면 Nginx의 접근 로그(access log)가 출력되는 것을 볼 수 있습니다.
+
+
+### 6.6.1 실시간 로그 확인 (`-f` 옵션)
+
+실시간으로 생성되는 로그를 계속해서 확인하고 싶다면 `-f` (또는 `--follow`) 옵션을 사용합니다. 마치 리눅스의 `tail -f` 명령어처럼 동작합니다.
+
+```bash
+# my-nginx-bg 컨테이너의 로그를 실시간으로 스트리밍하여 출력
+docker logs -f my-nginx-bg
+```
+
+이 상태에서 웹 브라우저로 접속하면 새로운 로그가 터미널에 즉시 나타나는 것을 볼 수 있습니다. 로그 확인을 중단하려면 `Ctrl+C`를 누릅니다.
+
+이 외에도 `--tail <숫자>` 옵션으로 마지막 N줄의 로그만 보거나, `--since <타임스탬프>` 옵션으로 특정 시간 이후의 로그만 보는 등 유용한 옵션들이 있습니다.
+
+
+## 6.7 컨테이너 상세 정보 확인 (`docker inspect`)
+
+`docker inspect` 명령어는 이미지뿐만 아니라 컨테이너의 상세한 설정 및 현재 상태 정보를 JSON 형식으로 확인하는 데도 사용됩니다.
+
+```bash
+docker inspect <컨테이너 ID 또는 이름>
+```
+
+출력되는 정보는 매우 방대하며, 다음과 같은 내용들을 포함합니다.
+
+* 컨테이너의 전체 ID, 이름, 생성 시각, 현재 상태 (`State` 섹션: Running, Paused, Exited 등, PID 포함)
+* 컨테이너 생성에 사용된 이미지 정보
+* 컨테이너의 IP 주소 등 네트워크 설정 (`NetworkSettings` 섹션)
+* 포트 매핑 정보
+* 볼륨 마운트 정보 (`Mounts` 섹션)
+* 환경 변수 (`Config` -> `Env` 섹션)
+* 컨테이너 실행 명령어 (`Path`, `Args`, `Entrypoint`, `Cmd`)
+
+네트워크 연결 문제 해결, 볼륨 경로 확인, 환경 변수 검증 등 컨테이너의 내부 설정 및 상태를 깊이 있게 파악해야 할 때 유용합니다.
+
+```bash
+# my-nginx-bg 컨테이너의 상세 정보 확인 (출력은 매우 김)
+docker inspect my-nginx-bg
+```
+
+
+## 6.8 컨테이너 삭제 (`docker rm`)
+
+더 이상 필요 없는 컨테이너는 `docker rm` 또는 `docker container rm` 명령어를 사용하여 삭제합니다.
+
+```bash
+docker rm <컨테이너 ID 또는 이름> [다른 컨테이너...]
+```
+
+**중요:** 실행 중인 컨테이너는 기본적으로 삭제할 수 없습니다. 삭제하려면 먼저 `docker stop` 명령으로 컨테이너를 중지시켜야 합니다. 실행 중인 컨테이너를 삭제하려고 하면 오류 메시지가 나타납니다.
+
+```bash
+# 먼저 my-nginx-bg 컨테이너를 중지
+docker stop my-nginx-bg
+
+# 중지된 my-nginx-bg 컨테이너 삭제
+docker rm my-nginx-bg
+```
+
+만약 실행 중인 컨테이너를 강제로 삭제하고 싶다면 `-f` (또는 `--force`) 옵션을 사용할 수 있습니다. 이 옵션은 컨테이너에 `SIGKILL` 시그널을 보내 즉시 종료시키고 삭제하므로, 데이터 유실 등이 발생할 수 있어 주의해서 사용해야 합니다.
+
+```bash
+# 실행 중인 컨테이너 강제 삭제 (주의해서 사용!)
+# docker rm -f <컨테이너 ID 또는 이름>
+```
+
+삭제된 컨테이너는 `docker ps -a` 목록에서도 사라집니다.
+
+
+## 6.9 중지된 컨테이너 한번에 정리 (`docker container prune`)
+
+테스트나 작업 중에 생성되었다가 중지된 상태로 남아있는 컨테이너들이 많아질 수 있습니다. `docker container prune` 명령어는 시스템 내의 **모든 중지된 컨테이너**를 한 번에 삭제하는 편리한 방법을 제공합니다.
+
+```bash
+docker container prune
+```
+
+명령어를 실행하면 삭제될 컨테이너 목록과 예상되는 공간 확보량을 보여주고, 진행 여부를 묻는 확인 메시지(y/N)가 나타납니다. `y`를 입력하면 중지된 모든 컨테이너가 삭제됩니다. `-f` 옵션을 사용하면 확인 과정 없이 즉시 삭제합니다.

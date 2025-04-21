@@ -1,0 +1,227 @@
+---
+title: "5. Docker 이미지 관리하기"
+description: "이 문서에서는 Docker 이미지를 관리하는 데 필요한 필수 명령어들을 배우고 익힙니다."
+---
+
+## 5.1 Docker Hub에서 이미지 검색하기
+
+새로운 프로젝트를 시작하거나 특정 도구를 컨테이너 환경에서 사용하고 싶을 때, 가장 먼저 해야 할 일은 필요한 이미지를 찾는 것입니다. Docker Hub ([https://hub.docker.com/](https://hub.docker.com/))는 공식 이미지 및 전 세계 사용자들이 공유한 수많은 이미지를 보유한 기본 공개 레지스트리입니다.
+
+웹사이트를 직접 방문하여 검색할 수도 있지만, 터미널에서 `docker search` 명령어를 사용하여 이미지를 검색할 수도 있습니다.
+
+```bash
+docker search <검색 키워드>
+```
+
+예를 들어, MySQL 데이터베이스 이미지를 찾아보겠습니다.
+
+```bash
+docker search mysql
+```
+
+다음과 유사한 결과가 출력될 것입니다.
+
+```
+NAME                            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+mysql                           MySQL is a widely used, open-source relation…   15000+    [OK]
+mariadb                         MariaDB Server is a high performing open sou…   5000+     [OK]
+percona/percona-server          Percona Server is a fork of the MySQL relat…    600+                 [OK]
+... (더 많은 결과) ...
+```
+
+출력 결과의 각 열은 다음 정보를 나타냅니다.
+
+* **NAME:** 이미지 저장소(Repository)의 이름입니다. 일반적으로 `사용자명/이미지명` 형식이지만, 공식 이미지는 사용자명 없이 이미지명만 표시됩니다 (예: `mysql`, `python`).
+* **DESCRIPTION:** 이미지에 대한 간략한 설명입니다.
+* **STARS:** Docker Hub 사용자들이 해당 이미지에 부여한 '좋아요' 수로, 이미지의 인기도를 가늠하는 지표가 될 수 있습니다.
+* **OFFICIAL:** `[OK]` 표시가 있다면 Docker 사에서 공식적으로 관리하고 검증한 이미지임을 의미합니다. 가능하면 공식 이미지를 사용하는 것이 안정성과 보안 측면에서 권장됩니다.
+* **AUTOMATED:** `[OK]` 표시가 있다면 해당 이미지가 소스 코드 리포지토리(예: GitHub)로부터 자동으로 빌드되었음을 의미합니다. (최근에는 이 표시의 중요도가 낮아졌습니다.)
+
+검색 결과에서 `OFFICIAL` 마크와 `STARS` 수를 확인하여 신뢰할 수 있고 널리 사용되는 이미지를 선택하는 것이 좋습니다. `docker search`는 간단한 검색에는 유용하지만, 이미지 태그(버전) 정보나 상세한 사용법 등은 웹사이트에서 확인하는 것이 더 편리할 때가 많습니다.
+
+
+## 5.2 이미지 다운로드 (`docker pull`)
+
+원하는 이미지를 찾았다면 `docker pull` 명령어를 사용하여 로컬 시스템으로 다운로드할 수 있습니다. `docker run` 명령 시 로컬에 이미지가 없으면 자동으로 `pull`이 진행되지만, `docker pull`을 사용하면 명시적으로 이미지를 미리 받아둘 수 있습니다.
+
+```bash
+docker pull <이미지 이름>[:<태그>]
+```
+
+여기서 **태그(Tag)** 는 이미지의 특정 버전이나 변형을 식별하는 역할을 합니다. 예를 들어, Python 이미지는 `python:3.9`, `python:3.10`, `python:3.10-slim` 등 다양한 태그를 가질 수 있습니다.
+
+만약 태그를 생략하면 Docker는 기본적으로 `:latest` 태그를 사용합니다.
+
+```bash
+# Python 3.10 버전 이미지 다운로드
+docker pull python:3.10
+
+# Node.js 18 버전의 Alpine Linux 기반 이미지 다운로드
+docker pull node:18-alpine
+
+# 태그를 생략하면 자동으로 latest 태그 사용 (예: nginx:latest 다운로드)
+docker pull nginx
+```
+
+**주의:** `:latest` 태그는 편리하지만, 이미지维护者(maintainer)가 이미지를 업데이트하면 `:latest`가 가리키는 실제 이미지 내용이 변경될 수 있습니다. 이는 빌드의 재현성을 떨어뜨릴 수 있으므로, 안정적인 운영 환경이나 협업 프로젝트에서는 `:latest` 대신 **구체적인 버전 태그(예: `python:3.10.12`, `node:18.19.0`)를 명시적으로 사용** 하는 것이 좋습니다.
+
+
+## 5.3 로컬 이미지 목록 확인 (`docker images`)
+
+`docker pull` 명령어나 `docker build`(나중에 배울 이미지 생성 명령어)를 통해 로컬 시스템에 저장된 이미지들의 목록을 확인하려면 `docker images` 또는 `docker image ls` 명령어를 사용합니다.
+
+```bash
+docker images
+```
+
+이전에 `hello-world`, `nginx`, `python:3.10`, `node:18-alpine` 이미지를 받았다면 다음과 유사한 출력을 볼 수 있습니다.
+
+```
+REPOSITORY        TAG           IMAGE ID       CREATED         SIZE
+nginx             latest        dabae896b0a0   2 weeks ago     187MB
+node              18-alpine     f8196d79a974   3 weeks ago     176MB
+python            3.10          a1b2c3d4e5f6   4 weeks ago     980MB
+hello-world       latest        feb5d9fea6a5   5 months ago    13.3kB
+```
+
+각 열의 의미는 다음과 같습니다.
+
+* **REPOSITORY:** 이미지 저장소 이름입니다.
+* **TAG:** 이미지의 태그(버전)입니다. 같은 REPOSITORY라도 다른 TAG를 가질 수 있습니다.
+* **IMAGE ID:** 각 이미지를 고유하게 식별하는 ID입니다. 전체 ID는 길지만(SHA256 해시값), 보통 앞의 12자리만 표시됩니다.
+* **CREATED:** 이미지가 생성된 시점입니다.
+* **SIZE:** 이미지의 크기입니다. 레이어 공유 때문에 실제 디스크 사용량 합계와는 다를 수 있습니다.
+
+특정 저장소의 이미지만 필터링하여 볼 수도 있습니다.
+
+```bash
+docker images python
+```
+
+
+## 5.4 이미지 상세 정보 확인 (`docker inspect`)
+
+`docker images` 명령어는 기본적인 정보만 보여줍니다. 이미지의 레이어 구성, 환경 변수 설정, 노출된 포트, 실행 명령어 등 훨씬 더 자세한 내부 정보를 확인하고 싶다면 `docker inspect` 명령어를 사용합니다. 이 명령어는 JSON 형식으로 상세 정보를 출력합니다.
+
+```bash
+docker inspect <이미지 ID 또는 이름>[:<태그>]
+```
+
+예를 들어, `nginx:latest` 이미지의 상세 정보를 확인해 보겠습니다.
+
+```bash
+docker inspect nginx:latest
+```
+
+출력 결과는 매우 길지만, 그 안에는 다음과 같은 유용한 정보들이 포함되어 있습니다.
+
+* 이미지의 전체 ID (`Id`: `sha256:...`)
+* 생성 시간 (`Created`)
+* 빌드에 사용된 Docker 버전 (`DockerVersion`)
+* 운영체제 및 아키텍처 (`Os`, `Architecture`)
+* 이미지 설정 (`Config` 섹션):
+  * 환경 변수 (`Env`)
+  * 기본 실행 명령어 (`Cmd`, `Entrypoint`)
+  * 기본 작업 디렉토리 (`WorkingDir`)
+  * 외부로 노출하도록 지정된 포트 (`ExposedPorts`)
+* 레이어 정보 (`RootFS` 섹션)
+
+`docker inspect`는 이미지의 내부 구조를 이해하거나, 특정 설정 값을 확인해야 할 때 매우 유용합니다. JSON 출력이 너무 길다면 `jq` 같은 도구를 함께 사용하여 원하는 정보만 추출할 수도 있습니다.
+
+
+## 5.5 이미지 태그(Tag) 이해하기 및 활용 (`image:tag`)
+
+태그는 단순히 이미지의 버전을 나타내는 것 이상의 역할을 합니다. 태그는 특정 **이미지 ID**에 대한 **참조(Reference) 또는 별칭(Alias)** 이라고 이해하는 것이 더 정확합니다. 즉, 하나의 이미지 ID(동일한 내용의 이미지)에 여러 개의 태그가 붙을 수 있습니다.
+
+`docker tag` 명령어를 사용하면 로컬에 있는 기존 이미지에 새로운 태그를 추가할 수 있습니다.
+
+```bash
+docker tag <원본 이미지>[:<원본 태그>] <새로운 이미지 이름>[:<새로운 태그>]
+```
+
+**활용 사례 1: 버전 별칭 지정**
+
+예를 들어, `node:18-alpine` 이미지가 실제로는 `node:18.19.0-alpine` 버전일 수 있습니다. 이 경우 두 태그는 동일한 이미지 ID를 가리킵니다. `docker images` 명령으로 확인해보면 `IMAGE ID`가 동일한 것을 알 수 있습니다.
+
+**활용 사례 2: 이미지 이름 변경 또는 푸시 준비**
+
+내가 직접 만든 이미지를 Docker Hub의 내 계정으로 업로드(`push`)하려면, 이미지를 `<내 Docker Hub 사용자명>/<이미지 이름>:<태그>` 형식으로 태그를 지정해야 합니다.
+
+예를 들어, 로컬에서 `my-web-app:latest` 라는 이름으로 이미지를 빌드했고, 내 Docker Hub 사용자명이 `myusername`이라면 다음과 같이 태그를 추가합니다.
+
+```bash
+docker tag my-web-app:latest myusername/my-web-app:v1.0
+```
+
+이제 `myusername/my-web-app:v1.0` 이라는 이름으로 이미지를 `push` 할 수 있습니다 (`docker push`는 Part 6에서 자세히 다룹니다).
+
+**태그 추가 실습:**
+
+이전에 받은 `nginx:latest` 이미지에 `my-nginx-alias:v1` 이라는 새로운 태그를 붙여보겠습니다.
+
+```bash
+docker tag nginx:latest my-nginx-alias:v1
+```
+
+이제 `docker images`를 실행하면 `my-nginx-alias` 저장소에 `v1` 태그를 가진 이미지가 새로 생긴 것을 볼 수 있습니다. 하지만 `IMAGE ID`와 `SIZE`는 `nginx:latest`와 동일할 것입니다. 이는 새로운 이미지가 복사된 것이 아니라, 기존 이미지 ID에 새로운 이름표(태그) 하나가 더 붙은 것이기 때문입니다.
+
+```
+REPOSITORY         TAG      IMAGE ID       CREATED       SIZE
+my-nginx-alias     v1       dabae896b0a0   2 weeks ago   187MB
+nginx              latest   dabae896b0a0   2 weeks ago   187MB
+...
+```
+
+
+## 5.6 이미지 삭제 (`docker rmi`)
+
+더 이상 사용하지 않는 이미지는 `docker rmi` 또는 `docker image rm` 명령어를 사용하여 로컬 시스템에서 삭제할 수 있습니다. 이미지 ID, 또는 이미지 이름과 태그 조합을 사용하여 삭제할 이미지를 지정합니다.
+
+```bash
+docker rmi <이미지 ID 또는 이름>[:<태그>] [다른 이미지...]
+```
+
+**주의:** 해당 이미지를 기반으로 생성된 컨테이너가 하나라도 존재하면(실행 중이거나 중지된 상태 모두), 이미지를 삭제할 수 없습니다. 이 경우 "image is referenced in multiple repositories" 또는 "image is used by stopped container" 와 같은 오류 메시지가 나타납니다. 이미지를 삭제하려면 먼저 관련된 모든 컨테이너를 삭제(`docker rm <container_id>`)해야 합니다.
+
+**실습:**
+
+1. **태그만 제거:** 위에서 추가했던 `my-nginx-alias:v1` 태그를 삭제해 봅시다.
+
+    ```bash
+    docker rmi my-nginx-alias:v1
+    ```
+
+    이 명령어는 `my-nginx-alias:v1`이라는 태그만 제거합니다. `nginx:latest` 태그가 여전히 동일한 이미지 ID를 참조하고 있으므로, 실제 이미지 데이터는 삭제되지 않습니다.
+
+2. **이미지 제거:** `hello-world:latest` 이미지를 삭제해 봅시다. (만약 관련 컨테이너가 남아 있다면 먼저 `docker rm <hello-world 컨테이너 ID>` 로 삭제해야 합니다.)
+
+    ```bash
+    docker rmi hello-world:latest
+    ```
+
+    이제 `hello-world:latest` 태그와 해당 이미지 ID를 참조하는 다른 태그가 없다면, 실제 이미지 데이터도 디스크에서 삭제됩니다.
+
+여러 이미지를 한 번에 삭제할 수도 있습니다.
+
+```bash
+docker rmi image1:tag1 image2:tag2 image_id3
+```
+
+
+## 5.7 사용하지 않는 이미지 정리 (`docker image prune`)
+
+이미지를 새로 빌드하거나 업데이트하는 과정에서, 이전 버전의 이미지는 태그가 해제되어 이름 없는 상태(보통 `<none>:<none>`으로 표시됨)로 남게 되는 경우가 있습니다. 이를 **댕글링 이미지(Dangling Image)** 라고 하며, 디스크 공간을 불필요하게 차지합니다.
+
+`docker image prune` 명령어는 이러한 댕글링 이미지를 한 번에 찾아 삭제하는 편리한 방법을 제공합니다.
+
+```bash
+docker image prune
+```
+
+명령어를 실행하면 삭제될 이미지 목록과 예상되는 공간 확보량을 보여주고, 진행 여부를 묻는 확인 메시지(y/N)가 나타납니다. `y`를 입력하면 댕글링 이미지가 삭제됩니다.
+
+**주의:** `-a` (또는 `--all`) 옵션을 함께 사용하면(`docker image prune -a`), 댕글링 이미지만 삭제하는 것이 아니라, **현재 어떤 컨테이너에서도 사용되지 않는 모든 이미지**를 삭제합니다. 이는 당장은 사용하지 않지만 나중에 사용하려고 남겨둔 이미지까지 삭제할 수 있으므로 사용 시 주의가 필요합니다.
+
+`-f` (또는 `--force`) 옵션을 사용하면 확인 메시지 없이 바로 삭제를 진행합니다. `--filter` 옵션을 사용하면 특정 조건(예: 특정 시간 이전에 생성된 이미지)에 맞는 이미지만 선별하여 삭제할 수도 있습니다.
+
+주기적으로 `docker image prune` 명령어를 실행하여 불필요한 이미지를 정리하면 디스크 공간을 효율적으로 관리하는 데 도움이 됩니다.
