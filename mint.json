@@ -201,7 +201,12 @@
         "development/docker/01-virtualization-and-container",
         "development/docker/02-what-is-docker",
         "development/docker/03-install-docker",
-        "development/docker/04-running-docker-containers"
+        "development/docker/04-running-docker-containers",
+        "development/docker/05-hand-on-docker-images",
+        "development/docker/06-manage-docker-containers",
+        "development/docker/07-foundation-of-dockerfile",
+        "development/docker/08-build-an-image-with-dockerfile",
+        "development/docker/09-docker-as-a-development-environment"
       ]
     },
     {
