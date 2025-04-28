@@ -1,0 +1,382 @@
+---
+title: "React Project Architecture"
+---
+
+## 초기 React 프로젝트 시작하기
+
+처음부터 복잡한 프로젝트 구조를 적용하는 것은 개발 속도를 느리게 만들고, 불필요한 작업을 만들어 냅니다.  React 프로젝트 구조는 프로젝트의 규모와 복잡성에 따라 다르게 설계될 수 있습니다. 아래에서 설명할 여러 가지 아키텍처 스타일은 각기 다른 장점과 단점을 가지고 있으며, 팀의 요구 사항과 개발 환경에 맞게 적절한 구조를 선택하는 것이 중요합니다. 초기에는 간단한 구조로 시작하고, 필요에 따라 점진적으로 복잡한 구조로 발전시키는 것이 좋습니다.
+
+
+## Feature based Structure
+
+
+```text
+/commerce-app
+├── public/
+├── src/
+│   ├── api/
+│   │   └── apiClient.ts
+│   │   └── productApi.ts
+│   │   └── cartApi.ts
+│   ├── app/
+│   │   └── App.tsx
+│   ├── features/
+│   │   ├── home/
+│   │   │   ├── components/
+│   │   │   ├── containers/
+│   │   │   ├── pages/
+│   │   │   ├── services/
+│   │   │   ├── types/
+│   │   │   └── utils/
+│   │   ├── cart/
+│   │   │   ├── components/
+│   │   │   ├── containers/
+│   │   │   ├── pages/
+│   │   │   ├── services/
+│   │   │   ├── types/
+│   │   │   └── utils/
+│   │   ├── productDetails/
+│   │   │   ├── components/
+│   │   │   ├── containers/
+│   │   │   ├── pages/
+│   │   │   ├── services/
+│   │   │   ├── types/
+│   │   │   └── utils/
+│   │   ├── checkout/
+│   │   │   ├── components/
+│   │   │   ├── containers/
+│   │   │   ├── pages/
+│   │   │   ├── services/
+│   │   │   ├── types/
+│   │   │   └── utils/
+│   │   ├── profile/
+│   │   │   ├── components/
+│   │   │   ├── containers/
+│   │   │   ├── pages/
+│   │   │   ├── services/
+│   │   │   ├── types/
+│   │   │   └── utils/
+│   │   └── (기타 필요한 feature들)
+│   ├── shared/
+│   │   ├── components/
+│   │   ├── containers/
+│   │   ├── services/
+│   │   ├── types/
+│   │   └── utils/
+│   ├── router/
+│   │   └── Router.tsx
+│   │   └── routes.ts
+│   ├── store/
+│   │   └── index.ts
+│   │   └── cartSlice.ts
+│   │   └── productSlice.ts
+│   │   └── userSlice.ts
+│   └── index.tsx
+├── package.json
+├── tsconfig.json
+├── README.md
+└── .gitignore
+```
+
+- `api/` - API 호출을 위한 클라이언트와 관련된 파일을 저장하는 디렉토리입니다.
+- `app/` - 애플리케이션의 진입점과 관련된 파일을 저장하는 디렉토리입니다.
+- `features/` - 애플리케이션의 주요 기능을 구현하는 디렉토리입니다. 각 기능은 별도의 서브디렉토리를 가집니다.
+- `shared/` - 애플리케이션 전반에서 사용되는 공통 컴포넌트, 서비스, 타입 등을 저장하는 디렉토리입니다.
+- - `router/` - 애플리케이션의 라우팅과 관련된 파일을 저장하는 디렉토리입니다.
+- `store/` - 애플리케이션의 상태 관리를 위한 Redux 스토어와 관련된 파일을 저장하는 디렉토리입니다.
+
+
+### Feature based Structure의 장점
+
+- 관심사 분리: 각 기능별로 관련된 파일을 그룹화하여 코드의 가독성을 높이고 유지보수를 용이하게 합니다.
+- 모듈화와 협업 용이성: 각 기능이 독립적으로 개발되고 테스트될 수 있어 팀원 간의 협업이 원활해집니다.
+- 재사용성: 공통 컴포넌트나 서비스는 `shared/` 디렉토리에 저장하여 여러 기능에서 재사용할 수 있습니다.
+- 확장성: 새로운 기능을 추가할 때 기존 구조를 유지하면서 쉽게 추가할 수 있습니다.
+
+
+### Feature based Structure의 단점
+
+- 코드 중복: 각 기능별로 유사한 구조를 가질 수 있어 코드 중복이 발생할 수 있습니다.
+- shared 디렉토리의 비대화: 많은 요소들은 여러 가지 기능을 한 번에 사용하기 때문에, `shared/` 디렉토리가 비대해질 수 있습니다. 이를 방지하기 위해서는 언제 `shared/` 디렉토리에 넣어야 하는지에 대한 팀 내의 명확한 기준이 필요합니다.
+
+
+## Component based Structure
+
+```text
+/commerce-app
+├── public/
+├── src/
+│   ├── api/
+│   │   └── products.ts
+│   │   └── cart.ts
+│   │   └── auth.ts
+│   │   └── payment.ts
+│   ├── components/
+│   │   ├── Header/
+│   │   │   └── Header.tsx
+│   │   │   └── Header.styles.ts
+│   │   ├── Footer/
+│   │   │   └── Footer.tsx
+│   │   │   └── Footer.styles.ts
+│   │   ├── ProductCard/
+│   │   │   └── ProductCard.tsx
+│   │   │   └── ProductCard.styles.ts
+│   │   ├── CartItem/
+│   │   │   └── CartItem.tsx
+│   │   │   └── CartItem.styles.ts
+│   │   ├── CheckoutForm/
+│   │   │   └── CheckoutForm.tsx
+│   │   │   └── CheckoutForm.styles.ts
+│   │   ├── ProfileSidebar/
+│   │   │   └── ProfileSidebar.tsx
+│   │   │   └── ProfileSidebar.styles.ts
+│   │   └── (추가로 필요한 컴포넌트들)
+│   ├── routes/
+│   │   └── AppRouter.tsx
+│   │   └── routes.tsx
+│   ├── store/
+│   │   └── index.ts
+│   │   └── cartSlice.ts
+│   │   └── productSlice.ts
+│   │   └── userSlice.ts
+│   ├── pages/
+│   │   ├── HomePage.tsx
+│   │   ├── ProductDetailPage.tsx
+│   │   ├── CartPage.tsx
+│   │   ├── CheckoutPage.tsx
+│   │   └── ProfilePage.tsx
+│   ├── utils/
+│   │   └── formatPrice.ts
+│   │   └── validateForm.ts
+│   ├── types/
+│   │   └── product.ts
+│   │   └── cart.ts
+│   │   └── user.ts
+│   ├── App.tsx
+│   └── index.tsx
+├── package.json
+├── tsconfig.json
+├── README.md
+└── .gitignore
+```
+
+- `api/` - API 호출을 위한 클라이언트와 관련된 파일을 저장하는 디렉토리입니다.
+- `components/` - 재사용 가능한 UI 컴포넌트를 저장하는 디렉토리입니다. 각 컴포넌트는 별도의 서브디렉토리를 가집니다.
+- `routes/` - 애플리케이션의 라우팅과 관련된 파일을 저장하는 디렉토리입니다.
+- `store/` - 애플리케이션의 상태 관리를 위한 Redux 스토어와 관련된 파일을 저장하는 디렉토리입니다.
+- `pages/` - 각 페이지를 구성하는 컴포넌트를 저장하는 디렉토리입니다.
+- `utils/` - 유틸리티 함수들을 저장하는 디렉토리입니다.
+- `types/` - TypeScript 타입 정의 파일들을 저장하는 디렉토리입니다.
+
+
+### Component based Structure의 장점
+
+- 컴포넌트 재사용성: UI 컴포넌트를 독립적으로 개발하고 재사용할 수 있어 코드의 중복을 줄일 수 있습니다.
+- 컴포넌트 관심사 분리: 각 컴포넌트는 특정 기능에 집중할 수 있어 코드의 가독성을 높입니다.
+- 모듈화: 각 컴포넌트는 기능에 따라 폴더와 파일로 나누어져 있어 모듈화된 구조를 가집니다.
+
+
+### Component based Structure의 단점
+
+- 확장성 부족: 프로젝트가 커질수록 컴포넌트 간의 의존성이 복잡해질 수 있습니다.
+- 코드 중복: 비슷한 기능을 가진 컴포넌트가 여러 개 생길 수 있어 코드 중복이 발생할 수 있습니다. 재사용 가능하도록 컴포넌트를 더 작게 나누는 것이 필요합니다.
+
+
+## Atom based Structure
+
+```text
+/commerce-app
+├── public/
+├── src/
+│   ├── api/
+│   │   └── products.ts
+│   │   └── cart.ts
+│   │   └── auth.ts
+│   │   └── payment.ts
+│   ├── components/
+│   │   ├── atoms/
+│   │   │   ├── Button/
+│   │   │   │   └── Button.tsx
+│   │   │   │   └── Button.styles.ts
+│   │   │   ├── Input/
+│   │   │   │   └── Input.tsx
+│   │   │   │   └── Input.styles.ts
+│   │   │   ├── Typography/
+│   │   │   │   └── Typography.tsx
+│   │   │   │   └── Typography.styles.ts
+│   ├── │   ├── molecules/
+│   │   │   ├── ProductCard/
+│   │   │   │   └── ProductCard.tsx
+│   │   │   │   └── ProductCard.styles.ts
+│   │   │   ├── CartItem/
+│   │   │   │   └── CartItem.tsx
+│   │   │   │   └── CartItem.styles.ts
+│   ├── │   ├── organisms/
+│   │   │   ├── Header/
+│   │   │   │   └── Header.tsx
+│   │   │   │   └── Header.styles.ts
+│   │   │   ├── Footer/
+│   │   │   │   └── Footer.tsx
+│   │   │   │   └── Footer.styles.ts
+│   │   │   ├── ProductList/
+│   │   │   │   └── ProductList.tsx
+│   │   │   │   └── ProductList.styles.ts
+│   ├── │   ├── templates/
+│   │   │   ├── DefaultLayout/
+│   │   │   │   └── DefaultLayout.tsx
+│   │   │   │   └── DefaultLayout.styles.ts
+│   │   │   ├── CheckoutLayout/
+│   │   │   │   └── CheckoutLayout.tsx
+│   │   │   │   └── CheckoutLayout.styles.ts
+│   ├── │   ├── pages/
+│   │   │   ├── HomePage/
+│   │   │   │   └── HomePage.tsx
+│   │   │   ├── ProductDetailPage/
+│   │   │   │   └── ProductDetailPage.tsx
+│   │   │   ├── CartPage/
+│   │   │   │   └── CartPage.tsx
+│   │   │   ├── CheckoutPage/
+│   │   │   │   └── CheckoutPage.tsx
+│   │   │   └── ProfilePage/
+│   │   │       └── ProfilePage.tsx
+│   ├── views/
+│   │   ├── HomeView.tsx
+│   │   ├── ProductDetailView.tsx
+│   │   ├── CartView.tsx
+│   │   ├── CheckoutView.tsx
+│   │   └── ProfileView.tsx
+│   ├── routes/
+│   │   └── AppRouter.tsx
+│   │   └── routes.tsx
+│   ├── store/
+│   │   └── index.ts
+│   │   └── cartSlice.ts
+│   │   └── productSlice.ts
+│   │   └── userSlice.ts
+│   ├── utils/
+│   │   └── formatPrice.ts
+│   │   └── validateForm.ts
+│   ├── types/
+│   │   └── product.ts
+│   │   └── cart.ts
+│   │   └── user.ts
+│   ├── App.tsx
+│   └── index.tsx
+├── package.json
+├── tsconfig.json
+├── README.md
+└── .gitignore
+```
+
+- `api/` - API 호출을 위한 클라이언트와 관련된 파일을 저장하는 디렉토리입니다.
+- `components/` - 재사용 가능한 UI 컴포넌트를 저장하는 디렉토리입니다. 각 컴포넌트는 `atoms/`, `molecules/`, `organisms/`, `templates/`로 나누어져 있습니다.
+- `views/` - 각 페이지를 구성하는 컴포넌트를 저장하는 디렉토리입니다.
+- `routes/` - 애플리케이션의 라우팅과 관련된 파일을 저장하는 디렉토리입니다.
+- `store/` - 애플리케이션의 상태 관리를 위한 Redux 스토어와 관련된 파일을 저장하는 디렉토리입니다.
+- `utils/` - 유틸리티 함수들을 저장하는 디렉토리입니다.
+- `types/` - TypeScript 타입 정의 파일들을 저장하는 디렉토리입니다.
+
+
+### Atom based Structure의 장점
+
+- 재사용성: 크기 별로 나누어진 컴포넌트는 재사용성을 높이고, 코드 중복을 줄일 수 있습니다.
+- 일관성: 컴포넌트의 크기는 UI의 일관성을 유지하는 데 도움을 줍니다.
+- 확장성: 새로운 컴포넌트를 추가할 때 기존 구조를 유지하면서 쉽게 추가할 수 있습니다.
+- 유지보수 용이성: 계층 구조로 나누어져 있어 각 컴포넌트의 역할이 명확해 유지보수가 용이합니다.
+- 협업 용이성: UI 요소와 컴포넌트 구조가 명확해 팀원 간의 협업이 원활해집니다.
+
+
+### Atom based Structure의 단점
+
+- 학습 곡선: Atom, Molecule, Organism 등의 개념을 이해하는 데 시간이 걸릴 수 있습니다.
+- 복잡성: 프로젝트가 커질수록 컴포넌트 간의 의존성이 복잡해질 수 있습니다.
+- 협업 시 혼란: 해당 컴포넌트가 어떤 역할에 속해야 하는지 팀원마다 이해가 다를 수 있어 협업 시 혼란이 발생할 수 있습니다. 명확한 기준이 필요합니다.
+
+
+## MVVM based Structure
+
+```text
+/commerce-app
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Card.tsx
+│   │   │   └── (공통 UI 컴포넌트)
+│   │   ├── cart/
+│   │   │   └── CartItem.tsx
+│   │   ├── product/
+│   │   │   └── ProductCard.tsx
+│   │   └── profile/
+│   │       └── ProfileSidebar.tsx
+│   ├── models/
+│   │   ├── CartItemModel.ts
+│   │   ├── ProductModel.ts
+│   │   ├── UserModel.ts
+│   │   └── (기타 도메인 모델)
+│   ├── viewmodels/
+│   │   ├── useCartViewModel.ts
+│   │   ├── useProductViewModel.ts
+│   │   ├── useCheckoutViewModel.ts
+│   │   ├── useProfileViewModel.ts
+│   │   └── (페이지별 ViewModel hooks)
+│   ├── services/
+│   │   ├── cartService.ts
+│   │   ├── productService.ts
+│   │   ├── authService.ts
+│   │   ├── paymentService.ts
+│   │   └── (외부 API 호출 모듈)
+│   ├── views/
+│   │   ├── HomeView.tsx
+│   │   ├── ProductDetailView.tsx
+│   │   ├── CartView.tsx
+│   │   ├── CheckoutView.tsx
+│   │   └── ProfileView.tsx
+│   ├── routers/
+│   │   ├── AppRouter.tsx
+│   │   └── routes.ts
+│   ├── store/
+│   │   └── index.ts
+│   │   └── cartSlice.ts
+│   │   └── productSlice.ts
+│   │   └── userSlice.ts
+│   ├── utils/
+│   │   └── formatPrice.ts
+│   │   └── validateForm.ts
+│   ├── types/
+│   │   └── product.ts
+│   │   └── cart.ts
+│   │   └── user.ts
+│   ├── App.tsx
+│   └── index.tsx
+├── package.json
+├── tsconfig.json
+├── README.md
+└── .gitignore
+```
+
+- `components/` - 재사용 가능한 UI 컴포넌트를 저장하는 디렉토리입니다. 각 컴포넌트는 기능별로 나누어져 있습니다.
+- `models/` - 도메인 모델을 정의하는 디렉토리입니다. 각 모델은 TypeScript 인터페이스로 정의됩니다.
+- `viewmodels/` - 각 페이지에 대한 ViewModel을 정의하는 디렉토리입니다. 각 ViewModel은 React Hook으로 정의됩니다.
+- `services/` - 외부 API 호출 및 비즈니스 로직을 처리하는 서비스 모듈을 저장하는 디렉토리입니다.
+- `views/` - 각 페이지를 구성하는 컴포넌트를 저장하는 디렉토리입니다.
+- `routers/` - 애플리케이션의 라우팅과 관련된 파일을 저장하는 디렉토리입니다.
+- `store/` - 애플리케이션의 상태 관리를 위한 Redux 스토어와 관련된 파일을 저장하는 디렉토리입니다.
+- `utils/` - 유틸리티 함수들을 저장하는 디렉토리입니다.
+- `types/` - TypeScript 타입 정의 파일들을 저장하는 디렉토리입니다.
+
+
+### MVVM based Structure의 장점
+
+- 관심사 분리: UI, 비즈니스 로직, 데이터 모델을 명확히 분리하여 코드의 가독성을 높입니다.
+- 재사용성: 구성 요소, 모델, ViewModel을 독립적으로 재사용할 수 있어 코드 중복을 줄일 수 있습니다.
+- 테스트 가능성: UI와 비즈니스 로직이 분리되어 있어 단위 테스트가 용이합니다.
+- 확장성: 새로운 기능을 추가할 때 기존 구조를 유지하면서 쉽게 추가할 수 있습니다.
+
+
+### MVVM based Structure의 단점
+
+- 복잡성: MVVM 패턴을 이해하고 적용하는 데 시간이 걸릴 수 있습니다.
+- 학습 곡선: MVVM 패턴에 익숙하지 않은 개발자에게는 초기 학습 곡선이 있을 수 있습니다.
