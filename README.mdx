@@ -72,3 +72,18 @@ To use components, use the `MDX` file extension. Components are only available f
 ```html
 <Tip>This suggests a helpful tip</Tip>
 ```
+
+
+## markdownlint
+
+markdownlint is a linter for markdown,mdx files. It is used to ensure that the markdown files are consistent and follow best practices.
+
+`bold-parentheses-space` custom role is used to force a space after bold text that contains parentheses. This is a way to get around the limitation that the Markdown syntax does not allow the use of parentheses inside bold text.
+
+```text
+**(this is bold)**this is not bold
+**(this is bold)** this is bold
+```
+
+- [custom rules guide](https://github.com/DavidAnson/markdownlint/blob/main/doc/CustomRules.md)
+

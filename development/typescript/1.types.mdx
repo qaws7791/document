@@ -5,8 +5,8 @@
 타입은 **할당가능한 값들의 집합**(범위)
 
 
-
 💫타입 이름과 자바스크립트 변수 이름을 중복으로 사용할 경우 혼란을 야기할 수 있다
+
 
 ## 타입과 집합
 
@@ -23,7 +23,6 @@
 |                         |                         |      |
 
 
-
 ## 원시 타 입
 
 - `string`: 문자열
@@ -35,6 +34,7 @@
 - bigint: 아주 큰 정수를 다루는 원시 타입(ES2020)
 - symbol: 전역적으로 고유한 참조값을 생성
 
+
 ## any
 
 타입 검사 오류를 원치 않을 때 사용. 타입 정의 없이 일단 사용 가능
@@ -45,16 +45,14 @@
 - 그 외 구문적으로 유효한 행위들 가능
 
 
-
 ## 변수에 대한 타입 표기 불필요할 때
 
-대부분의 경우 타입 표기는 불필요할 수 있다. 
+대부분의 경우 타입 표기는 불필요할 수 있다.
 
 타입스크립트에서 초깃값의 타입을 통해 자동으로 추론하기 때문
 
-> 이제 막 TypeScript를 시작하는 단계라면, 가능한 타입 표기를 적게 사용하도록 해보세요. 
+> 이제 막 TypeScript를 시작하는 단계라면, 가능한 타입 표기를 적게 사용하도록 해보세요.
 > 코드 흐름을 완전히 파악하는 데에 타입이 그다지 많이 필요하지 않다는 사실에 놀라실 겁니다.
-
 
 
 ## 함수
@@ -64,15 +62,14 @@
 
 ```typescript
 const add = (a: number, b:number):number => {
-	return a + b
+ return a + b
 }
 ```
 
 
-
 ## 문맥적 타입 부여
 
-- forEach의 배열이 문자열 배열이므로 callback의 인자인 `s`는 `string`형이다. 
+- forEach의 배열이 문자열 배열이므로 callback의 인자인 `s`는 `string`형이다.
 - 따라서 `toUpperCase`를 추천한다
 
 ```typescript
@@ -87,10 +84,10 @@ Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCas
 ```
 
 
-
 ## 객체
 
 객체에 대한 각각의 프로터티 타입을 지정할 수 있고, 지정하지 않으면 `any`타입으로 간주
+
 
 ### 옵셔널 프로퍼티
 
@@ -99,7 +96,6 @@ Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCas
 존재하지 않은 프로퍼티 접근 시 -> `undefined` 반환하므로 **확인 필요**
 
 `if(property !== undefined)` 또는 `property?.`를 사용
-
 
 
 ## 유니온 타입
@@ -121,7 +117,6 @@ function printId(id: number | string) {
   }
 }
 ```
-
 
 
 ## 맵드 타입
@@ -153,7 +148,6 @@ type Post3State = Pick<State, 'userId' | 'title' | 'content'>
 ```
 
 
-
 ## Keyof 타입
 
 ```typescript
@@ -171,18 +165,16 @@ const content:PostKeys = 'content'
 ```
 
 
-
 ## 타입 별칭
 
 타입에 대해 이름을 붙여 사용
 
 ```typescript
 type Point = {
-	x: number;
-	y: number;
+ x: number;
+ y: number;
 }
 ```
-
 
 
 ## 인터페이스
@@ -191,13 +183,12 @@ type Point = {
 
 ```typescript
  interface Point {
- 	x: number;
- 	y: number;
+  x: number;
+  y: number;
  }
 ```
 
 ❗인터페이스는 타입 추가와 확장에 개방적이지만 타입 별칭은 생성된 후에 변경할 수 없다
-
 
 
 ## 타입과 인터페이스 차이점
@@ -213,6 +204,7 @@ type Point = {
   -> But, 프로젝트 내부 타입에 선언 병합이 발생하는 것은 좋지 못한 설계
 - 양 쪽 모두 사용 가능하다면 일관된 스타일을 사용
 
+
 ## 타입 단언
 
 특정 값의 타입을 내가 확실히 알고 있는 경우 코드에 `as`를 사용하여 명시할 수 있다.
@@ -222,7 +214,6 @@ const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
 ```
 
 ⭐타입스크립트에서 찾은 타입 대신 강제로 타입을 지정하기 때문에 타입 선언을 더 선호해야 한다
-
 
 
 ## 리터럴 타입
@@ -241,7 +232,6 @@ function move(distance: number, direction: "left" | "right" | "up" | "down") {
 move(1,"left");
 move(2, "right");
 ```
-
 
 
 ## 리터럴 추론
@@ -265,13 +255,13 @@ const req = { url: "https://example.com", method: "GET" as "GET" };
 handleRequest(req.url, req.method as "GET");
 ```
 
-`as const`를 통해 객체 전체를 리터럴 타입으로 변환
+`as const`를 통해 객체 전체를 리터럴 타입으로 변환.
+as const는 모든 프로퍼티를 읽기 전용으로 만든다
 
 ```typescript
 const req = { url: "https://example.com", method: "GET" } as const;
 handleRequest(req.url, req.method);
 ```
-
 
 
 ## strictNullChecks
@@ -283,7 +273,6 @@ Null 아님 단언 연산자(접미사 !): Null이나 undefined가 아님을 타
 ```typescript
 
 ```
-
 
 
 ```typescript
@@ -299,13 +288,11 @@ const q:Num = undefined;
 ```
 
 
-
 ## never
 
 any 타입을 포함해 어느 타입도 가지지 않는 공집합의 역할을 하는 타입
 
 어느 타입도 아니다
-
 
 
 ## 인덱스 시그니처
@@ -327,7 +314,6 @@ const user: StringIndexSig = {
   address: '1'
 }
 ```
-
 
 
 ```typescript
@@ -353,10 +339,10 @@ const user: User = {
 ```
 
 
-
 # 제네릭
 
 타입 재사용을 통해 불필요한 중복을 줄이는 데 도움이 된다.
+
 
 ## 제네릭 시작하기
 
@@ -370,12 +356,11 @@ pass('string') // 자동 타입 추론
 ```
 
 
-
 ## 제네릭 타입 제한하기
 
 `extends`를 사용하여 제네릭 타입을 제한
 
-제네릭 타입은 상속 받는 타입을 반드시 가져야 하기 때문 
+제네릭 타입은 상속 받는 타입을 반드시 가져야 하기 때문
 
 아래의 `loggingIdentity()` 함수는 반드시 number타입의 length 속성을 가지는 인자만 받는다.
 
@@ -392,10 +377,9 @@ function loggingIdentity<T extends Lengthwise>(arg: T): T {
 ```
 
 
-
 ## 리턴 타입
 
-` ReturnType<type>`
+`ReturnType<type>`
 
 함수 Type가 반환하는 타입을 생성
 

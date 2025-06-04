@@ -1,0 +1,540 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "almond",
+  "name": "Documentation",
+  "colors": {
+    "primary": "#cd5c5c",
+    "light": "#cd5c5c",
+    "dark": "#cd5c5c"
+  },
+  "styling": {
+    "codeblocks": "system"
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "favicon": "/images/logo/favicon.svg" ,
+  "navigation": {
+    "dropdowns": [
+      {
+        "dropdown": "Computer Science",
+        "description": "CS 지식",
+        "icon": "cpu",
+        "groups": [
+          {
+            "group": "Computer System",
+            "pages": [
+              "computer-science/computer-system/overview",
+              "computer-science/computer-system/cpu",
+              "computer-science/computer-system/memory",
+              "computer-science/computer-system/inputoutput-devices",
+              "computer-science/computer-system/bus",
+              "computer-science/computer-system/data-representation",
+              "computer-science/computer-system/data-types",
+              "computer-science/computer-system/character-encodings",
+              "computer-science/computer-system/concurrency-and-parallelism"
+            ]
+          },
+          {
+            "group": "Operating System",
+            "pages": [
+              "computer-science/operating-system/overview",
+              "computer-science/operating-system/components",
+              "computer-science/operating-system/file-system",
+              "computer-science/operating-system/io-management",
+              "computer-science/operating-system/memory-management",
+              "computer-science/operating-system/kernel",
+              "computer-science/operating-system/process-management"
+            ]
+          },
+          {
+            "group": "Algorithms",
+            "pages": [
+              "computer-science/algorithms/overview",
+              "computer-science/algorithms/recursion",
+              "computer-science/algorithms/searching",
+              "computer-science/algorithms/selecting",
+              "computer-science/algorithms/sorting",
+              "computer-science/algorithms/brute-force-search",
+              "computer-science/algorithms/greedy-algorithm",
+              "computer-science/algorithms/dynamic-programming"
+            ]
+          },
+          {
+            "group": "Data Structures",
+            "pages": [
+              "computer-science/data-structures/overview",
+              "computer-science/data-structures/list",
+              "computer-science/data-structures/stack",
+              "computer-science/data-structures/queue",
+              "computer-science/data-structures/tree",
+              "computer-science/data-structures/binary-tree",
+              "computer-science/data-structures/heap",
+              "computer-science/data-structures/set",
+              "computer-science/data-structures/graph"
+            ]
+          },
+          {
+            "group": "Dadropdownase",
+            "pages": [
+              "computer-science/dadropdownase/overview",
+              "computer-science/dadropdownase/sql"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Development",
+        "description": "개발 지식",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "API",
+            "pages": [
+              "development/api/overview",
+              "development/api/compression",
+              "development/api/rate-limiting",
+              "development/api/serialization"
+            ]
+          },
+          {
+            "group": "AWS",
+            "pages": [
+              "development/aws/getting-started",
+              "development/aws/container",
+              "development/aws/cloud",
+              "development/aws/aws-container-service",
+              "development/aws/create-iam-user",
+              {
+                "group": "ec2",
+                "pages": [
+                  "development/aws/ec2/overview",
+                  "development/aws/ec2/instance",
+                  "development/aws/ec2/deploy-nextjs-project",
+                  "development/aws/ec2/ec2-auto-scaling",
+                  "development/aws/ec2/http-with-certbot",
+                  "development/aws/ec2/https-with-alb"
+                ]
+              },
+              {
+                "group": "lambda",
+                "pages": [
+                  "development/aws/lambda/overview",
+                  "development/aws/lambda/start-lambda",
+                  "development/aws/lambda/use-lambda-with-s3",
+                  "development/aws/lambda/use-lambda-with-apigateway",
+                  "development/aws/lambda/uses-of-lambda"
+                ]
+              },
+              {
+                "group": "cloudfront",
+                "pages": [
+                  "development/aws/cloudfront/overview"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "CI/CD",
+            "pages": [
+              "development/cicd/overview",
+              "development/cicd/yaml"
+            ]
+          },
+          {
+            "group": "CSS",
+            "pages": [
+              "development/css/overview"
+            ]
+          },
+          {
+            "group": "Docker",
+            "pages": [
+              "development/docker/overview",
+              "development/docker/01-virtualization-and-container",
+              "development/docker/02-what-is-docker",
+              "development/docker/03-install-docker",
+              "development/docker/04-running-docker-containers",
+              "development/docker/05-hand-on-docker-images",
+              "development/docker/06-manage-docker-containers",
+              "development/docker/07-foundation-of-dockerfile",
+              "development/docker/08-build-an-image-with-dockerfile",
+              "development/docker/09-docker-as-a-development-environment"
+            ]
+          },
+          {
+            "group": "Firebase",
+            "pages": [
+              "development/firebase/getting-started",
+              "development/firebase/authentication",
+              "development/firebase/resize-image",
+              "development/firebase/rules"
+            ]
+          },
+          {
+            "group": "Git",
+            "pages": [
+              "development/git/overview",
+              "development/git/git-conventional-commits",
+              "development/git/connecting-to-github-via-ssh",
+              "development/git/connecting-to-github-via-https"
+            ]
+          },
+          {
+            "group": "GraphQL",
+            "pages": [
+              "development/graphql/overview",
+              "development/graphql/apollo"
+            ]
+          },
+          {
+            "group": "HTML",
+            "pages": [
+              "development/html/overview",
+              "development/html/categories",
+              {
+                "group": "Elements",
+                "pages": [
+                  "development/html/elements/block-elements",
+                  "development/html/elements/inline-elements",
+                  "development/html/elements/semantic-elements"
+                ]
+              },
+              "development/html/head",
+              "development/html/mnemonic",
+              "development/html/security"
+            ]
+          },
+          {
+            "group": "JavaScript",
+            "pages": [
+              "development/javascript/readme",
+              "development/javascript/conditionals",
+              "development/javascript/loop",
+              "development/javascript/primitive_types",
+              "development/javascript/variable",
+              "development/javascript/object",
+              "development/javascript/function",
+              "development/javascript/array",
+              "development/javascript/class",
+              "development/javascript/asynchronous",
+              "development/javascript/cheat-sheet",
+              "development/javascript/design",
+              "development/javascript/destructuring-assignment",
+              "development/javascript/javascript",
+              "development/javascript/regex",
+              "development/javascript/spread-and-rest",
+              "development/javascript/web-api",
+              "development/javascript/console-api"
+
+            ]
+          },
+          {
+            "group": "Koa",
+            "pages": [
+              "development/koa/koa"
+            ]
+          },
+          {
+            "group": "Linux",
+            "pages": [
+              {
+                "group": "Linux 소개",
+                "pages": [
+                  "development/linux/1.introduction/1.operating-systems-and-the-story-of-linux",
+                  "development/linux/1.introduction/2.setting-up-your-linux-environment",
+                  "development/linux/1.introduction/3.your-first-steps-terminal-and-shell"
+                ]
+              },
+              {
+                "group": "Linux 기본",
+                "pages": [
+                  "development/linux/2.basic/4.files-and-directories",
+                  "development/linux/2.basic/5.linux-editors"
+                ]
+              },
+              {
+                "group": "Linux 시스템 관리",
+                "pages": [
+                  "development/linux/3.system-management/6.managing-users-and-groups",
+                  "development/linux/3.system-management/7.file-permissions-and-ownership",
+                  "development/linux/3.system-management/8.process-management",
+                  "development/linux/3.system-management/9.package-management",
+                  "development/linux/3.system-management/10.disk-and-filesystem-management"
+                ]
+              },
+              {
+                "group": "Linux 쉘",
+                "pages": [
+                  "development/linux/4.shell-scripting/11.mastering-the-shell",
+                  "development/linux/4.shell-scripting/12.introduction-to-shell-scripting",
+                  "development/linux/4.shell-scripting/13.control-flow-and-functions",
+                  "development/linux/4.shell-scripting/14.text-processing-trio"
+                ]
+              },
+              {
+                "group": "Linux 네트워킹",
+                "pages": [
+                  "development/linux/5.networking/15.linux-network-configuration",
+                  "development/linux/5.networking/16.remote-access-and-file-transfer",
+                  "development/linux/5.networking/17.building-and-managing-network-services"
+                ]
+              },
+              {
+                "group": "Linux 고급",
+                "pages": [
+                  "development/linux/6.advanced/18.linux-security",
+                  "development/linux/6.advanced/19.performance-analysis-and-tuning",
+                  "development/linux/6.advanced/20.virtualization-and-containerization",
+                  "development/linux/6.advanced/21.hands-on-projects"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "MongoDB",
+            "pages": [
+              "development/mongodb/overview"
+            ]
+          },
+          {
+            "group": "Nest.js",
+            "pages": [
+              "development/nestjs/overview"
+            ]
+          },
+          {
+            "group": "Next.js",
+            "pages": [
+              "development/nextjs/overview",
+              "development/nextjs/common-tips",
+              "development/nextjs/create-navigation",
+              "development/nextjs/create-page",
+              "development/nextjs/create-search",
+              "development/nextjs/deploy-with-docker",
+              "development/nextjs/environment-variables",
+              "development/nextjs/fetch-in-next",
+              "development/nextjs/rendering",
+              "development/nextjs/server-action"
+
+            ]
+          },
+          {
+            "group": "Node.js",
+            "pages": [
+              "development/nodejs/overview",
+              "development/nodejs/express",
+              "development/nodejs/cookie-and-session",
+              "development/nodejs/npm"
+
+            ]
+          },
+          {
+            "group": "React.js",
+            "pages": [
+              "development/react/overview",
+              "development/react/context-api",
+              "development/react/custom-hook",
+              "development/react/jsx",
+              "development/react/memo",
+              "development/react/patterns",
+              "development/react/project-architecture",
+              "development/react/react-error-boundary",
+              "development/react/react-hooks",
+              "development/react/react-native",
+              "development/react/react-rendering",
+              "development/react/react-suspense",
+              "development/react/transtack-query",
+              "development/react/typescript",
+              "development/react/virtual-dom",
+              {
+                "group": "Hooks",
+                "pages": [
+                  "development/react/hooks/use-state",
+                  "development/react/hooks/use-effect",
+                  "development/react/hooks/use-memo,use-callback",
+                  "development/react/hooks/use-reducer",
+                  "development/react/hooks/use-ref"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "SEO",
+            "pages": [
+              "development/seo/overview"
+            ]
+          },
+          {
+            "group": "TypeScript",
+            "pages": [
+              "development/typescript/overview",
+              "development/typescript/0.typescript",
+              "development/typescript/1.types",
+              "development/typescript/2.enums",
+              "development/typescript/3.narrowing",
+              "development/typescript/4.functions"
+            ]
+          },
+          {
+            "group": "Web",
+            "pages": [
+              "development/web/history",
+              "development/web/accessibility"
+            ]
+          },
+          {
+            "group": "Books",
+            "pages": [
+              "development/books/becoming-a-better-programmer/readme",
+              "development/books/functional-programming/readme",
+              "development/books/laws-of-ux/readme",
+              "development/books/object-process/readme",
+              "development/books/tidy-first/readme"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Software Engineering",
+        "description": "소프트웨어 공학 지식",
+        "icon": "wrench",
+        "groups": [
+          {
+            "group": "Architectures",
+            "pages": [
+              "software-engineering/architectures/overview",
+              "software-engineering/architectures/architecture",
+              "software-engineering/architectures/layered-architecture",
+              "software-engineering/architectures/pipeline-architecture",
+              "software-engineering/architectures/clean-architecture"
+            ]
+          },
+          {
+            "group": "Code",
+            "pages": [
+              "software-engineering/code/how-to-write-code",
+              "software-engineering/code/refactoring",
+              "software-engineering/code/solid-principles"
+            ]
+          },
+          {
+            "group": "Programming Paradigms",
+            "pages": [
+              "software-engineering/programming-paradigms/overview",
+              "software-engineering/programming-paradigms/defensive-programming"
+            ]
+          },
+          {
+            "group": "Development Processes",
+            "pages": [
+              "software-engineering/development-processes/agile"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Project",
+        "description": "팀 프로젝트 관련",
+        "icon": "square-library",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "project/overview"
+            ]
+          },
+          {
+            "group": "Analysis",
+            "pages": [
+              "project/analysis/seo"
+            ]
+          },
+          {
+            "group": "Deploy",
+            "pages": [
+              "project/deploy/checklist-before-deploy"
+            ]
+          },
+          {
+            "group": "Design",
+            "pages": [
+              "project/design/overview",
+              "project/design/assets",
+              "project/design/bad-case",
+              "project/design/designing-touch-zones",
+              "project/design/heuristic-evaluation",
+              "project/design/reference"
+            ]
+          },
+          {
+            "group": "Engineering",
+            "pages": [
+              "project/engineering/accessibility",
+              "project/engineering/code-convention",
+              "project/engineering/code-style-guide",
+              "project/engineering/naming-convention",
+              "project/engineering/nextjs",
+              "project/engineering/oauth2",
+              "project/engineering/tech-stack",
+              "project/engineering/testing",
+              "project/engineering/web-first"
+            ]
+          },
+          {
+            "group": "Planning",
+            "pages": [
+              "project/planning/overview",
+              "project/planning/business-goals",
+              "project/planning/find-ideas",
+              "project/planning/persona"
+            ]
+          },
+          {
+            "group": "Team",
+            "pages": [
+              "project/team/increase-productivity",
+              "project/team/manage-tasks",
+              "project/team/overcoming-parkinsons-law",
+              "project/team/team-canvas",
+              "project/team/team-composition",
+              "project/team/using-pomodoro",
+              "project/team/divergent-thinking"
+            ]
+          },
+          {
+            "group": "Overview",
+            "pages": [
+              "project/overview"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/images/logo/light.svg",
+    "dark": "/images/logo/dark.svg"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/qaws7791/document"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/qaws7791"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "KIMM_Bold",
+      "format": "woff2",
+      "source": "https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2"
+    },
+    "body": {
+      "family": "Hahmlet"
+    }
+  }
+}
