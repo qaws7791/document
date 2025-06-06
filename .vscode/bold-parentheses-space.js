@@ -18,7 +18,7 @@ module.exports = {
         const endPosition = startPosition + fullMatch.length;
 
         // check if the bold content contains any type of bracket
-        if (/[()]/.test(boldContent)) {
+        if (/[^a-zA-Z0-9가-힣]/.test(boldContent)) {
           // 볼드체 뒤에 공백이 없는지 확인
           if (endPosition < line.length && line[endPosition] !== " ") {
             onError({
