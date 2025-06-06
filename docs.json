@@ -13,7 +13,7 @@
   "icons": {
     "library": "lucide"
   },
-  "favicon": "/images/logo/favicon.svg" ,
+  "favicon": "/images/logo/logo.svg" ,
   "navigation": {
     "dropdowns": [
       {
@@ -513,8 +513,8 @@
     ]
   },
   "logo": {
-    "light": "/images/logo/light.svg",
-    "dark": "/images/logo/dark.svg"
+    "light": "/images/logo/logo.svg",
+    "dark": "/images/logo/logo.svg"
   },
   "navbar": {
     "primary": {
