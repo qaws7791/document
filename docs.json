@@ -13,7 +13,7 @@
   "icons": {
     "library": "lucide"
   },
-  "favicon": "/images/logo/logo.svg" ,
+  "favicon": "/images/logo/logo.svg",
   "navigation": {
     "dropdowns": [
       {
@@ -75,10 +75,10 @@
             ]
           },
           {
-            "group": "Dadropdownase",
+            "group": "Database",
             "pages": [
-              "computer-science/dadropdownase/overview",
-              "computer-science/dadropdownase/sql"
+              "computer-science/database/overview",
+              "computer-science/database/sql"
             ]
           }
         ]
@@ -128,24 +128,17 @@
               },
               {
                 "group": "cloudfront",
-                "pages": [
-                  "development/aws/cloudfront/overview"
-                ]
+                "pages": ["development/aws/cloudfront/overview"]
               }
             ]
           },
           {
             "group": "CI/CD",
-            "pages": [
-              "development/cicd/overview",
-              "development/cicd/yaml"
-            ]
+            "pages": ["development/cicd/overview", "development/cicd/yaml"]
           },
           {
             "group": "CSS",
-            "pages": [
-              "development/css/overview"
-            ]
+            "pages": ["development/css/overview"]
           },
           {
             "group": "Docker",
@@ -226,14 +219,11 @@
               "development/javascript/spread-and-rest",
               "development/javascript/web-api",
               "development/javascript/console-api"
-
             ]
           },
           {
             "group": "Koa",
-            "pages": [
-              "development/koa/koa"
-            ]
+            "pages": ["development/koa/koa"]
           },
           {
             "group": "Linux",
@@ -293,15 +283,11 @@
           },
           {
             "group": "MongoDB",
-            "pages": [
-              "development/mongodb/overview"
-            ]
+            "pages": ["development/mongodb/overview"]
           },
           {
             "group": "Nest.js",
-            "pages": [
-              "development/nestjs/overview"
-            ]
+            "pages": ["development/nestjs/overview"]
           },
           {
             "group": "Next.js",
@@ -316,7 +302,6 @@
               "development/nextjs/fetch-in-next",
               "development/nextjs/rendering",
               "development/nextjs/server-action"
-
             ]
           },
           {
@@ -326,7 +311,6 @@
               "development/nodejs/express",
               "development/nodejs/cookie-and-session",
               "development/nodejs/npm"
-
             ]
           },
           {
@@ -361,9 +345,7 @@
           },
           {
             "group": "SEO",
-            "pages": [
-              "development/seo/overview"
-            ]
+            "pages": ["development/seo/overview"]
           },
           {
             "group": "TypeScript",
@@ -401,6 +383,16 @@
         "icon": "wrench",
         "groups": [
           {
+            "group": "Start",
+            "pages": [
+              "software-engineering/preventative-engineering",
+              "software-engineering/software-architecture-principles",
+              "software-engineering/software-product-quality",
+              "software-engineering/software-quality",
+              "software-engineering/server-concurrency"
+            ]
+          },
+          {
             "group": "Architectures",
             "pages": [
               "software-engineering/architectures/overview",
@@ -427,9 +419,7 @@
           },
           {
             "group": "Development Processes",
-            "pages": [
-              "software-engineering/development-processes/agile"
-            ]
+            "pages": ["software-engineering/development-processes/agile"]
           }
         ]
       },
@@ -440,21 +430,15 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "project/overview"
-            ]
+            "pages": ["project/overview"]
           },
           {
             "group": "Analysis",
-            "pages": [
-              "project/analysis/seo"
-            ]
+            "pages": ["project/analysis/seo"]
           },
           {
             "group": "Deploy",
-            "pages": [
-              "project/deploy/checklist-before-deploy"
-            ]
+            "pages": ["project/deploy/checklist-before-deploy"]
           },
           {
             "group": "Design",
@@ -504,9 +488,7 @@
           },
           {
             "group": "Overview",
-            "pages": [
-              "project/overview"
-            ]
+            "pages": ["project/overview"]
           }
         ]
       }
@@ -529,9 +511,8 @@
   },
   "fonts": {
     "heading": {
-      "family": "KIMM_Bold",
-      "format": "woff2",
-      "source": "https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2"
+      "family": "42dot Sans",
+      "weight": 600
     },
     "body": {
       "family": "Hahmlet"
