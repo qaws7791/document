@@ -1,15 +1,17 @@
 ## 정적 렌더링
 
-데이터 페칭 및 렌더링 발생 시점: 
+데이터 페칭 및 렌더링 발생 시점:
 
-- 빌드 시점 - 서버 
+- 빌드 시점 - 서버
 - 데이터 재검증 시점 - 서버
+
 
 ### 특징
 
 - 캐싱 가능: CDN을 통해 전 세계에 배포하여 사용자가 빠르게 접근 가능
 - 서버 부하 감소: 캐싱된 콘텐츠를 제공하기만 하므로 반복해서 렌더링(생성)할 필요가 없어짐(단 데이터 재검증 시점에는 필요)
 - SEO: 서버에서 렌더링되기 때문에 크롤러가 접근하고 색인하기 쉬움. 이는 검색 엔진 순위를 높이는데 도움을 줄 수있음
+
 
 ### 유용한 경우
 
@@ -52,9 +54,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 ```
 
 
-
 ------
-
 
 
 ## 동적 렌더링
@@ -62,6 +62,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 데이터 페칭 및 렌더링 발생 시점:
 
 - 사용자가 페이지 방문(요청) 시
+
 
 ### 특징
 
@@ -102,7 +103,6 @@ export default function Loading() {
 ```
 
 
-
 ## 주문형 isr(on-demand isr)
 
 외부에서 경로를 무효화시키기 위해 api를 제공하고, 이를 호출하면 nextjs 서버에서 `revalidatePath()`를 호출하여 경로를 무효화한다
@@ -123,4 +123,4 @@ export async function POST(request: Request) {
 }
 ```
 
-https://github.com/vercel/on-demand-isr/tree/main
+<https://github.com/vercel/on-demand-isr/tree/main>

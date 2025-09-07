@@ -9,15 +9,14 @@ const [state, setState] = useState(initialValue);
 ```
 
 
-
 ## 불변성을 지키기
 
-- 리액트에서 상태 업데이트는 **항상 불변**하게 수행되어야 한다
+* 리액트에서 상태 업데이트는 **항상 불변**하게 수행되어야 한다
 
-- 이전 상태와 현재 상태가 동일하면 <u>리렌더링을 건너뛸 수 있다</u>.(성능 최적화)
+* 이전 상태와 현재 상태가 동일하면 <u>리렌더링을 건너뛸 수 있다</u>.(성능 최적화)
 
-- 따라서 불변하지 않으면(특히 참조 값을 사용할 때), 상태를 업데이트 했지만 리렌더링이 되지 않은 상황이 발생할 수 있다
-- 상태의 가장 바깥 참조를 변경하기만 해도 리렌더링이 트리거된다.
+* 따라서 불변하지 않으면(특히 참조 값을 사용할 때), 상태를 업데이트 했지만 리렌더링이 되지 않은 상황이 발생할 수 있다
+* 상태의 가장 바깥 참조를 변경하기만 해도 리렌더링이 트리거된다.
 
 ```jsx
 const [todos, setTodos] = useState([
@@ -48,7 +47,6 @@ const onClick3 = () => {
   });
 };
 ```
-
 
 
 ## 배치 처리
@@ -83,7 +81,6 @@ const onClick = async () => {
 ```
 
 
-
 ## 직접 수정하지 않기
 
 * State를 변경하면 리액트는 변경 부분을 리렌더링하지만, 직접 변경(`this.state.value = "foo"`)하면 리렌더링하지 않는다.
@@ -97,7 +94,6 @@ this.setState({value: "foo"}) //리렌더링O
 ```
 
 
-
 ## 이전 상태 기반 업데이트
 
 * 업데이트되는 상태가 이전 상태를 필요로 하는 계산일 때, 이전 상태를 가져와서 계산한다
@@ -109,12 +105,11 @@ updateUser(prevUser => {prevUser...,age: 20})
 ```
 
 
-
 ## 상태 변수 명명 규칙
 
-- setter함수의 이름 중 첫 글자를 따서 사용하기
-- 또는 전체 변수 이름을 가져오기
-- 또는 prev 접두사는 붙여 사용
+* setter함수의 이름 중 첫 글자를 따서 사용하기
+* 또는 전체 변수 이름을 가져오기
+* 또는 prev 접두사는 붙여 사용
 
 ```jsx
 setCount(c => c+1)
@@ -122,9 +117,6 @@ setUserName(un => un.toLowerCase())
 setIsOpen(open => !open)
 setIsOpen(prevOpen=> !prevOpen)
 ```
-
-
-
 
 
 ## 업데이트 - 비동기
@@ -135,7 +127,7 @@ setIsOpen(prevOpen=> !prevOpen)
 ```jsx
 //Class형
 <button onClick={() => this.setState({count: this.state.count + 1})}>
-	button
+ button
 </button>
 ```
 
@@ -145,7 +137,6 @@ setIsOpen(prevOpen=> !prevOpen)
     Click me
 </button>
 ```
-
 
 
 ## 업데이트 - 병합(클래스형)
@@ -162,7 +153,6 @@ this.state = { a: "a", b: "b"}
 ```
 
 
-
 ## 업데이트 - 병합(함수형)
 
 * 함수형 `useState`에서는 병합이 아닌 대체로 이루어진다.
@@ -176,12 +166,10 @@ const [state, setState] = usestate({ a: "a", b: "b" });
 ```
 
 
-
 ## 하향식(단방향) 데이터 흐름
 
 * State는 어느 컴포넌트의 소유이며, State로부터 나온 UI나 데이터는 오직 **하위 컴포넌트**에 영향
 * 컴포넌트는 자신의 State를 자식 컴포넌트의 props로 전달 할 수 있다.
-
 
 
 ## 상태 끌어올리기
@@ -259,23 +247,20 @@ this.state.temperature --> TemperatureInput.2
 ```
 
 
-
 ## 상태를 찾는 3가지 질문
 
 1. 부모로부터 props를 통해 전달됩니까? 그러면 확실히 state가 아닙니다.
 2. 시간이 지나도 변하지 않나요? 그러면 확실히 state가 아닙니다.
 3. 컴포넌트 안의 다른 state나 props를 가지고 계산 가능한가요? 그렇다면 state가 아닙니다.
 
-* \-> https://ko.reactjs.org/docs/thinking-in-react.html
-
+* \-> <https://ko.reactjs.org/docs/thinking-in-react.html>
 
 
 ## 내부 동작에 대한 아이디어
 
-- Hooks에 대한 상태를 React에서 관리
-- useState가 호출이 될 때마다 React에서 배열의 한 공간을 할당 해 준다
-- useState는  state 변수와 setState 함수를 배열로 묶어 반환
-
+* Hooks에 대한 상태를 React에서 관리
+* useState가 호출이 될 때마다 React에서 배열의 한 공간을 할당 해 준다
+* useState는  state 변수와 setState 함수를 배열로 묶어 반환
 
 
 ```jsx
@@ -312,22 +297,18 @@ function useState(initialState) {
 }
 ```
 
-https://react.dev/learn/state-a-components-memory#how-does-react-know-which-state-to-return
-
-
-
+<https://react.dev/learn/state-a-components-memory#how-does-react-know-which-state-to-return>
 
 
 ## 배열 업데이트
 
-- 새로운 배열을 반환하는 순수 함수를 사용하여 상태를 업데이트
-- 기존 배열을 변경하는 함수를 사용하기 위해서는 이미 기존 배열을 복사한 후 사용
-
+* 새로운 배열을 반환하는 순수 함수를 사용하여 상태를 업데이트
+* 기존 배열을 변경하는 함수를 사용하기 위해서는 이미 기존 배열을 복사한 후 사용
 
 
 ### 배열에  원소 추가
 
-- 맨 뒤에 삽입
+* 맨 뒤에 삽입
 
 ```jsx
 const addTodo = ({newId, title}) => {
@@ -339,22 +320,20 @@ const addTodo = ({newId, title}) => {
 ```
 
 
-
-- 특정 중간에 삽입
+* 특정 중간에 삽입
 
 ```jsx
 const addTodo = ({newId, title}) => {
-	setTodos(todos => {
-		const insertAt = todos.findIndex(todo => todo.id > newId);
-		const newTodos = [
-			...todos.slice(0, insertAt),
-			{id: newId, title},
-			...todos.slice(insertAt)
-		]
-	})
+ setTodos(todos => {
+  const insertAt = todos.findIndex(todo => todo.id > newId);
+  const newTodos = [
+   ...todos.slice(0, insertAt),
+   {id: newId, title},
+   ...todos.slice(insertAt)
+  ]
+ })
 }
 ```
-
 
 
 ### 배열에서 원소 제거
@@ -366,24 +345,22 @@ const deleteTodo = (todoId) => {
 ```
 
 
-
 ### 배열의 원소 변경
 
 ```jsx
 const updateTodo = ({todoId, newTitle}) => {
-	setTodo(todos => todos.map((t)=> t.id === todoId ? {...t, title:newTitle} : t))
+ setTodo(todos => todos.map((t)=> t.id === todoId ? {...t, title:newTitle} : t))
 }
 ```
 
 
-
 immer 라이브러리를 사용하여 React에서 불변성을 지키면서 useState를 사용하게 해주는 라이브러리
 
-https://www.npmjs.com/package/use-immer
+<https://www.npmjs.com/package/use-immer>
 
 
+## 상태 구조화
 
-## 상태 구조화 
 
 ### 1. 상태 그룹화
 
@@ -404,8 +381,8 @@ const handleSubmit = () => {
 
 ```jsx
 const [formData, setFormData] = useState({
-	name: '',
-	age: 0,
+ name: '',
+ age: 0,
 })
 
 const handleSubmit = () => {
@@ -413,7 +390,6 @@ const handleSubmit = () => {
     setFormData({name: '', age: 0})
 }
 ```
-
 
 
 ### 2. 모순되는 상태 피하기
@@ -430,7 +406,6 @@ ex. isTyping, isSubmitting -> 타이핑 중일 때는 제출 중일 수 없고, 
 | true     | true         | 불가능           |
 
 
-
 ```jsx
 const [isTyping, setTyping] = useState(true)
 const [isSubmitting, setSubmitting] = useState(false)
@@ -439,7 +414,6 @@ const [isSubmitting, setSubmitting] = useState(false)
 ```jsx
 const [isStatus, setStatus] = useState('typing') // 'typing' or 'submitting'
 ```
-
 
 
 ### 3. 계산할 수 있는 상태 피하기
@@ -460,7 +434,6 @@ const isError = useMemo(()=> error !== null,[error])
 ```
 
 
-
 ### 4. 중복 상태 피하기
 
 똑같은 상태가 여러 개 있으면 상태를 동기화하고 유지하기 어렵다
@@ -476,10 +449,9 @@ const [todos, setTodos] = useState([...]);
 const [selectedTodoId, setSelectedTodoId] = useState(...);
 
 const selectedTodo = useMemo(()=> todos.find(todo =>
-   	todo.id === selectedTodoId
+    todo.id === selectedTodoId
 ),[todos,selectedTodoId])
 ```
-
 
 
 ### 5. 상태의 깊이 얕게 유지하기
@@ -487,8 +459,8 @@ const selectedTodo = useMemo(()=> todos.find(todo =>
 상태를 깊이가 깊으면 업데이트하기 어렵다
 
 
-
 ## 상태 유지
+
 
 ### 동일한 위치에서의 상태 유지
 
@@ -496,11 +468,12 @@ const selectedTodo = useMemo(()=> todos.find(todo =>
 
 ```jsx
 {isFancy ? (
-	<Counter isFancy={true} /> 
+ <Counter isFancy={true} /> 
 ) : (
-	<Counter isFancy={false} /> 
+ <Counter isFancy={false} /> 
 )}
 ```
+
 
 ### 언마운트 상태 파괴
 
@@ -510,11 +483,12 @@ const selectedTodo = useMemo(()=> todos.find(todo =>
 
 ```jsx
 {isPaused ? (
-	<p>See you later!</p> 
+ <p>See you later!</p> 
 ) : (
-	<Counter /> 
+ <Counter /> 
 )}
 ```
+
 
 ### Key 속성을 사용한 상태 재설정
 
@@ -524,9 +498,9 @@ const selectedTodo = useMemo(()=> todos.find(todo =>
 
 ```jsx
 {isPlayerA ? (
-	<Counter key="Taylor" person="Taylor" />
+ <Counter key="Taylor" person="Taylor" />
 ) : (
-	<Counter key="Sarah" person="Sarah" />
+ <Counter key="Sarah" person="Sarah" />
 )}
 ```
 

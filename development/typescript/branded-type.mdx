@@ -48,6 +48,7 @@ Branded Type은 구조적으로는 같지만 **논리적으로는 다른 타입*
 
 ## 기본 구현과 활용
 
+
 ### 가장 기본적인 Branded Type 만들기
 
 브랜드 타입은 교차 타입(intersection types)을 활용해 구조적으로 동일한 타입에 고유한 "브랜드" 속성을 추가하여 타입 레벨에서 구분 가능하게 만든다.
@@ -79,6 +80,7 @@ function createEmail(email: string): Email {
 }
 ```
 
+
 ### TypeScript 컴파일러의 브랜드 타입 처리
 
 TypeScript 컴파일러는 **타입 삭제(type erasure)** 과정에서 모든 브랜드 정보를 제거한다. 이는 브랜드 타입이 런타임에 전혀 영향을 주지 않으면서도 컴파일 타임에 강력한 타입 안전성을 제공한다는 의미이다.
@@ -91,6 +93,7 @@ const userId: UserId = "user_123" as UserId;
 console.log(typeof userId); // "string"
 console.log(userId.__brand); // undefined - 런타임에는 존재하지 않음
 ```
+
 
 ### 실제 사용 예제
 
@@ -185,11 +188,13 @@ const directUserId = "user_123" as UserId; // 검증 로직 없이 강제 변환
 
 ------
 
+
 ## Zod와의 통합
+
 
 ### Zod 브랜드 타입의 기본 사용법
 
-Zod는 내장된 `.brand<T>()` 메서드를 통해 브랜드 타입을 자연스럽게 지원한다. 이는 런타임 검증과 컴파일 타임 안전성을 동시에 제공하는 강력한 조합을 만들어낸다. 
+Zod는 내장된 `.brand<T>()` 메서드를 통해 브랜드 타입을 자연스럽게 지원한다. 이는 런타임 검증과 컴파일 타임 안전성을 동시에 제공하는 강력한 조합을 만들어낸다.
 
 ```typescript
 import { z } from "zod";
@@ -220,9 +225,10 @@ const score = PositiveNumberSchema.parse(rawData.score);
 processUser(userId, email); // 타입 안전성 보장
 ```
 
+
 ### 고급 검증 패턴과 변환
 
-Zod의 `.refine()`과 `.transform()` 메서드를 브랜드 타입과 함께 사용하면 더욱 정교한 검증과 데이터 변환이 가능하다. 
+Zod의 `.refine()`과 `.transform()` 메서드를 브랜드 타입과 함께 사용하면 더욱 정교한 검증과 데이터 변환이 가능하다.
 
 ```typescript
 // 복합 검증 규칙이 적용된 브랜드 타입
@@ -267,6 +273,7 @@ type StrongPassword = z.infer<typeof StrongPasswordSchema>;
 type NormalizedEmail = z.infer<typeof NormalizedEmailSchema>;
 type ValidatedUrl = z.infer<typeof ValidatedUrlSchema>;
 ```
+
 
 ### 스키마 구성과 재사용성
 
@@ -338,9 +345,10 @@ type Order = z.infer<typeof OrderSchema>;
 type OrderItem = z.infer<typeof OrderItemSchema>;
 ```
 
+
 ### 실전 도메인 모델링 사례
 
-실제 전자상거래 플랫폼에서 브랜드 타입을 어떻게 활용하는지 살펴보자. 
+실제 전자상거래 플랫폼에서 브랜드 타입을 어떻게 활용하는지 살펴보자.
 
 ```typescript
 // 제품 도메인 모델링
@@ -413,7 +421,6 @@ type Product = z.infer<typeof ProductSchema>;
 type ShoppingCart = z.infer<typeof ShoppingCartSchema>;
 type PaymentMethod = z.infer<typeof PaymentMethodSchema>;
 ```
-
 
 
 ---
@@ -727,6 +734,7 @@ console.log(userId1.equals(userId2)); // true
 
 ---
 
+
 ## 권장사항 체크리스트
 
 ```typescript
@@ -793,6 +801,7 @@ const safeConversion = (raw: string): Result<UserId, Error> => {
     : failure(new Error("Invalid user ID"));
 };
 ```
+
 
 ## 장점과 주의사항
 

@@ -1,11 +1,10 @@
 # AWS Container Service
 
 
-
 ## Management - 컨테이너 오케스트레이션
 
 - AWS Elastic Container Service(ECS)
-  - 컨테이너 오케스트레이션 기능을 AWS가 담당. 
+  - 컨테이너 오케스트레이션 기능을 AWS가 담당.
   - 단순성 간편성에 초점
   - ECS 3 구성 요소:
     - ECS 클러스터: 작업이 실행되는 논리적 그룹
@@ -16,20 +15,22 @@
 
 - Amazon Elastic Kubernetes Service(EKS)
   - 컨테이너 오케스트레이션 기능을 쿠버네티스가 담당
-  - 쿠버네티스 기반. 
+  - 쿠버네티스 기반.
   - 유연한 확장성에 중점
 
 ![image-20240119234703520](assets/image-20240119234703520.png)
 
+
 ## Hosting - 컴퓨팅 옵션
 
-- AWS Fargate: 
-  - AWS 서버에서 컨테이너 실행(serverless) 
-  - AWS는 하드웨어, OS, 컨테이너 런타임 까지 책임 관리. 
+- AWS Fargate:
+  - AWS 서버에서 컨테이너 실행(serverless)
+  - AWS는 하드웨어, OS, 컨테이너 런타임 까지 책임 관리.
   - 컨테이너가 사용하는 자원량에 따른 요금
 - Amazon Elastic Compute Cloud(EC2)
-  - EC2 인스턴스 내에서 실행되는 컨테이너 런타임에서 컨테이너 실행. 
-  - AWS는 하드웨어만 책임 관리. 
+  - EC2 인스턴스 내에서 실행되는 컨테이너 런타임에서 컨테이너 실행.
+  - AWS는 하드웨어만 책임 관리.
+
 
 ## Image Registry - 이미지 저장소
 
@@ -41,7 +42,6 @@
   - 이미지 취약성 스캐닝 기능
   - 퍼블릿/프라이빗 레포지토리 및 퍼블릭 갤러리
   - 교차 리전/교차 계정 복제
-
 
 
 ## 컨테이너를 지원하는 도구 및 서비스

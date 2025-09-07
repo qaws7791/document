@@ -2,7 +2,9 @@
 
 ---
 
+
 # Express 시작하기
+
 
 ## 라이브러리
 
@@ -13,12 +15,15 @@
 - `eslint` : 코드에서 패턴을 검사하고 잘못된 부분을 보고하는 라이브러리
 - `express-validator`: 유효성 검사기
 
+
 ### 트래비스 CI
 
 - 호스팅 지속적 통합 서비스
 - github에서 무료로 사용 가능
 
+
 ## Eslint
+
 
 ##
 
@@ -43,6 +48,7 @@ module.exports = {
 };
 ```
 
+
 # HTTP
 
 ```
@@ -56,10 +62,12 @@ http://localhost:3000/about?id=1#title
 5. `?id=1` -> 쿼리 스트링(Query string)
 6. `#title` -> 앵커(Anchor) 또는 해시(Hash): 서버로 전송X
 
+
 # Internet Media Type
 
 - HTTP 헤더에서 `Content-Type` 을 사용하여 지정
 - 타입 / 서브 타입 / 옵션을 가짐
+
 
 ## Content-Type
 
@@ -67,13 +75,17 @@ http://localhost:3000/about?id=1#title
 2. `charset`
 3. `boundary`
 
+
 ##
+
 
 # Request Body
 
 - `GET`요청에는 없지만 일반적으로 `POST`요청 시 사용
 
+
 ## 자주 사용되는 형식
+
 
 ### application/x-www-form-urlencoded
 
@@ -81,19 +93,24 @@ http://localhost:3000/about?id=1#title
 - &으로 구분되는 키-값 튜플 쌍
 - 영문자 또는 숫자가 아닌 값은 URL로 인코딩 된다.
 
+
 ### multipart/form-data
 
 - 폼 데이터(FormData)를 전송하는데 사용
+
 
 ### text/plain
 
 - 단순 문자열
 
+
 ### application/json
 
 - json을 통한 통신. 일반적인 데이터 전송 시 body에 객체를 담아 전송
 
+
 # Request Object
+
 
 ## req.params
 
@@ -110,6 +127,7 @@ app.get("/about/:id", (req, res) => {
 { id: '4234' }
 ```
 
+
 ## req.query
 
 ```javascript
@@ -123,6 +141,7 @@ app.get("/about", (req, res) => {
 { page : '1' }
 ```
 
+
 ## req.body
 
 - 요청에 대한 본문으로 POST 요청 시에 사용
@@ -132,100 +151,125 @@ app.use(express.json()); // parse json
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 ```
 
+
 ## req.route
 
 - 현재 일치하는 라우트에 관한 정보
+
 
 ## req.cookies/req.signedCookies
 
 - 클라이언트에서 전송한 쿠키 값 저장한 객체
 
+
 ## req.headers
 
 - 클라이언트에서 전송한 요청 헤더
+
 
 ## req.accepts
 
 - 클라이언트가 주어진 타입을 받아들이는지 확인하는 편의 메서드
 
+
 ##
+
 
 ## req.ip
 
 - 클라이언트의 IP 주소
 
+
 ##
+
 
 ## req.path
 
 - 요청 url중 경로 (path) 값
+
 
 ## req.hostname
 
 - 클라이언트에서 전송한 호스트 이름을 반환하는 편의 메서드
 - 위조 가능성이 있어 보안 목적 사용 X
 
+
 ## req.xhr
 
 - 요청이 ajax 요청인지 확인하고 boolean값을 반환하는 편의 프로퍼티
+
 
 ## req.protocol
 
 - 요청에 사용된 프로토콜
 - http 요청은 http 또는 https
 
+
 ##
+
 
 ## req.secure
 
 - 암호화된 연결이면 true를 반환하는 편의 프로퍼티 (req.protocol === 'https')
 
+
 ## req.url / req.originalUrl
 
 - 경로와 쿼리 스트링을 반환
+
 
 # Response Object
 
 nodejs `http.ServerResponse`의 인스턴스
 
+
 ## res.status
 
 - http 상태 코드 설정. 기본 값은 200(정상 응답)
 
+
 ## res.set(name, value)
 
 - 응답 헤더를 설정
+
 
 ## res.cookie(name, value, [options])
 
 - 클라이언트에 저장될 쿠키를 설정
 - 미들 웨어 필요
 
+
 ## res.clearCookie(name, [options])
 
 - 클라이언트에 저장될 쿠키를 삭제
+
 
 ## res.redirect([status], url)
 
 - 브라우저를 리디렉트. 기본값은 302(발견됨)
 - 페이지가 영구이동 되었을 때는 301(영구 이동됨)을 사용
 
+
 ## res.send(body)
 
 - 클라이언트에 응답을 전송. 기본 콘텐츠 타입은 `text/html`
 - json을 보낼 때는 res.json을 사용하는 것을 권장
 
+
 ## res.json(json)
 
 - 클라이언트에 JSON을 전송
+
 
 ## res.jsonp(json)
 
 - 클라이언트에 JSONP을 전송
 
+
 ## res.end()
 
 - 응답을 끝내고 연결을 끊는다.
+
 
 ### res.type(type)
 
@@ -234,9 +278,11 @@ nodejs `http.ServerResponse`의 인스턴스
 - `/`없는 type에 대해 자동으로 미디어 타입을 설정
 - 잘 사용하지 않음
 
+
 ## res.format(object)
 
 - Accept 요청 헤더에 따라 콘텐츠를 다르게 전송하는 콘텐츠 협상을 수행
+
 
 ### `Accept` HTTP Header
 
@@ -279,6 +325,7 @@ res.format({
 });
 ```
 
+
 ## res.attachment([filename])
 
 - `Content-Disposition` HTTP 응답 헤더를 `attachment`로 설정
@@ -294,6 +341,7 @@ res.attachment("path/to/logo.png");
 // Content-Disposition: attachment; filename="logo.png"
 // Content-Type: image/png
 ```
+
 
 ## res.sendFile(path, [options], [callback])
 
@@ -322,6 +370,7 @@ app.get("/file/:name", function (req, res, next) {
 });
 ```
 
+
 ## res.render(view[, locals] [, callback])
 
 - `view`를 렌더링하고 렌더링된 HTML 문자열을 클라이언트에 전송
@@ -346,6 +395,7 @@ res.render("user", { name: "Tobi" }, function (err, html) {
 
 ---
 
+
 ## Start Code
 
 ```javascript
@@ -362,6 +412,7 @@ app.listen(port, () => {
 });
 ```
 
+
 ### 404 Page
 
 ```javascript
@@ -371,6 +422,7 @@ app.use((req, res) => {
   res.send("404 - Not Found");
 });
 ```
+
 
 ## HTTP Method
 
@@ -406,6 +458,7 @@ app.METHOD(path, callback [, callback ...])
 - `unlock`
 - `unsubscribe`
 
+
 ### GET
 
 ```javascript
@@ -413,6 +466,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 ```
+
 
 ### POST
 
@@ -422,6 +476,7 @@ app.post("/", (req, res) => {
 });
 ```
 
+
 ### PUT
 
 ```javascript
@@ -430,6 +485,7 @@ app.put("/user", (req, res) => {
 });
 ```
 
+
 ### DELETE
 
 ```javascript
@@ -437,6 +493,7 @@ app.delete("/user", (req, res) => {
   res.send("Got a DELETE request at /user");
 });
 ```
+
 
 ## res.send([body])
 
@@ -451,6 +508,7 @@ http 응답을 보내기
 - 매개변수가 `Buffer`일 때 -> `application/octet-stream`
 - 매개변수가 `String`일 때 -> `text/html`
 - 매개변수가 `Array` 또는 `Object`일 때 -> JSON
+
 
 ### res.set(field [, value])
 
@@ -468,13 +526,16 @@ res.set({
 });
 ```
 
+
 ### res.status(code)
 
 > nodejs의 response.statusCode
 
 http 응답에 대한 상태 코드 설정
 
+
 ###
+
 
 ### express.static(root, [options])
 
@@ -487,6 +548,7 @@ app.use(express.static("public"));
 ```
 
 `/public/img/logo.jpg` -> `/img/logo.jpg`로 접근
+
 
 # Multer
 
@@ -501,7 +563,9 @@ app.post("/profile", upload.none(), function (req, res, next) {
 });
 ```
 
+
 # Handlebars
+
 
 ## 기본 디렉토리 구조
 
@@ -522,6 +586,7 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 // pp.set('views', './views'); 기본값
 ```
+
 
 ## Main 레이아웃
 
@@ -547,6 +612,7 @@ app.set("view engine", "handlebars");
 </html>
 ```
 
+
 ## 렌더링하기
 
 ```javascript
@@ -559,6 +625,7 @@ app.get("/about", (req, res) => res.render("about", { name: "alyssa howell" }));
 exports.serverError = (err, req, res, next) =>
   res.render("500", { layout: null });
 ```
+
 
 ## 섹션
 
@@ -589,6 +656,7 @@ app.engine(
 {{/section}}
 ```
 
+
 ## HTML 이스케이프
 
 -
@@ -597,12 +665,14 @@ app.engine(
 {{{htmlCode}}}
 ```
 
+
 ## 주석
 
 ```
 {{! 서버에서만 보이는 주석}}
 <!-- 클라이언트에서도 보이는 주석 -->
 ```
+
 
 ## 반복문
 
@@ -611,12 +681,12 @@ app.engine(
 
 ```
 {
-	page: 1,
-	users: [
+ page: 1,
+ users: [
         {name: 'foo', age: 20},
         {name: 'bar', age: 32},
-	],
-	links: ['naver','daum','google']
+ ],
+ links: ['naver','daum','google']
 }
 ```
 
@@ -624,7 +694,7 @@ app.engine(
 <ul>
     {{#each users}}
     <li>
-    	{{name}}({{age}}) - {{../page}}
+     {{name}}({{age}}) - {{../page}}
     </li>
     {{/each}}
 </ul>
@@ -637,6 +707,7 @@ app.engine(
 <a href='#'>{{.}}</a>
 {{/each}}
 ```
+
 
 ## 파셜
 

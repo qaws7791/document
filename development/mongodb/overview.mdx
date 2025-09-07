@@ -4,12 +4,14 @@
 
 [TOC]
 
+
 ## 소개
 
 - 문서 지향적 NoSQL DataBase
 - 유동적인 스키마
 - ACID 특성
 - **원자성**(Atomicity), **일관성**(Consistency), **고립성**(Isolation), **지속성**(Durability)
+
 
 ### 문서
 
@@ -20,6 +22,7 @@
 - 컬렉션은 여러 문서의 모임이다
 - RDBMS와 달리 다른 스키마를 가진 문서들이 한 컬렉션에 모일 수 있다
 
+
 ### MongoDB 구조
 
 - :arrow_double_down: 서버
@@ -27,12 +30,13 @@
 - :arrow_double_down: 컬렉션들
 - :arrow_double_down: 문서들​
 
+
 ### 스키마 디자인
 
 - 모든 것을 하나의 문서에 집어 넣을 수 있다
 
 - ```json
-  {	//게시글
+  { //게시글
       _id: ObjectId,
       title: String,
       body: String,
@@ -50,15 +54,18 @@
 
 - ==문서 하나에 최대 16MB 데이터==
 
+
 ## 설치
 
 - macOS는 Homebrew 이용
 - Windows는 공식 사이트 이용
 - cmd에서 설치폴더의 bin폴더로 이동 후 mongod.exe
 
+
 ### mongoose설치
 
 - npm i mongoose
+
 
 ### env 환경변수  설정
 
@@ -82,6 +89,7 @@ app.listen(port, () => {
 });
 ```
 
+
 ### connect DB
 
 ```js
@@ -98,6 +106,7 @@ mongoose
     });
 ```
 
+
 ## Schema
 
 | 타입                            | 설명                               |
@@ -110,6 +119,7 @@ mongoose
 | Mixed(Schema.Types.Mixed)       | 어떤 데이터든 넣을 수 있음         |
 | ObjectId(Schema.Types.ObjectId) | 객체 아이디. 주로 다른 객체 참조시 |
 | Array                           | 배열 형태 []로 감쌈                |
+
 
 ### make Schema
 
@@ -126,6 +136,7 @@ const NewSchema = new Schema({ //Scahama를 만들고
 
 - _id 속성은 기본적을 존재한다
 
+
 ### make model
 
 ```js
@@ -137,18 +148,17 @@ import mongoose from 'mongoose';
 ```
 
 
-
-
-
-- 
+-
 - 데이터베이스는 스키마 이름을 정해 주면 그 이름의 복수 형태로 데이터베이스에 컬렉션 이름을 만듭니다
 - Post => posts , Book=> books
 
+
 ## 데이터 조작
+
 
 ### 생성
 
-POST  http://localhost:4000/api/posts/
+POST  <http://localhost:4000/api/posts/>
 
 ```js
 export const write = async ctx => {
@@ -168,10 +178,9 @@ export const write = async ctx => {
 ```
 
 
-
 ### 조회
 
-모두 조회 GET http://localhost:4000/api/posts/ 
+모두 조회 GET <http://localhost:4000/api/posts/>
 
 `find()`
 
@@ -186,7 +195,7 @@ export const list = async ctx => {
 };
 ```
 
-특정 데이터 조회 GET http://localhost:4000/api/posts/:id
+특정 데이터 조회 GET <http://localhost:4000/api/posts/:id>
 
 `findById(id)`
 
@@ -207,10 +216,9 @@ export const read = async ctx => {
 ```
 
 
-
 ### 삭제
 
-특정 데이터 삭제 DELETE http://localhost:4000/api/posts/:id
+특정 데이터 삭제 DELETE <http://localhost:4000/api/posts/:id>
 
 `remove()`
 
@@ -231,10 +239,9 @@ export const remove = async ctx => {
 ```
 
 
-
 ### 수정
 
-특정 데이터 수정 PATCH  http://localhost:4000/api/posts/:id
+특정 데이터 수정 PATCH  <http://localhost:4000/api/posts/:id>
 
 `findByIdAndUpdate(id, Update data, Update option)`
 
@@ -256,6 +263,7 @@ export const update = async ctx => {
      }
 };
 ```
+
 
 ## 검증
 

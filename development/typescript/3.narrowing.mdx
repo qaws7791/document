@@ -18,6 +18,7 @@ function padLeft(padding: number | string, input: string) {
 }
 ```
 
+
 ## typeof 타입 가드
 
 타입스크립트는 `typeof`연산자가 타입에 대한 문자열을 반환하는 것을 예상한다
@@ -37,7 +38,6 @@ function printAll(strs: string | string[] | null) {
   }
 }
 ```
-
 
 
 ## 진실성(Truthiness) 축소
@@ -88,12 +88,11 @@ Boolean("hello"); // type: boolean, value: true
 ```
 
 
-
 ## 평등 축소
 
 `===` 연산자는 타입까지 비교하므로 타입이 같은 경우에만 참이다
 
-`x===y`인 경우는 둘의 공통 타입인 string 타입일 경우 뿐이므로, 
+`x===y`인 경우는 둘의 공통 타입인 string 타입일 경우 뿐이므로,
 
 if문이 참이면 항상  `toUpperCase()`가 가능함
 
@@ -119,7 +118,6 @@ function example(x: string | number, y: string | boolean) {
 ```
 
 
-
 ## 연산자 in 축소
 
 개체나 프로토타입에 해당 속성이 존재하는지를 확인하여 범위를 축소
@@ -141,7 +139,6 @@ function move(animal: Fish | Bird) {
 ```
 
 
-
 ## instanceof 축소
 
 해당 값의 인스턴스인지를 확인(프로토타입 체인에 포함되어 있는지) 여부를 확인하여 범위를 축소
@@ -159,7 +156,6 @@ function logValue(x: Date | string) {
   }
 }
 ```
-
 
 
 ## 변수 선언시 축소
@@ -187,7 +183,6 @@ console.log(x); // let x: string
 ```
 
 
-
 ## 유형 술어 사용
 
 **사용자 정의 유형 가드**를 정의 하기 위하여 <u>리턴 유형이 술어</u>인 함수를 정의
@@ -199,7 +194,6 @@ function isFish(pet: Fish | Bird): pet is Fish {
   return (pet as Fish).swim !== undefined;
 }
 ```
-
 
 
 ## 구별된 유니온

@@ -1,10 +1,9 @@
 # use lambda with apigateway
 
 
-
 API gateway REST API 만들기
 
-url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-apigateway-tutorial.html
+url:<https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-apigateway-tutorial.html>
 
 1. **버킷** 생성
 2. 원본 버킷에 테스트를 위한 이미지 업로드
@@ -13,7 +12,6 @@ url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-apigateway-tutor
 5. 해당 실행 역할을 가지는 **Lambda 함수** 생성
 6. S3 트리거 추가
 7. 테스트 이벤트 생성 및 테스트
-
 
 
 ## 권한 정책 생성
@@ -52,7 +50,6 @@ url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-apigateway-tutor
 ![image-20240117035431756](assets/image-20240117035431756.png)
 
 
-
 ## 실행 역할 생성
 
 ![image-20240117035553338](assets/image-20240117035553338.png)
@@ -60,9 +57,7 @@ url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/services-apigateway-tutor
 ![image-20240117035613887](assets/image-20240117035613887.png)
 
 
-
 ![image-20240117035731564](assets/image-20240117035731564.png)
-
 
 
 ## 함수 생성
@@ -127,7 +122,6 @@ export const handler = async (event, context) => {
 zip 파일로 압축
 
 
-
 ## 함수 생성
 
 기존의 역할을 사용하여 Lambda 함수 생성
@@ -138,12 +132,13 @@ zip 파일 업로드 또는 편집기에 코드 붙여넣기
 
 ![image-20240117040719259](assets/image-20240117040719259.png)
 
+
 ## Lamdba 함수 테스트
 
 ![image-20240117040818953](assets/image-20240117040818953.png)
 
-## ![image-20240117040845917](assets/image-20240117040845917.png)
 
+## ![image-20240117040845917](assets/image-20240117040845917.png)
 
 
 ## REST API 생성
@@ -151,13 +146,11 @@ zip 파일 업로드 또는 편집기에 코드 붙여넣기
 ![image-20240117041043040](assets/image-20240117041043040.png)
 
 
-
 ## REST API 리소스 생성
 
 API 리소스 페이지에서 `리소스 생성`을 눌러 시작
 
 ![image-20240117041245005](assets/image-20240117041245005.png)
-
 
 
 ## HTTP POST 메서드 생성
@@ -169,13 +162,11 @@ API 리소스 페이지에서 `리소스 생성`을 눌러 시작
 ![image-20240117041702526](assets/image-20240117041702526.png)
 
 
-
 ## DynamoDB 테이블 생성
 
 파티션 키에서 id를 문자열 타입으로 지정하고 생성
 
 ![image-20240117041935693](assets/image-20240117041935693.png)
-
 
 
 ## API 테스트
@@ -189,7 +180,6 @@ API 리소스 페이지에서 `리소스 생성`을 눌러 시작
 ![image-20240117042427937](assets/image-20240117042427937.png)
 
 
-
 ## API 배포
 
 리소스 페이지에서 API를 배포
@@ -200,7 +190,9 @@ API 리소스 페이지에서 `리소스 생성`을 눌러 시작
 
 ![image-20240117043306821](assets/image-20240117043306821.png)
 
+
 ## Curl을 사용하여 HTTP 요청하여 함수 호출
+
 
 ### 항목 생성하기
 
@@ -213,6 +205,7 @@ curl https://f56h5tbp4g.execute-api.us-east-2.amazonaws.com/test/DynamoDBManager
 테이블에서 추가된 항목을 확인
 
 ![image-20240117043513294](assets/image-20240117043513294.png)
+
 
 ### 항목 삭제하기
 

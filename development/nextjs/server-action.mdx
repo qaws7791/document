@@ -3,7 +3,6 @@
 `server action`: 서버 측에서 실행되는 비동기 함수. 양식 제출이나 데이터 변형 처리 등에 사용
 
 
-
 ## "use server"
 
 서버 컴포넌트에서는 함수 맨 위에서 사용하거나 가져오기를 통해 사용
@@ -37,7 +36,6 @@ export function Button() {
 ```
 
 
-
 ## 1. Create queries
 
 nextjs 서버 측에서 사용할 쿼리 작성
@@ -51,6 +49,7 @@ export async function insertUser(data: InsertUser) {
   return result[0];
 }
 ```
+
 
 ## 2. Create `<form>` actions
 
@@ -103,6 +102,7 @@ export async function signupAction(
   redirect("/");
 }
 ```
+
 
 ## 3. create and use the `<form>` components
 

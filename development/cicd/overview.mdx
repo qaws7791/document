@@ -7,9 +7,7 @@
 * 지속적 통합이란? - [https://www.ibm.com/kr-ko/topics/continuous-integration](https://www.ibm.com/kr-ko/topics/continuous-integration)
 
 
-
 지속적 통합(코드 변경 -> 빌드 -> 테스트 -> 코드 병합) -> 지속적 제공(자동 릴리스) -> 지속적 배포(자동 배포)
-
 
 
 ### 지속적 통합(Continuous Integration)
@@ -19,12 +17,10 @@
 * "merge day"가 필요 없어짐으로 인해 병합을 위한 시간 절약
 
 
-
 ### 지속적 제공(Continuous Delivery)
 
 * CI를 거친 코드를 자동으로  리포지토리에 릴리스(업로드)하는 단계
 * 이 프로세스가 끝나면 신속하게 프로덕션배포할 준비가 완료
-
 
 
 ### 지속적 배포(Continious Deployment)
@@ -33,18 +29,18 @@
 * 더 빠른 소프트웨어 출시 및 피드백 반영
 
 
-
 # Github Actions
 
 Github Actions는 Github의 Repository에서 빌드, 테스트 및 배포 파이프라인을 자동화할 수 있는 **CI/CD 플랫폼**
 
 
+워크플로우 스타터: <https://github.com/actions/starter-workflows>
 
-워크플로우 스타터: https://github.com/actions/starter-workflows
+타입스크립트 Actions: <https://github.com/actions/typescript-action>
 
-타입스크립트 Actions: https://github.com/actions/typescript-action
 
 ## 구성 요소
+
 
 ### 워크플로(workflows)
 
@@ -52,16 +48,15 @@ YAML을 사용하여 정의되고, 하나 이상의 작업으로 구성된 구�
 
 워크플로는 순차적으로 또는 병렬적으로 실행될 수 있다.
 
-각 작업은 가상 머신 또는 컨테이너 내부에서 실행된다. 
+각 작업은 가상 머신 또는 컨테이너 내부에서 실행된다.
 
- [YAML](yaml.md) 
+ [YAML](yaml.md)
 
 > [!NOTE]
 >
 > 워크 플로 파일은 리포지토리의 `.github/workflows` 디렉터리 내에 `.yml`,  `.yaml`파일로 저장되어야 한다
 >
 > 서로 다른 작업을 위한 여러 개의 워크플로 파일이 존재할 수 있다(빌드 워크플로, 테스트 워크플로, 배포 워크플로 등)
-
 
 
 ### 이벤트(events)
@@ -108,7 +103,6 @@ YAML을 사용하여 정의되고, 하나 이상의 작업으로 구성된 구�
 | workflow_run                             | 워크플로 실행을 요청하거나 완료할 때 발생                    |
 
 
-
 ### 작업(jobs)
 
 동일한 러너에서 실행되는 워크플로의 일련의 단계로
@@ -126,7 +120,6 @@ jobs:
 ```
 
 
-
 반면 작업 간에는 기본적으로 종속성이 없고, 병렬로 실행된다. 특정 작업이 다른 작업 이후에 실행되어야 한다면 `needs`를 통해 종속성을 지정해야 한다
 
 ```yaml
@@ -139,27 +132,22 @@ jobs:
 ```
 
 
-
 ### 액션(actions)
 
 자주 반복되는 복잡한 작업을 재사용하도록 만든 **Github Actions 플랫폼 전용** 사용자 지정 애플리케이션
 
-마켓플레이스 https://github.com/marketplace
+마켓플레이스 <https://github.com/marketplace>
 
 액션의 예시
 
-- Github에서 Git 리포지토리가져오기(checkout)
-- 빌드를 위한 도구 설정(setup)
-- 클라우드 공급자에 대한 인증
-
-
-
+* Github에서 Git 리포지토리가져오기(checkout)
+* 빌드를 위한 도구 설정(setup)
+* 클라우드 공급자에 대한 인증
 
 
 ### 러너(runner)
 
 워크플로를 실행하는 서버. 각 서버는 한 번에 하나의 작업을 실행
-
 
 
 ### `name`
@@ -173,7 +161,6 @@ name: hello-world
 ```
 
 
-
 ### `run-name`
 
 워크플로에서 생성된 실행에 대한 이름
@@ -181,21 +168,19 @@ name: hello-world
 생략하면 실행에 대한 이벤트 정보로 설정
 
 
-
 ### `on`
 
 워크플로를 자동으로 트리거하기 위한 이벤트를 정의
 
-- 이벤트 정의하기
-- 시간 설정하기
-- 특정 파일, 태그, 분기에서만 워크플로가 실행되도록 제한하기
+* 이벤트 정의하기
+* 시간 설정하기
+* 특정 파일, 태그, 분기에서만 워크플로가 실행되도록 제한하기
 
-https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+<https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows>
 
 ```yaml
 on: push
 ```
-
 
 
 ### `jobs`
@@ -220,7 +205,9 @@ jobs:
       - run: echo "$(cat hello_world.txt)"
 ```
 
-### 
+
+###
+
 
 ### `jobs.<job_id>.runs-on`
 
@@ -236,17 +223,16 @@ jobs:
 
 깃허브 호스팅 러너
 
-- `ubuntu-latest`
-- `windows-latest`
-- `macos-latest`
-
+* `ubuntu-latest`
+* `windows-latest`
+* `macos-latest`
 
 
 ## Checkout
 
 리포지토리의 코드를 검색하고 워크플로에서 리포지토리의 콘텐츠에 액세스 가능하도록 체크 아웃
 
-https://github.com/marketplace/actions/checkout
+<https://github.com/marketplace/actions/checkout>
 
 ```yaml
    - name: Check out repository code
@@ -255,12 +241,11 @@ https://github.com/marketplace/actions/checkout
 ```
 
 
-
 ## Nodejs 환경 구성 및 빌드
 
-https://github.com/marketplace/actions/setup-node-js-environment
+<https://github.com/marketplace/actions/setup-node-js-environment>
 
-https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+<https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs>
 
 Nodejs 환경 구성 및 빌드 `job`
 
@@ -296,7 +281,6 @@ Nodejs 환경 구성 및 빌드 `job`
 ```
 
 
-
 ## 여러 환경 동시 병렬 테스트
 
 배열을 사용하여 운영체와과 버전을 지정하면, 해당하는 환경에 대해서 동시에 테스트하여 시간 절약
@@ -320,14 +304,12 @@ jobs:
 ```
 
 
-
 ## secrets 사용
-
 
 
 repository -> Settings -> Security -> Actions secrets and variables
 
-https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+<https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions>
 
 ```yaml
 ${{ secrets.MY_GITHUB_SECRET }}

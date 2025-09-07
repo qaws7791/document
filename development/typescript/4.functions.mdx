@@ -1,5 +1,6 @@
 # 함수
 
+
 ## 함수 선언문 방식
 
 함수 선언문에서의 타입스크립트 사용 방법
@@ -9,6 +10,7 @@ function add(a:number,b:number):number {
     return a+b
 }
 ```
+
 
 ## 함수 표현식 방식
 
@@ -20,13 +22,11 @@ const add:AddFn = (a,b) => a+b
 ```
 
 
-
 ## 호출 서명
 
 자바스크립트에서 함수는 객체이므로 호출이 가능할 뿐 아니라 속성을 가질 수도 있다
 
 함수 부분: `(someArg: number): boolean;`
-
 
 
 ```typescript
@@ -47,7 +47,6 @@ doSomething(myFunc);
 ```
 
 
-
 ## 구성 서명
 
 `new`연산자를 사용하여 생성자를 나타낼 수 있다
@@ -66,7 +65,6 @@ console.log(dateObj.toISOString())
 ```
 
 
-
 ## 입력과 출력 타입 일치시키기
 
 제네릭을 사용하여 입력 배열의 타입과 반환 타입을 일치시킬 수 있다
@@ -78,12 +76,11 @@ function firstElement<Type>(arr: Type[]): Type | undefined {
 ```
 
 
-
 ## 속성 제약
 
 제네릭을 통해 매개변수의 유형을 제한.
 
--> a와 b인자에는 length라는 number 타입의 속성이 있어야 한다. 
+-> a와 b인자에는 length라는 number 타입의 속성이 있어야 한다.
 
 ```typescript
 type LongestProps = {
@@ -99,7 +96,6 @@ function longest<Type extends LongestProps>(a: Type, b: Type) {
 ```
 
 
-
 ## 선택적 매개변수
 
 ```typescript
@@ -111,7 +107,6 @@ function fn(x?: string): void {
 fn()
 fn('hi')
 ```
-
 
 
 ## 함수 오버로드
@@ -129,7 +124,6 @@ fn() // Error: Expected 1 arguments, but got 0.
 ```
 
 
-
 ✅옳은 오버로드 사용
 
 ```typescript
@@ -144,11 +138,9 @@ fn()
 ```
 
 
-
 ## void 타입
 
 값을 반환하지 않는 함수의 반환 값
-
 
 
 ## object 타입
@@ -158,11 +150,9 @@ fn()
 거의 사용하지 않을 가능성이 크다
 
 
-
 ## unknown 타입
 
 모든 유형을 나타낸다. `any`와 유사하지만 암묵적으로 모든 것을 허용하는 `any`보다 안전
-
 
 
 ## never 타입

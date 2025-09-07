@@ -15,14 +15,13 @@ packages
 ```
 
 
-
 1. apps/web 디렉토리에 `Dockerfile` 생성
 
 설명
 
 - `node:20-alpine` node의 alpine 버전(최종 이미지 크기가 작은 경량화 버전)
 
-- `libc6-compat`: Alpine Linux에서 호환성(특히 glibc를 필요로 하는)을 제공하기 위한 패키지(https://pkgs.alpinelinux.org/package/v3.17/main/x86/libc6-compat)
+- `libc6-compat`: Alpine Linux에서 호환성(특히 glibc를 필요로 하는)을 제공하기 위한 패키지(<https://pkgs.alpinelinux.org/package/v3.17/main/x86/libc6-compat>)
 
 - `turbo`: 사용하고 있는 모노레포의 cli 설치. 여기서는 turborepo를 사용
 
@@ -53,8 +52,8 @@ packages
 
 - `corepack enable pnpm`: nodejs의 corepack을 통한 pnpm 설치
 
-  - https://pnpm.io/installation#using-corepack
-  - https://nodejs.org/api/corepack.html#enabling-the-feature
+  - <https://pnpm.io/installation#using-corepack>
+  - <https://nodejs.org/api/corepack.html#enabling-the-feature>
 
 ```dockerfile
 FROM node:20-alpine AS base
@@ -103,9 +102,6 @@ CMD ["node", "apps/web/server.js"]
 ```
 
 
-
-
-
 2. 루트 디렉토리에서 도커 빌드
 
 ```bash
@@ -124,18 +120,16 @@ docker images
 docker run -p 3000:3000 web-docker
 ```
 
-https://www.youtube.com/watch?v=sIVL4JMqRfc
+<https://www.youtube.com/watch?v=sIVL4JMqRfc>
 
-https://nextjs.org/docs/app/building-your-application/deploying#docker-image
+<https://nextjs.org/docs/app/building-your-application/deploying#docker-image>
 
-https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
+<https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile>
 
-https://docs.docker.com/reference/cli/docker/build-legacy/
+<https://docs.docker.com/reference/cli/docker/build-legacy/>
 
 - 터보레포
-  - https://turbo.build/repo/docs/guides/tools/docker
-  - https://turbo.build/repo/docs/reference/prune
-  - https://github.com/vercel/turborepo/tree/main/examples/with-docker
-
-
+  - <https://turbo.build/repo/docs/guides/tools/docker>
+  - <https://turbo.build/repo/docs/reference/prune>
+  - <https://github.com/vercel/turborepo/tree/main/examples/with-docker>
 

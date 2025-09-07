@@ -1,7 +1,6 @@
 # firebase auth
 
 
-
 ## 이메일 기반 회원가입
 
 회원가입 시 입력 정보
@@ -53,14 +52,15 @@ export const signupWithEmail = async ({
 ```
 
 
-
 🔴 이메일 사용자를 생성한 순간부터 로그인이 가능하다
 
 🟠 이메일 인증이 되었는지 여부는  `user[emailVerified]`  Boolean 속성을 통해 확인 할 수 있다
 
 ![image-20240120201457329](assets/image-20240120201457329.png)
 
+
 ## 회원가입 시 db에 유저 정보 저장
+
 
 ### 이메일 회원가입
 
@@ -80,11 +80,10 @@ const signUpWithEmail = async ({ email, password, username }: SignUpDto) => {
     await UserService.createUser({
       ...
     });
-	...
+ ...
   }
 };
 ```
-
 
 
 ### 소셜 로그인
@@ -92,7 +91,6 @@ const signUpWithEmail = async ({ email, password, username }: SignUpDto) => {
 소셜 로그인에는 회원가입을 하는 함수가 없다
 
 `signInWithPopup()` 후에 반환되는 `userCredential`를 사용하여 새로운 유저인지 확인
-
 
 
 ```javascript
@@ -107,13 +105,7 @@ const signInWithGoogle = async () => {
           ...
       });
     }
-	...
+ ...
 };
 ```
-
-
-
-
-
-
 

@@ -3,7 +3,9 @@
 - 부수적 효과를 사용해야 하는데 `렌더링 코드`, `이벤트 핸들러`만으로 충분하지 않을 때
 - 화면이 업데이트되고 커밋이 끝나면 효과가 실행
 
+
 ## UseEffect 사용법
+
 
 ### 참조
 
@@ -15,6 +17,7 @@ dependencies: setup 내부에서 참조하고 있는 react의 값들 배열.  �
 useEffect(setup, dependencies?)
 ```
 
+
 ### 사용법
 
 1. `useEffect` 선언하기
@@ -23,6 +26,7 @@ useEffect(setup, dependencies?)
    - 필요한 때에만 실행되도록 종속성을 지정한다.
 3. `cleanup  function` 추가하기
    - 컴포넌트가 DOM에서 제거될 때 처리할 함수를 지정한다.
+
 
 ### 외부와 연결 및 연결해제
 
@@ -35,7 +39,6 @@ useEffect(() => {
     return () => connection.disconnect();
 } , [])
 ```
-
 
 
 ### 이벤트 등록 및 제거
@@ -52,7 +55,6 @@ useEffect(() => {
   return () => window.removeEventListener('scroll', handleScroll);
 }, []);
 ```
-
 
 
 ### 2씩 증가하는 카운터
@@ -91,7 +93,6 @@ useEffect(() => {
 ```
 
 
-
 ### 데이터 fetch하기
 
 ```jsx
@@ -113,7 +114,6 @@ useEffect(() => {
   };
 }, [userId]);
 ```
-
 
 
 ### 앱 로드당 한 번 실행하기
@@ -154,7 +154,6 @@ function App() {
 ```
 
 
-
 ## 무한루프
 
 - 렌더링 후 useEffect 안에서 state 변경 -> 리렌더링 ->렌더링 후 useEffect 안에서 state 변경 ->... 무한 반복
@@ -167,11 +166,9 @@ useEffect(() => {
 ```
 
 
-
 ## 불필요한 효과 제거
 
 - 외부 시스템과의 동기화가 필요하지 않으면 효과가 필요한 것이 아닐 수 있다.
-
 
 
 ### 렌더링에 필요한 데이터 만들기
@@ -185,11 +182,10 @@ const doneTodos = useMemo(()=> todos.filter(todo => todo.isDone), [todos])
 ```
 
 
-
 ### prop 변경 시 상태를 재설정하기
 
 - prop 값인 userId이 변경될 때 마다 comment를 초기화를 해야 한다
-- useEffect를 사용하면, 일단은 오래된 값으로 렌더링 된 후에 
+- useEffect를 사용하면, 일단은 오래된 값으로 렌더링 된 후에
 - useEffect를 통해 다시 새로운 값으로 변경되고 리렌더링된다
 
 ```jsx
@@ -203,7 +199,6 @@ export default function ProfilePage({ userId }) {
   // ...
 }
 ```
-
 
 
 ### 이벤트 핸들러에 넣기
@@ -226,13 +221,13 @@ function Toggle({ onChange }) {
 ```
 
 
-
 ## 종속성 배열
 
 - 종속성 배열은 useEffect의 Effect 내에서 사용하는(의존하는) react 값(props와 state 그리고 이들로 계산된 값들)의 목록이다
 - 시간에 따라 변할 수 있는 값들이기 때문에 배열로 변화를 감지한다
 - 따라서 전역 변수, 상수와 같은 react 값이 아닌 데이터들은 종속성 배열에 넣지 않아도 된다.
 - 빈 종속성 배열은 컴포넌트가 마운트 될 때 Effect가 실행되고, 마운트 해제될 때 정리 함수를 실행한다
+
 
 ### 멈추는 카운터
 
@@ -306,6 +301,7 @@ const incrementRef = useRef(increment);
   }, []);
 ...
 ```
+
 
 ### 종속성은 선택이 아니다
 

@@ -1,10 +1,12 @@
 # 🟣GraphQL
 
+
 ## GraphQL
 
 \[TOC]
 
 ***
+
 
 ## GraphQL이란
 
@@ -12,6 +14,7 @@
 * 쿼리를 실행하는 서버사이드 런타임
 * 선언형(declarative) 데이터 페칭(fetching) 언어
 * GraphQL은 클라이언트와 서버 간의 통신 명세
+
 
 ### GraphQL 설계 원칙
 
@@ -29,21 +32,26 @@
 5. 인트로스펙티브(instrospective)
    1. GraphQL 언어를 사용해 GraphQL 서버가 사용하는 타입 시스템에 대한 쿼리 작성 가능
 
+
 ### REST 단점
+
 
 #### 오버페칭(overfetching)
 
 * 불필요한 데이터까지 받아오는 경우 낭비
 * GraphQL은 필요한 필드만 정의하여 요청 가능
 
+
 #### 언더페칭(underfetching)
 
 * 데이터를 불러오고 그 데이터를 통해 다시 추가 데이터를 요청하는 번거로움 발생
 * GraphQL은 쿼리를 중첩으로 정의하여 한번의 패치로 필요한 모든 데이터를 받아 올 수 있음
 
+
 #### 엔드포인드(endpoint) 관리
 
 * 클라이언트 수정시 엔드포인트 다시 작성
+
 
 ### GraphQL 쿼리어
 
@@ -61,14 +69,21 @@ GraphQL
 * 데이터는 저장환경을 가리지 않음
 * 데이터 수정시 `mutation` 사용
 
+
 ### GraphQL API 툴
 
+
 * #### GraphiQL
+
+
 * #### GraphQL 플레이그라운드
+
 
 ## GraphQL쿼리
 
+
 ### 쿼리(query)
+
 
 #### 기본 요청
 
@@ -77,12 +92,13 @@ GraphQL
 ```graphql
 모든 lift의 배열과 각 리프트에 대한 name과 status 요청
 query{
-	allLifts{
-		name
-		status
-	}
+ allLifts{
+  name
+  status
+ }
 }
 ```
+
 
 #### 여러 쿼리 한번에 요청
 
@@ -91,17 +107,18 @@ query{
 
 ```graphql
 query liftsAndTrails {
-	liftCount(status: OPEN)
-	allLifts {
-		name
-		status
-	}
-	allTrails {
-		name
-		difficulty
-	}
+ liftCount(status: OPEN)
+ allLifts {
+  name
+  status
+ }
+ allTrails {
+  name
+  difficulty
+ }
 }
 ```
+
 
 #### 원하는 필드명으로 응답받기
 
@@ -110,17 +127,18 @@ query liftsAndTrails {
 
 ```graphql
 query liftsAndTrails {
-	open: liftCount(status: OPEN)
-	chairlifts: allLifts {
-		liftName: name
-		status
-	}
-	skiSlopes: allTrails {
-		name
-		difficulty
-	}
+ open: liftCount(status: OPEN)
+ chairlifts: allLifts {
+  liftName: name
+  status
+ }
+ skiSlopes: allTrails {
+  name
+  difficulty
+ }
 }
 ```
+
 
 #### 쿼리 필터링
 
@@ -128,10 +146,10 @@ query liftsAndTrails {
 
 ```graphql
 query closedLifts {
-	allLifts(status: CLOSED){
-		name
-		status
-	}
+ allLifts(status: CLOSED){
+  name
+  status
+ }
 }
 ```
 
@@ -139,18 +157,20 @@ query closedLifts {
 
 ```graphql
 query jazzCatStatus {
-	Lift(id: "jazz-cat"){
-		name
-		status
-		night
-		elevationGain
-	}
+ Lift(id: "jazz-cat"){
+  name
+  status
+  night
+  elevationGain
+ }
 }
 ```
+
 
 ### 엣지와 연결
 
 * GraphQL의 필드는 **스칼라 타입**과 **객체 타입** 중 하나
+
 
 #### **스칼라 타입**
 
@@ -162,6 +182,7 @@ query jazzCatStatus {
 * 정수,실수는 숫자 데이터 반환,
 * 문자열,불,고유식별자는 문자열 데이터 반환
 
+
 #### **객체 타입**
 
 * 스키마에 정의한 필드를 그룹으로 묶어 둔 것
@@ -172,13 +193,13 @@ query jazzCatStatus {
 
 ```graphql
 query trailsAccessdByJazzCat {
-	Lift(id:"jazz-cat"){
-		capacity
-		trailAccess{
-			name
-			difficulty
-		}
-	}
+ Lift(id:"jazz-cat"){
+  capacity
+  trailAccess{
+   name
+   difficulty
+  }
+ }
 }
 ```
 
@@ -186,15 +207,16 @@ query trailsAccessdByJazzCat {
 
 ```graphql
 query liftToAccessTrail {
-	Trail(id:"dance-fight"){
-		groomed
-		accessedByLifts {
-			name
-			capacity
-		}
-	}
+ Trail(id:"dance-fight"){
+  groomed
+  accessedByLifts {
+   name
+   capacity
+  }
+ }
 }
 ```
+
 
 ### 프래그먼트(fragment)
 
@@ -203,28 +225,28 @@ query liftToAccessTrail {
 
 ```graphql
 query {
-	Lift(id: "jazz-cat"){
-		name
-		status
-		capacity
-		night
-		elevationGain
-		trailAccess{
-			name
-			difficulty
-		}
-	}
-	Trail(id: "river-run"){
-		name
-		difficulty
-		accessedByLifts{
-		name
-		status
-		capacity
-		night
-		elevationGain
-		}
-	}
+ Lift(id: "jazz-cat"){
+  name
+  status
+  capacity
+  night
+  elevationGain
+  trailAccess{
+   name
+   difficulty
+  }
+ }
+ Trail(id: "river-run"){
+  name
+  difficulty
+  accessedByLifts{
+  name
+  status
+  capacity
+  night
+  elevationGain
+  }
+ }
 }
 ```
 
@@ -232,11 +254,11 @@ query {
 
 ```graphql
 fragment liftInfo on Lift {
-	name
-	status
-	capacity
-	night
-	elevationGain
+ name
+ status
+ capacity
+ night
+ elevationGain
 }
 ```
 
@@ -244,24 +266,25 @@ fragment liftInfo on Lift {
 
 ```graphql
 query {
-	Lift(id: "jazz-cat"){
-		...liftInfo
-		trailAccess{
-			name
-			difficulty
-		}
-	}
-	Trail(id: "river-run"){
-		name
-		difficulty
-		accessedByLifts{
-		...liftInfo
-		}
-	}
+ Lift(id: "jazz-cat"){
+  ...liftInfo
+  trailAccess{
+   name
+   difficulty
+  }
+ }
+ Trail(id: "river-run"){
+  name
+  difficulty
+  accessedByLifts{
+  ...liftInfo
+  }
+ }
 }
 ```
 
 * 유지보수시 프래그먼트의 한차례 수정만하면 되므로 편리
+
 
 ### 유니언 타입(union type)
 
@@ -271,19 +294,20 @@ query {
 
 ```graphql
 query schedule {
-	agenda {
-	...on Workout { //Workout 객체일 때 반환되는 필드
-		name
-		reps
-	}
-	}
-	...on StudyGroup { // StudyGroup 객체일 때 반환되는 필드
-		name
-		subject
-		students
-	}
+ agenda {
+ ...on Workout { //Workout 객체일 때 반환되는 필드
+  name
+  reps
+ }
+ }
+ ...on StudyGroup { // StudyGroup 객체일 때 반환되는 필드
+  name
+  subject
+  students
+ }
 }
 ```
+
 
 ### 인터페이스(interface)
 
@@ -292,23 +316,24 @@ query schedule {
 
 ```graphql
 interface Character {
-	id: ID!
-	name: String!
-	friends: [Character]
-	appearsIn:[Episode]!
+ id: ID!
+ name: String!
+ friends: [Character]
+ appearsIn:[Episode]!
 }
 ```
 
 ```graphql
 type Human implements Character {
-	id: ID!
-	name: String!
-	friends: [Character]
-	appearIn: [Episode]!
-	starships: [Starship]
-	totalCredits: Int
+ id: ID!
+ name: String!
+ friends: [Character]
+ appearIn: [Episode]!
+ starships: [Starship]
+ totalCredits: Int
 }
 ```
+
 
 ### 뮤테이션(mutation)
 
@@ -318,11 +343,11 @@ type Human implements Character {
 
 ```graphql
 mutation createSong {
-	addSong(title:"No Scrubs", numberOne: true, performerName: "TLC"){ // 새로운 데이터를 생성
-		id
-		title
-		numberOne
-	}
+ addSong(title:"No Scrubs", numberOne: true, performerName: "TLC"){ // 새로운 데이터를 생성
+  id
+  title
+  numberOne
+ }
 }
 ```
 
@@ -330,12 +355,13 @@ mutation createSong {
 
 ```graphql
 mutation closeLift {
-	seLiftStatus(id: "jazz-cat", status:CLOSED){//status를 CLOSED로 변경
-		name
-		status
-	}
+ seLiftStatus(id: "jazz-cat", status:CLOSED){//status를 CLOSED로 변경
+  name
+  status
+ }
 }
 ```
+
 
 #### 쿼리 변수 사용
 
@@ -343,13 +369,14 @@ mutation closeLift {
 
 ```graphql
 mutation createSong($title:String!, $numberOne:Int, $by:String!) {
-	addSong(title:$title, numberOne:$numberOne, performerName:$by){ // 새로운 데이터를 생성
-		id
-		title
-		numberOne
-	}
+ addSong(title:$title, numberOne:$numberOne, performerName:$by){ // 새로운 데이터를 생성
+  id
+  title
+  numberOne
+ }
 }
 ```
+
 
 ### 서브스크립션(subscription)
 
@@ -359,15 +386,16 @@ mutation createSong($title:String!, $numberOne:Int, $by:String!) {
 
 ```graphql
 subscription {
-	liftStatusChange{
-		name
-		capacity
-		status
-	}
+ liftStatusChange{
+  name
+  capacity
+  status
+ }
 }
 ```
 
 * 서브스크립션 시작시 웹소켓으로 변경 내용을 실시간으로 받음
+
 
 ### 인트로스펙션(Introspection)
 
@@ -377,12 +405,12 @@ subscription {
 
 ```graphql
 query {
-	__schema{
-		type{
-			name
-			description
-		}
-	}
+ __schema{
+  type{
+   name
+   description
+  }
+ }
 }
 ```
 
@@ -390,19 +418,20 @@ query {
 
 ```graphql
 query liftDetails{
-	__type(name:"Lift"){
-		name
-		fields{
-			name
-			description
-			type{
-			name
-			}
-		}
-	}
+ __type(name:"Lift"){
+  name
+  fields{
+   name
+   description
+   type{
+   name
+   }
+  }
+ }
 }
 
 ```
+
 
 ### 추상 구문 트리(abstract syntax tree, AST;)
 
@@ -419,14 +448,17 @@ query liftDetails{
 * GraphQl은 AST를 횡단하며 GraphQL 언어와 현재 스키마를 비교하여 유효성 검사
 * 즉 모든 작업은 AST로 가공되어 유효성 검사 후 실행
 
+
 ## 스키마 설계하기
 
 * 스키마(Schema): 서비스에서 사용할 작업과 필드를 미리 정의한 데이터 타입의 집합
 * GraphQL은 SLD(Schema Definition Language,스키마 정의 언어)를 지원
 
+
 ### 타입 정의하기
 
 * 서비스에서 필요한 타입을 정의
+
 
 ### 타입(type)
 
@@ -436,14 +468,15 @@ query liftDetails{
 
 ```graphql
 type Photo {
-	id: ID!
-	name: String!
-	url: String!
-	description: String
+ id: ID!
+ name: String!
+ url: String!
+ description: String
 }
 ```
 
 * \*\*!\*\*는 그 필드에서 null 값을 허용하지 않음을 의미=> 반드시 데이터 반환
+
 
 ### 스칼라 타입(scalar type)
 
@@ -455,17 +488,18 @@ type Photo {
 scalar DateTime
 
 type Photo {
-	id:ID!
-	name:String!
-	url:String!
-	description:String
-	created:DateTime!
+ id:ID!
+ name:String!
+ url:String!
+ description:String
+ created:DateTime!
 }
 ```
 
 * 커스텀 스칼라 타입을 사용하면 반환 문자열 값이 직렬화, 유효성검사를 거쳤는지,
 * 공식 날짜,시간 형식이 맞는지 검사 가능
 * **유효성검사**가 필요한 타입 -> 커스텀 스칼라 타입
+
 
 ### 열거 타입(enumeration type)
 
@@ -475,24 +509,25 @@ type Photo {
 
 ```graphql
 enum PhotoCategory {
-	SELFIE
-	PORTRAIT
-	ACTION
-	LANDSCAPE
-	GRAPHIC
+ SELFIE
+ PORTRAIT
+ ACTION
+ LANDSCAPE
+ GRAPHIC
 }
 ```
 
 ```graphql
 type Photo{
-	id:ID!
-	name:String!
-	url:String!
-	description:String
-	created:DateTime!
-	category:PhotoCategory!
+ id:ID!
+ name:String!
+ url:String!
+ description:String
+ created:DateTime!
+ category:PhotoCategory!
 }
 ```
+
 
 ### 리스트 반환과 연결
 
@@ -507,6 +542,7 @@ type Photo{
 |  \[Int]! |        리스트 자체는 null이 될 수 없음       |
 | \[Int!]! | 리스트 안의 정수 값과 리스트 자체가 null이 될 수 없음 |
 
+
 #### 일대일 연결
 
 * 엣지(edge): 두 객체 사이의 연결
@@ -515,17 +551,17 @@ type Photo{
 
 ```graphql
 type User {
-	githubLogin: ID!
-	name: String
-	avatar: String
+ githubLogin: ID!
+ name: String
+ avatar: String
 }
 type Photo {
-	id:ID!
-	name: String!
-	url: String!
-	description: String
-	created: DateTime!
-	category: PhotoCategory!
-	postedBy: User!
+ id:ID!
+ name: String!
+ url: String!
+ description: String
+ created: DateTime!
+ category: PhotoCategory!
+ postedBy: User!
 }
 ```

@@ -1,5 +1,6 @@
 # 🎨 CSS
 
+
 ## 개요
 
 ***
@@ -43,14 +44,16 @@ selector {
 </p>
 ```
 
-*   디자인시안
+* 디자인시안
 
-    https://www.figma.com/file/k6aekBk53MUKUwVqRHsSVx/Bugless-CSS?node-id=1%3A4
-*   템플릿파일
+    <https://www.figma.com/file/k6aekBk53MUKUwVqRHsSVx/Bugless-CSS?node-id=1%3A4>
+* 템플릿파일
 
-    https://github.com/rohjs/bugless-101/tree/master/css-basic
+    <https://github.com/rohjs/bugless-101/tree/master/css-basic>
+
 
 ## box
+
 
 ### boxmodel
 
@@ -72,6 +75,7 @@ selector {
   * 3개 top (right-botton) bottom
   * 2개 (top-bottom) (right-bottom)
 
+
 ### box-sizing
 
 * default는 `box-sizing: content-box`이다
@@ -80,7 +84,6 @@ selector {
   * width와 height가 패딩과 border를 포함한 총 크기가 된다
   * width와 height는 (border까지의) 요소의 크기가 되며
   * padding과 border의 크기가 달라져도 요소의 크기는 고정이므로 content의 크기가 유동적으로 달라진다
-
 
 
 ## display
@@ -106,7 +109,6 @@ selector {
 `none`: 요소를 없애는거나 마찬가지. 요소가 차지하던 위치가 사라짐.
 
 
-
 ## Float
 
 * 사전적 의미는 "뜨다" 이다.
@@ -119,7 +121,7 @@ selector {
 * 모든 자식 요소를 float하면 부모 요소는 크기가 0이 되는 것이다
 * inline 요소는 float 요소를 피해간다
 * 부모가 자식을 못 찾을 때 overflow: hidden을 하면 부모가 자식을 찾는다.
-*   또는 부모 요소의 after에 clear 속성 설정
+* 또는 부모 요소의 after에 clear 속성 설정
 
     ```css
     Name::after {
@@ -128,24 +130,27 @@ selector {
           clear: both;
       }
     ```
+
 * 아마도 overflow가 넘치는 부분에 대한 처리 속성이기 때문에 넘치는 부분을 찾기 위해 width, height를 찾는 것 같다.
 * **블록 서식 상황**은 float 속성은 동일한 서식 상황에 속한 항목에만 적용되므로 자식을 찾기 위해서는 이 서식 상황을 합쳐야 한다. 이를 위해 overflow 보다는 명시적으로 `display: flow-root`을 사용하여 블록 서식 상황을 생성하여야 한다
 * > 에 요소상에 display: flow-root을 적용하면, 컨테이너 내부의 모든 요소는 해당 컨테이너의 블록 서식 상황에 참여하게 된다
-* https://developer.mozilla.org/ko/docs/Web/CSS/CSS\_Flow\_Layout/Intro\_to\_formatting\_contexts
-
+* <https://developer.mozilla.org/ko/docs/Web/CSS/CSS\_Flow\_Layout/Intro\_to\_formatting\_contexts>
 
 
 ## Position
 
 * top, right , left, bottom으로 위치 설정
 
+
 #### `static`
 
 * 디폴트 값
 
+
 #### `relative`
 
 * float처럼 뜬다
+
 
 #### `absolute`
 
@@ -162,11 +167,11 @@ top: 50%;
 transform: translateY(-50%); // translate는 자신 기준
 ```
 
+
 #### `fixed`
 
 * float처럼 뜬다
 * viewport(화면) 를 기준으로 잡음
-
 
 
 ## z-index
@@ -176,11 +181,9 @@ transform: translateY(-50%); // translate는 자신 기준
 * 기본값은 auto, 0처럼 취급
 
 
-
 ## text-align
 
 * 블록 요소안의 인라인, 인라인-블록 요소를 정렬
-
 
 
 ## Flexbox
@@ -194,12 +197,13 @@ transform: translateY(-50%); // translate는 자신 기준
 * `align-items:` 각각의 cross axis 방향으로 요소 정렬 방법
 * 여러 줄이면 cross axis가 여러 개가 되기 때문에 요소들간의 위아래 간격이 생김
 * `align-content:` 하나의 큰 cross axis 방향으로 요소 정렬방법 justify와 비슷
-*   `order: Number` 요소의 정렬 우선 순위를 결정. 숫자 오름차순으로 정렬됨
+* `order: Number` 요소의 정렬 우선 순위를 결정. 숫자 오름차순으로 정렬됨
 
     |        | justify-content | align-items | align-content |
     | ------ | --------------- | ----------- | ------------- |
     | row    | 좌->우            | 위->아래       | 위->아래         |
     | column | 위->아래           | 좌->우        | 좌->우          |
+
 
 ## Media Query
 
@@ -213,7 +217,6 @@ transform: translateY(-50%); // translate는 자신 기준
 ```
 
 
-
 ## Typography
 
 * px 절대 단위
@@ -222,6 +225,7 @@ transform: translateY(-50%); // translate는 자신 기준
 * rem: root em html에 적용된 폰트 사이즈 비율
 * 1rem => html font-size
 
+
 #### `line-height`
 
 * em 주로 사용 폰트사이즈에 상대적으로 하는 것이 편함
@@ -229,11 +233,13 @@ transform: translateY(-50%); // translate는 자신 기준
 * 글자는 줄간격의 가운데 배치
 * 마치 글자의 위아래에 마진이 생기는 느낌
 
+
 #### `letter-spacing`
 
 * 글자사이의 간격
 * px와 em을 사용하나 em이 더 많이 쓰임
 *
+
 
 #### `font-family`
 
@@ -246,24 +252,29 @@ transform: translateY(-50%); // translate는 자신 기준
 }
 ```
 
+
 #### `font-weight`
 
 * 폰트 굵기
 * 100\~900
 * 400 regular 700 bold
 
+
 #### `color`
 
 * 텍스트 색상 설정
 * hex, rgb ,rgba
 
+
 #### `text-align`
 
 * 글자 정렬
 
+
 #### `text-indent`
 
 * 들여쓰기 . 마이너스 값도 가능
+
 
 #### `text-transform`
 
@@ -272,12 +283,14 @@ transform: translateY(-50%); // translate는 자신 기준
 * uppercase 모두 대문자
 * lowercase 모두 소문자
 
+
 #### `text-decoration`
 
 * underline 밑줄
 * line-through 가운데 줄
 * overline 위 줄
 * a 태그 underline을 없애기 위해 `text-decoration:none`
+
 
 #### font-style
 
@@ -287,11 +300,10 @@ transform: translateY(-50%); // translate는 자신 기준
 * em 태그의 기본값이 italic임
 
 
-
 ## Webfont
 
 * google이 최고임
-* https://fonts.google.com/
+* <https://fonts.google.com/>
 * 직접 사용하기
 
 ```css
@@ -319,23 +331,27 @@ body {
 ```
 
 * 또는 css 내부에 임포트
+
 * ```css
   @import url("./fonts.css");
   ```
 
 
-
 ## Background
 
+
 #### background-color
+
 
 #### background-image
 
 * 경로는 url() 사용
 
+
 #### background-repeat
 
 * repeat이 기본값, 반복하기 싫으면 no-repeat사용
+
 
 #### background-size
 
@@ -350,7 +366,6 @@ background-position
 * 가운데 배치 `background-position: center center;`
 
 
-
 ## Transition
 
 css속성이 바뀔 때 전환효과를 줌
@@ -359,22 +374,25 @@ css속성이 바뀔 때 전환효과를 줌
 
 여러 속성을 한 번에 지정할 때는 , 로 구분
 
+
 #### property
 
 * 트랜지션을 적용할 속성
+
 
 #### timing
 
 * 바뀌는 지속 시간
 
+
 #### timing-function
 
 * 지속 시간 곡선. 좀 더 동적인 느낌을 줌
 
+
 #### delay
 
 * 트랜지션 지연
-
 
 
 ## Animation
@@ -384,11 +402,11 @@ animation: animation-name duration
 ```css
 @keyframes name {
  from {
- 	/* Rules */
+  /* Rules */
  }
  
  to {
- 	/* Rules */
+  /* Rules */
  }
 }
 ```
@@ -396,32 +414,40 @@ animation: animation-name duration
 ```css
 @keyframes name {
  0% {
- 	/* Rules */
+  /* Rules */
  }
  
  100% {
- 	/* Rules */
+  /* Rules */
  }
 }
 ```
 
-#### animation-name:
+
+#### animation-name
 
 * keyframes에서 선언한 애니메이션 이름
-* #### animation-duration:
+
+
+* #### animation-duration
+
 * 애니메이션이 진행되는 시간
 
-#### animation-timing-function:
+
+#### animation-timing-function
 
 * 시간곡선 함수
-* #### animation-iteration-count:
+
+
+* #### animation-iteration-count
+
 * 애니메이션 반복 횟수. infinite 있음
 
-#### animation-direction:
+
+#### animation-direction
 
 * 방향. reverse=> keyframs가 to -> from으로 반대로 진행
 * alternate => 기본값과 reverse가 번갈아 가며 진행
-
 
 
 ## Transform
@@ -447,13 +473,13 @@ translate: 50% 105px 5rem;
 
 `rotate` : 회전. 양수 -> 시계방향 . 음수 -> 반시계방향
 
+
 #### martrix( scaleX, skewX, skewY, scaleY, translateX, translateY)
 
 * scale: 크기 비율
 * skew: 기울임
 * rotate: 회전
 * translate: 위치 이동
-
 
 
 ## Grid
@@ -471,10 +497,11 @@ grid-gap: 10px 20px; // item간의 간격. 속기형 row-gap column-gap.
 
 ```css
 .item {
-	grid-column: 1/4;
+ grid-column: 1/4;
     grid-column: span 2;
 }
 ```
+
 
 #### bootstrap grid
 
@@ -507,7 +534,6 @@ grid-gap: 10px 20px; // item간의 간격. 속기형 row-gap column-gap.
 gutter는 30px (좌우 15px)
 
 
-
 ## Overflow
 
 `overflow: (overflow-x) (overflow-y) ;`
@@ -523,7 +549,6 @@ gutter는 30px (좌우 15px)
 `auto` : 사용자 에이전트가 결정. 콘텐츠가 넘치지 않는다면 `visible`와 동일하게 보이나 새로운 블록 서식 문맥은 생성됨. 데스크탑은 콘텐츠가 넘치면 스크롤바를 생성
 
 
-
 ## 쌓임 맥락(stacking context)
 
 * z축이 가상으로 있다고 생각하고. html요소를 3차원으로 개념화한다.
@@ -533,7 +558,6 @@ gutter는 30px (좌우 15px)
 * z-index를 버전 번호라고 생각하면 쉬워진다.
 * z-index가 5면 버전이 5, z-index가 4인 요소안의 z-index가 1인 요소는 4.1 인 식으로.
 * 그 후에 그냥 버전이 높은 게 위에 가장 앞인 셈이다.
-
 
 
 ## ETC
@@ -569,11 +593,12 @@ clippath와 path 모두 transform 적용가능
 </svg>
 ```
 
+
 ### definition list
 
 * `dl`태그 : dt와 dd를 감싼다
 * `dt`: definition title
-*   `dd`: definition data
+* `dd`: definition data
 
     ```html
     <dl>

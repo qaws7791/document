@@ -1,4 +1,4 @@
-# Tanstack-query 
+# Tanstack-query
 
 Tanstack-query as ASync State Manager
 
@@ -6,12 +6,10 @@ Tanstack-query as ASync State Manager
 - 데이터가 없는 것보다 오래된 데이터가 있는 것이 낫다
 
 
-
 ## server state, client state
 
 - Server State: 서버에 원본이 위치한 상태,일반적으로 비동기적으로 가져올 수 있으며, 가져올 시점의 스냅샷만 볼 수 있다
 - Client State: 프론트엔드에서 완전히 제어할 수 있는 상태. 일반적으로 동기적이고, 정확한 값을 알 수 있다
-
 
 
 ## staleTime vs gcTime
@@ -29,7 +27,7 @@ Tanstack-query as ASync State Manager
   - ```jsx
     // form에서 기본값으로 사용하는 상태(클라이언트 상태)를 유지하기 위해 staleTime를 무한으로 설정
     const { data } = useQuery({
-    	...
+     ...
         staleTime: Infinity,
       })
     
@@ -39,13 +37,11 @@ Tanstack-query as ASync State Manager
 - `gcTime(cacheTime)`: 비활성화된(화면에 표시되지 않는) 쿼리가 캐시에서 제거될 때까지의 시간.
 
 
-
 ## isFetching vs isLoading
 
 - isFetching: queryFn이 아직 resolved 되지 않았을 때 true
 - isLoading: 캐시된 데이터가 없고, queryFn이 아직 resolved 되지 않았을 때 true
 - isLoading은 isFetching의 하위 집합으로 볼 수 있다
-
 
 
 ## pre-populating data
@@ -65,6 +61,7 @@ Tanstack-query as ASync State Manager
 
 `initialData`를 통해 다른 쿼리로 부터 쿼리를 미리 채우면 지연 시간을 줄일 수 있다
 
+
 ## refetching
 
 queryClient를 사용해 전역적으로 사용하거나, 특정 useQuery 훅에 대해 사용하는 방법
@@ -79,11 +76,9 @@ useQuery
 - refetch
 
 
-
 ## polling
 
 `refetchInterval`을 사용하여 데이터를 주기적으로 가져오는 폴링을 쉽게 사용할 수 있다
-
 
 
 ## data filtering
@@ -92,7 +87,7 @@ useQuery
 
 ```tsx
 return useQuery({
-	...
+ ...
     select: (data) => {
       return {
         title: data.title,
@@ -103,7 +98,6 @@ return useQuery({
 ```
 
 
-
 ## data transform
 
 1. 데이터 가져오기(fetchFn)에서 수행하기
@@ -111,7 +105,7 @@ return useQuery({
    ```javascript
    const fetchTodos = async () => {
        const data = fetch...
-   	return data.map(transformTodo)
+    return data.map(transformTodo)
    }
    ```
 
@@ -119,10 +113,10 @@ return useQuery({
 
    ```java
    const useTodosQuery = () => {
-   	const query = useQuery...
-   	return {
-   		data: query.data.map(transformTodo)
-   	}
+    const query = useQuery...
+    return {
+     data: query.data.map(transformTodo)
+    }
    }
    ```
 
@@ -135,14 +129,13 @@ return useQuery({
    }
    
    const useTodosQuery = () => {
-   	return useQuery({
-   		...,
-   		select: transformTodo
-   	})
+    return useQuery({
+     ...,
+     select: transformTodo
+    })
    }
    ```
-   
-   
+
 
 ## enabled
 
@@ -150,7 +143,6 @@ return useQuery({
 - 쿼리 켜고 끄기
 - 사용자 입력 기다리기
 - 쿼리 비활성화
-
 
 
 ## 기본 사용법
@@ -188,7 +180,6 @@ return 'Loading...'
 ```
 
 
-
 ## mutation
 
 - tanstack-query는 최신 상태를 유지하고 싶어한다. mutation은 서버에 변화를 일으키므로 이 동작 후에는 서버의 상태가 변경되어 캐시된 데이터가 유효하지 않다는 것을 의도적으로 알려 최신 상태를 유지하도록 한다
@@ -221,7 +212,6 @@ onSuccess: (newPost) => {
 ```
 
 
-
 ## 필터 사용법
 
 ```jsx
@@ -241,7 +231,6 @@ function Component() {
 ```
 
 
-
 ## 이전 데이터 유지하기
 
 ```jsx
@@ -253,7 +242,6 @@ const { data, isPlaceholderData } = useQuery({
   placeholderData: keepPreviousData
 })
 ```
-
 
 
 ## Mutation과  QueryData 업데이트
@@ -281,7 +269,6 @@ function useUpdateTitle() {
 ```
 
 
-
 ## Query key factory 사용법
 
 ```typescript
@@ -304,7 +291,6 @@ const todoKeys = createQueryKeys("todos", {
     detail: (id: number) => ['details', id]
 })
 ```
-
 
 
 ## ErrorHandling
@@ -332,7 +318,6 @@ const queryClient = new QueryClient({
 ```
 
 
-
 ```javascript
 export const usePost = (id: number) => {
   return useQuery({
@@ -344,7 +329,6 @@ export const usePost = (id: number) => {
   });
 };
 ```
-
 
 
 ## onSuccess 콜백 중지
@@ -371,13 +355,12 @@ const queryClient = new QueryClient({
 ```
 
 
-
 ## Form
+
 
 ### Form의 기본값으로 query 데이터 사용
 
 - PersonDetail 컴포넌트에서 데이터를 가져오고 PersonForm으로 값을 내려보는 프레젠테이셔널/컨테이너 방식
-
 
 
 ```jsx
@@ -416,7 +399,6 @@ function PersonForm({ person, onSubmit }) {
 ```
 
 
-
 ### 이중 제출 방지
 
 ```jsx
@@ -426,7 +408,6 @@ const { mutate, isLoading } = useMutation({
 })
 <input type="submit" disabled={isLoading} />
 ```
-
 
 
 ### 돌연변이 후 무효화 및 재설정
@@ -478,7 +459,6 @@ function PersonDetail({ id }) {
 ```
 
 
-
 ## queryOptions
 
 query와 관련된 매개변수들을 변수로 분리하여 여러 곳에서 재사용할 수 있다
@@ -493,7 +473,7 @@ const todosQuery = queryOptions({
 
 ```typescript
 const useTodos = () => {
-	const query = useQuery(todosQuery)
+ const query = useQuery(todosQuery)
     return { data:query.data }
 }
 ```
@@ -501,7 +481,6 @@ const useTodos = () => {
 ```typescript
 queryClient.prefetchQuery(todosQuery)
 ```
-
 
 
 ## optimistic-updates

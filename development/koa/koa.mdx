@@ -9,8 +9,8 @@
 [TOC]
 
 
-
 ## 기본 사용법
+
 
 ### 서버 띄우기
 
@@ -34,7 +34,7 @@ app.listen(4000, () => {
 - ctx는 Context의 줄임말로 웹 요청과 응답에 관한 정보 가짐
 - next는 현재 처리 중인 미들웨어의 다음 미들웨어를 호출하는 함수
 
-- http://localhost:4000/?authorized=1일때만 next() 실행
+- <http://localhost:4000/?authorized=1일때만> next() 실행
 
 ```javascript
 app.use((ctx,next) => {
@@ -48,6 +48,7 @@ app.use((ctx,next) => {
 });
 ```
 
+
 ### Promise
 
 - next 함수를 호출하면 Promise 반환
@@ -60,6 +61,7 @@ next().then(() => {
     });
 ```
 
+
 ### async/await 사용
 
 - 위와 동일하게 async/await를 사용해 다음 미들웨가 끝난 후 END 출력
@@ -70,6 +72,7 @@ app.use(async (ctx,next) => {
     console.log('END');
 });
 ```
+
 
 ### nodemon
 
@@ -91,7 +94,7 @@ app.use(async (ctx,next) => {
 
 - npm run start:dev `
 
-- ` yarn start:dev`
+- `yarn start:dev`
 
 ```
 [nodemon] 2.0.2
@@ -102,7 +105,9 @@ app.use(async (ctx,next) => {
 Listening to port 4000
 ```
 
+
 ## koa-router
+
 
 ### 기본사용법
 
@@ -133,13 +138,15 @@ app.listen(4000, () => {
 - router.get()의 첫번째 파라미터는 라우트의 경로를, 두번째 파라미터는 해당 라우트에 적용할 미들웨어 함수를 넣음
 - get은 HTTP 메서드를 의미하며 다른 메서드로는 post,put, delete 등
 
+
 ### 파라미터와 쿼리
 
 - 파라미터 `/:name`  => `/10`
 - 파라미터가 있을 수도 없을 수도 `/:name?`
 - 쿼리 `/?id=10`
 - 일반적으로 파라미터는 카테고리나 고유id 혹은 이름 등 특정 데이터 조회
-- 쿼리는 옵션에 관한 정보 
+- 쿼리는 옵션에 관한 정보
+
 
 ### REST API
 
@@ -153,6 +160,7 @@ app.listen(4000, () => {
 | DELETE | 데이터 삭제           |
 | PUT    | 데이터 교체           |
 | PATCH  | 데이터 특정 필드 수정 |
+
 
 ### 라우트 모듈화
 
@@ -171,10 +179,12 @@ router.use('/api', api.routes());
 app.use(router.routes()).use(router.allowedMethods());
 ```
 
+
 ### postman
 
 - api test platform
-- https://www.postman.com/
+- <https://www.postman.com/>
+
 
 ### 컨트롤러 파일
 

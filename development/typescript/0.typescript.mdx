@@ -1,5 +1,6 @@
 # The Basics
 
+
 ## 자바스크립트의 불안
 
 ```javascript
@@ -10,7 +11,7 @@ message.toLowerCase();
 message();
 ```
 
-위 코드에서의 궁금증 
+위 코드에서의 궁금증
 
 - message이 존재하고 그 안에 toLowerCase 속성이 존재하고 함수로 호출이 가능한가?
 - message이 존재하고 함수로 호출이 가능한가?
@@ -22,12 +23,11 @@ message();
 ✅ 타입에 따라 실행 결과가 달라지고, 에러가 발생할 위험이 있다
 
 
-
 ### 타입 확인
 
 **자바스크립트에서의 원시값 타입 확인** -> `typeof` 연산자를 사용하여 확인 가능
 
-​	"undefined", "object", "boolean", "number", "string", "function", "object" 등
+​ "undefined", "object", "boolean", "number", "string", "function", "object" 등
 
 ```javascript
 typeof operand
@@ -36,7 +36,6 @@ typeof operand
 자바스크립트는 런타임 환경에서 값을 확인할 수 있다.
 
 ❌ 자바스크립트 한계: 객체와 함수의 값에 대한 타입 확인을 미리 하는 것이 어려움
-
 
 
 ## 정적 타입 검사
@@ -48,7 +47,6 @@ typeof operand
 💥<u>정적 타입 시스템은 우리가 작성한 프로그램에서 사용된 값들의 형태와 동작을 설명</u>
 
 
-
 ### 에러 발생 시 실행실패
 
 컴파일 타임에서 타입스크립트가 <u>타당한 버그</u>라고 간주하는 경우 에러를 발생시켜 실행을 실패시킨다
@@ -57,15 +55,15 @@ typeof operand
 - 기본적인 논리 오류 등
 
 
-
 ### 타입스크립트 프로그래밍 기능
 
-- 자동 완성 
+- 자동 완성
 - 오류 메시지
 - 오류 자동 고침
 - 리팩토링
 - 변수 정의로 네비게이션
 - 변수 참조 검색
+
 
 ## TSC, 타입스크립트 컴파일러
 
@@ -81,9 +79,10 @@ npm install -g typescript
 tsc index.ts
 ```
 
-https://www.typescriptlang.org/docs/handbook/compiler-options.html
+<https://www.typescriptlang.org/docs/handbook/compiler-options.html>
 
 에러 발생 시 js 파일을 추출하지 않는 옵션 `--noEmitOnError`
+
 
 ### 명시적으로 타입 지정
 
@@ -97,8 +96,9 @@ function greet(person: string, date: Date) {
 let msg = "hello there!";
 ```
 
-> 타입 시스템이 알아서 올바른 타입을 어떻게든 잘 알아낼 수 있다면 
+> 타입 시스템이 알아서 올바른 타입을 어떻게든 잘 알아낼 수 있다면
 > 타입 표기를 굳이 적지 않는 것이 가장 좋습니다.
+
 
 ### 컴파일러 필요성
 
@@ -107,6 +107,7 @@ let msg = "hello there!";
 컴파일 시 자바스크립트로 변환되면서 **타입 표기**는 지워진다.
 
 타입 표기는 런타임 동작에는 전혀 영향을 주지 않는다
+
 
 ### 다운레벨링
 
@@ -120,6 +121,7 @@ let msg = "hello there!";
 tsc --target es2015 input.ts
 ```
 
+
 ### 엄격도 지정
 
 타입스크립트에 바라는 엄격도가 사용자마다 다를 수 있기 때문에 그에 따른 옵션을 제공
@@ -129,9 +131,4 @@ tsc --target es2015 input.ts
 `noImplicitAny`: 타입이 암묵적으로 `any`로 추론되는 변수에게 오류 발생
 
 `strictNullChecks`: `null` 및 `undefined` 처리를 잊지 않도록 확인
-
-
-
-
-
 

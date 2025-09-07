@@ -1,20 +1,23 @@
 # UseReducer
 
+
 ## reducer의 장점
+
 
 ### 로직 분리
 
 상태 저장 시 필요한 로직을 `reducer`로 분리하여 사용
 
 
-
 ## useReducer 사용법
+
 
 ### 참조
 
 ```jsx
 const [state, dispatch] = useReducer(reducer, initialArg, init?)
 ```
+
 
 ### 사용법
 
@@ -62,7 +65,6 @@ const [todos, dispatchTodos] = useImmerReducer<Todo[]>(
     clearTitle();
   };
 ```
-
 
 
 ## 리듀서 작성

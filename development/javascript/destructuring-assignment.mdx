@@ -1,5 +1,6 @@
 # 구조적 분해
 
+
 ## 객체 구조 분해
 
 * 구조 분해된 name과 age가 바뀌어도 원래 객체의 값에 영향을 주지 않는다.
@@ -36,11 +37,10 @@
         };
   
   const printFavoriteSport = ({ favorite: { sport } }) => {
-  	console.log(`Favorite sport is ${sport}`);
+   console.log(`Favorite sport is ${sport}`);
   };
   printFavoriteSport(user);
   ```
-
 
 
 ## 배열 구조 분해
@@ -52,7 +52,6 @@ const [, , third] = arr;
 const [last] = [...arr].reverse();
 console.log(first, second, third, last); // 1 2 3 5
 ```
-
 
 
 ## 객체 리터럴 개선
@@ -72,4 +71,5 @@ const user = { name, age, favorite, printFavoriteSport };
 console.log(user);
 ```
 
-## 
+
+##

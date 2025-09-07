@@ -33,14 +33,12 @@ export default httpClient;
 ```
 
 
-
-
-
 ## 일반적인 client 컴포넌트를 사용하는 경우
+
 
 ### 전체 페이지 렌더링 시
 
--  서버에서는 isLoading 상태로 간주하고 `<div>Loading...</div>` 반환
+- 서버에서는 isLoading 상태로 간주하고 `<div>Loading...</div>` 반환
 
   ![image-20240923031025394](assets/image-20240923031025394.png)
 
@@ -49,7 +47,6 @@ export default httpClient;
   ![image-20240923031104336](assets/image-20240923031104336.png)
 
   
-
 ### 클라이언트 측 렌더링 시
 
 일반적인 react 컴포넌트처럼 클라이언트 측에서만 렌더링
@@ -100,12 +97,12 @@ export default function Posts() {
 ```
 
 
-
 ## Prefetch를 사용한 클라이언트 컴포넌트
 
 위와 동일 클라이언트 컴포넌트를 사용하되 서버 측에서 초기 렌더링이 가능하도록 prefetch를 사용
 
 prefetch된 데이터를 페이지(html)에 함께 넣어 보내기 위해 직렬화(dehydrate())를 거쳐 전달
+
 
 ### 전체 페이지 렌더링 시
 
@@ -118,6 +115,7 @@ prefetch된 데이터를 페이지(html)에 함께 넣어 보내기 위해 직�
   ![image-20240923031938459](assets/image-20240923031938459.png)
 
   ![image-20240923032001875](assets/image-20240923032001875.png)
+
 
 ### 클라이언트 측 렌더링 시
 
@@ -141,7 +139,6 @@ export default async function PostsPage() {
 ```
 
 
-
 ## fetch의 캐싱
 
 - `.next/cache/fetch-cache`  경로에 fetch의 응답을 저장
@@ -153,21 +150,19 @@ export default async function PostsPage() {
 ![image-20240923162906794](assets/image-20240923162906794.png)
 
 
-
 - 이상한 것은 http의 cache-control을 "no-store"로 지정해뒀음에도 nextjs에서 자체적으로 캐싱을하고 그기간(revalidate)을 `31536000` 아주 길게 잡는다는 것입니다. 따라서 아무 지시사항 없이 사용하면 모든 요청이 캐싱되어 사이트가 바라던대로 동작하지 않을 가능성이 큽니다
 - 클라이언트 측에서 tanstack-query가 자체적인 캐싱을 제공하듯이 next에서도 서버 측의 캐싱을 주도적으로 하여 api를 보내는 서버가 아닌 받는 next 측에서 캐싱을 관리하고 싶어 하는 것 같습니다
 - next 측에서도 이러한 방식의 문제점을 알고 있는 것 같습니다. `next 15`부터는 <u>fetch 요청이 기본적으로 캐싱되지 않을 것</u>으로 보입니다
-  - https://github.com/vercel/next.js/discussions/53504
-  - https://nextjs.org/blog/next-15-rc#fetch-requests-are-no-longer-cached-by-default
-
+  - <https://github.com/vercel/next.js/discussions/53504>
+  - <https://nextjs.org/blog/next-15-rc#fetch-requests-are-no-longer-cached-by-default>
 
 
 ------
 
-https://vercel.com/templates/next.js/app-directory
+<https://vercel.com/templates/next.js/app-directory>
 
-https://nextjs.org/docs/app/building-your-application/caching
+<https://nextjs.org/docs/app/building-your-application/caching>
 
-https://nextjs.org/docs/app/building-your-application/data-fetching/incremental-static-regeneration
+<https://nextjs.org/docs/app/building-your-application/data-fetching/incremental-static-regeneration>
 
-https://mycodings.fly.dev/blog/2024-03-02-nextjs-fetchcache
+<https://mycodings.fly.dev/blog/2024-03-02-nextjs-fetchcache>

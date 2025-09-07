@@ -1,6 +1,8 @@
 # 전개 구문과 나머지 매개변수
 
+
 ## 전개 구문(spread)
+
 
 ### 구문
 
@@ -23,6 +25,7 @@ spread 프로퍼티를 제외한 iterable 객체 전용
   console.log(sum.apply(null, numbers));
   ```
 
+
 ### 배열 합치기 (배열 리터럴 전개)
 
 ```javascript
@@ -33,7 +36,6 @@ console.log([...numbers, ...numbers2]); // [1,2,3,4,5,6]
 ```
 
 
-
 ### 문자열을 배열로 분해하기
 
 ```javascript
@@ -41,7 +43,6 @@ const greeting = "Hello";
 const arrayOfChars = [...greeting];
 console.log(arrayOfChars); //  ['H', 'e', 'l', 'l', 'o']
 ```
-
 
 
 ### 배열 복사
@@ -67,7 +68,6 @@ console.log(numbers2); // [1,2,3,4]
 ```
 
 
-
 ### 객체 리터럴 전개
 
 ```javascript
@@ -79,9 +79,6 @@ user2 = { ...user };
 user2.name = "bar";
 console.log(user.name, user2.name); // foo bar
 ```
-
-
-
 
 
 ## 나머지 매개변수(rest)
@@ -110,11 +107,12 @@ console.log(sum(1, 2, 3, 4));
 
 ```javascript
 function printArgs(first, second, ...moreArgs) {
-	console.log(first, second) // 1 2
-	console.log(moreArgs) // [3,4,5]
+ console.log(first, second) // 1 2
+ console.log(moreArgs) // [3,4,5]
 }
 printArgs(1,2,3,4,5)
 ```
+
 
 ### Arguments와 나머지매개변수의 차이점
 
@@ -126,6 +124,4 @@ printArgs(1,2,3,4,5)
   * 사용자가 정의한 매개변수를 제외한 나머지만을 가진다.
 
 ![image-20230110191822853](readme.assets/image-20230110191822853.png)
-
-
 

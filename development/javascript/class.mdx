@@ -1,6 +1,8 @@
 # 클래스
 
+
 ## 클래스 생성
+
 
 ### 프로토타입을 통한 객체 생성
 
@@ -22,7 +24,6 @@ console.log(foo);
 ```
 
 
-
 ### 클래스를 통한 객체 생성
 
 > 이미 생성된 객체는 User를 변경해도 영향을 받지 않음
@@ -42,7 +43,6 @@ foo.printName();
 ```
 
 
-
 ## 상속과 다형성
 
 **상속**: 다른 클래스의 동작을 확장(extend)하여 사용하는 방법
@@ -51,14 +51,14 @@ foo.printName();
 
 ```javascript
 class Admin extends User {
-	constructor(name, age) {
-		super(name, age)
-	}
-	
-	printName() {
-		super.printName();
-		console.log('This user is an administrator')
-	}
+ constructor(name, age) {
+  super(name, age)
+ }
+ 
+ printName() {
+  super.printName();
+  console.log('This user is an administrator')
+ }
 }
 ```
 

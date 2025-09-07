@@ -1,12 +1,10 @@
 # Nextjs에서 환경 변수 세팅하기
 
 
-
 ## 필요 라이브러리
 
 - zod
 - server-only
-
 
 
 ## 환경 변수 파일 설정
@@ -19,7 +17,6 @@ DB_USER=myuser
 DB_PASS=mypassword
 NEXT_PUBLIC_ANALYTICS_ID=abcdefghijk
 ```
-
 
 
 ## server 환경 변수
@@ -38,7 +35,6 @@ import 'server-only'
 ```
 
 
-
 ```typescript
 import 'server-only';
 import { z } from 'zod';
@@ -54,7 +50,6 @@ const serverEnv = serverEnvSchema.parse(process.env);
 export default serverEnv;
 
 ```
-
 
 
 ## client 환경 변수
@@ -77,7 +72,6 @@ export default clientEnv;
 ```
 
 
-
 ## 예제 프로젝트
 
-https://stackblitz.com/edit/stackblitz-starters-anjbbm?file=README.md
+<https://stackblitz.com/edit/stackblitz-starters-anjbbm?file=README.md>

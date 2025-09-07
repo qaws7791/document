@@ -1,10 +1,9 @@
 # use lambda with s3
 
 
-
 썸네일 생성 Lambda 함수 만들기
 
-url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-s3-tutorial.html
+url:<https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-s3-tutorial.html>
 
 1. **버킷** 생성
 2. 원본 버킷에 테스트를 위한 이미지 업로드
@@ -13,9 +12,6 @@ url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-s3-tutorial.html
 5. 해당 실행 역할을 가지는 **Lambda 함수** 생성
 6. S3 트리거 추가
 7. 테스트 이벤트 생성 및 테스트
-
-
-
 
 
 ## 버킷 2개 생성
@@ -30,13 +26,11 @@ url:https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-s3-tutorial.html
 ![image-20240117005352997](assets/image-20240117005352997.png)
 
 
-
 ## 테스트용 이미지업로드
 
 테스트를 위해 원본 버킷에 이미지를 1개 미리 업로드 해둔다.
 
 ![image-20240117012225151](assets/image-20240117012225151.png)
-
 
 
 ## 권한 정책 생성
@@ -45,11 +39,12 @@ s3와 cloudwatch에 접근하기 위한 권한 정책을 생성한다
 
 - s3 읽기: 저장 이벤트 발생 시 불러오기
 - s3 쓰기: 리사이즈된 이미지 저장
-- cloudWatch 쓰기: 함수 실행 후 로그 저장 
+- cloudWatch 쓰기: 함수 실행 후 로그 저장
 
 ![image-20240117005710521](assets/image-20240117005710521.png)
 
 ![image-20240117010048533](assets/image-20240117010048533.png)
+
 
 ## 실행 역할 생성
 
@@ -60,15 +55,12 @@ s3와 cloudwatch에 접근하기 위한 권한 정책을 생성한다
 ![image-20240117005736419](assets/image-20240117005736419.png)
 
 
-
 ![image-20240117005759877](assets/image-20240117005759877.png)
 
 ![image-20240117010057181](assets/image-20240117010057181.png)
 
 
-
 ## Lambda 함수 생성
-
 
 
 ```javascript
@@ -186,7 +178,6 @@ npm install --arch=x64 --platform=linux sharp@0.32.6
 ![image-20240117010153679](assets/image-20240117010153679.png)
 
 
-
 위에서 만든 역할을 가지는 lambda 함수 생성
 
 ![image-20240117010303884](assets/image-20240117010303884.png)
@@ -196,15 +187,11 @@ npm install --arch=x64 --platform=linux sharp@0.32.6
 ![image-20240117013045874](assets/image-20240117013045874.png)
 
 
-
 ## S3 트리거 추가
 
 s3에서 생성 이벤트가 발생하면 lambda 함수가 실행되도록 s3의 `All object create events` 트리거를 추가
 
 ![image-20240117010513569](assets/image-20240117010513569.png)
-
-
-
 
 
 ## 테스트 이벤트 생성 및 테스트

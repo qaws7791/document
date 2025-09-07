@@ -1,5 +1,6 @@
 ## UseMemo, UseCallback
 
+
 ## useMemo
 
 함수에 의해 반환된 값을 메모이제이션하여 반환
@@ -17,15 +18,14 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ```jsx
 const WordCount = ({ children= ""}) => {
     //const words = children; // 렌더링마다 선언되어 useEffect가 실행됨
-	const words = useMemo(() => children.split(" "), [children]);
+ const words = useMemo(() => children.split(" "), [children]);
     
     useEffect(() => {
-	console.log("fresh render");
-	},[words]);
+ console.log("fresh render");
+ },[words]);
     return (...);
 }
 ```
-
 
 
 ## useCallback
@@ -53,7 +53,6 @@ const cachedFn = useCallback(fn, dependencies)
     [onClose],
   );
 ```
-
 
 
 ## useMemo vs useCallBack
