@@ -22,56 +22,45 @@
         "icon": "cpu",
         "groups": [
           {
-            "group": "Computer System",
-            "pages": [
-              "computer-science/computer-system/overview",
-              "computer-science/computer-system/cpu",
-              "computer-science/computer-system/memory",
-              "computer-science/computer-system/inputoutput-devices",
-              "computer-science/computer-system/bus",
-              "computer-science/computer-system/data-representation",
-              "computer-science/computer-system/data-types",
-              "computer-science/computer-system/character-encodings",
-              "computer-science/computer-system/concurrency-and-parallelism"
-            ]
-          },
-          {
-            "group": "Operating System",
-            "pages": [
-              "computer-science/operating-system/overview",
-              "computer-science/operating-system/components",
-              "computer-science/operating-system/file-system",
-              "computer-science/operating-system/io-management",
-              "computer-science/operating-system/memory-management",
-              "computer-science/operating-system/kernel",
-              "computer-science/operating-system/process-management"
-            ]
-          },
-          {
             "group": "Algorithms",
             "pages": [
+              "computer-science/algorithms/brute-force-search",
+              "computer-science/algorithms/dynamic-programming",
+              "computer-science/algorithms/greedy-algorithm",
               "computer-science/algorithms/overview",
               "computer-science/algorithms/recursion",
               "computer-science/algorithms/searching",
               "computer-science/algorithms/selecting",
-              "computer-science/algorithms/sorting",
-              "computer-science/algorithms/brute-force-search",
-              "computer-science/algorithms/greedy-algorithm",
-              "computer-science/algorithms/dynamic-programming"
+              "computer-science/algorithms/sorting"
+            ]
+          },
+          {
+            "group": "Computer System",
+            "pages": [
+              "computer-science/computer-system/bus",
+              "computer-science/computer-system/character-encodings",
+              "computer-science/computer-system/concurrency-and-parallelism",
+              "computer-science/computer-system/cpu",
+              "computer-science/computer-system/data-representation",
+              "computer-science/computer-system/data-types",
+              "computer-science/computer-system/inputoutput-devices",
+              "computer-science/computer-system/memory",
+              "computer-science/computer-system/overview"
             ]
           },
           {
             "group": "Data Structures",
             "pages": [
-              "computer-science/data-structures/overview",
-              "computer-science/data-structures/list",
-              "computer-science/data-structures/stack",
-              "computer-science/data-structures/queue",
-              "computer-science/data-structures/tree",
               "computer-science/data-structures/binary-tree",
+              "computer-science/data-structures/covariance-and-contravariance",
+              "computer-science/data-structures/graph",
               "computer-science/data-structures/heap",
+              "computer-science/data-structures/list",
+              "computer-science/data-structures/overview",
+              "computer-science/data-structures/queue",
               "computer-science/data-structures/set",
-              "computer-science/data-structures/graph"
+              "computer-science/data-structures/stack",
+              "computer-science/data-structures/tree"
             ]
           },
           {
@@ -79,6 +68,18 @@
             "pages": [
               "computer-science/database/overview",
               "computer-science/database/sql"
+            ]
+          },
+          {
+            "group": "Operating System",
+            "pages": [
+              "computer-science/operating-system/components",
+              "computer-science/operating-system/file-system",
+              "computer-science/operating-system/io-management",
+              "computer-science/operating-system/kernel",
+              "computer-science/operating-system/memory-management",
+              "computer-science/operating-system/overview",
+              "computer-science/operating-system/process-management"
             ]
           }
         ]
@@ -91,8 +92,8 @@
           {
             "group": "API",
             "pages": [
-              "development/api/overview",
               "development/api/compression",
+              "development/api/overview",
               "development/api/rate-limiting",
               "development/api/serialization"
             ]
@@ -100,35 +101,35 @@
           {
             "group": "AWS",
             "pages": [
-              "development/aws/getting-started",
-              "development/aws/container",
-              "development/aws/cloud",
               "development/aws/aws-container-service",
+              "development/aws/cloud",
+              "development/aws/container",
               "development/aws/create-iam-user",
+              "development/aws/getting-started",
               {
-                "group": "ec2",
+                "group": "CloudFront",
+                "pages": ["development/aws/cloudfront/overview"]
+              },
+              {
+                "group": "EC2",
                 "pages": [
-                  "development/aws/ec2/overview",
-                  "development/aws/ec2/instance",
                   "development/aws/ec2/deploy-nextjs-project",
                   "development/aws/ec2/ec2-auto-scaling",
                   "development/aws/ec2/http-with-certbot",
-                  "development/aws/ec2/https-with-alb"
+                  "development/aws/ec2/https-with-alb",
+                  "development/aws/ec2/instance",
+                  "development/aws/ec2/overview"
                 ]
               },
               {
-                "group": "lambda",
+                "group": "Lambda",
                 "pages": [
                   "development/aws/lambda/overview",
                   "development/aws/lambda/start-lambda",
-                  "development/aws/lambda/use-lambda-with-s3",
                   "development/aws/lambda/use-lambda-with-apigateway",
+                  "development/aws/lambda/use-lambda-with-s3",
                   "development/aws/lambda/uses-of-lambda"
                 ]
-              },
-              {
-                "group": "cloudfront",
-                "pages": ["development/aws/cloudfront/overview"]
               }
             ]
           },
@@ -143,7 +144,6 @@
           {
             "group": "Docker",
             "pages": [
-              "development/docker/overview",
               "development/docker/01-virtualization-and-container",
               "development/docker/02-what-is-docker",
               "development/docker/03-install-docker",
@@ -152,14 +152,15 @@
               "development/docker/06-manage-docker-containers",
               "development/docker/07-foundation-of-dockerfile",
               "development/docker/08-build-an-image-with-dockerfile",
-              "development/docker/09-docker-as-a-development-environment"
+              "development/docker/09-docker-as-a-development-environment",
+              "development/docker/overview"
             ]
           },
           {
             "group": "Firebase",
             "pages": [
-              "development/firebase/getting-started",
               "development/firebase/authentication",
+              "development/firebase/getting-started",
               "development/firebase/resize-image",
               "development/firebase/rules"
             ]
@@ -167,24 +168,27 @@
           {
             "group": "Git",
             "pages": [
-              "development/git/overview",
-              "development/git/git-conventional-commits",
+              "development/git/connecting-to-github-via-https",
               "development/git/connecting-to-github-via-ssh",
-              "development/git/connecting-to-github-via-https"
+              "development/git/git-conventional-commits",
+              "development/git/overview"
             ]
           },
           {
             "group": "GraphQL",
             "pages": [
-              "development/graphql/overview",
-              "development/graphql/apollo"
+              "development/graphql/apollo",
+              "development/graphql/overview"
             ]
           },
           {
             "group": "HTML",
             "pages": [
-              "development/html/overview",
               "development/html/categories",
+              "development/html/head",
+              "development/html/mnemonic",
+              "development/html/overview",
+              "development/html/security",
               {
                 "group": "Elements",
                 "pages": [
@@ -192,33 +196,43 @@
                   "development/html/elements/inline-elements",
                   "development/html/elements/semantic-elements"
                 ]
-              },
-              "development/html/head",
-              "development/html/mnemonic",
-              "development/html/security"
+              }
             ]
           },
           {
-            "group": "JavaScript",
+            "group": "Javascript",
             "pages": [
-              "development/javascript/readme",
-              "development/javascript/conditionals",
-              "development/javascript/loop",
-              "development/javascript/primitive_types",
-              "development/javascript/variable",
-              "development/javascript/object",
-              "development/javascript/function",
               "development/javascript/array",
-              "development/javascript/class",
               "development/javascript/asynchronous",
               "development/javascript/cheat-sheet",
+              "development/javascript/class",
+              "development/javascript/conditionals",
+              "development/javascript/console-api",
               "development/javascript/design",
               "development/javascript/destructuring-assignment",
+              "development/javascript/function",
               "development/javascript/javascript",
+              "development/javascript/loop",
+              "development/javascript/object",
+              "development/javascript/primitive_types",
+              "development/javascript/readme",
               "development/javascript/regex",
               "development/javascript/spread-and-rest",
-              "development/javascript/web-api",
-              "development/javascript/console-api"
+              "development/javascript/variable",
+              "development/javascript/web-api"
+            ]
+          },
+          {
+            "group": "JWT",
+            "pages": [
+              "development/jwt/1.jwt-authentication-basics-and-design-principles",
+              "development/jwt/2.key-issues-in-client-side-jwt-handling",
+              "development/jwt/3.server-side-rendering-and-jwt-complex-relationship",
+              "development/jwt/4.advanced-authentication-scenarios-and-security-enhancement",
+              "development/jwt/5.performance-optimization-and-scalability-issues",
+              "development/jwt/6.monitoring-debugging-and-security-incident-response",
+              "development/jwt/7.practical-implementation-guide-and-framework-specific-best-practices",
+              "development/jwt/8.future-readiness-and-alternative-technology-review"
             ]
           },
           {
@@ -229,7 +243,7 @@
             "group": "Linux",
             "pages": [
               {
-                "group": "Linux 소개",
+                "group": "1 Introduction",
                 "pages": [
                   "development/linux/1.introduction/1.operating-systems-and-the-story-of-linux",
                   "development/linux/1.introduction/2.setting-up-your-linux-environment",
@@ -237,24 +251,24 @@
                 ]
               },
               {
-                "group": "Linux 기본",
+                "group": "2 Basic",
                 "pages": [
                   "development/linux/2.basic/4.files-and-directories",
                   "development/linux/2.basic/5.linux-editors"
                 ]
               },
               {
-                "group": "Linux 시스템 관리",
+                "group": "3 System Management",
                 "pages": [
+                  "development/linux/3.system-management/10.disk-and-filesystem-management",
                   "development/linux/3.system-management/6.managing-users-and-groups",
                   "development/linux/3.system-management/7.file-permissions-and-ownership",
                   "development/linux/3.system-management/8.process-management",
-                  "development/linux/3.system-management/9.package-management",
-                  "development/linux/3.system-management/10.disk-and-filesystem-management"
+                  "development/linux/3.system-management/9.package-management"
                 ]
               },
               {
-                "group": "Linux 쉘",
+                "group": "4 Shell Scripting",
                 "pages": [
                   "development/linux/4.shell-scripting/11.mastering-the-shell",
                   "development/linux/4.shell-scripting/12.introduction-to-shell-scripting",
@@ -263,7 +277,7 @@
                 ]
               },
               {
-                "group": "Linux 네트워킹",
+                "group": "5 Networking",
                 "pages": [
                   "development/linux/5.networking/15.linux-network-configuration",
                   "development/linux/5.networking/16.remote-access-and-file-transfer",
@@ -271,7 +285,7 @@
                 ]
               },
               {
-                "group": "Linux 고급",
+                "group": "6 Advanced",
                 "pages": [
                   "development/linux/6.advanced/18.linux-security",
                   "development/linux/6.advanced/19.performance-analysis-and-tuning",
@@ -286,13 +300,12 @@
             "pages": ["development/mongodb/overview"]
           },
           {
-            "group": "Nest.js",
+            "group": "NestJS",
             "pages": ["development/nestjs/overview"]
           },
           {
             "group": "Next.js",
             "pages": [
-              "development/nextjs/overview",
               "development/nextjs/common-tips",
               "development/nextjs/create-navigation",
               "development/nextjs/create-page",
@@ -300,6 +313,7 @@
               "development/nextjs/deploy-with-docker",
               "development/nextjs/environment-variables",
               "development/nextjs/fetch-in-next",
+              "development/nextjs/overview",
               "development/nextjs/rendering",
               "development/nextjs/server-action"
             ]
@@ -307,20 +321,20 @@
           {
             "group": "Node.js",
             "pages": [
-              "development/nodejs/overview",
-              "development/nodejs/express",
               "development/nodejs/cookie-and-session",
-              "development/nodejs/npm"
+              "development/nodejs/express",
+              "development/nodejs/npm",
+              "development/nodejs/overview"
             ]
           },
           {
-            "group": "React.js",
+            "group": "React",
             "pages": [
-              "development/react/overview",
               "development/react/context-api",
               "development/react/custom-hook",
               "development/react/jsx",
               "development/react/memo",
+              "development/react/overview",
               "development/react/patterns",
               "development/react/project-architecture",
               "development/react/react-error-boundary",
@@ -332,13 +346,26 @@
               "development/react/typescript",
               "development/react/virtual-dom",
               {
+                "group": "Custom Hooks",
+                "pages": [
+                  "development/react/custom-hooks/useCounter",
+                  "development/react/custom-hooks/useFormInput",
+                  "development/react/custom-hooks/useInterval",
+                  "development/react/custom-hooks/useLocalStorage",
+                  "development/react/custom-hooks/useMediaQuery",
+                  "development/react/custom-hooks/usePointerPosition",
+                  "development/react/custom-hooks/useToggle",
+                  "development/react/custom-hooks/useWindowsize"
+                ]
+              },
+              {
                 "group": "Hooks",
                 "pages": [
-                  "development/react/hooks/use-state",
                   "development/react/hooks/use-effect",
                   "development/react/hooks/use-memo,use-callback",
                   "development/react/hooks/use-reducer",
-                  "development/react/hooks/use-ref"
+                  "development/react/hooks/use-ref",
+                  "development/react/hooks/use-state"
                 ]
               }
             ]
@@ -350,76 +377,23 @@
           {
             "group": "TypeScript",
             "pages": [
-              "development/typescript/overview",
               "development/typescript/0.typescript",
               "development/typescript/1.types",
               "development/typescript/2.enums",
               "development/typescript/3.narrowing",
-              "development/typescript/4.functions"
+              "development/typescript/4.functions",
+              "development/typescript/branded-type",
+              "development/typescript/overview"
             ]
           },
           {
             "group": "Web",
             "pages": [
-              "development/web/history",
-              "development/web/accessibility"
+              "development/web/accessibility",
+              "development/web/client-side-caching",
+              "development/web/flow",
+              "development/web/history"
             ]
-          },
-          {
-            "group": "Books",
-            "pages": [
-              "development/books/becoming-a-better-programmer/readme",
-              "development/books/functional-programming/readme",
-              "development/books/laws-of-ux/readme",
-              "development/books/object-process/readme",
-              "development/books/tidy-first/readme"
-            ]
-          }
-        ]
-      },
-      {
-        "dropdown": "Software Engineering",
-        "description": "소프트웨어 공학 지식",
-        "icon": "wrench",
-        "groups": [
-          {
-            "group": "Start",
-            "pages": [
-              "software-engineering/preventative-engineering",
-              "software-engineering/software-architecture-principles",
-              "software-engineering/software-product-quality",
-              "software-engineering/software-quality",
-              "software-engineering/server-concurrency"
-            ]
-          },
-          {
-            "group": "Architectures",
-            "pages": [
-              "software-engineering/architectures/overview",
-              "software-engineering/architectures/architecture",
-              "software-engineering/architectures/layered-architecture",
-              "software-engineering/architectures/pipeline-architecture",
-              "software-engineering/architectures/clean-architecture"
-            ]
-          },
-          {
-            "group": "Code",
-            "pages": [
-              "software-engineering/code/how-to-write-code",
-              "software-engineering/code/refactoring",
-              "software-engineering/code/solid-principles"
-            ]
-          },
-          {
-            "group": "Programming Paradigms",
-            "pages": [
-              "software-engineering/programming-paradigms/overview",
-              "software-engineering/programming-paradigms/defensive-programming"
-            ]
-          },
-          {
-            "group": "Development Processes",
-            "pages": ["software-engineering/development-processes/agile"]
           }
         ]
       },
@@ -443,11 +417,11 @@
           {
             "group": "Design",
             "pages": [
-              "project/design/overview",
               "project/design/assets",
               "project/design/bad-case",
               "project/design/designing-touch-zones",
               "project/design/heuristic-evaluation",
+              "project/design/overview",
               "project/design/reference"
             ]
           },
@@ -468,27 +442,115 @@
           {
             "group": "Planning",
             "pages": [
-              "project/planning/overview",
               "project/planning/business-goals",
               "project/planning/find-ideas",
+              "project/planning/overview",
               "project/planning/persona"
             ]
           },
           {
             "group": "Team",
             "pages": [
+              "project/team/divergent-thinking",
               "project/team/increase-productivity",
               "project/team/manage-tasks",
               "project/team/overcoming-parkinsons-law",
               "project/team/team-canvas",
               "project/team/team-composition",
-              "project/team/using-pomodoro",
-              "project/team/divergent-thinking"
+              "project/team/using-pomodoro"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Software Engineering",
+        "description": "소프트웨어 공학",
+        "icon": "wrench",
+        "groups": [
+          {
+            "group": "Backend",
+            "pages": ["software-engineering/backend"]
+          },
+          {
+            "group": "Preventative Engineering",
+            "pages": ["software-engineering/preventative-engineering"]
+          },
+          {
+            "group": "Reducing Cognitive Load",
+            "pages": ["software-engineering/reducing-cognitive-load"]
+          },
+          {
+            "group": "Server Concurrency",
+            "pages": ["software-engineering/server-concurrency"]
+          },
+          {
+            "group": "Server Secure",
+            "pages": ["software-engineering/server-secure"]
+          },
+          {
+            "group": "Software Architecture Principles",
+            "pages": ["software-engineering/software-architecture-principles"]
+          },
+          {
+            "group": "Software Product Quality",
+            "pages": ["software-engineering/software-product-quality"]
+          },
+          {
+            "group": "Software Quality",
+            "pages": ["software-engineering/software-quality"]
+          },
+          {
+            "group": "Architectures",
+            "pages": [
+              "software-engineering/architectures/architecture",
+              "software-engineering/architectures/clean-architecture",
+              "software-engineering/architectures/layered-architecture",
+              "software-engineering/architectures/overview",
+              "software-engineering/architectures/pipeline-architecture"
             ]
           },
           {
-            "group": "Overview",
-            "pages": ["project/overview"]
+            "group": "Code",
+            "pages": [
+              "software-engineering/code/how-to-write-code",
+              "software-engineering/code/premature-abstraction",
+              "software-engineering/code/refactoring",
+              "software-engineering/code/solid-principles"
+            ]
+          },
+          {
+            "group": "Development Processes",
+            "pages": ["software-engineering/development-processes/agile"]
+          },
+          {
+            "group": "Programming Paradigms",
+            "pages": [
+              "software-engineering/programming-paradigms/defensive-programming",
+              "software-engineering/programming-paradigms/overview"
+            ]
+          }
+        ]
+      },
+      {
+        "dropdown": "Personal",
+        "description": "개인 기록",
+        "icon": "feather",
+        "groups": [
+          {
+            "group": "Thoughts",
+            "pages": ["personal/thoughts"]
+          },
+
+          {
+            "group": "Books",
+            "pages": [
+              "personal/books/README",
+              "personal/books/becoming-a-better-programmer",
+              "personal/books/functional-programming",
+              "personal/books/laws-of-ux",
+              "personal/books/object-process",
+              "personal/books/tidy-first"
+            ]
           }
         ]
       }
