@@ -5,7 +5,10 @@
   },
   "editor.formatOnSave": true,
   "cSpell.words": ["mintlify"],
-  "markdownlint.customRules": ["./.vscode/bold-parentheses-space.js"],
+  "markdownlint.customRules": [
+    "./.vscode/bold-parentheses-space.js",
+    "./.vscode/fix-korean-bold.js"
+  ],
   "markdownlint.config": {
     "MD012": {
       "maximum": 2
@@ -16,9 +19,13 @@
     "MD022": {
       "lines_above": 2
     },
+    "MD024": {
+      "siblings_only": true
+    },
     "MD033": {
       "allowed_elements": ["Note", "Warning", "Info", "Tip"]
     },
+    "MD036": false,
     "bold-parentheses-space": true
   }
 }
