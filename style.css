@@ -1,3 +1,18 @@
 #content-area {
-    max-width: 48rem;
+  max-width: 48rem;
+}
+
+#table-of-contents-layout {
+  padding: 0;
+}
+
+#table-of-contents {
+  padding-right: 1rem;
+}
+
+@media (min-width: 1600px) {
+  #table-of-contents,
+  #table-of-contents-layout {
+    width: 21rem;
+  }
 }
