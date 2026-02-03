@@ -1,0 +1,790 @@
+---
+title: React 클린 아키텍처 구축 여정
+---
+
+## React 클린 아키텍처 구축 여정: 8단계 리팩터링 노트
+
+React는 자유도가 높다는 장점이 있지만, 이는 곧 아키텍처에 대한 명확한 가이드라인이 없다는 의미이기도 하다. 이 때문에 많은 프로젝트가 일관성 없는 커스텀 아키텍처로 인해 유지보수에 어려움을 겪곤 한다.
+
+이 문서는 여러 나쁜 관행으로 가득 찬 가상의 React 코드 베이스를 점진적으로 리팩터링하며, 더 깔끔하고 테스트하기 쉬우며 확장 가능한 아키텍처로 발전시켜나가는 과정을 개인적으로 정리한 기록이다. 총 8개의 단계를 거치며, 각 단계에서 마주한 문제점과 해결책, 그리고 그로 인해 얻게 된 이점들을 코드 예시와 함께 정리했다.
+
+---
+
+
+### 1단계: 공유 API 클라이언트 도입
+
+가장 먼저 손봐야 할 부분은 컴포넌트 전역에 흩어져 있는 API 요청 코드다.
+
+
+#### 문제점: 중복되고 분산된 API 요청 설정
+
+여러 컴포넌트에서 `axios`나 `fetch`를 직접 사용하여 API를 호출하고 있다. 이 방식은 몇 가지 심각한 문제를 야기한다.
+
+- **중복**: 모든 요청마다 API의 기본 주소(`baseURL`), 헤더, 타임아웃 등의 설정을 반복해야 한다.
+- **유지보수의 어려움** : 만약 API 서버의 주소가 `/api/v1`에서 `/api/v2`로 변경된다면, 이 API를 호출하는 모든 컴포넌트의 코드를 일일이 찾아 수정해야 한다. 인증 토큰을 헤더에 추가하는 로직이 필요해져도 마찬가지다.
+
+다음은 게시글 상세 정보를 불러오는 컴포넌트의 예시다.
+
+```tsx
+// src/components/post/PostDetail.tsx
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { PostData, CommentData } from "@/types";
+
+export function PostDetail({ postId }: { postId: string }) {
+  const [post, setPost] = useState<PostData | null>(null);
+  const [comments, setComments] = useState<CommentData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // 게시글 데이터 요청
+    axios.get(`/api/v1/posts/${postId}`)
+      .then(response => setPost(response.data))
+      .catch(() => setError("게시글을 불러오는 데 실패했습니다."));
+
+    // 댓글 데이터 요청
+    axios.get(`/api/v1/posts/${postId}/comments`)
+      .then(response => setComments(response.data))
+      .catch(() => setError("댓글을 불러오는 데 실패했습니다."));
+  }, [postId]);
+  
+  // ... JSX 렌더링
+}
+```
+
+`/api/v1`이라는 `baseURL`이 하드코딩되어 있다.
+
+
+#### 해결책: 설정이 중앙화된 API 클라이언트 생성
+
+API 요청과 관련된 공통 설정을 한 곳에서 관리하기 위해, `axios.create()`를 사용하여 커스텀 인스턴스를 생성한다. 이 인스턴스를 애플리케이션 전역에서 공유하여 사용한다.
+
+```ts
+// src/api/client.ts
+import axios from "axios";
+
+export const apiClient = axios.create({
+  baseURL: "/api/v1",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  timeout: 5000,
+});
+
+// 향후 인증 토큰 등을 추가하는 인터셉터 로직도 이곳에 추가할 수 있다.
+```
+
+
+#### 개선된 코드와 장점
+
+이제 컴포넌트에서는 직접 `axios`를 사용하는 대신, 우리가 만든 `apiClient`를 사용한다.
+
+```tsx
+// src/components/post/PostDetail.tsx
+import { apiClient } from "@/api/client"; // 생성한 클라이언트 import
+import { useEffect, useState } from "react";
+// ...
+
+export function PostDetail({ postId }: { postId: string }) {
+  // ... state 선언 ...
+  useEffect(() => {
+    // baseURL이 제거되어 훨씬 깔끔해졌다.
+    apiClient.get(`/posts/${postId}`)
+      .then(response => setPost(response.data))
+      .catch(/* ... */);
+
+    apiClient.get(`/posts/${postId}/comments`)
+      .then(response => setComments(response.data))
+      .catch(/* ... */);
+  }, [postId]);
+  
+  // ...
+}
+```
+
+- **중앙화된 관리** : API 서버 주소 변경이나 공통 헤더 추가 등의 작업이 `api/client.ts` 파일 한 곳에서 해결된다.
+- **관심사 분리 시작** : 컴포넌트는 이제 API의 구체적인 `baseURL`이나 `axios`라는 라이브러리의 존재를 알 필요가 없어졌다. UI와 API 코드의 분리가 시작된 것이다.
+
+---
+
+
+### 2단계: API 레이어와 Fetch 함수 추출
+
+API 클라이언트를 중앙화했지만, 컴포넌트는 여전히 엔드포인트 경로(`posts/${postId}`)나 HTTP 메서드(`GET`)와 같은 API의 세부 구현을 알고 있다.
+
+
+#### 문제점: 컴포넌트에 남아있는 API 관련 지식
+
+컴포넌트의 주된 책임은 데이터를 받아 UI를 그리는 것이다. 어떤 엔드포인트에서, 어떤 방식으로 데이터를 가져오는지는 컴포넌트의 관심사가 아니다. 현재 코드는 이 책임이 분리되지 않았다.
+
+```tsx
+// src/components/post/PostDetail.tsx
+
+// ...
+useEffect(() => {
+  // 컴포넌트가 '/posts/${postId}'라는 구체적인 경로를 알고 있다.
+  apiClient.get(`/posts/${postId}`).then(/* ... */);
+  apiClient.get(`/posts/${postId}/comments`).then(/* ... */);
+}, [postId]);
+// ...
+```
+
+
+#### 해결책: API 호출 로직을 의미있는 함수로 분리 (Named Exports)
+
+API와 관련된 모든 세부 구현을 숨기는 `API 레이어`를 만든다. 이 레이어에 각 API 호출을 담당하는 `fetch 함수`들을 정의한다.
+
+**중요**: 이때 함수들을 객체로 묶어서(`const api = { ... }`) 내보내기보다는, **개별적으로 export(Named Exports)** 하는 것이 좋다. 이는 번들러가 사용하지 않는 코드를 제거하는 **트리쉐이킹(Tree-shaking)** 효율을 높여준다.
+
+```ts
+// src/api/postAPI.ts
+import { apiClient } from "./client";
+import { PostData, CommentData } from "@/types";
+
+// 게시글 ID를 받아 해당 게시글 정보를 반환하는 함수
+export async function fetchPost(postId: string): Promise<PostData> {
+  const response = await apiClient.get<{ data: PostData }>(`/posts/${postId}`);
+  return response.data.data;
+}
+
+// 게시글 ID를 받아 댓글 목록을 반환하는 함수
+export async function fetchComments(postId: string): Promise<CommentData[]> {
+  const response = await apiClient.get<{ data: CommentData[] }>(`/posts/${postId}/comments`);
+  return response.data.data;
+}
+```
+
+
+#### 개선된 코드와 장점
+
+컴포넌트는 이제 세부 구현 대신, 의미가 명확한 `postAPI` 모듈의 함수들을 호출한다.
+
+```tsx
+// src/components/post/PostDetail.tsx
+import { fetchPost, fetchComments } from "@/api/postAPI"; // 개별 함수 import
+// ...
+
+export function PostDetail({ postId }: { postId: string }) {
+  // ...
+  useEffect(() => {
+    fetchPost(postId)
+      .then(setPost)
+      .catch(/* ... */);
+
+    fetchComments(postId)
+      .then(setComments)
+      .catch(/* ... */);
+  }, [postId]);
+  // ...
+}
+```
+
+- **완벽한 디커플링** : 컴포넌트는 더 이상 API 엔드포인트, HTTP 메서드, 파라미터 전달 방식 등에 대해 알지 못한다. 단지 `fetchPost`라는 함수를 호출할 뿐이다.
+- **재사용성**: `fetchPost`와 같은 함수는 다른 컴포넌트나 서버 사이드 렌더링 로직에서도 쉽게 재사용할 수 있다.
+- **트리쉐이킹 최적화**: 필요한 함수만 import 하므로, 사용하지 않는 API 함수는 최종 번들에서 제외될 수 있다.
+
+---
+
+
+### 3단계: API 레이어에서의 데이터 변환
+
+API로부터 받은 원시(raw) 데이터를 컴포넌트에서 가공하는 경우가 많다. 이 또한 컴포넌트가 API의 데이터 구조에 대해 너무 많이 알게 되는 원인이 된다.
+
+
+#### 문제점: 컴포넌트에 존재하는 데이터 변환 로직
+
+API 응답 형식은 백엔드의 사정에 따라 결정되며, 프론트엔드에서 사용하기에 불편한 구조일 수 있다. 예를 들어, [JSON:API](https://jsonapi.org/) 표준을 따르는 API는 연관된 데이터를 `included` 배열에 담아 보내는 경우가 많다.
+
+```tsx
+// src/components/feed/FeedList.tsx
+import { fetchFeed } from "@/api/feedAPI";
+import { FeedResponse, User, Image } from "@/types"; // FeedResponse는 API 원시 응답 타입
+
+export function FeedList() {
+  const [feedData, setFeedData] = useState<FeedResponse | null>(null);
+
+  useEffect(() => {
+    fetchFeed().then(setFeedData);
+  }, []);
+
+  if (!feedData) return <div>로딩 중...</div>;
+  
+  // 컴포넌트가 API 응답 구조를 해석하고 데이터를 변환하고 있다.
+  const posts = feedData.data;
+  const users = feedData.included.filter((item): item is User => item.type === "user");
+  const images = feedData.included.filter((item): item is Image => item.type === "image");
+
+  return <PostList posts={posts} users={users} images={images} />;
+}
+```
+
+컴포넌트가 `included` 배열을 필터링하여 `users`와 `images`를 직접 분리하는 로직을 포함하고 있다. 이는 명백한 관심사 분리 위반이다.
+
+
+#### 해결책: 데이터 변환 로직을 API 레이어로 이동
+
+API fetch 함수가 컴포넌트가 사용하기 편한, 정제된 형태의 데이터를 반환하도록 책임을 위임한다.
+
+```ts
+// src/api/feedAPI.ts
+import { apiClient } from "./client";
+import { FeedResponse, Post, User, Image } from "@/types";
+
+// 반환 타입을 컴포넌트 친화적인 객체로 정의
+interface TransformedFeedData {
+  posts: Post[];
+  users: User[];
+  images: Image[];
+}
+
+export async function fetchFeed(): Promise<TransformedFeedData> {
+  const response = await apiClient.get<FeedResponse>("/feed");
+  const rawData = response.data;
+  
+  // 데이터 변환 로직을 이곳으로 이동
+  const posts = rawData.data;
+  const users = rawData.included.filter((item): item is User => item.type === "user");
+  const images = rawData.included.filter((item): item is Image => item.type === "image");
+  
+  return { posts, users, images };
+}
+```
+
+
+#### 개선된 코드와 장점
+
+컴포넌트는 이제 데이터 변환 로직 없이, 정제된 데이터를 받아 사용하기만 하면 된다.
+
+```tsx
+// src/components/feed/FeedList.tsx
+import { fetchFeed } from "@/api/feedAPI";
+// ...
+
+// 컴포넌트가 다루는 데이터 타입이 훨씬 깔끔해졌다.
+interface FeedState {
+  posts: Post[];
+  users: User[];
+  images: Image[];
+}
+
+export function FeedList() {
+  const [feed, setFeed] = useState<FeedState | null>(null);
+
+  useEffect(() => {
+    fetchFeed().then(setFeed);
+  }, []);
+
+  if (!feed) return <div>로딩 중...</div>;
+
+  // 데이터 변환 로직이 사라졌다!
+  return <PostList posts={feed.posts} users={feed.users} images={feed.images} />;
+}
+```
+
+- **컴포넌트의 단순화** : 컴포넌트는 순수하게 UI 렌더링에만 집중할 수 있게 되었다.
+- **API 변경에 대한 유연성** : 만약 백엔드에서 `included` 필드의 이름을 `relations`으로 변경하더라도, `feedAPI.ts` 파일 한 곳만 수정하면 된다. 컴포넌트는 전혀 영향을 받지 않는다.
+
+---
+
+
+### 4단계: 도메인 엔티티와 DTO 분리
+
+지금까지 API 레이어에서 데이터를 변환했지만, 여전히 우리가 사용하는 데이터 모델(TypeScript 타입 등)은 API 응답 구조에 기반하고 있다. 애플리케이션의 핵심 비즈니스 로직이 외부 시스템(API)의 데이터 구조에 종속되는 것은 장기적으로 위험하다.
+
+
+#### 문제점: UI 코드가 서버 API 데이터 구조에 강하게 결합
+
+API 응답은 `데이터 전송 객체(DTO, Data Transfer Object)`의 역할을 한다. 이는 전송에 최적화된 형태일 뿐, 우리 애플리케이션의 핵심 데이터 모델인 `도메인 엔티티(Domain Entity)`와는 다를 수 있다.
+
+예를 들어, API는 사용자 정보를 다음과 같은 중첩된 구조로 반환할 수 있다.
+
+```json
+// API 응답 (User DTO)
+{
+  "id": "user-123",
+  "type": "user",
+  "attributes": { "username": "JohnDoe", "avatarUrl": "..." },
+  "relationships": { "followerCount": 42 }
+}
+```
+
+컴포넌트에서 이 구조를 그대로 사용하면 `user.attributes.username`과 같이 불필요하게 깊은 접근이 필요하고, API 구조가 바뀌면 UI 코드 전체를 수정해야 하는 대참사가 발생한다.
+
+
+#### 해결책: 도메인 레이어 도입 및 DTO를 도메인 엔티티로 변환
+
+1. **도메인 레이어 생성** : 애플리케이션의 핵심 데이터 모델(엔티티)을 정의하는 `domain` 폴더를 만든다. 이 모델은 API 구조와 독립적이며, 우리 앱에 가장 이상적인 형태여야 한다.
+
+    ```ts
+    // src/domain/user.ts
+    export interface User {
+      id: string;
+      username: string;
+      avatarUrl: string;
+      followerCount: number;
+    }
+    ```
+
+2. **DTO 정의** : API 레이어에는 API 응답을 위한 DTO 타입을 명시적으로 정의한다.
+
+    ```ts
+    // src/api/user/dto.ts
+    export interface UserDto {
+      id: string;
+      type: "user";
+      attributes: { username: string; avatarUrl: string; };
+      relationships: { followerCount: number; };
+    }
+    ```
+
+3. **변환 함수 작성** : DTO를 도메인 엔티티로 변환하는 함수를 만든다.
+
+    ```ts
+    // src/api/user/transform.ts
+    import { User } from "@/domain/user";
+    import { UserDto } from "./dto";
+
+    export function transformUserDto(dto: UserDto): User {
+      return {
+        id: dto.id,
+        username: dto.attributes.username,
+        avatarUrl: dto.attributes.avatarUrl,
+        followerCount: dto.relationships.followerCount,
+      };
+    }
+    ```
+
+4. **Fetch 함수 수정** : Fetch 함수가 DTO를 받아 변환 함수를 거친 후, 최종적으로 도메인 엔티티를 반환하도록 수정한다.
+
+    ```ts
+    // src/api/user/api.ts (기존의 postAPI.ts 같은 파일)
+    import { transformUserDto } from "./transform";
+    // ...
+    export async function fetchUser(userId: string): Promise<User> { // 반환 타입이 도메인 엔티티
+      const response = await apiClient.get<{ data: UserDto }>(`/users/${userId}`);
+      const userDto = response.data.data;
+      return transformUserDto(userDto); // 변환 후 반환
+    }
+    ```
+
+
+#### 개선된 코드와 장점
+
+컴포넌트는 이제 깔끔하고 플랫한 도메인 엔티티 `User` 타입만 사용하게 된다.
+
+```tsx
+// src/components/profile/UserProfile.tsx
+import { User } from "@/domain/user"; // 도메인 모델을 직접 import
+// ...
+export function UserProfile() {
+  const [user, setUser] = useState<User | null>(null);
+  // ...
+  return (
+    <div>
+      <img src={user.avatarUrl} alt={user.username} />
+      <h1>{user.username}</h1>
+      <p>팔로워: {user.followerCount}</p>
+    </div>
+  );
+}
+```
+
+- **강력한 회복탄력성(Resilience)** : 백엔드 API가 JSON:API를 버리고 완전히 다른 구조로 변경되어도, `api` 레이어의 DTO와 변환 함수만 수정하면 된다. 도메인 모델과 UI 코드는 전혀 영향을 받지 않는다.
+- **명확한 아키텍처** : 데이터 흐름이 `API(DTO) -> 변환 -> 도메인 -> UI`로 명확해진다. 각 레이어의 책임이 분명해져 코드 이해와 유지보수가 쉬워진다.
+
+---
+
+
+### 5단계: 인프라 서비스와 함수형 모듈
+
+Fetch 함수가 API 호출, DTO 변환 등 점점 많은 책임을 갖게 되었다. 이를 분리하고 싶지만, 클래스를 사용하면 트리쉐이킹에 불리해질 수 있다.
+
+
+#### 문제점: 혼합된 책임과 클래스 사용 시의 트리쉐이킹 문제
+
+현재의 fetch 함수는 '어떻게 데이터를 가져올지(axios 사용)'와 '가져온 데이터를 어떻게 가공할지(DTO 변환)'라는 두 가지 책임을 동시에 수행한다.
+
+일반적으로 이를 해결하기 위해 `Service Class`를 만들고 의존성 주입(DI)을 사용하지만, **클래스 기반 접근은 트리쉐이킹에 불리**하다. 클래스는 메서드 중 하나만 사용하더라도 클래스 전체가 번들에 포함되는 경우가 많기 때문이다.
+
+
+#### 해결책: 인프라 레이어와 함수형 서비스 모듈
+
+`API 레이어`를 `인프라(Infrastructure) 레이어`로 명명하고, 책임을 세분화하되 **함수 기반(Functional)** 으로 접근한다.
+
+1. **API 클라이언트 분리** : 실제 HTTP 요청만 담당하는 순수한 함수들을 `api.ts`에 정의한다.
+2. **서비스 모듈 생성** : 데이터 변환 및 로직을 담당하는 함수들을 `service.ts`에 정의한다. 이때 클래스가 아닌 **개별 함수**로 내보낸다.
+
+    ```ts
+    // src/infrastructure/user/api.ts
+    // 순수 HTTP 요청 담당
+    export async function fetchUserDto(userId: string): Promise<UserDto> {
+      const response = await apiClient.get<{ data: UserDto }>(`/users/${userId}`);
+      return response.data.data;
+    }
+
+    // src/infrastructure/user/service.ts
+    import * as userApi from "./api"; // 내부 의존성
+    import { transformUserDto } from "./transform";
+    import { User } from "@/domain/user";
+    
+    // 개별 함수로 export 하여 트리쉐이킹 지원
+    export async function getUser(userId: string): Promise<User> {
+      const userDto = await userApi.fetchUserDto(userId);
+      return transformUserDto(userDto);
+    }
+    ```
+
+3. **테스트 전략**: 클래스의 생성자 주입(DI) 대신, 테스트 도구(Vitest/Jest)의 **모듈 모킹(Module Mocking)** 기능을 사용하여 의존성을 격리한다.
+
+
+#### 개선된 코드와 장점
+
+클래스 인스턴스를 생성할 필요 없이, 필요한 함수만 import 하여 사용할 수 있다.
+
+```ts
+// src/infrastructure/user/service.test.ts
+import { getUser } from "./service";
+import * as userApi from "./api"; // 모킹 대상
+import { vi } from "vitest";
+
+// api 모듈 전체를 모킹
+vi.mock("./api");
+
+describe("UserService", () => {
+  it("유저 정보를 가져와 도메인 엔티티로 변환해야 한다", async () => {
+    // 가짜 응답 설정
+    vi.mocked(userApi.fetchUserDto).mockResolvedValue({
+      id: "user-123",
+      type: "user",
+      attributes: { username: "MockUser", avatarUrl: "..." },
+      relationships: { followerCount: 100 }
+    });
+
+    const user = await getUser("user-123");
+    
+    // 검증
+    expect(user.username).toBe("MockUser");
+    expect(userApi.fetchUserDto).toHaveBeenCalledWith("user-123");
+  });
+});
+```
+
+- **트리쉐이킹 최적화**: 클래스 전체가 아닌, 실제로 사용하는 함수(`getUser`)만 번들에 포함된다.
+- **향상된 테스트 용이성** : 모듈 모킹을 통해 외부 API 호출 없이 로직을 독립적으로 테스트할 수 있다.
+- **유연성**: 구현체 교체가 필요하다면 모듈의 import 경로를 바꾸거나(Alias), 함수 내부 구현만 수정하면 된다.
+
+---
+
+
+### 6단계: 비즈니스 로직 분리
+
+이제 데이터 흐름은 깔끔해졌지만, 컴포넌트의 이벤트 핸들러(`handleSubmit` 등)에는 여전히 복잡한 **비즈니스 로직** 이 남아있다. 예를 들어, '댓글 작성' 기능은 '사용자 권한 확인', '이미지 업로드', '댓글 내용 전송' 등 여러 서비스 호출을 조율하는 복잡한 로직을 포함할 수 있다.
+
+
+#### 문제점: 컴포넌트에 혼재된 UI 로직과 비즈니스 로직
+
+컴포넌트는 UI 상태(로딩, 에러 등)를 관리하고 사용자 인터랙션을 처리하는 **UI 로직** 에 집중해야 한다. 여러 서비스를 오케스트레이션하는 **비즈니스 로직** 이 컴포넌트 안에 있으면, 컴포넌트는 비대해지고 테스트하기 어려워진다.
+
+```tsx
+// src/components/comment/CommentForm.tsx
+import { getCurrentUser } from "@/infrastructure/user/service";
+import { uploadImage } from "@/infrastructure/media/service";
+import { createComment } from "@/infrastructure/comment/service";
+
+export function CommentForm() {
+  // ...
+  async function handleSubmit(event: React.FormEvent) {
+    // ...
+    // 1. 현재 사용자 정보 가져오기 (비즈니스 로직)
+    const currentUser = await getCurrentUser();
+    
+    // 2. 작성 제한 확인 (비즈니스 로직)
+    if (currentUser.commentsToday >= 10) { ... }
+    
+    // ...
+  }
+}
+```
+
+
+#### 해결책: 유즈케이스(Use Case)와 애플리케이션 레이어 도입
+
+비즈니스 로직을 `애플리케이션(Application) 레이어`의 **유즈케이스(Use Case)** 함수로 추출한다.
+
+1. **유즈케이스 함수 정의** :
+
+    ```ts
+    // src/application/submit-comment.ts
+    // 순수 비즈니스 로직을 담은 유즈케이스 함수
+    // 필요한 서비스 함수들을 인자로 주입받아 테스트 용이성 확보 (Functional DI)
+    export async function submitComment(
+      input: SubmitCommentInput,
+      dependencies: {
+        getCurrentUser: () => Promise<User>,
+        uploadImage: (file: File) => Promise<Image>,
+        createComment: (data: CommentData) => Promise<void>
+      }
+    ) {
+      const { getCurrentUser, uploadImage, createComment } = dependencies;
+      
+      const currentUser = await getCurrentUser();
+      if (currentUser.commentsToday >= 10) {
+        return { success: false, error: "하루 작성 제한 초과" };
+      }
+      
+      // ... 로직 수행
+      return { success: true };
+    }
+    ```
+
+2. **컴포넌트 연결을 위한 커스텀 훅 생성** :
+
+    ```ts
+    // src/application/submit-comment.ts (이어서)
+    import { useCallback } from 'react';
+    // 인프라 스트럭처의 실제 구현체들을 import
+    import { getCurrentUser } from "@/infrastructure/user/service";
+    import { uploadImage } from "@/infrastructure/media/service";
+    import { createComment } from "@/infrastructure/comment/service";
+    
+    // 컴포넌트에서 쉽게 사용할 수 있도록 커스텀 훅으로 감싼다.
+    export function useSubmitComment() {
+      return useCallback(
+        (input: SubmitCommentInput) => submitComment(input, {
+           getCurrentUser,
+           uploadImage,
+           createComment
+        }),
+        []
+      );
+    }
+    ```
+
+
+#### 개선된 코드와 장점
+
+컴포넌트는 매우 간결해지고, 비즈니스 로직은 프레임워크와 분리되어 독립적으로 테스트할 수 있게 되었다.
+
+- **컴포넌트 코드** :
+
+  ```tsx
+  // src/components/comment/CommentForm.tsx
+  import { useSubmitComment } from "@/application/submit-comment";
+  
+  export function CommentForm() {
+    const doSubmitComment = useSubmitComment();
+    
+    async function handleSubmit(event: React.FormEvent) {
+      const result = await doSubmitComment({ /* ... */ });
+      // ...
+    }
+    // ...
+  }
+  ```
+
+- **트리쉐이킹 및 의존성 관리**: `useSubmitComment` 훅에서 필요한 함수들만 명시적으로 import 하여 주입하므로, 불필요한 코드가 번들에 포함되지 않는다.
+
+---
+
+
+### 7단계: 도메인 로직 분리
+
+유즈케이스 함수나 컴포넌트 내부에는 특정 도메인 모델에 종속된 자잘한 로직들이 여전히 존재한다. 예를 들어 `currentUser.commentsToday >= 10` 이라는 코드는 '사용자' 도메인의 정책이다. 이런 로직들이 여러 곳에 흩어져 있으면 일관성을 유지하기 어렵다.
+
+
+#### 문제점: 분산된 도메인 관련 로직
+
+- `users.find(u => u.id === authorId)`: 사용자 ID로 저자를 찾는 로직
+- `post.likes > 100`: '인기 게시물' 여부를 판단하는 로직
+
+이러한 로직들은 해당 도메인(User, Post)과 강하게 결합되어 있으므로, 한 곳에 모아 관리하는 것이 이상적이다.
+
+
+#### 해결책: 도메인 모델과 관련된 로직을 도메인 레이어로 이동
+
+도메인 엔티티를 정의했던 파일(`src/domain/user.ts` 등)에 해당 엔티티를 다루는 순수 함수들을 함께 정의한다.
+
+```ts
+// src/domain/user.ts
+export interface User {
+  id: string;
+  commentsToday: number;
+  // ...
+}
+
+export const MAX_COMMENTS_PER_DAY = 10;
+
+// User 도메인과 관련된 순수 함수 (도메인 로직)
+export function canPostComment(user: User): boolean {
+  return user.commentsToday < MAX_COMMENTS_PER_DAY;
+}
+
+export function findUserById(users: User[], userId: string): User | undefined {
+  return users.find(u => u.id === userId);
+}
+```
+
+
+#### 개선된 코드와 장점
+
+이제 유즈케이스나 컴포넌트는 구체적인 구현 대신, 의미가 명확한 도메인 함수를 호출한다.
+
+- **유즈케이스 코드 개선** :
+
+  ```ts
+  // src/application/submit-comment.ts
+  import { canPostComment } from "@/domain/user";
+  
+  export async function submitComment(...) {
+    // ...
+    const currentUser = await getCurrentUser();
+    
+    // if (currentUser.commentsToday >= 10) { ... } -> 이렇게 변경
+    if (!canPostComment(currentUser)) {
+      return { success: false, error: "하루 작성 제한 초과" };
+    }
+    // ...
+  }
+  ```
+
+- **가독성 및 선언적 코드** : `!canPostComment(currentUser)`는 코드의 의도를 명확하게 드러낸다.
+- **중앙화 및 재사용성** : 도메인 정책이 변경되면 `domain/user.ts` 파일만 수정하면 된다.
+
+---
+
+
+### 8단계: React Query (TanStack Query) 도입
+
+지금까지의 모든 데이터 페칭은 `useEffect`와 `useState`를 기반으로 했다. 이는 로딩/에러 상태 관리, 데이터 캐싱, 재요청 등 서버 상태 관리에 필요한 수많은 기능을 직접 구현해야 한다는 의미이며, 이는 엄청난 양의 보일러플레이트를 발생시킨다.
+
+
+#### 문제점: 수동으로 관리되는 서버 상태
+
+- 모든 컴포넌트마다 `isLoading`, `error`, `data` 상태를 선언해야 한다.
+- 데이터 캐싱이 없어 같은 데이터를 요청하는 다른 컴포넌트가 렌더링될 때마다 불필요한 네트워크 요청이 발생한다.
+
+
+#### 해결책: TanStack Query를 아키텍처에 통합
+
+TanStack Query (구 React Query)는 서버 상태 관리를 위한 라이브러리다. 이를 우리 아키텍처에 자연스럽게 통합한다.
+
+1. **데이터 조회를 위한 커스텀 쿼리 훅 생성** :
+    기존의 인프라 서비스를 호출하는 `useQuery` 기반의 커스텀 훅을 만든다.
+
+    ```ts
+    // src/application/queries/useUser.ts
+    import { useQuery } from "@tanstack/react-query";
+    import { getUser } from "@/infrastructure/user/service"; // 함수 직접 import
+    
+    export function useUser(userId: string) {
+      return useQuery({
+        queryKey: ["user", userId], // 쿼리 키
+        queryFn: () => getUser(userId), // 실제 데이터 페칭 함수
+      });
+    }
+    ```
+
+2. **데이터 변경을 위한 커스텀 뮤테이션 훅 생성** :
+
+    ```ts
+    // src/application/mutations/useCreateComment.ts
+    import { useMutation, useQueryClient } from "@tanstack/react-query";
+    import { createComment } from "@/infrastructure/comment/service";
+
+    export function useCreateComment() {
+      const queryClient = useQueryClient();
+      return useMutation({
+        mutationFn: createComment,
+        onSuccess: () => {
+          // 댓글 생성 성공 시, 관련 쿼리들을 무효화하여 자동 갱신 유도
+          queryClient.invalidateQueries({ queryKey: ["comments"] });
+        },
+      });
+    }
+    ```
+
+3. **비즈니스 로직(유즈케이스) 훅과 통합** :
+
+    ```ts
+    // src/application/usecases/useSubmitComment.ts (리팩터링)
+    import { useCurrentUser } from "../queries/useCurrentUser";
+    import { useUploadImage } from "../mutations/useUploadImage";
+    import { useCreateComment } from "../mutations/useCreateComment";
+    import { canPostComment } from "@/domain/user";
+    
+    // 컴포넌트에게 비동기 작업의 상태를 전달하는 역할
+    export function useSubmitComment() {
+      const { data: currentUser } = useCurrentUser();
+      const uploadImageMutation = useUploadImage();
+      const createCommentMutation = useCreateComment();
+    
+      const submit = async (input: { content: string, imageFile?: File }) => {
+        if (!currentUser || !canPostComment(currentUser)) {
+          throw new Error("작성 권한이 없습니다.");
+        }
+    
+        let imageId;
+        if (input.imageFile) {
+          const uploadedImage = await uploadImageMutation.mutateAsync(input.imageFile);
+          imageId = uploadedImage.id;
+        }
+    
+        await createCommentMutation.mutateAsync({ content: input.content, imageId });
+      };
+    
+      return {
+        submit,
+        isLoading: uploadImageMutation.isPending || createCommentMutation.isPending,
+      };
+    }
+    ```
+
+
+#### 개선된 코드와 장점
+
+컴포넌트는 `useEffect`와 `useState`의 늪에서 해방된다.
+
+```tsx
+// src/components/comment/CommentForm.tsx
+import { useSubmitComment } from "@/application/usecases/useSubmitComment";
+
+export function CommentForm() {
+  const { submit, isLoading } = useSubmitComment();
+  
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    try {
+      await submit({ /* ... form data ... */ });
+      // 성공 처리
+    } catch (error) {
+      // 에러 처리
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* ... */}
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "전송 중..." : "댓글 작성"}
+      </button>
+    </form>
+  );
+}
+```
+
+- **보일러플레이트 제거** : 로딩, 에러 상태 관리가 훅 내부로 캡슐화되어 컴포넌트가 매우 깔끔해졌다.
+- **기존 아키텍처와의 조화** : TanStack Query는 서버 상태 관리라는 특정 역할을 맡으며, 우리가 구축한 `도메인`, `애플리케이션`, `인프라` 레이어와 자연스럽게 통합되어 각자의 책임을 더욱 명확하게 해준다.
+
+---
+
+
+### 최종 정리
+
+이 8단계의 리팩터링 여정을 통해, 처음의 지저분했던 코드는 다음과 같은 명확한 레이어 구조를 갖춘 아키텍처로 발전했다.
+
+- **Domain**: 프레임워크에 독립적인 순수 비즈니스 모델과 로직. 애플리케이션의 핵심.
+- **Application**: 유즈케이스(비즈니스 로직)와 서버 상태 관리 훅(TanStack Query)을 포함. 도메인과 인프라를 연결하는 역할.
+- **Infrastructure**: 외부 세계(API, DB 등)와의 통신을 담당. **개별 함수 모듈**로 구성하여 트리쉐이킹을 최적화하고, 모듈 모킹을 통해 테스트 용이성을 확보.
+- **Presentation (UI)** : React 컴포넌트. 사용자와의 상호작용과 UI 렌더링에만 집중.
+
+이러한 구조는 당장의 코드 몇 줄을 더 작성하게 만들 수 있지만, 장기적으로는 변화에 유연하게 대응하고, 테스트하기 쉬우며, 새로운 팀원이 합류했을 때 빠르게 코드를 이해하고 기여할 수 있는 견고한 토대를 마련해 준다. 클린 아키텍처는 정답이 정해진 목적지가 아니라, 더 나은 코드를 향한 끊임없는 여정임을 기억하는 것이 중요하다.
