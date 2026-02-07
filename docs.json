@@ -336,7 +336,8 @@
               "development/react/memo",
               "development/react/overview",
               "development/react/patterns",
-              "development/react/project-architecture",
+              "development/react/directory-structure",
+              "development/react/react-architecture",
               "development/react/react-error-boundary",
               "development/react/react-hooks",
               "development/react/react-native",
@@ -500,6 +501,12 @@
             "pages": ["software-engineering/software-quality"]
           },
           {
+            "group": "Good Engineering Culture and Quality Philosophy",
+            "pages": [
+              "software-engineering/good-engineering-culture-and-quality-philosophy"
+            ]
+          },
+          {
             "group": "Architectures",
             "pages": [
               "software-engineering/architectures/architecture",
@@ -525,8 +532,9 @@
           {
             "group": "Programming Paradigms",
             "pages": [
+              "software-engineering/programming-paradigms/overview",
               "software-engineering/programming-paradigms/defensive-programming",
-              "software-engineering/programming-paradigms/overview"
+              "software-engineering/programming-paradigms/data-oriented-programming-in-frontend-development"
             ]
           }
         ]
@@ -549,7 +557,8 @@
               "personal/books/functional-programming",
               "personal/books/laws-of-ux",
               "personal/books/object-process",
-              "personal/books/tidy-first"
+              "personal/books/tidy-first",
+              "personal/books/a-philosophy-of-software-design"
             ]
           }
         ]
